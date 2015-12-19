@@ -1,0 +1,44 @@
+* {
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    margin:10px;
+}
+
+#basic-accordian{
+    border:5px solid #EEE;
+    padding:5px;
+    width:350px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin-left:-175px;
+    z-index:2;
+    margin-top:-100px;
+}
+
+.accordion_headings{
+    padding:5px;
+    background:#99CC00;
+    color:#FFFFFF;
+    border:1px solid #FFF;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.accordion_headings:hover{
+    background:#00CCFF;
+}
+
+.accordion_child{
+    padding:15px;
+    background:#EEE;
+}
+
+.header_highlight{
+    background:#00CCFF;
+}

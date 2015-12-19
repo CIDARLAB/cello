@@ -1,0 +1,4575 @@
+[
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire44,b)",
+    "NOT(0Wire45,c)",
+    "NOR(n4,0Wire44,0Wire45)",
+    "NOT(0Wire46,a)",
+    "NOT(0Wire47,n4)",
+    "NOR(y,0Wire46,0Wire47)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire94,b)",
+    "NOR(n5,0Wire94,c)",
+    "NOT(0Wire96,a)",
+    "NOT(0Wire97,n5)",
+    "NOR(y,0Wire96,0Wire97)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire128,a)",
+    "NOT(0Wire129,b)",
+    "NOR(y,0Wire128,0Wire129)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire176,c)",
+    "NOR(n5,0Wire176,b)",
+    "NOT(0Wire178,a)",
+    "NOT(0Wire179,n5)",
+    "NOR(y,0Wire178,0Wire179)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire210,a)",
+    "NOT(0Wire211,c)",
+    "NOR(y,0Wire210,0Wire211)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire291,c,b)",
+    "NOR(n6,b,0Wire291)",
+    "NOR(n8,c,0Wire291)",
+    "NOR(n10,n6,n8)",
+    "NOT(0Wire287,a)",
+    "NOR(y,0Wire287,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n6,b,c)",
+    "NOT(0Wire332,a)",
+    "NOR(y,0Wire332,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n6,b,c)",
+    "NOT(0Wire382,a)",
+    "NOT(0Wire383,n6)",
+    "NOR(y,0Wire382,0Wire383)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,b)",
+    "NOT(n5,c)",
+    "NOR(n6,n4,n5)",
+    "NOR(n8,b,c)",
+    "NOR(n10,n6,n8)",
+    "NOT(0Wire458,a)",
+    "NOR(y,0Wire458,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire490,a)",
+    "NOR(y,0Wire490,c)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire532,c)",
+    "NOR(n5,0Wire532,b)",
+    "NOT(0Wire534,a)",
+    "NOR(y,0Wire534,n5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire566,a)",
+    "NOR(y,0Wire566,b)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire608,b)",
+    "NOR(n5,0Wire608,c)",
+    "NOT(0Wire610,a)",
+    "NOR(y,0Wire610,n5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire646,a)",
+    "NOR(0Wire649,0Wire646,c)",
+    "NOR(0Wire650,0Wire646,b)",
+    "OR(y,0Wire649,0Wire650)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "BUF(y,a)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire722,b)",
+    "NOT(0Wire723,c)",
+    "NOR(n5,0Wire722,0Wire723)",
+    "NOT(0Wire725,n5)",
+    "NOR(y,a,0Wire725)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire756,b)",
+    "NOT(0Wire757,c)",
+    "NOR(y,0Wire756,0Wire757)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,c)",
+    "NOT(Wire1,b)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOT(Wire3,Wire2)",
+    "NOR(Wire4,Wire3,a)",
+    "NOR(Wire5,Wire3,c)",
+    "OR(y,Wire4,Wire5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n6,a,c)",
+    "NOT(0Wire878,b)",
+    "NOR(y,0Wire878,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOT(Wire1,c)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOT(Wire3,Wire2)",
+    "NOR(Wire4,Wire3,a)",
+    "NOR(Wire5,Wire3,b)",
+    "OR(y,Wire4,Wire5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n6,a,b)",
+    "NOT(0Wire1002,c)",
+    "NOR(y,0Wire1002,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(n5,b)",
+    "NOT(n6,c)",
+    "NOR(n7,n5,n6)",
+    "NOT(n8,n7)",
+    "NOR(n9,b,c)",
+    "NOR(n11,n4,n9)",
+    "NOT(0Wire1085,n11)",
+    "NOR(n12,n7,0Wire1085)",
+    "NOR(n14,a,n8)",
+    "OR(y,n12,n14)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,b)",
+    "NOT(n5,c)",
+    "NOR(n6,n4,n5)",
+    "NOR(n8,b,c)",
+    "NOT(0Wire1188,a)",
+    "NOR(n10,0Wire1188,n8)",
+    "OR(y,n6,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,b,c)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,a,c)",
+    "NOR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,c)",
+    "NOR(Wire2,Wire1,b)",
+    "NOR(Wire3,Wire2,b)",
+    "NOR(Wire4,Wire2,Wire1)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(n5,c)",
+    "NOR(n6,n4,c)",
+    "NOT(0Wire1414,b)",
+    "NOR(n8,0Wire1414,n5)",
+    "NOT(0Wire1417,n8)",
+    "NOR(n9,a,0Wire1417)",
+    "OR(y,n6,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n6,c)",
+    "NOR(n7,a,c)",
+    "NOR(n9,n6,b)",
+    "NOR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire1529,c)",
+    "NOR(0Wire1545,b,a)",
+    "NOR(0Wire1530,a,0Wire1545)",
+    "NOT(0Wire1531,0Wire1530)",
+    "NOR(0Wire1532,0Wire1531,0Wire1529)",
+    "NOR(0Wire1533,b,0Wire1545)",
+    "OR(y,0Wire1532,0Wire1533)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n5,b)",
+    "NOR(n7,a,b)",
+    "NOR(n9,n5,c)",
+    "NOR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire1670,b)",
+    "NOT(0Wire1671,c)",
+    "NOR(n5,0Wire1670,0Wire1671)",
+    "NOR(0Wire1681,a,n5)",
+    "NOR(n7,n5,0Wire1681)",
+    "NOR(n9,a,0Wire1681)",
+    "OR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire1720,b)",
+    "NOT(0Wire1721,c)",
+    "NOR(n5,0Wire1720,0Wire1721)",
+    "OR(y,a,n5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire1770,b)",
+    "NOR(n6,0Wire1770,c)",
+    "NOT(0Wire1773,n6)",
+    "NOR(y,a,0Wire1773)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(n5,c)",
+    "NOR(n6,n4,n5)",
+    "NOR(n8,a,c)",
+    "NOR(n10,n6,n8)",
+    "NOT(0Wire1848,b)",
+    "NOR(y,0Wire1848,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire1880,b)",
+    "NOR(y,0Wire1880,c)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire1922,c)",
+    "NOR(n5,0Wire1922,a)",
+    "NOT(0Wire1924,b)",
+    "NOR(y,0Wire1924,n5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,b)",
+    "NOR(Wire2,a,c)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,b,c)",
+    "NOR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,c)",
+    "NOR(Wire2,Wire1,a)",
+    "NOR(Wire3,Wire2,a)",
+    "NOR(Wire4,Wire2,Wire1)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire2161,b,c)",
+    "NOR(n6,c,0Wire2161)",
+    "NOR(n8,b,0Wire2161)",
+    "NOT(0Wire2155,a)",
+    "NOT(0Wire2156,n8)",
+    "NOR(n9,0Wire2155,0Wire2156)",
+    "OR(y,n6,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n6,c)",
+    "NOR(n7,b,c)",
+    "NOR(n9,n6,a)",
+    "NOR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,c)",
+    "NOT(Wire2,Wire1)",
+    "NOR(Wire3,Wire2,a)",
+    "NOR(Wire4,Wire2,b)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOT(Wire1,b)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,a,b)",
+    "NOR(Wire4,Wire3,c)",
+    "NOR(Wire5,Wire2,Wire4)",
+    "NOR(Wire6,Wire5,Wire2)",
+    "NOR(Wire7,Wire5,Wire4)",
+    "OR(y,Wire6,Wire7)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n7,a,b)",
+    "NOR(y,c,n7)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire2527,b,c)",
+    "NOR(n6,c,0Wire2527)",
+    "NOR(n8,b,0Wire2527)",
+    "NOT(0Wire2521,a)",
+    "NOR(n10,0Wire2521,n8)",
+    "OR(y,n6,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire2599,b,a)",
+    "NOR(0Wire2584,a,0Wire2599)",
+    "NOT(0Wire2585,0Wire2584)",
+    "NOR(0Wire2586,0Wire2585,c)",
+    "NOR(0Wire2587,b,0Wire2599)",
+    "OR(y,0Wire2586,0Wire2587)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire2672,b)",
+    "NOR(n6,0Wire2672,c)",
+    "NOR(0Wire2683,a,n6)",
+    "NOR(n8,n6,0Wire2683)",
+    "NOR(n10,a,0Wire2683)",
+    "OR(y,n8,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,b)",
+    "NOR(Wire2,Wire0,c)",
+    "OR(y,Wire1,Wire2)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire2774,b)",
+    "NOR(n6,0Wire2774,c)",
+    "OR(y,a,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire2808,b)",
+    "NOR(y,0Wire2808,a)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire2850,a)",
+    "NOR(n5,0Wire2850,c)",
+    "NOT(0Wire2852,b)",
+    "NOR(y,0Wire2852,n5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire2889,b)",
+    "NOR(0Wire2891,0Wire2889,c)",
+    "NOR(0Wire2892,a,0Wire2889)",
+    "OR(y,0Wire2891,0Wire2892)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "BUF(y,b)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire2975,c)",
+    "NOR(0Wire2991,a,b)",
+    "NOR(0Wire2976,b,0Wire2991)",
+    "NOT(0Wire2977,0Wire2976)",
+    "NOR(0Wire2978,0Wire2977,0Wire2975)",
+    "NOR(0Wire2979,a,0Wire2991)",
+    "OR(y,0Wire2978,0Wire2979)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOR(n7,a,b)",
+    "NOR(n9,n4,c)",
+    "NOR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire3116,a)",
+    "NOT(0Wire3117,c)",
+    "NOR(n5,0Wire3116,0Wire3117)",
+    "NOR(0Wire3127,b,n5)",
+    "NOR(n7,n5,0Wire3127)",
+    "NOR(n9,b,0Wire3127)",
+    "OR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire3166,a)",
+    "NOT(0Wire3167,c)",
+    "NOR(n5,0Wire3166,0Wire3167)",
+    "OR(y,b,n5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire3243,a,b)",
+    "NOR(0Wire3228,b,0Wire3243)",
+    "NOT(0Wire3229,0Wire3228)",
+    "NOR(0Wire3230,0Wire3229,c)",
+    "NOR(0Wire3231,a,0Wire3243)",
+    "OR(y,0Wire3230,0Wire3231)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire3316,a)",
+    "NOR(n6,0Wire3316,c)",
+    "NOR(0Wire3327,b,n6)",
+    "NOR(n8,n6,0Wire3327)",
+    "NOR(n10,b,0Wire3327)",
+    "OR(y,n8,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,Wire0,c)",
+    "OR(y,Wire1,Wire2)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire3418,a)",
+    "NOR(n6,0Wire3418,c)",
+    "OR(y,b,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire3479,a,b)",
+    "NOR(0Wire3468,b,0Wire3479)",
+    "NOR(0Wire3469,a,0Wire3479)",
+    "OR(y,0Wire3468,0Wire3469)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,c)",
+    "NOR(Wire2,a,b)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,Wire0,b)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,b)",
+    "NOR(Wire2,Wire1,b)",
+    "NOR(Wire3,Wire1,Wire0)",
+    "NOR(Wire4,Wire2,Wire3)",
+    "NOR(Wire5,Wire2,c)",
+    "OR(y,Wire4,Wire5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "OR(y,a,b)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire3700,c)",
+    "NOR(n6,0Wire3700,b)",
+    "NOT(0Wire3703,n6)",
+    "NOR(y,a,0Wire3703)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(n5,b)",
+    "NOR(n6,n4,n5)",
+    "NOR(n8,a,b)",
+    "NOR(n10,n6,n8)",
+    "NOT(0Wire3778,c)",
+    "NOR(y,0Wire3778,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,c)",
+    "NOR(Wire2,a,b)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,b,c)",
+    "NOR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,c)",
+    "NOR(Wire1,Wire0,b)",
+    "NOR(Wire2,Wire1,a)",
+    "NOR(Wire3,Wire2,a)",
+    "NOR(Wire4,Wire2,Wire1)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire3968,c)",
+    "NOR(y,0Wire3968,b)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire4010,b)",
+    "NOR(n5,0Wire4010,a)",
+    "NOT(0Wire4012,c)",
+    "NOR(y,0Wire4012,n5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire4089,c,b)",
+    "NOR(n6,b,0Wire4089)",
+    "NOR(n8,c,0Wire4089)",
+    "NOT(0Wire4083,a)",
+    "NOT(0Wire4084,n8)",
+    "NOR(n9,0Wire4083,0Wire4084)",
+    "OR(y,n6,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n5,b)",
+    "NOR(n7,b,c)",
+    "NOR(n9,n5,a)",
+    "NOR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,c)",
+    "NOR(Wire1,Wire0,b)",
+    "NOT(Wire2,Wire1)",
+    "NOR(Wire3,Wire2,a)",
+    "NOR(Wire4,Wire2,c)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOT(Wire1,c)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,a,c)",
+    "NOR(Wire4,Wire3,b)",
+    "NOR(Wire5,Wire2,Wire4)",
+    "NOR(Wire6,Wire5,Wire2)",
+    "NOR(Wire7,Wire5,Wire4)",
+    "OR(y,Wire6,Wire7)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOT(Wire1,c)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,a,c)",
+    "NOR(y,Wire2,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire4458,c)",
+    "NOR(n6,0Wire4458,b)",
+    "NOR(0Wire4466,a,n6)",
+    "NOR(n8,n6,0Wire4466)",
+    "NOR(n10,a,0Wire4466)",
+    "OR(y,n8,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n7,a,c)",
+    "NOR(y,b,n7)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire4607,c,b)",
+    "NOR(n6,b,0Wire4607)",
+    "NOR(n8,c,0Wire4607)",
+    "NOT(0Wire4601,a)",
+    "NOR(n10,0Wire4601,n8)",
+    "OR(y,n6,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,c)",
+    "NOR(Wire1,Wire0,b)",
+    "NOR(Wire2,Wire0,c)",
+    "OR(y,Wire1,Wire2)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire4698,c)",
+    "NOR(n6,0Wire4698,b)",
+    "OR(y,a,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire4732,c)",
+    "NOR(y,0Wire4732,a)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire4774,a)",
+    "NOR(n5,0Wire4774,b)",
+    "NOT(0Wire4776,c)",
+    "NOR(y,0Wire4776,n5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOT(Wire1,b)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,Wire2,c)",
+    "NOR(Wire4,Wire3,a)",
+    "NOR(Wire5,Wire3,c)",
+    "OR(y,Wire4,Wire5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOR(n7,a,c)",
+    "NOR(n9,n4,b)",
+    "NOR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire4936,c)",
+    "NOR(0Wire4937,b,0Wire4936)",
+    "NOR(0Wire4938,a,0Wire4936)",
+    "OR(y,0Wire4937,0Wire4938)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "BUF(y,c)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOT(Wire1,b)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,Wire2,c)",
+    "NOR(Wire4,Wire3,c)",
+    "NOR(Wire5,Wire3,Wire2)",
+    "OR(y,Wire4,Wire5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire5084,a)",
+    "NOT(0Wire5085,b)",
+    "NOR(n5,0Wire5084,0Wire5085)",
+    "OR(y,c,n5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,b,c)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,a,c)",
+    "NOR(y,Wire2,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,b)",
+    "NOR(Wire2,Wire1,c)",
+    "NOR(Wire3,Wire2,c)",
+    "NOR(Wire4,Wire2,Wire1)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire5295,a,c)",
+    "NOR(0Wire5284,c,0Wire5295)",
+    "NOR(0Wire5285,a,0Wire5295)",
+    "OR(y,0Wire5284,0Wire5285)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,b)",
+    "NOR(Wire2,a,c)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,Wire0,c)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,c)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,Wire0,b)",
+    "OR(y,Wire1,Wire2)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire5458,a)",
+    "NOR(n6,0Wire5458,b)",
+    "OR(y,c,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,c)",
+    "NOR(Wire2,Wire1,c)",
+    "NOR(Wire3,Wire1,Wire0)",
+    "NOR(Wire4,Wire2,Wire3)",
+    "NOR(Wire5,Wire2,b)",
+    "OR(y,Wire4,Wire5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "OR(y,a,c)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,b,c)",
+    "NOR(Wire1,Wire0,a)",
+    "NOT(Wire2,Wire1)",
+    "NOR(Wire3,Wire2,b)",
+    "NOR(Wire4,Wire2,c)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,b)",
+    "NOT(Wire1,c)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,b,c)",
+    "NOR(Wire4,Wire3,a)",
+    "NOR(Wire5,Wire2,Wire4)",
+    "NOR(Wire6,Wire5,Wire2)",
+    "NOR(Wire7,Wire5,Wire4)",
+    "OR(y,Wire6,Wire7)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire5833,b,c)",
+    "NOR(n7,c,0Wire5833)",
+    "NOR(n9,b,0Wire5833)",
+    "NOT(0Wire5828,n9)",
+    "NOR(n10,a,0Wire5828)",
+    "OR(y,n7,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire5888,c)",
+    "NOR(n6,0Wire5888,a)",
+    "NOR(0Wire5896,b,n6)",
+    "NOR(n8,n6,0Wire5896)",
+    "NOR(n10,b,0Wire5896)",
+    "OR(y,n8,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire5991,c,b)",
+    "NOR(n7,b,0Wire5991)",
+    "NOR(n9,c,0Wire5991)",
+    "NOT(0Wire5986,n9)",
+    "NOR(n10,a,0Wire5986)",
+    "OR(y,n7,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,Wire1,c)",
+    "NOR(Wire3,Wire2,c)",
+    "NOR(Wire4,Wire2,Wire1)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire6127,b,c)",
+    "NOR(0Wire6116,c,0Wire6127)",
+    "NOR(0Wire6117,b,0Wire6127)",
+    "OR(y,0Wire6116,0Wire6117)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,b,c)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,Wire2,c)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOT(Wire1,Wire0)",
+    "NOR(Wire2,a,c)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,b,c)",
+    "NOR(Wire5,Wire2,Wire4)",
+    "NOR(Wire6,Wire5,Wire0)",
+    "OR(y,Wire3,Wire6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOR(0Wire6411,c,b)",
+    "NOR(n7,b,0Wire6411)",
+    "NOR(n9,c,0Wire6411)",
+    "NOR(n11,n7,n9)",
+    "NOT(n12,n11)",
+    "NOR(n13,n4,n12)",
+    "NOR(n15,a,n11)",
+    "OR(y,n13,n15)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOT(Wire1,Wire0)",
+    "NOR(Wire2,Wire1,c)",
+    "NOR(Wire3,Wire2,c)",
+    "NOR(Wire4,Wire2,Wire1)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,c)",
+    "NOR(Wire1,Wire0,a)",
+    "NOT(Wire2,Wire1)",
+    "NOR(Wire3,Wire2,b)",
+    "NOR(Wire4,Wire0,c)",
+    "NOR(Wire5,Wire4,b)",
+    "NOR(Wire6,Wire5,Wire1)",
+    "OR(y,Wire3,Wire6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n5,b)",
+    "NOR(n7,a,c)",
+    "NOT(n8,n7)",
+    "NOR(n9,b,n7)",
+    "NOR(n11,n5,n8)",
+    "OR(y,n9,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,a)",
+    "NOT(Wire2,Wire1)",
+    "NOR(Wire3,Wire2,c)",
+    "NOR(Wire4,Wire0,b)",
+    "NOR(Wire5,Wire4,c)",
+    "NOR(Wire6,Wire5,Wire1)",
+    "OR(y,Wire3,Wire6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,c)",
+    "NOR(Wire2,a,c)",
+    "NOR(Wire3,Wire2,b)",
+    "OR(y,Wire1,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n5,b)",
+    "NOT(n6,c)",
+    "NOR(n7,n5,n6)",
+    "NOR(n9,b,c)",
+    "NOR(n11,n7,n9)",
+    "OR(y,a,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n7,b,c)",
+    "NOR(y,a,n7)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n5,b)",
+    "NOT(n6,c)",
+    "NOR(n7,n5,n6)",
+    "NOR(n9,b,c)",
+    "NOR(n11,a,n9)",
+    "OR(y,n7,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,b,c)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,Wire0,c)",
+    "OR(y,Wire1,Wire2)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire7190,c)",
+    "NOR(n6,0Wire7190,a)",
+    "OR(y,b,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,b,c)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,Wire0,b)",
+    "OR(y,Wire1,Wire2)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire7286,b)",
+    "NOR(n6,0Wire7286,a)",
+    "OR(y,c,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,b)",
+    "NOR(Wire1,Wire0,c)",
+    "NOR(Wire2,Wire1,c)",
+    "NOR(Wire3,Wire1,Wire0)",
+    "NOR(Wire4,Wire2,Wire3)",
+    "NOR(Wire5,Wire2,a)",
+    "OR(y,Wire4,Wire5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "OR(y,b,c)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOR(n7,b,c)",
+    "NOT(n8,n7)",
+    "NOR(n9,a,n7)",
+    "NOR(n11,n4,n8)",
+    "OR(y,n9,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,Wire0,b)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,Wire3,c)",
+    "NOR(Wire5,Wire1,c)",
+    "NOR(Wire6,Wire5,Wire2)",
+    "OR(y,Wire4,Wire6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,c)",
+    "NOR(Wire2,b,c)",
+    "NOR(Wire3,Wire2,a)",
+    "OR(y,Wire1,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(n6,c)",
+    "NOR(n7,n4,n6)",
+    "NOR(n9,a,c)",
+    "NOR(n11,n7,n9)",
+    "OR(y,b,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,b)",
+    "NOR(Wire2,b,c)",
+    "NOR(Wire3,Wire2,a)",
+    "OR(y,Wire1,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(n5,b)",
+    "NOR(n7,n4,n5)",
+    "NOR(n9,a,b)",
+    "NOR(n11,n7,n9)",
+    "OR(y,c,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOT(Wire1,b)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,a,c)",
+    "NOR(Wire4,Wire2,Wire3)",
+    "NOR(Wire5,Wire1,c)",
+    "OR(y,Wire4,Wire5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n7,a,b)",
+    "NOT(0Wire8019,n7)",
+    "OR(y,c,0Wire8019)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n7,b,c)",
+    "NOT(0Wire8069,n7)",
+    "NOR(y,a,0Wire8069)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOT(Wire1,b)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,a,c)",
+    "NOR(Wire4,Wire2,Wire3)",
+    "NOR(Wire5,Wire1,c)",
+    "NOR(y,Wire4,Wire5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(n5,b)",
+    "NOR(n7,n4,n5)",
+    "NOR(n9,a,b)",
+    "NOR(n11,n7,n9)",
+    "NOR(y,c,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,b)",
+    "NOR(Wire2,b,c)",
+    "NOR(Wire3,Wire2,a)",
+    "NOR(y,Wire1,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(n6,c)",
+    "NOR(n7,n4,n6)",
+    "NOR(n9,a,c)",
+    "NOR(n11,n7,n9)",
+    "NOR(y,b,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,c)",
+    "NOR(Wire2,b,c)",
+    "NOR(Wire3,Wire2,a)",
+    "NOR(y,Wire1,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,b)",
+    "NOT(Wire2,Wire1)",
+    "NOR(Wire3,b,c)",
+    "NOR(Wire4,Wire2,Wire3)",
+    "NOR(Wire5,Wire0,c)",
+    "NOR(Wire6,Wire5,Wire3)",
+    "NOR(Wire7,Wire6,Wire1)",
+    "OR(y,Wire4,Wire7)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n7,b,c)",
+    "NOR(0Wire8626,a,n7)",
+    "NOR(n9,n7,0Wire8626)",
+    "NOR(n11,a,0Wire8626)",
+    "OR(y,n9,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(y,b,c)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,b)",
+    "NOT(n5,c)",
+    "NOR(n6,b,c)",
+    "NOR(n8,n4,n5)",
+    "NOT(0Wire8746,a)",
+    "NOT(0Wire8747,n8)",
+    "NOR(n9,0Wire8746,0Wire8747)",
+    "OR(y,n6,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire8790,b)",
+    "NOR(n6,0Wire8790,a)",
+    "NOR(y,c,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,b)",
+    "NOR(n6,b,c)",
+    "NOT(0Wire8842,a)",
+    "NOR(n8,0Wire8842,n4)",
+    "OR(y,n6,n8)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire8886,c)",
+    "NOR(n6,0Wire8886,a)",
+    "NOR(y,b,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n5,c)",
+    "NOR(n6,b,c)",
+    "NOT(0Wire8938,a)",
+    "NOR(n8,0Wire8938,n5)",
+    "OR(y,n6,n8)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,b,c)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,Wire1,b)",
+    "NOR(Wire3,Wire1,c)",
+    "OR(y,Wire2,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n7,b,c)",
+    "OR(y,a,n7)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n5,b)",
+    "NOT(n6,c)",
+    "NOR(n7,n5,n6)",
+    "NOR(n9,b,c)",
+    "NOR(n11,n7,n9)",
+    "NOR(y,a,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,c)",
+    "NOR(Wire2,Wire1,c)",
+    "NOT(Wire3,b)",
+    "NOR(Wire4,Wire1,Wire3)",
+    "OR(y,Wire2,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,c)",
+    "NOT(Wire1,b)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOT(Wire3,Wire2)",
+    "NOR(Wire4,Wire3,a)",
+    "NOR(Wire5,a,b)",
+    "NOR(Wire6,Wire2,Wire5)",
+    "NOR(Wire7,Wire6,c)",
+    "OR(y,Wire4,Wire7)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n7,a,c)",
+    "NOR(0Wire9384,b,n7)",
+    "NOR(n9,n7,0Wire9384)",
+    "NOR(n11,b,0Wire9384)",
+    "OR(y,n9,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOT(Wire1,c)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOT(Wire3,Wire2)",
+    "NOR(Wire4,Wire3,a)",
+    "NOR(Wire5,a,c)",
+    "NOR(Wire6,Wire2,Wire5)",
+    "NOR(Wire7,Wire6,b)",
+    "OR(y,Wire4,Wire7)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,c)",
+    "NOR(Wire2,Wire1,c)",
+    "NOR(Wire3,Wire1,Wire0)",
+    "OR(y,Wire2,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(w9,b,c)",
+    "NOR(w8,w9,c)",
+    "NOR(w7,w9,b)",
+    "NOR(w6,w7,w8)",
+    "NOR(w4,a,w6)",
+    "NOR(w3,w4,w6)",
+    "NOR(w2,w4,a)",
+    "OR(y,w2,w3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,a,c)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,b,c)",
+    "NOR(Wire4,Wire2,Wire3)",
+    "NOR(Wire5,Wire4,a)",
+    "NOR(Wire6,Wire4,Wire3)",
+    "OR(y,Wire5,Wire6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n5,b)",
+    "NOT(n6,c)",
+    "NOR(n7,b,c)",
+    "NOR(n9,n5,n6)",
+    "NOT(0Wire9913,n9)",
+    "NOR(n10,a,0Wire9913)",
+    "OR(y,n7,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,b)",
+    "NOT(Wire1,c)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,b,c)",
+    "OR(y,Wire2,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,a)",
+    "NOT(Wire2,c)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,Wire3,Wire2)",
+    "NOR(Wire5,Wire3,Wire1)",
+    "OR(y,Wire4,Wire5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,c)",
+    "NOT(Wire1,b)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,b,c)",
+    "OR(y,Wire2,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n5,b)",
+    "NOT(0Wire10181,c)",
+    "NOR(n6,0Wire10181,a)",
+    "NOT(n7,n6)",
+    "NOR(n8,b,n6)",
+    "NOR(n10,n5,n7)",
+    "OR(y,n8,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOT(Wire1,c)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,b,c)",
+    "OR(y,Wire2,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,a)",
+    "NOT(Wire2,Wire1)",
+    "NOT(Wire3,c)",
+    "NOR(Wire4,Wire2,Wire3)",
+    "NOR(Wire5,Wire0,b)",
+    "NOR(Wire6,Wire5,Wire3)",
+    "NOR(Wire7,Wire6,Wire1)",
+    "OR(y,Wire4,Wire7)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire10477,c,b)",
+    "NOR(n7,b,0Wire10477)",
+    "NOR(n9,c,0Wire10477)",
+    "NOR(n11,n7,n9)",
+    "OR(y,a,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(y,a,c)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(n5,c)",
+    "NOR(n6,a,c)",
+    "NOT(0Wire10574,b)",
+    "NOR(n8,0Wire10574,n5)",
+    "NOT(0Wire10577,n8)",
+    "NOR(n9,n4,0Wire10577)",
+    "OR(y,n6,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire10620,a)",
+    "NOR(n6,0Wire10620,b)",
+    "NOR(y,c,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOR(n6,a,c)",
+    "NOT(0Wire10673,b)",
+    "NOR(n8,n4,0Wire10673)",
+    "OR(y,n6,n8)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(n6,c)",
+    "NOR(n7,a,c)",
+    "NOR(n9,n6,b)",
+    "NOT(0Wire10745,n9)",
+    "NOR(n10,n4,0Wire10745)",
+    "OR(y,n7,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOT(Wire1,c)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,a,c)",
+    "OR(y,Wire2,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,b)",
+    "NOT(Wire2,c)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,Wire3,Wire2)",
+    "NOR(Wire5,Wire3,Wire1)",
+    "OR(y,Wire4,Wire5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,b,c)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,a,c)",
+    "OR(y,Wire2,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire10991,b,c)",
+    "NOR(0Wire10992,a,c)",
+    "OR(y,0Wire10991,0Wire10992)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOT(Wire1,b)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOT(Wire3,c)",
+    "NOR(Wire4,Wire2,Wire3)",
+    "NOR(Wire5,Wire4,Wire3)",
+    "NOR(Wire6,Wire4,Wire2)",
+    "OR(y,Wire5,Wire6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(y,c)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire11138,a)",
+    "NOT(0Wire11139,b)",
+    "NOR(n4,0Wire11138,0Wire11139)",
+    "NOT(0Wire11140,c)",
+    "OR(y,0Wire11140,n4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOR(n7,a,c)",
+    "NOR(n9,n4,b)",
+    "OR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,c)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,Wire0,c)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,Wire1,b)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire11304,a)",
+    "NOR(n5,0Wire11304,b)",
+    "NOT(0Wire11306,c)",
+    "OR(y,0Wire11306,n5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire11338,c)",
+    "OR(y,0Wire11338,a)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire11380,c)",
+    "NOR(n6,0Wire11380,b)",
+    "NOR(y,a,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n5,c)",
+    "NOR(n6,a,c)",
+    "NOT(0Wire11432,b)",
+    "NOR(n8,0Wire11432,n5)",
+    "OR(y,n6,n8)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire11513,b,c)",
+    "NOR(n7,c,0Wire11513)",
+    "NOR(n9,b,0Wire11513)",
+    "NOR(n11,a,n9)",
+    "OR(y,n7,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n7,a,c)",
+    "OR(y,b,n7)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(0Wire11611,c)",
+    "NOR(n6,0Wire11611,b)",
+    "NOT(n7,n6)",
+    "NOR(n8,a,n6)",
+    "NOR(n10,n4,n7)",
+    "OR(y,n8,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOT(Wire1,c)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,a,c)",
+    "OR(y,Wire2,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOT(Wire1,c)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,a,c)",
+    "NOR(Wire4,Wire2,Wire3)",
+    "NOR(Wire5,Wire4,b)",
+    "NOR(Wire6,Wire2,b)",
+    "NOR(Wire7,Wire6,Wire2)",
+    "OR(y,Wire5,Wire7)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire11903,c,a)",
+    "NOR(n7,a,0Wire11903)",
+    "NOR(n9,c,0Wire11903)",
+    "NOR(n11,n7,n9)",
+    "OR(y,b,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n5,b)",
+    "NOR(n7,b,c)",
+    "NOR(n9,n5,a)",
+    "OR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,b,c)",
+    "NOR(Wire1,Wire0,b)",
+    "NOR(Wire2,Wire0,c)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,Wire1,a)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire12068,b)",
+    "NOR(n5,0Wire12068,a)",
+    "NOT(0Wire12070,c)",
+    "OR(y,0Wire12070,n5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire12102,c)",
+    "OR(y,0Wire12102,b)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,c)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,Wire1,b)",
+    "NOR(Wire3,Wire0,b)",
+    "NOR(Wire4,Wire3,a)",
+    "OR(y,Wire2,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,c)",
+    "NOR(Wire2,a,b)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,b,c)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(n5,b)",
+    "NOR(n6,n4,n5)",
+    "NOR(n8,a,b)",
+    "NOR(n10,n6,n8)",
+    "NOT(0Wire12335,c)",
+    "OR(y,0Wire12335,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n6,a,b)",
+    "NOT(0Wire12386,c)",
+    "NOT(0Wire12387,n6)",
+    "OR(y,0Wire12386,0Wire12387)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(y,a,b)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(n5,b)",
+    "NOR(n6,a,b)",
+    "NOT(0Wire12487,c)",
+    "NOR(n8,n5,0Wire12487)",
+    "NOT(0Wire12489,n8)",
+    "NOR(n9,n4,0Wire12489)",
+    "OR(y,n6,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(n5,b)",
+    "NOR(n7,a,b)",
+    "NOR(n9,n5,c)",
+    "NOT(0Wire12561,n9)",
+    "NOR(n10,n4,0Wire12561)",
+    "OR(y,n7,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOT(Wire1,b)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,a,b)",
+    "OR(y,Wire2,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire12660,a)",
+    "NOR(n6,0Wire12660,c)",
+    "NOR(y,b,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOR(n6,a,b)",
+    "NOT(0Wire12713,c)",
+    "NOR(n8,n4,0Wire12713)",
+    "OR(y,n6,n8)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,b)",
+    "NOT(0Wire12792,a)",
+    "NOR(n6,0Wire12792,c)",
+    "NOT(n7,n6)",
+    "NOR(n8,b,n6)",
+    "NOR(n10,n4,n7)",
+    "OR(y,n8,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,b,c)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,a,b)",
+    "OR(y,Wire2,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire12909,b,c)",
+    "NOR(0Wire12910,a,b)",
+    "OR(y,0Wire12909,0Wire12910)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,b)",
+    "NOT(0Wire12992,a)",
+    "NOT(0Wire12993,c)",
+    "NOR(n5,0Wire12992,0Wire12993)",
+    "NOT(n6,n5)",
+    "NOR(n7,b,n5)",
+    "NOR(n9,n4,n6)",
+    "OR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOR(n7,a,b)",
+    "NOR(n9,n4,c)",
+    "OR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,Wire0,b)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,Wire1,c)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(y,b)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire13184,a)",
+    "NOT(0Wire13185,c)",
+    "NOR(n4,0Wire13184,0Wire13185)",
+    "NOT(0Wire13186,b)",
+    "OR(y,0Wire13186,n4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire13228,a)",
+    "NOR(n5,0Wire13228,c)",
+    "NOT(0Wire13230,b)",
+    "OR(y,0Wire13230,n5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire13262,b)",
+    "OR(y,0Wire13262,a)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire13304,b)",
+    "NOR(n6,0Wire13304,c)",
+    "NOR(y,a,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n5,b)",
+    "NOR(n6,a,b)",
+    "NOT(0Wire13357,c)",
+    "NOR(n8,n5,0Wire13357)",
+    "OR(y,n6,n8)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(0Wire13436,b)",
+    "NOR(n6,0Wire13436,c)",
+    "NOT(n7,n6)",
+    "NOR(n8,a,n6)",
+    "NOR(n10,n4,n7)",
+    "OR(y,n8,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,c)",
+    "NOT(Wire1,b)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,a,b)",
+    "OR(y,Wire2,Wire3)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire13593,c,b)",
+    "NOR(n7,b,0Wire13593)",
+    "NOR(n9,c,0Wire13593)",
+    "NOR(n11,a,n9)",
+    "OR(y,n7,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n7,a,b)",
+    "OR(y,c,n7)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOT(Wire1,b)",
+    "NOR(Wire2,Wire0,Wire1)",
+    "NOR(Wire3,a,b)",
+    "NOR(Wire4,Wire2,Wire3)",
+    "NOR(Wire5,Wire4,c)",
+    "NOR(Wire6,Wire2,c)",
+    "NOR(Wire7,Wire6,Wire2)",
+    "OR(y,Wire5,Wire7)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire13831,b,a)",
+    "NOR(n7,a,0Wire13831)",
+    "NOR(n9,b,0Wire13831)",
+    "NOR(n11,n7,n9)",
+    "OR(y,c,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n6,c)",
+    "NOR(n7,b,c)",
+    "NOR(n9,n6,a)",
+    "OR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,b,c)",
+    "NOR(Wire1,Wire0,b)",
+    "NOR(Wire2,Wire0,c)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,Wire2,a)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,Wire1,c)",
+    "NOR(Wire3,Wire0,c)",
+    "NOR(Wire4,Wire3,a)",
+    "OR(y,Wire2,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,b)",
+    "NOR(Wire2,a,c)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,b,c)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire14156,c)",
+    "NOR(n5,0Wire14156,a)",
+    "NOT(0Wire14158,b)",
+    "OR(y,0Wire14158,n5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire14190,b)",
+    "OR(y,0Wire14190,c)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(n5,c)",
+    "NOR(n6,n4,n5)",
+    "NOR(n8,a,c)",
+    "NOR(n10,n6,n8)",
+    "NOT(0Wire14265,b)",
+    "OR(y,0Wire14265,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire14314,b)",
+    "NOR(n6,0Wire14314,a)",
+    "NOT(0Wire14317,n6)",
+    "OR(y,c,0Wire14317)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire14355,a,c)",
+    "NOR(0Wire14356,a,b)",
+    "OR(y,0Wire14355,0Wire14356)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,a)",
+    "NOT(0Wire14438,b)",
+    "NOT(0Wire14439,c)",
+    "NOR(n5,0Wire14438,0Wire14439)",
+    "NOT(n6,n5)",
+    "NOR(n7,a,n5)",
+    "NOR(n9,n4,n6)",
+    "OR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n5,b)",
+    "NOR(n7,a,b)",
+    "NOR(n9,n5,c)",
+    "OR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,Wire0,b)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,Wire2,c)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n6,c)",
+    "NOR(n7,a,c)",
+    "NOR(n9,n6,b)",
+    "OR(y,n7,n9)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,c)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,Wire0,c)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,Wire2,b)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,b)",
+    "NOR(Wire2,Wire1,c)",
+    "NOR(Wire3,Wire0,c)",
+    "NOR(Wire4,Wire3,b)",
+    "OR(y,Wire2,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(Wire0,a,b)",
+    "NOR(Wire1,Wire0,a)",
+    "NOR(Wire2,b,c)",
+    "NOR(Wire3,Wire1,Wire2)",
+    "NOR(Wire4,a,c)",
+    "OR(y,Wire3,Wire4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n5,b)",
+    "NOT(n6,c)",
+    "NOR(n7,b,c)",
+    "NOR(n9,n5,n6)",
+    "NOR(n11,a,n9)",
+    "OR(y,n7,n11)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(Wire0,a)",
+    "NOR(Wire1,Wire0,b)",
+    "NOR(Wire2,Wire1,Wire0)",
+    "NOR(Wire3,Wire2,c)",
+    "NOT(Wire4,c)",
+    "NOR(Wire5,Wire0,Wire4)",
+    "NOR(Wire6,a,b)",
+    "NOR(Wire7,Wire5,Wire6)",
+    "NOR(Wire8,Wire7,Wire1)",
+    "OR(y,Wire3,Wire8)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n6,a,b)",
+    "NOT(0Wire15080,c)",
+    "OR(y,0Wire15080,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire15163,b,a)",
+    "NOR(n6,a,0Wire15163)",
+    "NOR(n8,b,0Wire15163)",
+    "NOR(n10,n6,n8)",
+    "NOT(0Wire15159,c)",
+    "OR(y,0Wire15159,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n6,a,c)",
+    "NOT(0Wire15204,b)",
+    "OR(y,0Wire15204,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire15285,c,a)",
+    "NOR(n6,a,0Wire15285)",
+    "NOR(n8,c,0Wire15285)",
+    "NOR(n10,n6,n8)",
+    "NOT(0Wire15281,b)",
+    "OR(y,0Wire15281,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire15314,b)",
+    "NOT(0Wire15315,c)",
+    "OR(y,0Wire15314,0Wire15315)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire15362,b)",
+    "NOR(n5,0Wire15362,a)",
+    "NOT(0Wire15364,c)",
+    "NOT(0Wire15365,n5)",
+    "OR(y,0Wire15364,0Wire15365)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(y,a)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire15426,b)",
+    "NOT(0Wire15427,c)",
+    "NOR(n4,0Wire15426,0Wire15427)",
+    "NOT(0Wire15428,a)",
+    "OR(y,0Wire15428,n4)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire15470,b)",
+    "NOR(n5,0Wire15470,c)",
+    "NOT(0Wire15472,a)",
+    "OR(y,0Wire15472,n5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire15504,a)",
+    "OR(y,0Wire15504,b)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire15546,c)",
+    "NOR(n5,0Wire15546,b)",
+    "NOT(0Wire15548,a)",
+    "OR(y,0Wire15548,n5)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire15580,a)",
+    "OR(y,0Wire15580,c)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(n4,b)",
+    "NOT(n5,c)",
+    "NOR(n6,n4,n5)",
+    "NOR(n8,b,c)",
+    "NOR(n10,n6,n8)",
+    "NOT(0Wire15655,a)",
+    "OR(y,0Wire15655,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire15704,a)",
+    "NOR(n6,0Wire15704,b)",
+    "NOT(0Wire15707,n6)",
+    "OR(y,c,0Wire15707)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(n6,b,c)",
+    "NOT(0Wire15750,a)",
+    "OR(y,0Wire15750,n6)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOR(0Wire15831,c,b)",
+    "NOR(n6,b,0Wire15831)",
+    "NOR(n8,c,0Wire15831)",
+    "NOR(n10,n6,n8)",
+    "NOT(0Wire15827,a)",
+    "OR(y,0Wire15827,n10)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire15860,a)",
+    "NOT(0Wire15861,c)",
+    "OR(y,0Wire15860,0Wire15861)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire15908,a)",
+    "NOR(n5,0Wire15908,b)",
+    "NOT(0Wire15910,c)",
+    "NOT(0Wire15911,n5)",
+    "OR(y,0Wire15910,0Wire15911)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire15942,a)",
+    "NOT(0Wire15943,b)",
+    "OR(y,0Wire15942,0Wire15943)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire15990,a)",
+    "NOT(0Wire15991,b)",
+    "NOR(n5,0Wire15990,0Wire15991)",
+    "NOT(0Wire15993,n5)",
+    "OR(y,c,0Wire15993)"
+  ]
+},
+{
+  "collection": "motif_library",
+  "inputs": [
+    "a",
+    "b",
+    "c"
+  ],
+  "outputs": [
+    "y"
+  ],
+  "netlist": [
+    "NOT(0Wire16040,a)",
+    "NOT(0Wire16041,b)",
+    "NOR(n4,0Wire16040,0Wire16041)",
+    "NOT(0Wire16042,c)",
+    "NOT(0Wire16043,n4)",
+    "OR(y,0Wire16042,0Wire16043)"
+  ]
+}
+]

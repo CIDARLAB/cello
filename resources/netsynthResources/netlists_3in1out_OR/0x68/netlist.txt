@@ -1,0 +1,8 @@
+NOR(Wire0,in1,in2)
+NOT(Wire1,Wire0)
+NOR(Wire2,in1,in3)
+NOR(Wire3,Wire1,Wire2)
+NOR(Wire4,in2,in3)
+NOR(Wire5,Wire2,Wire4)
+NOR(Wire6,Wire5,Wire0)
+OR(out,Wire3,Wire6)

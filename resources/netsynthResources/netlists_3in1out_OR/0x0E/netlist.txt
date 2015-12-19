@@ -1,0 +1,4 @@
+NOT(0Wire646,in1)
+NOR(0Wire649,0Wire646,in3)
+NOR(0Wire650,0Wire646,in2)
+OR(out,0Wire649,0Wire650)

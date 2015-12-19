@@ -1,0 +1,25 @@
+pSicA
+
+RiboH10
+rbs preceding SicA
+SicA
+BBa_B1006U10
+
+RiboH11
+rbs preceding InvF
+InvF
+hismin
+
+
+
+pExsC
+
+RiboH12
+rbs preceding ExsC
+ExsC
+M13
+
+RiboH24
+rbs preceding ExsDA
+ExsDA
+ilvGEDA

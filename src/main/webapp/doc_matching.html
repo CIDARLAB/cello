@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="images/cello_small.png">
+    <title>Cello documentation</title>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="jsLibraries/jquery.flot.js"></script>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="css/doc.css">
+    <link rel="shortcut icon" href="docfiles/cello.png">
+
+</head>
+<body>
+<div class="container">
+<div class="page-header" style="margin-top:20px">
+    <h3 id="header" class="pointer"
+        onclick="showHeaderDetails()"
+        style="text-align: left">Transfer functions and signal matching</h3>
+    <p id="header_details" style="display: block; color: gray" align="left">
+
+    </p>
+</div>
+
+<div>
+    <h1 class='pointer' onclick="showOne()"><small>interactive transfer function</small></h1>
+</div>
+
+<div class="expand" id="expand-one">
+
+    <div style="display: inline-block">
+        <div id="graph0" style="width:320px;height:300px;"></div>
+    </div>
+    <br style="clear: both">
+    <div style="display: inline-block">
+
+        <table>
+            <tr>
+                <td align="center">pmin</td>
+                <td align="center">pmax</td>
+                <td align="center">kd</td>
+                <td align="center">n</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="number" id="pmin"  style="width: 60px" value=0.05 onchange="drawFn()">
+                </td>
+                <td>
+                    <input type="number" id="pmax"  style="width: 60px"  value=16.0 onchange="drawFn()">
+                </td>
+                <td>
+                    <input type="number" id="kd"    style="width: 60px"  value=0.30 onchange="drawFn()">
+                </td>
+                <td>
+                    <input type="number" id="n"     style="width: 60px"  value=2.50 onchange="drawFn()">
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <td>input, low</td>
+                <td>input, high</td>
+                <td><b>score=log(ON/OFF)</b></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="number" id="inlow" style="width: 60px" value=0.1 step=0.1 onchange="drawFn()">
+                </td>
+                <td>
+                    <input type="number" id="inhigh"  style="width: 60px" value=8 onchange="drawFn()">
+                </td>
+                <td>
+                    <input type="number" id="score1" style="width: 136px; text-align: center" value="0.9" readonly>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <br style="clear: both">
+    </br></br>
+
+</div>
+
+<div>
+    <h1 class='pointer' onclick="showTwo()"><small>interactive circuit</small></h1>
+</div>
+
+<!--<div id="graph1" style="width:600px;height:300px;"></div>
+<div id="graph2" style="width:600px;height:300px;"></div>
+<div id="graph3" style="width:600px;height:300px;"></div>-->
+
+<div class="expand" id="expand-two">
+    <p style="color: darkgray">Try to wire four NOT gates to achieve the maximum circuit score (score of final gate).<br>
+        The prior gate's output becomes the next gate's input.<br>
+    </p>
+
+    <div>
+        <div id="xfer1" class="xfer pointer" style="width:200px;height:200px;" onclick="choose1();"></div>
+        <div id="xfer2" class="xfer pointer" style="width:200px;height:200px;" onclick="choose2();"></div>
+        <div id="xfer3" class="xfer pointer" style="width:200px;height:200px;" onclick="choose3();"></div>
+        <div id="xfer4" class="xfer pointer" style="width:200px;height:200px;" onclick="choose4();"></div>
+    </div>
+    <div>
+        <img src="docfiles/NOT4.jpg" style="width: 800px">
+        </br></br>
+    </div>
+    <div id="outer">
+        <div id="gate1" class="xfer" style="width:200px; height:200px; background-color:lightgray"></div>
+        <div id="gate2" class="xfer" style="width:200px; height:200px; background-color:lightgray"></div>
+        <div id="gate3" class="xfer" style="width:200px; height:200px; background-color:lightgray"></div>
+        <div id="gate4" class="xfer" style="width:200px; height:200px; background-color:lightgray"></div>
+    </div>
+    <div>
+        <h3 id="score">score:</h3>
+    </div>
+</div>
+
+
+<script>
+var plot0;
+var plot1;
+var plot2;
+var plot3;
+var plot4;
+
+var n_clicks = 0;
+
+var ptac_low = 0.1;
+var ptac_high = 10.0;
+
+
+var output_gate1_low;
+var output_gate1_high;
+var output_gate2_low;
+var output_gate2_high;
+var output_gate3_low;
+var output_gate3_high;
+var output_gate4_low;
+var output_gate4_high;
+
+var xfer1_params = [0.0131, 5.538, 2.926, 0.0633];
+var xfer2_params = [0.0738, 17.22, 3.87, 1.56];
+var xfer3_params = [0.019, 2.168, 2.945, 0.9279];
+var xfer4_params = [0.316, 13.18, 1.319, 0.1699];
+
+var inuse1 = 0;
+var inuse2 = 0;
+var inuse3 = 0;
+var inuse4 = 0;
+
+var input_color = "gray";
+
+changeStep();
+
+drawXferNull();
+
+
+
+function choose1() {
+    if(inuse1) {
+        return false;
+    }
+    inuse1 = 1;
+    var pmin = xfer1_params[0];
+    var pmax = xfer1_params[1];
+    var n =    xfer1_params[2];
+    var kd =   xfer1_params[3];
+
+    n_clicks++;
+    if(n_clicks==1) {
+        output_gate1_high = pmin + (pmax-pmin)/( 1+Math.pow((ptac_low/kd),n ) );
+        output_gate1_low = pmin + (pmax-pmin)/( 1+Math.pow((ptac_high/kd),n ) );
+    }
+    if(n_clicks==2) {
+        output_gate2_high = pmin + (pmax-pmin)/( 1+Math.pow((output_gate1_low/kd),n ) );
+        output_gate2_low = pmin + (pmax-pmin)/( 1+Math.pow((output_gate1_high/kd),n ) );
+    }
+    if(n_clicks==3) {
+        output_gate3_high = pmin + (pmax-pmin)/( 1+Math.pow((output_gate2_low/kd),n ) );
+        output_gate3_low = pmin + (pmax-pmin)/( 1+Math.pow((output_gate2_high/kd),n ) );
+    }
+    if(n_clicks==4) {
+        output_gate4_high = pmin + (pmax-pmin)/( 1+Math.pow((output_gate3_low/kd),n ) );
+        output_gate4_low = pmin + (pmax-pmin)/( 1+Math.pow((output_gate3_high/kd),n ) );
+        //var score = 1 - output_gate4_low / output_gate4_high;
+        var score = log10( output_gate4_high / output_gate4_low );
+        $('#score').html("score: " + score.toFixed(4));
+    }
+
+    var gate_name = "gate" + String(n_clicks);
+    drawXfer1(gate_name);
+    input_color = "blue";
+}
+
+function choose2() {
+    if(inuse2) {
+        return false;
+    }
+    inuse2 = 1;
+    var pmin = xfer2_params[0];
+    var pmax = xfer2_params[1];
+    var n =    xfer2_params[2];
+    var kd =   xfer2_params[3];
+
+    n_clicks++;
+    if(n_clicks==1) {
+        output_gate1_high = pmin + (pmax-pmin)/( 1+Math.pow((ptac_low/kd),n ) );
+        output_gate1_low = pmin + (pmax-pmin)/( 1+Math.pow((ptac_high/kd),n ) );
+    }
+    if(n_clicks==2) {
+        output_gate2_high = pmin + (pmax-pmin)/( 1+Math.pow((output_gate1_low/kd),n ) );
+        output_gate2_low = pmin + (pmax-pmin)/( 1+Math.pow((output_gate1_high/kd),n ) );
+    }
+    if(n_clicks==3) {
+        output_gate3_high = pmin + (pmax-pmin)/( 1+Math.pow((output_gate2_low/kd),n ) );
+        output_gate3_low = pmin + (pmax-pmin)/( 1+Math.pow((output_gate2_high/kd),n ) );
+    }
+    if(n_clicks==4) {
+        output_gate4_high = pmin + (pmax-pmin)/( 1+Math.pow((output_gate3_low/kd),n ) );
+        output_gate4_low = pmin + (pmax-pmin)/( 1+Math.pow((output_gate3_high/kd),n ) );
+        //var score = 1 - output_gate4_low / output_gate4_high;
+        var score = log10( output_gate4_high / output_gate4_low );
+        $('#score').html("score: " + score.toFixed(4));
+    }
+
+    var gate_name = "gate" + String(n_clicks);
+    drawXfer2(gate_name);
+    input_color = "green";
+}
+
+function choose3() {
+    if(inuse3) {
+        return false;
+    }
+    inuse3 = 1;
+    var pmin = xfer3_params[0];
+    var pmax = xfer3_params[1];
+    var n =    xfer3_params[2];
+    var kd =   xfer3_params[3];
+
+    n_clicks++;
+    if(n_clicks==1) {
+        output_gate1_high = pmin + (pmax-pmin)/( 1+Math.pow((ptac_low/kd),n ) );
+        output_gate1_low = pmin + (pmax-pmin)/( 1+Math.pow((ptac_high/kd),n ) );
+    }
+    if(n_clicks==2) {
+        output_gate2_high = pmin + (pmax-pmin)/( 1+Math.pow((output_gate1_low/kd),n ) );
+        output_gate2_low = pmin + (pmax-pmin)/( 1+Math.pow((output_gate1_high/kd),n ) );
+    }
+    if(n_clicks==3) {
+        output_gate3_high = pmin + (pmax-pmin)/( 1+Math.pow((output_gate2_low/kd),n ) );
+        output_gate3_low = pmin + (pmax-pmin)/( 1+Math.pow((output_gate2_high/kd),n ) );
+    }
+    if(n_clicks==4) {
+        output_gate4_high = pmin + (pmax-pmin)/( 1+Math.pow((output_gate3_low/kd),n ) );
+        output_gate4_low = pmin + (pmax-pmin)/( 1+Math.pow((output_gate3_high/kd),n ) );
+        //var score = 1 - output_gate4_low / output_gate4_high;
+        var score = log10( output_gate4_high / output_gate4_low );
+        $('#score').html("score: " + score.toFixed(4));
+    }
+
+    var gate_name = "gate" + String(n_clicks);
+    drawXfer3(gate_name);
+    input_color = "orange";
+}
+
+function choose4() {
+    if(inuse4) {
+        return false;
+    }
+    inuse4 = 1;
+    var pmin = xfer4_params[0];
+    var pmax = xfer4_params[1];
+    var n =    xfer4_params[2];
+    var kd =   xfer4_params[3];
+
+    n_clicks++;
+    if(n_clicks==1) {
+        output_gate1_high = pmin + (pmax-pmin)/( 1+Math.pow((ptac_low/kd),n ) );
+        output_gate1_low = pmin + (pmax-pmin)/( 1+Math.pow((ptac_high/kd),n ) );
+    }
+    if(n_clicks==2) {
+        output_gate2_high = pmin + (pmax-pmin)/( 1+Math.pow((output_gate1_low/kd),n ) );
+        output_gate2_low = pmin + (pmax-pmin)/( 1+Math.pow((output_gate1_high/kd),n ) );
+    }
+    if(n_clicks==3) {
+        output_gate3_high = pmin + (pmax-pmin)/( 1+Math.pow((output_gate2_low/kd),n ) );
+        output_gate3_low = pmin + (pmax-pmin)/( 1+Math.pow((output_gate2_high/kd),n ) );
+    }
+    if(n_clicks==4) {
+        output_gate4_high = pmin + (pmax-pmin)/( 1+Math.pow((output_gate3_low/kd),n ) );
+        output_gate4_low = pmin + (pmax-pmin)/( 1+Math.pow((output_gate3_high/kd),n ) );
+        //var score = 1 - output_gate4_low / output_gate4_high;
+        var score = log10(output_gate4_high / output_gate4_low);
+        $('#score').html("score: " + score.toFixed(4));
+    }
+
+    var gate_name = "gate" + String(n_clicks);
+    drawXfer4(gate_name);
+    input_color = "red";
+}
+
+
+
+function showOne()
+{
+    if($('#expand-one').css('display') == 'none')
+        $('#expand-one').css('display', 'block');
+    else
+        $('#expand-one').css('display', 'none');
+}
+function showTwo()
+{
+    if($('#expand-two').css('display') == 'none')
+        $('#expand-two').css('display', 'block');
+    else
+        $('#expand-two').css('display', 'none');
+}
+
+
+drawFn();
+drawXfer1("xfer1");
+drawXfer2("xfer2");
+drawXfer3("xfer3");
+drawXfer4("xfer4");
+
+function lineFunctionX(x1, y1) {
+    var d = [ ];
+    d.push([x1,0.001]);
+    d.push([x1,y1]);
+    return d;
+}
+function lineFunctionY(x1, y1) {
+    var d = [ ];
+    d.push([100.0,y1]);
+    d.push([x1,y1]);
+    return d;
+}
+
+// setup plot
+function sampleFunction(x1, x2, func) {
+    var d = [ ];
+    var logx1 = Math.log(x1);
+    var logx2 = Math.log(x2);
+
+    var step = (logx2-logx1)/300;
+    for (var i = logx1; i < logx2; i += step ) {
+        var pow_i = Math.pow(i,10);
+        d.push([pow_i, func( pow_i ) ]);
+    }
+
+    return d;
+}
+
+function changeStep() {
+    var pmin_step = $('#pmin').val() * 0.075;
+    var pmax_step = $('#pmax').val() * 0.075;
+    var kd_step = $('#kd').val() * 0.075;
+    var n_step = $('#n').val() * 0.075;
+    var inlow_step = $('#inlow').val() * 0.075;
+    var inhigh_step = $('#inhigh').val() * 0.075;
+    $('#pmin').prop('step', pmin_step.toPrecision(2));
+    $('#pmax').prop('step', pmax_step.toPrecision(2));
+    $('#kd').prop('step', kd_step.toPrecision(2));
+    $('#n').prop('step', n_step.toPrecision(2));
+    $('#inlow').prop('step', inlow_step.toPrecision(2));
+    $('#inhigh').prop('step', inhigh_step.toPrecision(2));
+    //$('#pmin').prop('step', 0.1);
+    //$('#pmax').prop('step', 2);
+    //$('#kd').prop('step', 0.5);
+    //$('#n').prop('step', 1);
+}
+function changeStepAny() {
+
+    $('#pmin').prop('step', 'any');
+    $('#pmax').prop('step', 'any');
+    $('#kd').prop('step', 'any');
+    $('#n').prop('step', 'any');
+}
+
+function drawFn() {
+    var pmin = Number($('#pmin').val());
+    var pmax = Number($('#pmax').val());
+    var n =    Number($('#n').val());
+    var kd =   Number($('#kd').val());
+
+    var options1 = {
+        //lines: { show: true, lineWidth:5 },
+        xaxis: { ticks: [0.001,0.01,0.1,1,10,100], min: 0.01, max:100,
+            transform:  function(v) {return Math.log(v+0.0001); }, tickDecimals:2 },
+        yaxis: { ticks: [0.001,0.01,0.1,1,10,100], min: 0.01, max:100,
+            transform:  function(v) {return Math.log(v+0.0001); }, tickDecimals:2 },
+        grid: { hoverable: true, clickable: true , color: "#999"}
+    };
+
+    var data1 = sampleFunction( 0.1, 1, function(x){ return pmin + (pmax-pmin)/( 1+Math.pow((x/kd),n ) ) } );
+
+    var xLow = $('#inlow').val();
+    var xHigh = $('#inhigh').val();
+    var yLow = pmin + (pmax-pmin)/( 1+Math.pow((xLow/kd),n ));
+    var yHigh = pmin + (pmax-pmin)/( 1+Math.pow((xHigh/kd),n ));
+
+    plot1 = $.plot($("#graph0"),
+            [
+                { label: "xfer", data: data1, color:'#EE0000'},
+                { data: lineFunctionX(xLow, yLow), color:'#999'},
+                { data: lineFunctionX(xHigh, yHigh), color:'#999'},
+                { data: lineFunctionY(xLow, yLow), color:'#EE0000'},
+                { data: lineFunctionY(xHigh, yHigh), color:'#EE0000'}
+
+            ], options1);
+
+    plot1.getData()[0].lines.lineWidth = 5;
+    plot1.getData()[1].lines.lineWidth = 1;
+    plot1.getData()[2].lines.lineWidth = 1;
+    plot1.draw();
+
+    var inlow = $('#inlow').val();
+    var inhigh = $('#inhigh').val();
+    var outlow =  pmin + (pmax-pmin)/(1+Math.pow((inhigh/kd),n ));
+    var outhigh = pmin + (pmax-pmin)/(1+Math.pow((inlow/kd),n ));
+
+    //var score = 1 - (pmin + pmax/(1+Math.pow((inhigh/kd),n ))) / (pmin + (pmax-pmin)/(1+Math.pow((inlow/kd),n )));
+    var score = log10(outhigh/outlow);
+    $( "#score1" ).val(score.toFixed(4));
+
+    //changeStepAny();
+    changeStep();
+
+
+}
+
+function log10(val) {
+    return Math.log(val) / Math.LN10;
+}
+
+function drawXfer1(name_of_id) {
+
+    var pmin = xfer1_params[0];
+    var pmax = xfer1_params[1];
+    var n =    xfer1_params[2];
+    var kd =   xfer1_params[3];
+
+    var inlow;
+    var inhigh;
+    if(n_clicks==1) {
+        inlow = ptac_low;
+        inhigh = ptac_high;
+    }
+    else if(n_clicks==2) {
+        inlow = output_gate1_low;
+        inhigh = output_gate1_high;
+    }
+    else if(n_clicks==3) {
+        inlow = output_gate2_low;
+        inhigh = output_gate2_high;
+    }
+    else if(n_clicks==4) {
+        inlow = output_gate3_low;
+        inhigh = output_gate3_high;
+    }
+
+
+    var options1 = {
+        lines: { show: true, lineWidth: 5 },
+        xaxis: { ticks: [0.001,0.01,0.1,1,10,100], min: 0.01, max:100, ticks: false,
+            transform:  function(v) {return Math.log(v+0.0001); } },
+        yaxis: { ticks: [0.001,0.01,0.1,1,10,100], min: 0.01, max:100, ticks: false,
+            transform:  function(v) {return Math.log(v+0.0001); } },
+        grid: { hoverable: true, clickable: true , color: "#999"},
+        legend: { show: true }
+    };
+
+    var data1 = sampleFunction( 0.1, 1, function(x){ return pmin + (pmax-pmin)/( 1+Math.pow((x/kd),n ) ) } );
+
+    var outlow =  pmin + (pmax-pmin)/(1+Math.pow((inhigh/kd),n ));
+    var outhigh = pmin + (pmax-pmin)/(1+Math.pow((inlow/kd),n ));
+
+    plot2 = $.plot($("#"+name_of_id),
+            [
+                { label: "SrpR-rbs1", data: data1, fill:0.5, color:'blue'},
+                { data: lineFunctionX(inlow, outhigh),  color:input_color},
+                { data: lineFunctionX(inhigh, outlow), color:input_color},
+                { data: lineFunctionY(inlow, outhigh),  color:'black'},
+                { data: lineFunctionY(inhigh, outlow), color:'black'}
+            ], options1);
+    plot2.getData()[0].lines.lineWidth = 5;
+    plot2.getData()[1].lines.lineWidth = 1;
+    plot2.getData()[2].lines.lineWidth = 1;
+    plot2.getData()[3].lines.lineWidth = 1;
+    plot2.getData()[4].lines.lineWidth = 1;
+    plot2.draw();
+
+}
+function drawXfer2(name_of_id) {
+    var pmin = xfer2_params[0];
+    var pmax = xfer2_params[1];
+    var n =    xfer2_params[2];
+    var kd =   xfer2_params[3];
+
+    var inlow;
+    var inhigh;
+    if(n_clicks==1) {
+        inlow = ptac_low;
+        inhigh = ptac_high;
+    }
+    else if(n_clicks==2) {
+        inlow = output_gate1_low;
+        inhigh = output_gate1_high;
+    }
+    else if(n_clicks==3) {
+        inlow = output_gate2_low;
+        inhigh = output_gate2_high;
+    }
+    else if(n_clicks==4) {
+        inlow = output_gate3_low;
+        inhigh = output_gate3_high;
+    }
+
+    var options1 = {
+        lines: { show: true, lineWidth: 5 },
+        xaxis: { ticks: [0.001,0.01,0.1,1,10,100], min: 0.01, max:100, ticks: false,
+            transform:  function(v) {return Math.log(v+0.0001); } },
+        yaxis: { ticks: [0.001,0.01,0.1,1,10,100], min: 0.01, max:100, ticks: false,
+            transform:  function(v) {return Math.log(v+0.0001); } },
+        grid: { hoverable: true, clickable: true , color: "#999"},
+        legend: { show: true }
+    };
+
+    var data1 = sampleFunction( 0.1, 1, function(x){ return pmin + (pmax-pmin)/( 1+Math.pow((x/kd),n ) ) } );
+
+    var outlow =  pmin + (pmax-pmin)/(1+Math.pow((inhigh/kd),n ));
+    var outhigh = pmin + (pmax-pmin)/(1+Math.pow((inlow/kd),n ));
+
+    plot3 = $.plot($("#"+name_of_id),
+            [
+                { label: "PhlF-rbs1", data: data1, color:'green'},
+                { data: lineFunctionX(inlow, outhigh),  color:input_color},
+                { data: lineFunctionX(inhigh, outlow), color:input_color},
+                { data: lineFunctionY(inlow, outhigh),  color:'black'},
+                { data: lineFunctionY(inhigh, outlow), color:'black'}
+            ], options1);
+    plot3.getData()[0].lines.lineWidth = 5;
+    plot3.getData()[1].lines.lineWidth = 1;
+    plot3.getData()[2].lines.lineWidth = 1;
+    plot3.getData()[3].lines.lineWidth = 1;
+    plot3.getData()[4].lines.lineWidth = 1;
+    plot3.draw();
+}
+function drawXfer3(name_of_id) {
+    var pmin = xfer3_params[0];
+    var pmax = xfer3_params[1];
+    var n =    xfer3_params[2];
+    var kd =   xfer3_params[3];
+
+    var inlow;
+    var inhigh;
+    if(n_clicks==1) {
+        inlow = ptac_low;
+        inhigh = ptac_high;
+    }
+    else if(n_clicks==2) {
+        inlow = output_gate1_low;
+        inhigh = output_gate1_high;
+    }
+    else if(n_clicks==3) {
+        inlow = output_gate2_low;
+        inhigh = output_gate2_high;
+    }
+    else if(n_clicks==4) {
+        inlow = output_gate3_low;
+        inhigh = output_gate3_high;
+    }
+
+    var options1 = {
+        lines: { show: true, lineWidth: 5 },
+        xaxis: { ticks: [0.001,0.01,0.1,1,10,100], min: 0.01, max:100, ticks: false,
+            transform:  function(v) {return Math.log(v+0.0001); } },
+        yaxis: { ticks: [0.001,0.01,0.1,1,10,100], min: 0.01, max:100, ticks: false,
+            transform:  function(v) {return Math.log(v+0.0001); } },
+        grid: { hoverable: true, clickable: true , color: "#999"},
+        legend: { show: true }
+    };
+
+    var data1 = sampleFunction( 0.1, 1, function(x){ return pmin + (pmax-pmin)/( 1+Math.pow((x/kd),n ) ) } );
+
+    var outlow =  pmin + (pmax-pmin)/(1+Math.pow((inhigh/kd),n ));
+    var outhigh = pmin + (pmax-pmin)/(1+Math.pow((inlow/kd),n ));
+
+    plot4 = $.plot($("#"+name_of_id),
+            [
+                { label: "BM3R1-rbs1", data: data1, color:'orange'},
+                { data: lineFunctionX(inlow, outhigh),  color:input_color},
+                { data: lineFunctionX(inhigh, outlow), color:input_color},
+                { data: lineFunctionY(inlow, outhigh),  color:'black'},
+                { data: lineFunctionY(inhigh, outlow), color:'black'}
+            ], options1);
+    plot4.getData()[0].lines.lineWidth = 5;
+    plot4.getData()[1].lines.lineWidth = 1;
+    plot4.getData()[2].lines.lineWidth = 1;
+    plot4.getData()[3].lines.lineWidth = 1;
+    plot4.getData()[4].lines.lineWidth = 1;
+    plot4.draw();
+}
+function drawXfer4(name_of_id) {
+    var pmin = xfer4_params[0];
+    var pmax = xfer4_params[1];
+    var n =    xfer4_params[2];
+    var kd =   xfer4_params[3];
+
+    var inlow;
+    var inhigh;
+    if(n_clicks==1) {
+        inlow = ptac_low;
+        inhigh = ptac_high;
+    }
+    else if(n_clicks==2) {
+        inlow = output_gate1_low;
+        inhigh = output_gate1_high;
+    }
+    else if(n_clicks==3) {
+        inlow = output_gate2_low;
+        inhigh = output_gate2_high;
+    }
+    else if(n_clicks==4) {
+        inlow = output_gate3_low;
+        inhigh = output_gate3_high;
+    }
+
+    var options1 = {
+        lines: { show: true, lineWidth: 5 },
+        xaxis: { ticks: [0.001,0.01,0.1,1,10,100], min: 0.01, max:100, ticks: false,
+            transform:  function(v) {return Math.log(v+0.0001); } },
+        yaxis: { ticks: [0.001,0.01,0.1,1,10,100], min: 0.01, max:100, ticks: false,
+            transform:  function(v) {return Math.log(v+0.0001); } },
+        grid: { hoverable: true, clickable: true , color: "#999"},
+        legend: { show: true }
+    };
+
+    var data1 = sampleFunction( 0.1, 1, function(x){ return pmin + (pmax-pmin)/( 1+Math.pow((x/kd),n ) ) } );
+
+    var outlow =  pmin + (pmax-pmin)/(1+Math.pow((inhigh/kd),n ));
+    var outhigh = pmin + (pmax-pmin)/(1+Math.pow((inlow/kd),n ));
+
+    plot5 = $.plot($("#"+name_of_id),
+            [
+                { label: "AmtR-rbs1", data: data1, color:'red'},
+                { data: lineFunctionX(inlow, outhigh),  color:input_color},
+                { data: lineFunctionX(inhigh, outlow), color:input_color},
+                { data: lineFunctionY(inlow, outhigh),  color:'black'},
+                { data: lineFunctionY(inhigh, outlow), color:'black'}
+            ], options1);
+    plot5.getData()[0].lines.lineWidth = 5;
+    plot5.getData()[1].lines.lineWidth = 1;
+    plot5.getData()[2].lines.lineWidth = 1;
+    plot5.getData()[3].lines.lineWidth = 1;
+    plot5.getData()[4].lines.lineWidth = 1;
+    plot5.draw();
+}
+
+function drawXferNull() {
+
+    var pmin = 0.1;
+    var pmax = 10;
+    var n =    1;
+    var kd =   0.1;
+
+    var inlow = ptac_low;
+    var inhigh = ptac_high;
+
+
+    var options1 = {
+        lines: { show: true, lineWidth: 5 },
+        xaxis: { ticks: [0.001,0.01,0.1,1,10,100], min: 0.01, max:100, ticks: false,
+            transform:  function(v) {return Math.log(v+0.0001); } },
+        yaxis: { ticks: [0.001,0.01,0.1,1,10,100], min: 0.01, max:100, ticks: false,
+            transform:  function(v) {return Math.log(v+0.0001); } },
+        grid: { hoverable: true, clickable: true , color: "#999"},
+        legend: { show: true }
+    };
+
+
+    var plot1 = $.plot($("#gate1"),
+            [
+                { data: lineFunctionX(inlow, 100),  color:input_color},
+                { data: lineFunctionX(inhigh, 100), color:input_color}
+            ], options1);
+
+    plot1.getData()[0].lines.lineWidth = 2;
+    plot1.getData()[1].lines.lineWidth = 2;
+    plot1.draw();
+}
+
+
+function clearAssignment() {
+    $('#gate1').html("");
+    $('#gate2').html("");
+    $('#gate3').html("");
+    $('#gate4').html("");
+    $('#score').html("score:");
+    n_clicks = 0;
+    inuse1 = 0;
+    inuse2 = 0;
+    inuse3 = 0;
+    inuse4 = 0;
+    input_color = "gray";
+    drawXferNull();
+}
+
+
+</script>
+
+
+<br style="clear:both" />
+
+<div>
+    <button class="btn btn-large"
+            style="width:20%"
+            id="clear"
+            onclick="clearAssignment();"
+            type="button">Clear assignment </button>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+<div>
+    <button class="btn btn-large"
+            style="width:20%"
+            id="back"
+            onclick="goDocumentation();"
+            type="button">Documentation </button>
+</div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+</div>
+</body>
+</html>
+
+
+
+
+<style type="text/css">
+
+    .xfer {
+        display: inline-block;
+    }
+
+    /*#gate1 {
+        position:relative; left:-100px; top:100px; text-align: center;
+    }
+    #gate2 {
+        position:relative; left:-100px; top:200px; text-align: center;
+    }
+    #gate3 {
+        position:relative; left:200px; top:-70px; text-align: center;
+    }*/
+
+
+</style>
+

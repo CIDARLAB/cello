@@ -1,0 +1,291 @@
+
+#nona_link {
+    color: gray;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.ui-widget-overlay {
+    opacity: 0.75;
+    filter: Alpha(Opacity=75);
+    background: black;
+    /*must be background, not background-color, otherwise a stripe appears*/
+}
+
+.dialog {
+    overflow: auto;
+}
+.dialog p {
+    text-align: left;
+    word-break: keep-all;
+}
+
+p.plasmid_link, p.sbol_link {
+    text-align: left;
+}
+
+.btn-white {
+    background: white;
+}
+
+.navbar {
+    /*overflow-y: scroll !important*/
+}
+
+.navbar-collapse.collapse {
+    display: block!important;
+}
+
+.navbar-nav>li, .navbar-nav {
+    float: left !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+    margin-right: -15px !important;
+}
+
+.navbar-right {
+    float: right!important;
+}
+
+#dynamic_inputs, #dynamic_outputs {
+    margin-top: 10px;
+}
+
+select {
+    background: white;
+    border: 1px solid lightgrey;
+    font-size: 14px;
+    height: 35px;
+    padding: 5px;
+    margin-top: 10px;
+}
+#frmCompile select {
+    min-width: 150px;
+}
+
+#delete_result {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+form, input {
+    margin-bottom: 10px;
+}
+
+input {
+    border: 1px solid #ccc;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 3px;
+    -moz-box-shadow: 1px 1px 1px #666;
+    -webkit-box-shadow: 1px 1px 1px #666;
+    box-shadow: 1px 1px 1px #666;
+    /*font-size: 12px;*/
+    padding: 4px 7px;
+    outline: 0;
+    margin: 0;
+    -webkit-appearance: none;
+}
+
+.btn-default {
+    background: transparent;
+}
+
+.btn-lg {
+    border: 1px solid darkgray;
+    min-width: 150px;
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    width: 75%;
+    margin: auto;
+}
+
+.carousel-indicators li { visibility: hidden; }
+
+.carousel-control.left, .carousel-control.right {
+    background-image: none
+}
+.carousel-control {
+    color: #888888;
+}
+.carousel-caption {
+}
+.my-caption h3, p{
+    margin-left: 10px;
+    text-align: center;
+}
+
+
+.CodeMirror {
+    line-height: 1.2;
+    margin-top: 20px;
+    font-size:14px;
+    height: 60%;
+    width: 100%;
+    border-top: 1px solid #d3d3d3;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+div.boxed {
+    border: 2px solid gray;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+div.view {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+div.scrolling {
+    overflow: hidden;
+    border: 2px solid gray;
+    max-height: 500px;
+}
+div.scrolling_x {
+    overflow-x: hidden;
+    border: 2px solid gray;
+}
+div.scrolling_y {
+    overflow-y: hidden;
+    border: 2px solid gray;
+}
+
+pre:empty {
+    display: none;
+}
+
+pre {
+    overflow: auto;
+    word-wrap: normal;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    border: 1px solid #cccccc;
+}
+
+.scrolling pre, .scrolling_x pre, .scrolling_y pre {
+    overflow: auto;
+    word-wrap: normal;
+    white-space: pre;
+    border: 0px solid black;
+}
+
+
+/*.fixed_height_div {
+    height: 500px;
+}*/
+
+
+table {
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    table-layout: fixed;
+}
+
+.table input {
+    width: 100%;
+    /*height:25px;*/
+    margin:-3px;
+    text-align:left;
+
+    box-sizing: border-box;
+    border: none !important;
+    box-shadow: none !important;
+    background-color: transparent;
+}
+
+input:read-only {
+    background-color: transparent;
+}
+
+/*result.html*/
+
+#sidebar img {max-width:80px; height: auto;}
+
+#myCarousel {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.results_icon {
+    border: 2px solid white;
+    max-height: 60px;
+}
+
+.results_icon:hover {
+    border: 2px solid gray;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.plasmid_link, .sbol_link {
+    cursor: pointer;
+    color: steelblue;
+}
+
+#result_menu td {
+    padding: 5px;
+}
+
+
+#results_well {
+    /*margin-top: 60px;*/
+}
+
+#sidebar select {
+    padding: 0;
+    margin: 0;
+}
+
+#results_well img {
+    width: 100%;
+}
+
+#ucf_table th, #ucf_table td {
+    border-top: none !important;
+}
+
+#ucf_table td select, input[type="file"] {
+    margin-top: 20px;
+}
+#ucf_collection {
+    border: none !important;
+}
+#dnac_txt {
+    border: none !important;
+}
+
+#plasmid_list {
+    border: none !important;
+    min-width: 300px;
+}
+#plasmid_list p {
+    text-align: left;
+}
+#delete_result {
+    color: gray;
+}
+#download_zip {
+    color: gray;
+}
+.well {
+    overflow: auto;
+}
+.footer_img {
+    height: 30px;
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+

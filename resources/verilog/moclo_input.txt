@@ -1,0 +1,5 @@
+F   p(4) p(6) r g(7) t  D
+D   p(c) p(0) r g(6) t  E
+E   p(b) p(0) r g(4) t  F
+F   p(a) p(0) r g(1) t  A
+A   p(7) p(1) r xFP  t  C

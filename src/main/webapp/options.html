@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cello</title>
+    <link rel="shortcut icon" href="images/cello_small.png">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- Other CSS -->
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-57223580-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</head>
+
+
+<nav id="main-navbar"  class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div>
+            <div>
+                <a class="navbar-brand" href="index.html">Cello</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li><a id="verilog_link" href="">Verilog</a></li>
+                    <li><a id="results_link" href="">Results</a></li>
+                    <li class="active"><a id="options_link" href="">Options</a></li>
+                    <li><a href="download.html">Documentation</a></li>
+                </ul>
+            </div>
+            <div id="loginArea">
+                <div class="navbar-form pull-right">
+                    <input id="login_username" type="text" class="span2" placeholder="Login">
+                    <input id="login_password" type="password" class="span2" placeholder="Password">
+                    <input id="btnLogin" type="submit" value="Login" class="btn btn-warning">
+                    <div id="loginError"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<body>
+
+<div class="container-fluid">
+
+    <div id="dialog" class="dialog" title="message to user" style="display: none">
+        <pre id="dialog_pre"></pre>
+    </div>
+
+    <div class="well col-sm-12 col-md-4 col-lg-4 dynamic_height_div" style="overflow:scroll;">
+
+        <table id="ucf_table" class="table table-condensed">
+            <tr>
+                <td width="40%"><label for="ucf_pulldown"><h3><small>Select UCF </small></h3></label></td>
+                <td><select id="ucf_pulldown" style="width: 100%"></select></td>
+            </tr>
+            <tr>
+                <td width="40%"><label for="collection_pulldown"><h3><small>View collection </small></h3></label></td>
+                <td>
+                    <select id="collection_pulldown" style="width: 100%">
+                        <option value="header">header</option>
+                        <option value="measurement_std">measurement_std</option>
+                        <option value="logic_constraints">logic_constraints</option>
+                        <option value="gates">gates</option>
+                        <option value="response_functions">response_functions</option>
+                        <option value="parts">parts</option>
+                        <option value="gate_parts">gate_parts</option>
+                        <option value="gate_toxicity">gate_toxicity</option>
+                        <option value="gate_cytometry">gate_cytometry</option>
+                        <option value="eugene_rules">eugene_rules</option>
+                        <option value="genetic_locations">genetic_locations</option>
+                    </select>
+                </td>
+            </tr>
+
+            <!--<tr>
+                <td width="40%"><label for="sbol_pulldown"><h3><small>View SBOL gate </small></h3></label></td>
+                <td>
+                    <select id="sbol_pulldown" style="width: 100%">
+
+                    </select>
+                </td>
+            </tr>-->
+
+            <tr>
+                <td width="40%">
+                    <label for="upload_verilog"><h3><small>Upload UCF</small></h3></label>
+                </td>
+                <td><input type="file" id="upload_verilog" onchange="processUploadUCF(this)"></td>
+            </tr>
+        </table>
+
+
+        <div id="validating_ucf_dialog" class="dialog" title="validating UCF" style="display: none">
+        </div>
+
+
+        <a class="btn btn-default" type="button" target="_blank" href="https://github.com/CIDARLAB/cello-lite/blob/master/UCF-guide.md">UCF guide</a>
+        <button type="button" class="btn btn-default" onclick="downloadUCF()">Download UCF</button>
+        <!--<button type="button" class="btn btn-inverse" onclick="validateUCF()">Validate</button>-->
+        <button type="button" class="btn btn-default" onclick="deleteUCF()">Delete UCF</button>
+
+        <!--<br>
+        <br>
+        <button type="button" class="btn btn-default" onclick="downloadSBOLGate()">Download SBOL Gate</button>
+        <button type="button" class="btn btn-default" onclick="downloadSBOLGates()">Download SBOL Gates</button>
+        -->
+        <hr/>
+
+        <h3><small>Other options</small></h3>
+        <form id="options_form">
+            <table id='other_options' class="table table-bordered table-condensed">
+                <tr>
+                    <td width="75%">Assignment variants per design</td>
+                    <td width="25%"><input id="nA" required type="number" max="10" min="1" value="1"></td>
+                </tr>
+                <tr>
+                    <td width="75%">Plasmid layout variants per assignment</td>
+                    <td width="25%"><input id="nP" required type="number" max="20" min="1" value="5"></td>
+                </tr>
+            </table>
+
+
+            <button class="btn btn-default" type="submit" id="save_options">Save</button>
+            <div style="display: none" id="saved_message"><p style="color: green">Saved.</p></div>
+        </form>
+    </div>
+
+    <div class="well col-sm-12 col-md-8 col-lg-8 dynamic_height_div">
+        <pre id="ucf_collection"></pre>
+    </div>
+
+
+
+    <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+        <hr/>
+        <h4><small>Cello is a trademark of <a id='nona_link' href='http://www.nonasoftware.org'>Nona Research Foundation, Inc.</a></small></h4>
+        <hr/>
+    </div>
+
+</div>
+
+
+</body>
+
+
+<!--JavaScript libraries-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="controller/SessionController.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/options.js"></script>
+
+
+
+<script type="text/javascript">
+</script>
+
+
+<footer>
+    <div class="container" align="center">
+    </div>
+</footer>
+
+<style type="text/css">
+</style>
+
+
+</html>

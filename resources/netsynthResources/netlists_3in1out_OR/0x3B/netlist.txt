@@ -1,0 +1,3 @@
+NOT(0Wire3418,in1)
+NOR(n6,0Wire3418,in3)
+OR(out,in2,n6)

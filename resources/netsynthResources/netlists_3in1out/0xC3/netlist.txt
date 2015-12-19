@@ -1,0 +1,4 @@
+NOR(0Wire12621,in2,in1)
+NOR(n6,in1,0Wire12621)
+NOR(n8,in2,0Wire12621)
+NOR(out,n6,n8)

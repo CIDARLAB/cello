@@ -1,0 +1,1570 @@
+[
+{
+  "collection": "header",
+  "description": "7 TetR homologs (NOR/NOT), 2 Activator-Chaperones (AND)",
+  "version": "Eco3C3G3T3",
+  "date": "Tue Jun 16 16:57:34 EDT 2015",
+  "author": [
+    "Bryan Der"
+  ],
+  "organism": "Escherichia coli NEB 10-beta",
+  "genome": "NEB 10 ∆(ara-leu) 7697 araD139 fhuA ∆lacX74 galK16 galE15 e14- φ80dlacZ∆M15  recA1 relA1 endA1 nupG  rpsL (StrR) rph spoT1 ∆(mrr-hsdRMS-mcrBC)",
+  "media": "M9 minimal media composed of M9 media salts (6.78 g/L Na2HPO4, 3 g/L KH2PO4, 1 g/L NH4Cl, 0.5 g/L NaCl, 0.34 g/L thiamine hydrochloride, 0.4% D-glucose, 0.2% Casamino acids, 2 mM MgSO4, and 0.1 mM CaCl2; kanamycin (50 ug/ml), spectinomycin (50 ug/ml)",
+  "temperature": "37",
+  "growth": "Inoculation: Individual colonies into M9 media, 16 hours overnight in plate shaker.  Dilution: Next day, cells dilute ~200-fold into M9 media with antibiotics, growth for 3 hours.  Induction: Cells diluted ~650-fold into M9 media with antibiotics.  Growth: shaking incubator for 5 hours.  Arrest protein production: PBS and 2mg/ml kanamycin.  Measurement: flow cytometry, data processing for REU normalization."
+},
+{
+  "collection": "measurement_std",
+  "signal_carrier_units": "REU",
+  "normalization_instructions": "The following equation converts the median YFP fluorescence to REU.  REU = (YFP – YFP0)/(YFPREU – YFP0), where YFP is the median fluorescence of the cells of interest, YFP0 is the median autofluorescence, and YFPREU is the median fluorescence of the cells containing the measurement standard plasmid",
+  "plasmid_description": "p15A plasmid backbone with kanamycin resistance and a YFP expression cassette. Upstream isulation by terminator L3S3P21\nand a 5’-promoter spacer.  Promoter BBa_J23101, ribozyme RiboJ, RBS BBa_B0064 drives constitutive YFP expression, with transcriptional termination by L3S3P21.",
+  "plasmid_sequence": []
+},
+{
+  "collection": "logic_constraints",
+  "available_gates": [
+    {
+      "type": "NOR",
+      "max_instances": 7
+    },
+    {
+      "type": "OUTPUT_OR",
+      "max_instances": true
+    }
+  ]
+},
+{
+  "collection": "gates",
+  "regulator": "AmtR",
+  "group_name": "AmtR",
+  "gate_name": "A1_AmtR",
+  "gate_type": "NOR",
+  "system": "TetR",
+  "color_hexcode": "3BA9E0"
+},
+{
+  "collection": "gates",
+  "regulator": "BM3R1",
+  "group_name": "BM3R1",
+  "gate_name": "B1_BM3R1",
+  "gate_type": "NOR",
+  "system": "TetR",
+  "color_hexcode": "EE2F2B"
+},
+{
+  "collection": "gates",
+  "regulator": "BM3R1",
+  "group_name": "BM3R1",
+  "gate_name": "B2_BM3R1",
+  "gate_type": "NOR",
+  "system": "TetR",
+  "color_hexcode": "EE2F2B"
+},
+{
+  "collection": "gates",
+  "regulator": "BM3R1",
+  "group_name": "BM3R1",
+  "gate_name": "B3_BM3R1",
+  "gate_type": "NOR",
+  "system": "TetR",
+  "color_hexcode": "EE2F2B"
+},
+{
+  "collection": "gates",
+  "regulator": "BetI",
+  "group_name": "BetI",
+  "gate_name": "E1_BetI",
+  "gate_type": "NOR",
+  "system": "TetR",
+  "color_hexcode": "5455A4"
+},
+{
+  "collection": "gates",
+  "regulator": "AmeR",
+  "group_name": "AmeR",
+  "gate_name": "F1_AmeR",
+  "gate_type": "NOR",
+  "system": "TetR",
+  "color_hexcode": "6FCDE1"
+},
+{
+  "collection": "gates",
+  "regulator": "HlyIIR",
+  "group_name": "HlyIIR",
+  "gate_name": "H1_HlyIIR",
+  "gate_type": "NOR",
+  "system": "TetR",
+  "color_hexcode": "8FC73E"
+},
+{
+  "collection": "gates",
+  "regulator": "PhlF",
+  "group_name": "PhlF",
+  "gate_name": "P1_PhlF",
+  "gate_type": "NOR",
+  "system": "TetR",
+  "color_hexcode": "F9A427"
+},
+{
+  "collection": "gates",
+  "regulator": "PhlF",
+  "group_name": "PhlF",
+  "gate_name": "P2_PhlF",
+  "gate_type": "NOR",
+  "system": "TetR",
+  "color_hexcode": "F9A427"
+},
+{
+  "collection": "gates",
+  "regulator": "PhlF",
+  "group_name": "PhlF",
+  "gate_name": "P3_PhlF",
+  "gate_type": "NOR",
+  "system": "TetR",
+  "color_hexcode": "F9A427"
+},
+{
+  "collection": "gates",
+  "regulator": "SrpR",
+  "group_name": "SrpR",
+  "gate_name": "S1_SrpR",
+  "gate_type": "NOR",
+  "system": "TetR",
+  "color_hexcode": "006838"
+},
+{
+  "collection": "gates",
+  "regulator": "SrpR",
+  "group_name": "SrpR",
+  "gate_name": "S2_SrpR",
+  "gate_type": "NOR",
+  "system": "TetR",
+  "color_hexcode": "006838"
+},
+{
+  "collection": "gates",
+  "regulator": "SrpR",
+  "group_name": "SrpR",
+  "gate_name": "S3_SrpR",
+  "gate_type": "NOR",
+  "system": "TetR",
+  "color_hexcode": "006838"
+},
+{
+  "collection": "gates",
+  "regulator": "SrpR",
+  "group_name": "SrpR",
+  "gate_name": "S4_SrpR",
+  "gate_type": "NOR",
+  "system": "TetR",
+  "color_hexcode": "006838"
+},
+{
+  "collection": "gates",
+  "regulator": "SicA_InvF",
+  "group_name": "SicA_InvF",
+  "gate_name": "SicA_InvF",
+  "gate_type": "AND",
+  "system": "Activator_Chaperone",
+  "color_hexcode": "E83C96"
+},
+{
+  "collection": "gates",
+  "regulator": "ExsC_ExsDA",
+  "group_name": "ExsC_ExsDA",
+  "gate_name": "ExsC_ExsDA",
+  "gate_type": "AND",
+  "system": "Activator_Chaperone",
+  "color_hexcode": "66BC46"
+},
+{
+  "collection": "response_functions",
+  "gate_name": "A1_AmtR",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x",
+      "off_threshold": 0.072,
+      "on_threshold": 0.923
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 3.8
+    },
+    {
+      "name": "ymin",
+      "value": 0.06
+    },
+    {
+      "name": "K",
+      "value": 0.07
+    },
+    {
+      "name": "n",
+      "value": 1.6
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "B1_BM3R1",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x",
+      "off_threshold": 0.04,
+      "on_threshold": 0.166
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 0.5
+    },
+    {
+      "name": "ymin",
+      "value": 0.004
+    },
+    {
+      "name": "K",
+      "value": 0.04
+    },
+    {
+      "name": "n",
+      "value": 3.4
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "B2_BM3R1",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x",
+      "off_threshold": 0.151,
+      "on_threshold": 0.733
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 0.5
+    },
+    {
+      "name": "ymin",
+      "value": 0.005
+    },
+    {
+      "name": "K",
+      "value": 0.15
+    },
+    {
+      "name": "n",
+      "value": 2.9
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "B3_BM3R1",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x",
+      "off_threshold": 0.263,
+      "on_threshold": 0.944
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 0.8
+    },
+    {
+      "name": "ymin",
+      "value": 0.01
+    },
+    {
+      "name": "K",
+      "value": 0.26
+    },
+    {
+      "name": "n",
+      "value": 3.4
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "E1_BetI",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x",
+      "off_threshold": 0.417,
+      "on_threshold": 2.138
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 3.8
+    },
+    {
+      "name": "ymin",
+      "value": 0.07
+    },
+    {
+      "name": "K",
+      "value": 0.41
+    },
+    {
+      "name": "n",
+      "value": 2.4
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "F1_AmeR",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x",
+      "off_threshold": 0.098,
+      "on_threshold": 0.684
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 3.8
+    },
+    {
+      "name": "ymin",
+      "value": 0.2
+    },
+    {
+      "name": "K",
+      "value": 0.09
+    },
+    {
+      "name": "n",
+      "value": 1.4
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "H1_HlyIIR",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x",
+      "off_threshold": 0.195,
+      "on_threshold": 0.741
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 2.5
+    },
+    {
+      "name": "ymin",
+      "value": 0.07
+    },
+    {
+      "name": "K",
+      "value": 0.19
+    },
+    {
+      "name": "n",
+      "value": 2.6
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "P1_PhlF",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x",
+      "off_threshold": 0.03,
+      "on_threshold": 0.133
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 3.9
+    },
+    {
+      "name": "ymin",
+      "value": 0.01
+    },
+    {
+      "name": "K",
+      "value": 0.03
+    },
+    {
+      "name": "n",
+      "value": 4.0
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "P2_PhlF",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x",
+      "off_threshold": 0.132,
+      "on_threshold": 0.513
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 4.1
+    },
+    {
+      "name": "ymin",
+      "value": 0.02
+    },
+    {
+      "name": "K",
+      "value": 0.13
+    },
+    {
+      "name": "n",
+      "value": 3.9
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "P3_PhlF",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x",
+      "off_threshold": 0.232,
+      "on_threshold": 0.923
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 6.8
+    },
+    {
+      "name": "ymin",
+      "value": 0.02
+    },
+    {
+      "name": "K",
+      "value": 0.23
+    },
+    {
+      "name": "n",
+      "value": 4.2
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "S1_SrpR",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x",
+      "off_threshold": 0.01,
+      "on_threshold": 0.081
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 1.3
+    },
+    {
+      "name": "ymin",
+      "value": 0.003
+    },
+    {
+      "name": "K",
+      "value": 0.01
+    },
+    {
+      "name": "n",
+      "value": 2.9
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "S2_SrpR",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x",
+      "off_threshold": 0.04,
+      "on_threshold": 0.501
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 2.1
+    },
+    {
+      "name": "ymin",
+      "value": 0.003
+    },
+    {
+      "name": "K",
+      "value": 0.04
+    },
+    {
+      "name": "n",
+      "value": 2.6
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "S3_SrpR",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x",
+      "off_threshold": 0.06,
+      "on_threshold": 0.562
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 2.1
+    },
+    {
+      "name": "ymin",
+      "value": 0.004
+    },
+    {
+      "name": "K",
+      "value": 0.06
+    },
+    {
+      "name": "n",
+      "value": 2.8
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "S4_SrpR",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x",
+      "off_threshold": 0.101,
+      "on_threshold": 0.767
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 2.1
+    },
+    {
+      "name": "ymin",
+      "value": 0.007
+    },
+    {
+      "name": "K",
+      "value": 0.1
+    },
+    {
+      "name": "n",
+      "value": 2.8
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "SicA_InvF",
+  "equation": "ymin + (ymax-ymin) * (x1^n / (K1^n + x1^n)) * (x2^n / (K2^n + x2^n))",
+  "variables": [
+    {
+      "name": "x1",
+      "off_threshold": 1.0,
+      "on_threshold": 1.5
+    },
+    {
+      "name": "x2",
+      "off_threshold": 1.0,
+      "on_threshold": 1.5
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 6.0
+    },
+    {
+      "name": "ymin",
+      "value": 0.02
+    },
+    {
+      "name": "K1",
+      "value": 0.5
+    },
+    {
+      "name": "K2",
+      "value": 0.5
+    },
+    {
+      "name": "n",
+      "value": 2.0
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "ExsC_ExsDA",
+  "equation": "ymin + (ymax-ymin) * (x1^n / (K1^n + x1^n)) * (x2^n / (K2^n + x2^n))",
+  "variables": [
+    {
+      "name": "x1",
+      "off_threshold": 1.0,
+      "on_threshold": 2.0
+    },
+    {
+      "name": "x2",
+      "off_threshold": 0.1,
+      "on_threshold": 0.3
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 2.0
+    },
+    {
+      "name": "ymin",
+      "value": 0.008
+    },
+    {
+      "name": "K1",
+      "value": 0.2
+    },
+    {
+      "name": "K2",
+      "value": 0.03
+    },
+    {
+      "name": "n",
+      "value": 2.0
+    }
+  ]
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "A1_AmtR",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "BydvJ",
+        "A1",
+        "AmtR",
+        "L3S2P55"
+      ]
+    }
+  ],
+  "promoter": "pAmtR"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "B1_BM3R1",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "SarJ",
+        "B1",
+        "BM3R1",
+        "L3S2P11"
+      ]
+    }
+  ],
+  "promoter": "pBM3R1"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "B2_BM3R1",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "SarJ",
+        "B2",
+        "BM3R1",
+        "L3S2P11"
+      ]
+    }
+  ],
+  "promoter": "pBM3R1"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "B3_BM3R1",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "SarJ",
+        "B3",
+        "BM3R1",
+        "L3S2P11"
+      ]
+    }
+  ],
+  "promoter": "pBM3R1"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "E1_BetI",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "RiboJ57",
+        "E1",
+        "BetI",
+        "L3S3P11"
+      ]
+    }
+  ],
+  "promoter": "pBetI"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "F1_AmeR",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "RiboJ54",
+        "F1",
+        "AmeR",
+        "L3S3P31"
+      ]
+    }
+  ],
+  "promoter": "pAmeR"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "H1_HlyIIR",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "RiboJ51",
+        "H1",
+        "HlyIIR",
+        "ECK120033736"
+      ]
+    }
+  ],
+  "promoter": "pHlyIIR"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "P1_PhlF",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "RiboJ53",
+        "P1",
+        "PhlF",
+        "ECK120033737"
+      ]
+    }
+  ],
+  "promoter": "pPhlF"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "P2_PhlF",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "RiboJ53",
+        "P2",
+        "PhlF",
+        "ECK120033737"
+      ]
+    }
+  ],
+  "promoter": "pPhlF"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "P3_PhlF",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "RiboJ53",
+        "P3",
+        "PhlF",
+        "ECK120033737"
+      ]
+    }
+  ],
+  "promoter": "pPhlF"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "S1_SrpR",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "RiboJ10",
+        "S1",
+        "SrpR",
+        "ECK120019600"
+      ]
+    }
+  ],
+  "promoter": "pSrpR"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "S2_SrpR",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "RiboJ10",
+        "S2",
+        "SrpR",
+        "ECK120029600"
+      ]
+    }
+  ],
+  "promoter": "pSrpR"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "S3_SrpR",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "RiboJ10",
+        "S3",
+        "SrpR",
+        "ECK120029600"
+      ]
+    }
+  ],
+  "promoter": "pSrpR"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "S4_SrpR",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "RiboJ10",
+        "S4",
+        "SrpR",
+        "ECK120029600"
+      ]
+    }
+  ],
+  "promoter": "pSrpR"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "SicA_InvF",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x1",
+      "cassette_parts": [
+        "RiboH10",
+        "RBSforSicA",
+        "SicA",
+        "BBa_B1006_U10"
+      ]
+    },
+    {
+      "maps_to_variable": "x2",
+      "cassette_parts": [
+        "RiboH11",
+        "RBSforInvF",
+        "InvF",
+        "hismins"
+      ]
+    }
+  ],
+  "promoter": "pSicA"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "ExsC_ExsDA",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x1",
+      "cassette_parts": [
+        "RiboH12",
+        "RBSforExsC",
+        "ExsC",
+        "M13central"
+      ]
+    },
+    {
+      "maps_to_variable": "x2",
+      "cassette_parts": [
+        "RiboH24",
+        "RBSforExsDA",
+        "ExsDA",
+        "ilvGEDA"
+      ]
+    }
+  ],
+  "promoter": "pExsC"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "BydvJ",
+  "dnasequence": "CTGAagGGTGTCTCAAGGTGCGTACCTTGACTGATGAGTCCGAAAGGACGAAACACCcctctacaaataattttgtttaa"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "A1",
+  "dnasequence": "AATGTTCCCTAATAATCAGCAAAGAGGTTACTAG"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "AmtR",
+  "dnasequence": "ATGGCAGGCGCAGTTGGTCGTCCGCGTCGTAGTGCACCGCGTCGTGCAGGTAAAAATCCGCGTGAAGAAATTCTGGATGCAAGCGCAGAACTGTTTACCCGTCAGGGTTTTGCAACCACCAGTACCCATCAGATTGCAGATGCAGTTGGTATTCGTCAGGCAAGCCTGTATTATCATTTTCCGAGCAAAACCGAAATCTTTCTGACCCTGCTGAAAAGCACCGTTGAACCGAGCACCGTTCTGGCAGAAGATCTGAGCACCCTGGATGCAGGTCCGGAAATGCGTCTGTGGGCAATTGTTGCAAGCGAAGTTCGTCTGCTGCTGAGCACCAAATGGAATGTTGGTCGTCTGTATCAGCTGCCGATTGTTGGTAGCGAAGAATTTGCAGAATATCATAGCCAGCGTGAAGCACTGACCAATGTTTTTCGTGATCTGGCAACCGAAATTGTTGGTGATGATCCGCGTGCAGAACTGCCGTTTCATATTACCATGAGCGTTATTGAAATGCGTCGCAATGATGGTAAAATTCCGAGTCCGCTGAGCGCAGATAGCCTGCCGGAAACCGCAATTATGCTGGCAGATGCAAGCCTGGCAGTTCTGGGTGCACCGCTGCCTGCAGATCGTGTTGAAAAAACCCTGGAACTGATTAAACAGGCAGATGCAAAATAATAA"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "L3S2P55",
+  "dnasequence": "CTCGGTACCAAAGACGAACAATAAGACGCTGAAAAGCGTCTTTTTTCGTTTTGGTCC"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pAmtR",
+  "dnasequence": "CTTGTCCAACCAAATgattcgttaccctttgacagTTTCTATCGATCTATAGATAATgctagc"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "SarJ",
+  "dnasequence": "CTGAAGACTGTCGCCGGATGTGTATCCGACCTGACGATGGCCCAAAAGGGCCGAAACAGTCCTCTACAAATAATTTTGTTTAA"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "B1",
+  "dnasequence": "CTATGGACTATGTTTTAACTACTAG"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "BM3R1",
+  "dnasequence": "ATGGAAAGCACCCCGACCAAACAGAAAGCAATTTTTAGCGCAAGCCTGCTGCTGTTTGCAGAACGTGGTTTTGATGCAACCACCATGCCGATGATTGCAGAAAATGCAAAAGTTGGTGCAGGCACCATTTATCGCTATTTCAAAAACAAAGAAAGCCTGGTGAACGAACTGTTTCAGCAGCATGTTAATGAATTTCTGCAGTGTATTGAAAGCGGTCTGGCAAATGAACGTGATGGTTATCGTGATGGCTTTCATCACATTTTTGAAGGTATGGTGACCTTTACCAAAAATCATCCGCGTGCACTGGGTTTTATCAAAACCCATAGCCAGGGCACCTTTCTGACCGAAGAAAGCCGTCTGGCATATCAGAAACTGGTTGAATTTGTGTGCACCTTTTTTCGTGAAGGTCAGAAACAGGGTGTGATTCGTAATCTGCCGGAAAATGCACTGATTGCAATTCTGTTTGGCAGCTTTATGGAAGTGTATGAAATGATCGAGAACGATTATCTGAGCCTGACCGATGAACTGCTGACCGGTGTTGAAGAAAGCCTGTGGGCAGCACTGAGCCGTCAGAGCTAATAA"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "L3S2P11",
+  "dnasequence": "CTCGGTACCAAATTCCAGAAAAGAGACGCTTTCGAGCGTCTTTTTTCGTTTTGGTCC"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pBM3R1",
+  "dnasequence": "AATCCGCGTGATAGGTCTGATTCGTTACCAATTGACGGAATGAACGTTCATTCCGATAATGCTAGC"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "SarJ",
+  "dnasequence": "CTGAAGACTGTCGCCGGATGTGTATCCGACCTGACGATGGCCCAAAAGGGCCGAAACAGTCCTCTACAAATAATTTTGTTTAA"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "B2",
+  "dnasequence": "CTATGGACTATGTTTTTCAAAGACGAAAAACTACTAG"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "BM3R1",
+  "dnasequence": "ATGGAAAGCACCCCGACCAAACAGAAAGCAATTTTTAGCGCAAGCCTGCTGCTGTTTGCAGAACGTGGTTTTGATGCAACCACCATGCCGATGATTGCAGAAAATGCAAAAGTTGGTGCAGGCACCATTTATCGCTATTTCAAAAACAAAGAAAGCCTGGTGAACGAACTGTTTCAGCAGCATGTTAATGAATTTCTGCAGTGTATTGAAAGCGGTCTGGCAAATGAACGTGATGGTTATCGTGATGGCTTTCATCACATTTTTGAAGGTATGGTGACCTTTACCAAAAATCATCCGCGTGCACTGGGTTTTATCAAAACCCATAGCCAGGGCACCTTTCTGACCGAAGAAAGCCGTCTGGCATATCAGAAACTGGTTGAATTTGTGTGCACCTTTTTTCGTGAAGGTCAGAAACAGGGTGTGATTCGTAATCTGCCGGAAAATGCACTGATTGCAATTCTGTTTGGCAGCTTTATGGAAGTGTATGAAATGATCGAGAACGATTATCTGAGCCTGACCGATGAACTGCTGACCGGTGTTGAAGAAAGCCTGTGGGCAGCACTGAGCCGTCAGAGCTAATAA"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "L3S2P11",
+  "dnasequence": "CTCGGTACCAAATTCCAGAAAAGAGACGCTTTCGAGCGTCTTTTTTCGTTTTGGTCC"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pBM3R1",
+  "dnasequence": "AATCCGCGTGATAGGTCTGATTCGTTACCAATTGACGGAATGAACGTTCATTCCGATAATGCTAGC"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "SarJ",
+  "dnasequence": "CTGAAGACTGTCGCCGGATGTGTATCCGACCTGACGATGGCCCAAAAGGGCCGAAACAGTCCTCTACAAATAATTTTGTTTAA"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "B3",
+  "dnasequence": "CCAAACGAGGCCGGGAGG"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "BM3R1",
+  "dnasequence": "ATGGAAAGCACCCCGACCAAACAGAAAGCAATTTTTAGCGCAAGCCTGCTGCTGTTTGCAGAACGTGGTTTTGATGCAACCACCATGCCGATGATTGCAGAAAATGCAAAAGTTGGTGCAGGCACCATTTATCGCTATTTCAAAAACAAAGAAAGCCTGGTGAACGAACTGTTTCAGCAGCATGTTAATGAATTTCTGCAGTGTATTGAAAGCGGTCTGGCAAATGAACGTGATGGTTATCGTGATGGCTTTCATCACATTTTTGAAGGTATGGTGACCTTTACCAAAAATCATCCGCGTGCACTGGGTTTTATCAAAACCCATAGCCAGGGCACCTTTCTGACCGAAGAAAGCCGTCTGGCATATCAGAAACTGGTTGAATTTGTGTGCACCTTTTTTCGTGAAGGTCAGAAACAGGGTGTGATTCGTAATCTGCCGGAAAATGCACTGATTGCAATTCTGTTTGGCAGCTTTATGGAAGTGTATGAAATGATCGAGAACGATTATCTGAGCCTGACCGATGAACTGCTGACCGGTGTTGAAGAAAGCCTGTGGGCAGCACTGAGCCGTCAGAGCTAATAA"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "L3S2P11",
+  "dnasequence": "CTCGGTACCAAATTCCAGAAAAGAGACGCTTTCGAGCGTCTTTTTTCGTTTTGGTCC"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pBM3R1",
+  "dnasequence": "AATCCGCGTGATAGGTCTGATTCGTTACCAATTGACGGAATGAACGTTCATTCCGATAATGCTAGC"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "RiboJ57",
+  "dnasequence": "CTGAAGAAGTCAATTAATGTGCTTTTAATTCTGATGAGTCGGTGACGACGAAACTTCCTCTACAAATAATTTTGTTTAA"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "E1",
+  "dnasequence": "CCCCCCGAGGAGTAGCAC"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "BetI",
+  "dnasequence": "ATGCCGAAACTGGGTATGCAGAGCATTCGTCGTCGTCAGCTGATTGATGCAACCCTGGAAGCAATTAATGAAGTTGGTATGCATGATGCAACCATTGCACAGATTGCACGTCGTGCCGGTGTTAGCACCGGTATTATTAGCCATTATTTCCGCGATAAAAACGGTCTGCTGGAAGCAACCATGCGTGATATTACCAGCCAGCTGCGTGATGCAGTTCTGAATCGTCTGCATGCACTGCCGCAGGGTAGCGCAGAACAGCGTCTGCAGGCAATTGTTGGTGGTAATTTTGATGAAACCCAGGTTAGCAGCGCAGCAATGAAAGCATGGCTGGCATTTTGGGCAAGCAGCATGCATCAGCCGATGCTGTATCGTCTGCAGCAGGTTAGCAGTCGTCGTCTGCTGAGCAATCTGGTTAGCGAATTTCGTCGTGAACTGCCTCGTGAACAGGCACAAGAGGCAGGTTATGGTCTGGCAGCACTGATTGATGGTCTGTGGCTGCGTGCAGCACTGAGCGGTAAACCGCTGGATAAAACCCGTGCAAATAGCCTGACCCGTCATTTTATCACCCAGCATCTGCCGACCGATTAATAA"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "L3S3P11",
+  "dnasequence": "CCAATTATTGAACACCCTTCGGGGTGTTTTTTTGTTTCTGGTCTCCC"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pBetI",
+  "dnasequence": "AGCGCGGGTGAGAGGgattcgttaccaatagacaATTgATTGGACGTTCAATATAAtgctagc"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "RiboJ54",
+  "dnasequence": "CTGAAGGGGTCAGTTGATGTGCTTTCAACTCTGATGAGTCAGTGATGACGAAACCCCCTCTACAAATAATTTTGTTTAA"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "F1",
+  "dnasequence": "CTATGGACTATGTTTTCACATACGAGGGGGATTAG"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "AmeR",
+  "dnasequence": "ATGAACAAAACCATTGATCAGGTGCGTAAAGGTGATCGTAAAAGCGATCTGCCGGTTCGTCGTCGTCCGCGTCGTAGTGCCGAAGAAACCCGTCGTGATATTCTGGCAAAAGCCGAAGAACTGTTTCGTGAACGTGGTTTTAATGCAGTTGCCATTGCAGATATTGCAAGCGCACTGAATATGAGTCCGGCAAATGTGTTTAAACATTTTAGCAGCAAAAACGCACTGGTTGATGCAATTGGTTTTGGTCAGATTGGTGTTTTTGAACGTCAGATTTGTCCGCTGGATAAAAGCCATGCACCGCTGGATCGTCTGCGTCATCTGGCACGTAATCTGATGGAACAGCATCATCAGGATCATTTCAAACACATACGGGTTTTTATTCAGATCCTGATGACCGCCAAACAGGATATGAAATGTGGCGATTATTACAAAAGCGTGATTGCAAAACTGCTGGCCGAAATTATTCGTGATGGTGTTGAAGCAGGTCTGTATATTGCAACCGATATTCCGGTTCTGGCAGAAACCGTTCTGCATGCACTGACCAGCGTTATTCATCCGGTTCTGATTGCACAAGAAGATATTGGTAATCTGGCAACCCGTTGTGATCAGCTGGTTGATCTGATTGATGCAGGTCTGCGTAATCCGCTGGCAAAATAATAA"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "L3S3P31",
+  "dnasequence": "CCAATTATTGAACACCCTAACGGGTGTTTTTTTTTTTTTGGTCTCCC"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pAmeR",
+  "dnasequence": "TCGTCACTAGAGGGCGATAGTGACAAACTTGACAACTCATCACTTCCTAGGTATAATGCTAGC"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "RiboJ51",
+  "dnasequence": "CTGAAGTAGTCACCGGCTGTGCTTGCCGGTCTGATGAGCCTGTGAAGGCGAAACTACCTCTACAAATAATTTTGTTTAA"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "H1",
+  "dnasequence": "ACCCCCGAG"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "HlyIIR",
+  "dnasequence": "ATGAAATACATCCTGTTTGAGGTGTGCGAAATGGGTAAAAGCCGTGAACAGACCATGGAAAATATTCTGAAAGCAGCCAAAAAGAAATTCGGCGAACGTGGTTATGAAGGCACCAGCATTCAAGAAATTACCAAAGAAGCCAAAGTTAACGTTGCAATGGCCAGCTATTACTTTAATGGCAAAGAGAACCTGTACTACGAGGTGTTCAAAAAATACGGTCTGGCAAATGAACTGCCGAACTTTCTGGAAAAAAACCAGTTTAATCCGATTAATGCCCTGCGTGAATATCTGACCGTTTTTACCACCCACATTAAAGAAAATCCGGAAATTGGCACCCTGGCCTATGAAGAAATTATCAAAGAAAGCGCACGCCTGGAAAAAATCAAACCGTATTTTATCGGCAGCTTCGAACAGCTGAAAGAAATTCTGCAAGAGGGTGAAAAACAGGGTGTGTTTCACTTTTTTAGCATCAACCATACCATCCATTGGATTACCAGCATTGTTCTGTTTCCGAAATTCAAAAAATTCATCGATAGCCTGGGTCCGAATGAAACCAATGATACCAATCATGAATGGATGCCGGAAGATCTGGTTAGCCGTATTATTAGCGCACTGACCGATAAACCGAACATTTAATAA"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "ECK120033736",
+  "dnasequence": "aacgcatgagAAAGCCCCCGGAAGATCACCTTCCGGGGGCTTTtttattgcgc"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pHlyIIR",
+  "dnasequence": "ACCAGGAATCTGAACgattcgttaccaattgccATATTTAAAATTCTTGTTTAAAatgctagc"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "RiboJ53",
+  "dnasequence": "CTGAAGCGGTCAACGCATGTGCTTTGCGTTCTGATGAGACAGTGATGTCGAAACCGCCTCTACAAATAATTTTGTTTAA"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "P1",
+  "dnasequence": "CTATGGACTATGTTTGAAAGGGAGAAATACTAG"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "PhlF",
+  "dnasequence": "ATGGCACGTACCCCGAGCCGTAGCAGCATTGGTAGCCTGCGTAGTCCGCATACCCATAAAGCAATTCTGACCAGCACCATTGAAATCCTGAAAGAATGTGGTTATAGCGGTCTGAGCATTGAAAGCGTTGCACGTCGTGCCGGTGCAAGCAAACCGACCATTTATCGTTGGTGGACCAATAAAGCAGCACTGATTGCCGAAGTGTATGAAAATGAAAGCGAACAGGTGCGTAAATTTCCGGATCTGGGTAGCTTTAAAGCCGATCTGGATTTTCTGCTGCGTAATCTGTGGAAAGTTTGGCGTGAAACCATTTGTGGTGAAGCATTTCGTTGTGTTATTGCAGAAGCACAGCTGGACCCTGCAACCCTGACCCAGCTGAAAGATCAGTTTATGGAACGTCGTCGTGAGATGCCGAAAAAACTGGTTGAAAATGCCATTAGCAATGGTGAACTGCCGAAAGATACCAATCGTGAACTGCTGCTGGATATGATTTTTGGTTTTTGTTGGTATCGCCTGCTGACCGAACAGCTGACCGTTGAACAGGATATTGAAGAATTTACCTTCCTGCTGATTAATGGTGTTTGTCCGGGTACACAGCGTTAATAA"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "ECK120033737",
+  "dnasequence": "GGAAACACAGAAAAAAGCCCGCACCTGACAGTGCGGGCTTTTTTTTTCGACCAAAGG"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pPhlF",
+  "dnasequence": "CGACGTACGGTGGAATCTGATTCGTTACCAATTGACATGATACGAAACGTACCGTATCGTTAAGGT"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "RiboJ53",
+  "dnasequence": "CTGAAGCGGTCAACGCATGTGCTTTGCGTTCTGATGAGACAGTGATGTCGAAACCGCCTCTACAAATAATTTTGTTTAA"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "P2",
+  "dnasequence": "GGAGCTATGGACTATGTTTGAAAGGCTGAAATACTAG"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "PhlF",
+  "dnasequence": "ATGGCACGTACCCCGAGCCGTAGCAGCATTGGTAGCCTGCGTAGTCCGCATACCCATAAAGCAATTCTGACCAGCACCATTGAAATCCTGAAAGAATGTGGTTATAGCGGTCTGAGCATTGAAAGCGTTGCACGTCGTGCCGGTGCAAGCAAACCGACCATTTATCGTTGGTGGACCAATAAAGCAGCACTGATTGCCGAAGTGTATGAAAATGAAAGCGAACAGGTGCGTAAATTTCCGGATCTGGGTAGCTTTAAAGCCGATCTGGATTTTCTGCTGCGTAATCTGTGGAAAGTTTGGCGTGAAACCATTTGTGGTGAAGCATTTCGTTGTGTTATTGCAGAAGCACAGCTGGACCCTGCAACCCTGACCCAGCTGAAAGATCAGTTTATGGAACGTCGTCGTGAGATGCCGAAAAAACTGGTTGAAAATGCCATTAGCAATGGTGAACTGCCGAAAGATACCAATCGTGAACTGCTGCTGGATATGATTTTTGGTTTTTGTTGGTATCGCCTGCTGACCGAACAGCTGACCGTTGAACAGGATATTGAAGAATTTACCTTCCTGCTGATTAATGGTGTTTGTCCGGGTACACAGCGTTAATAA"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "ECK120033737",
+  "dnasequence": "GGAAACACAGAAAAAAGCCCGCACCTGACAGTGCGGGCTTTTTTTTTCGACCAAAGG"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pPhlF",
+  "dnasequence": "CGACGTACGGTGGAATCTGATTCGTTACCAATTGACATGATACGAAACGTACCGTATCGTTAAGGT"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "RiboJ53",
+  "dnasequence": "CTGAAGCGGTCAACGCATGTGCTTTGCGTTCTGATGAGACAGTGATGTCGAAACCGCCTCTACAAATAATTTTGTTTAA"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "P3",
+  "dnasequence": "CTTTACGAGGGCGATCCT"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "PhlF",
+  "dnasequence": "ATGGCACGTACCCCGAGCCGTAGCAGCATTGGTAGCCTGCGTAGTCCGCATACCCATAAAGCAATTCTGACCAGCACCATTGAAATCCTGAAAGAATGTGGTTATAGCGGTCTGAGCATTGAAAGCGTTGCACGTCGTGCCGGTGCAAGCAAACCGACCATTTATCGTTGGTGGACCAATAAAGCAGCACTGATTGCCGAAGTGTATGAAAATGAAAGCGAACAGGTGCGTAAATTTCCGGATCTGGGTAGCTTTAAAGCCGATCTGGATTTTCTGCTGCGTAATCTGTGGAAAGTTTGGCGTGAAACCATTTGTGGTGAAGCATTTCGTTGTGTTATTGCAGAAGCACAGCTGGACCCTGCAACCCTGACCCAGCTGAAAGATCAGTTTATGGAACGTCGTCGTGAGATGCCGAAAAAACTGGTTGAAAATGCCATTAGCAATGGTGAACTGCCGAAAGATACCAATCGTGAACTGCTGCTGGATATGATTTTTGGTTTTTGTTGGTATCGCCTGCTGACCGAACAGCTGACCGTTGAACAGGATATTGAAGAATTTACCTTCCTGCTGATTAATGGTGTTTGTCCGGGTACACAGCGTTAATAA"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "ECK120033737",
+  "dnasequence": "ggaaacacagAAAAAAGCCCGCACCTGACAGTGCGGGCTTTTTTTTTcgaccaaagg"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pPhlF",
+  "dnasequence": "CGACGTACGGTGGAAtctgattcgttaccaattgacATGATACGAAACGTACCGTATCGTTAAGGT"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "RiboJ10",
+  "dnasequence": "CTGAAGCGCTCAACGGGTGTGCTTCCCGTTCTGATGAGTCCGTGAGGACGAAAGCGCCTCTACAAATAATTTTGTTTAA"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "S1",
+  "dnasequence": "GAGTCTATGGACTATGTTTTCACATATGAGATACCAGG"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "SrpR",
+  "dnasequence": "ATGGCACGTAAAACCGCAGCAGAAGCAGAAGAAACCCGTCAGCGTATTATTGATGCAGCACTGGAAGTTTTTGTTGCACAGGGTGTTAGTGATGCAACCCTGGATCAGATTGCACGTAAAGCCGGTGTTACCCGTGGTGCAGTTTATTGGCATTTTAATGGTAAACTGGAAGTTCTGCAGGCAGTTCTGGCAAGCCGTCAGCATCCGCTGGAACTGGATTTTACACCGGATCTGGGTATTGAACGTAGCTGGGAAGCAGTTGTTGTTGCAATGCTGGATGCAGTTCATAGTCCGCAGAGCAAACAGTTTAGCGAAATTCTGATTTATCAGGGTCTGGATGAAAGCGGTCTGATTCATAATCGTATGGTTCAGGCAAGCGATCGTTTTCTGCAGTATATTCATCAGGTTCTGCGTCATGCAGTTACCCAGGGTGAACTGCCGATTAATCTGGATCTGCAGACCAGCATTGGTGTTTTTAAAGGTCTGATTACCGGTCTGCTGTATGAAGGTCTGCGTAGCAAAGATCAGCAGGCACAGATTATCAAAGTTGCACTGGGTAGCTTTTGGGCACTGCTGCGTGAACCGCCTCGTTTTCTGCTGTGTGAAGAAGCACAGATTAAACAGGTGAAATCCTTCGAATAATAA"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "ECK120019600",
+  "dnasequence": "TTCAGCCAAAAAACTTAAGACCGCCGGTCTTGTCCACTACCTTGCAGTAATGCGGTGGACAGGATCGGCGGTTTTCTTTTCTCTTCTCAA"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pSrpR",
+  "dnasequence": "TCTATGATTGGTCCAgattcgttaccaattgacagctagctcagtcctaggtATATACATACATGCTTGTTTGTTTGTAAAC"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "RiboJ10",
+  "dnasequence": "CTGAAGCGCTCAACGGGTGTGCTTCCCGTTCTGATGAGTCCGTGAGGACGAAAGCGCCTCTACAAATAATTTTGTTTAA"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "S2",
+  "dnasequence": "CTATGGACTATGTTTTCACACAGGAAATACCAGG"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "SrpR",
+  "dnasequence": "ATGGCACGTAAAACCGCAGCAGAAGCAGAAGAAACCCGTCAGCGTATTATTGATGCAGCACTGGAAGTTTTTGTTGCACAGGGTGTTAGTGATGCAACCCTGGATCAGATTGCACGTAAAGCCGGTGTTACCCGTGGTGCAGTTTATTGGCATTTTAATGGTAAACTGGAAGTTCTGCAGGCAGTTCTGGCAAGCCGTCAGCATCCGCTGGAACTGGATTTTACACCGGATCTGGGTATTGAACGTAGCTGGGAAGCAGTTGTTGTTGCAATGCTGGATGCAGTTCATAGTCCGCAGAGCAAACAGTTTAGCGAAATTCTGATTTATCAGGGTCTGGATGAAAGCGGTCTGATTCATAATCGTATGGTTCAGGCAAGCGATCGTTTTCTGCAGTATATTCATCAGGTTCTGCGTCATGCAGTTACCCAGGGTGAACTGCCGATTAATCTGGATCTGCAGACCAGCATTGGTGTTTTTAAAGGTCTGATTACCGGTCTGCTGTATGAAGGTCTGCGTAGCAAAGATCAGCAGGCACAGATTATCAAAGTTGCACTGGGTAGCTTTTGGGCACTGCTGCGTGAACCGCCTCGTTTTCTGCTGTGTGAAGAAGCACAGATTAAACAGGTGAAATCCTTCGAATAATAA"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "ECK120029600",
+  "dnasequence": "TTCAGCCAAAAAACTTAAGACCGCCGGTCTTGTCCACTACCTTGCAGTAATGCGGTGGACAGGATCGGCGGTTTTCTTTTCTCTTCTCAA"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pSrpR",
+  "dnasequence": "TCTATGATTGGTCCAGATTCGTTACCAATTGACAGCTAGCTCAGTCCTAGGTATATACATACATGCTTGTTTGTTTGTAAAC"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "RiboJ10",
+  "dnasequence": "CTGAAGCGCTCAACGGGTGTGCTTCCCGTTCTGATGAGTCCGTGAGGACGAAAGCGCCTCTACAAATAATTTTGTTTAA"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "S3",
+  "dnasequence": "GAGTCTATGGACTATGTTTTCACAGAGGAGGTACCAGG"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "SrpR",
+  "dnasequence": "ATGGCACGTAAAACCGCAGCAGAAGCAGAAGAAACCCGTCAGCGTATTATTGATGCAGCACTGGAAGTTTTTGTTGCACAGGGTGTTAGTGATGCAACCCTGGATCAGATTGCACGTAAAGCCGGTGTTACCCGTGGTGCAGTTTATTGGCATTTTAATGGTAAACTGGAAGTTCTGCAGGCAGTTCTGGCAAGCCGTCAGCATCCGCTGGAACTGGATTTTACACCGGATCTGGGTATTGAACGTAGCTGGGAAGCAGTTGTTGTTGCAATGCTGGATGCAGTTCATAGTCCGCAGAGCAAACAGTTTAGCGAAATTCTGATTTATCAGGGTCTGGATGAAAGCGGTCTGATTCATAATCGTATGGTTCAGGCAAGCGATCGTTTTCTGCAGTATATTCATCAGGTTCTGCGTCATGCAGTTACCCAGGGTGAACTGCCGATTAATCTGGATCTGCAGACCAGCATTGGTGTTTTTAAAGGTCTGATTACCGGTCTGCTGTATGAAGGTCTGCGTAGCAAAGATCAGCAGGCACAGATTATCAAAGTTGCACTGGGTAGCTTTTGGGCACTGCTGCGTGAACCGCCTCGTTTTCTGCTGTGTGAAGAAGCACAGATTAAACAGGTGAAATCCTTCGAATAATAA"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "ECK120029600",
+  "dnasequence": "TTCAGCCAAAAAACTTAAGACCGCCGGTCTTGTCCACTACCTTGCAGTAATGCGGTGGACAGGATCGGCGGTTTTCTTTTCTCTTCTCAA"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pSrpR",
+  "dnasequence": "TCTATGATTGGTCCAGATTCGTTACCAATTGACAGCTAGCTCAGTCCTAGGTATATACATACATGCTTGTTTGTTTGTAAAC"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "RiboJ10",
+  "dnasequence": "CTGAAGCGCTCAACGGGTGTGCTTCCCGTTCTGATGAGTCCGTGAGGACGAAAGCGCCTCTACAAATAATTTTGTTTAA"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "S4",
+  "dnasequence": "GAGTCTATGGACTATGTTTTCACAAAGGAAGTACCAGG"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "SrpR",
+  "dnasequence": "ATGGCACGTAAAACCGCAGCAGAAGCAGAAGAAACCCGTCAGCGTATTATTGATGCAGCACTGGAAGTTTTTGTTGCACAGGGTGTTAGTGATGCAACCCTGGATCAGATTGCACGTAAAGCCGGTGTTACCCGTGGTGCAGTTTATTGGCATTTTAATGGTAAACTGGAAGTTCTGCAGGCAGTTCTGGCAAGCCGTCAGCATCCGCTGGAACTGGATTTTACACCGGATCTGGGTATTGAACGTAGCTGGGAAGCAGTTGTTGTTGCAATGCTGGATGCAGTTCATAGTCCGCAGAGCAAACAGTTTAGCGAAATTCTGATTTATCAGGGTCTGGATGAAAGCGGTCTGATTCATAATCGTATGGTTCAGGCAAGCGATCGTTTTCTGCAGTATATTCATCAGGTTCTGCGTCATGCAGTTACCCAGGGTGAACTGCCGATTAATCTGGATCTGCAGACCAGCATTGGTGTTTTTAAAGGTCTGATTACCGGTCTGCTGTATGAAGGTCTGCGTAGCAAAGATCAGCAGGCACAGATTATCAAAGTTGCACTGGGTAGCTTTTGGGCACTGCTGCGTGAACCGCCTCGTTTTCTGCTGTGTGAAGAAGCACAGATTAAACAGGTGAAATCCTTCGAATAATAA"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "ECK120029600",
+  "dnasequence": "TTCAGCCAAAAAACTTAAGACCGCCGGTCTTGTCCACTACCTTGCAGTAATGCGGTGGACAGGATCGGCGGTTTTCTTTTCTCTTCTCAA"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pSrpR",
+  "dnasequence": "TCTATGATTGGTCCAGATTCGTTACCAATTGACAGCTAGCTCAGTCCTAGGTATATACATACATGCTTGTTTGTTTGTAAAC"
+},
+{
+  "collection": "parts",
+  "type": "scar",
+  "name": "F-scar",
+  "dnasequence": "CGCT"
+},
+{
+  "collection": "parts",
+  "type": "scar",
+  "name": "E-scar",
+  "dnasequence": "GCTT"
+},
+{
+  "collection": "parts",
+  "type": "scar",
+  "name": "D-scar",
+  "dnasequence": "AGGT"
+},
+{
+  "collection": "parts",
+  "type": "scar",
+  "name": "C-scar",
+  "dnasequence": "AATG"
+},
+{
+  "collection": "parts",
+  "type": "scar",
+  "name": "B-scar",
+  "dnasequence": "TACG"
+},
+{
+  "collection": "parts",
+  "type": "scar",
+  "name": "A-scar",
+  "dnasequence": "GGAG"
+},
+{
+  "collection": "parts",
+  "type": "scar",
+  "name": "Y-scar",
+  "dnasequence": "ATTG"
+},
+{
+  "collection": "parts",
+  "type": "scar",
+  "name": "X-scar",
+  "dnasequence": "TGTC"
+},
+{
+  "collection": "parts",
+  "type": "scar",
+  "name": "V-scar",
+  "dnasequence": "TCTG"
+},
+{
+  "collection": "parts",
+  "type": "scar",
+  "name": "U-scar",
+  "dnasequence": "GGGC"
+},
+{
+  "collection": "parts",
+  "type": "scar",
+  "name": "R-scar",
+  "dnasequence": "GTAA"
+},
+{
+  "collection": "parts",
+  "type": "scar",
+  "name": "Q-scar",
+  "dnasequence": "GAGT"
+},
+{
+  "collection": "parts",
+  "type": "scar",
+  "name": "P-scar",
+  "dnasequence": "CCTA"
+},
+{
+  "collection": "parts",
+  "type": "scar",
+  "name": "O-scar",
+  "dnasequence": "ATGC"
+},
+{
+  "collection": "parts",
+  "type": "scar",
+  "name": "G-scar",
+  "dnasequence": "ATAG"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pSicA",
+  "dnasequence": "ccacaagaaacgaggtacggcattgagccgcgtaaggcagtagcgatgtattcattgggcgttttttgaatgttcactaaccaccgtcggggtttaataactgca"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "RiboH10",
+  "dnasequence": "AGTCCCGTTACCCGCAGCTGATGAGCCCCAAAAAGGGCGAAACCTATTAGGTCCTGCGGTACTGGGATcctctacaaataattttgtttaa"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "RBSforSicA",
+  "dnasequence": "ttgggctagcgaattcgagctcggtacctcacacaggaaaggcctcg"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "SicA",
+  "dnasequence": "atggattatcaaaataatgtcagcgaagaacgtgttgcggaaatgatttgggatgccgttagtgaaggcgccacgctaaaagacgttcatgggatccctcaagatatgatggacggtttatatgctcatgcttatgagttttataaccagggacgactggatgaagctgagacgttctttcgttacttatgcatttatgatttttacaatcccgattacaccatgggactggcggcagtatgccaactgaaaaaacaatttcagaaagcatgtgacctttatgcagtagcgtttacgttacttaaaaatgattatcgccccgttttttttaccgggcagtgtcaattattaatgcgtaaggcagcaaaagccagacagtgttttgaacttgtcaatgaacgtactgaagatgagtctctgcgggcaaaagcgttggtctatctggaggcgctaaaaacggcggagacagagcagcacagtgaacaagaaaaggaataa"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "BBa_B1006_U10",
+  "dnasequence": "AAAAAAAAACCCCGCCCCTGACAGGGCGGGGTTTTTTTTTT"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "RiboH11",
+  "dnasequence": "AGCCGCGTTACCAGCAGCTGATGAGCACCAAAAAGTGCGAAACCTATTAGGTCCTGCTGTACTGCGGTcctctacaaataattttgtttaa"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "RBSforInvF",
+  "dnasequence": "ggtcgagctcatcccgtcagcgttcctatggatggtacaact"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "InvF",
+  "dnasequence": "atgctaaatacgcaggaagtacttaaagaaggagagaagcggaaaatccgcagcccggaagcatggtttatacagacgtgttccgcgcaaaagctgcatatgtcattttctgaaagccgacacaatgaaaattgcctgattcaggaaggcgcgctgcttttttgcgagcaggccgttgtcgcaccagtatcaggcgacctggtttttcgaccgttaaaaattgaagtactcagcaaattactggcatttatcgatggcgcaggattagtggacacgacatatgctgaatccgataaatgggttttgctgagtcctgagtttcgcgctatttggcaagatcgtaaacgctgcgagtactggtttttgcagcaaattattacgccttctccggccttcaataaggtactggcgctgttacgaaaaagcgagagttactggttggttggctatttactcgctcagtcaaccagcggcaacacgatgagaatgctgggagaggactatggcgtttcttatacccattttcgtcgtttgtgcagcagagcgttgggcggaaaagcgaagagtgaattacgaaactggcgtatggcgcaatcgctgctgaatagtgtagaaggccacgagaacatcacccaattagccgttaatcatggttactcatcgccttcacatttttctagtgagatcaaagagctgatcggcgtttcgccgcggaaattatcaaatattattcaattggcagacaaatga"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "hismins",
+  "dnasequence": "GCCCCCGGAAGATCATTCCGGGGGCTTTTTTATT"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pExsC",
+  "dnasequence": "gatgtggcttttttcttaaaagaaaagtctctcagtgacaaaagcgatgcatagcccggtgctagcatgcgctgagcttt"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "RiboH12",
+  "dnasequence": "AGGCGCGTTACCCTCAGCTGATGAGCGCCAAAAAGCGCGAAACCTATTAGGTCCTGAGGTACTGCGCTcctctacaaataattttgtttaa"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "RBSforExsC",
+  "dnasequence": "tactagagtcagaattcgctttaggaggcgccccc"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "ExsC",
+  "dnasequence": "atggatttaacgagcaaggtcaaccgactgcttgccgagttcgcaggccgtatcggtttgccttccctgtccctcgacgaggagggcatggcgagcctcctgttcgacgaacaggtgggcgtcaccctgttgctgctcgccgagcgcgagcgtctgttgctggaggccgatgtggcgggcatcgatgtgctgggcgaggggatctttcgccagctcgccagcttcaaccgccattggcaccgtttcgatctgcatttcggcttcgacgagctgaccggcaaggtccagttgtatgcgcagattctcgcagcgcaactgaccctcgaatgcttcgaggcgaccttggccaatctgctcgatcacgccgagttctggcagcgcctgctgccgtgcgacagtgatcgcgaggcggtcgctgcggtcggcatgagggtttga"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "M13central",
+  "dnasequence": "GGCTCCTTTTGGAGCCTTTTTTTTT"
+},
+{
+  "collection": "parts",
+  "type": "ribozyme",
+  "name": "RiboH24",
+  "dnasequence": "AGCTTCGTTACCACAAGCTGATGAGATCCAAAAAGATCGAAACCTATTAGGTCCTTGTGTACTGAAGCCCTCTACAAATAATTTTGTTTAA"
+},
+{
+  "collection": "parts",
+  "type": "rbs",
+  "name": "RBSforExsDA",
+  "dnasequence": "acatatataaagcgcgcaatgtagtgaggaagccaaggcagaga"
+},
+{
+  "collection": "parts",
+  "type": "cds",
+  "name": "ExsDA",
+  "dnasequence": "atggagcaggaggacgataagcagtactcccgagaagcggtgttcgctggcaggcgggtatccgtggtgggctcggacgcccgctcgcggggtcgggtgccgggttacgcatcgagcagtttgtatcgtgagtccggaatcatcagtgcgcggcaactggcgttgctgcagcggatgctgccgcgcctgcggctggagcaactgttccgctgcgagtggttgcagcagcgcctggcgcgcggcctggcgctggggcgcgaagaggtgcggcagattctcctctgcgcggcgcaggacgacgacggctggtgctccgaactgggcgaccgggtcaacctcgccgtgccgcagtcgatgatcgactgggtcctgctgccggtctatggctggtgggaaagcctgctcgaccaggcgatccccggctggcgcctgtcgctggtggagctggaaacccagtcccggcaactgcgagtcaagtccgaattctggtcccgcgtggccgagctggagccggagcaggcccgcgaggaactggccagggtcgccaagtgccaggcgcgcacccaggaacaggtggccgaactggccggcaagctggagacggcttcggcactggcgaagagcgcctggccgaactggcagcggggcatggcgacgctgctcgccagcggcgggctggccggcttcgagccgatccccgaggtcctcgaatgcctctggcaacctctctgccggctggacgacgacgtcggcgcggcggacgccgtccaggcctggctgcacgaacgcaacctgtgccaggcacaggatcacttctactggcagagctgagcattcaaggtacgacgggaagtgttggggttcttataatatgcaaggagccaaatctcttggccgaaagcagataacgtcttgtcattggaacattccaactttcgaatacagggtaaacaaggaagagggcgtatatgttctgctcgagggcgaactgaccgtccaggacatcgattccactttttgcctggcgcctggcgagttgcttttcgtccgccgcggaagctatgtcgtaagtaccaagggaaaggacagccgaatactctggattccattatctgcccagtttctacaaggcttcgtccagcgcttcggcgcgctgttgagtgaagtcgagcgttgcgacgagcccgtgccgggcatcatcgcgttcgctgccacgcctctgctggccggttgcgtcaaggggttgaaggaattgcttgtgcatgagcatccgccgatgctcgcctgcctgaagatcgaggagttgctgatgctcttcgcgttcagtccgcaggggccgctgctgatgtcggtcctgcggcaactgagcaaccggcatgtcgagcgtctgcagctattcatggagaagcactacctcaacgagtggaagctgtccgacttctcccgcgagttcggcatggggctgaccaccttcaaggagctgttcggcagtgtctatggggtttcgccgcgcgcctggatcagcgagcggagaatcctctatgcccatcagttgctgctcaacagcgacatgagcatcgtcgacatcgccatggaggcgggcttttccagtcagtcctatttcacccagagctatcgccgccgtttcggctgcacgccgagccgctcgcggcaggggaaggacgaatgccgggctaaaaataactga"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "ilvGEDA",
+  "dnasequence": "TAGAGATCAAGCCTTAACGAACTAAGACCCCCGCACCGAAAGGTCCGGGGGTTTTTTTTGACCTTAAAAACATAACCGAGGAGCAGACA"
+}
+]

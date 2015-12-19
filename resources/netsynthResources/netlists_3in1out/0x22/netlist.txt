@@ -1,0 +1,2 @@
+NOT(0Wire1880,in2)
+NOR(out,0Wire1880,in3)

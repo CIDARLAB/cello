@@ -1,0 +1,44 @@
+PartType Promoter;
+PartType CDS;
+PartType Terminator;
+
+Promoter p1;
+Promoter p2;
+Promoter p3;
+CDS c1;
+CDS c2;
+CDS c3;
+Terminator t1;
+Terminator t2;
+Terminator t3;
+
+Device gate1(p1, c1, t1);
+Device gate2(p2, c2, t2);
+Device gate3(p3, c3, t3);
+
+Device circuit(
+    gate1,
+    gate2,
+    gate3
+);
+
+Rule circuit_rules(ON circuit:
+    gate1 exactly 1 AND
+    gate2 exactly 1 AND
+    gate3 exactly 1
+
+
+    ///////////  Adding this PartType rule does not work.
+    AND
+
+    //works
+    NOT gate1 nextto gate2
+
+    //doesn't work
+    //NOT Terminator NEXTTO Promoter
+
+    //doesn't work
+    //NOT t1 nextto p2
+);
+
+result = permute(circuit);

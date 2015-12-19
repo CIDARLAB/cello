@@ -1,0 +1,11 @@
+.classpath
+.project
+.settings/
+*.class
+/target/
+/.idea/*
+/resources/derbydb2/*
+derby.log
+*.iml
+/exports/
+/bin/

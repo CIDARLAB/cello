@@ -1,0 +1,249 @@
+[
+{
+  "collection": "header",
+  "description": "LacI and TetR for IWBDA AND4 demo",
+  "version": "v1",
+  "date": "Wed Aug 19 12:24:19 EDT 2015",
+  "author": [
+    "Bryan Der"
+  ],
+  "organism": "Escherichia coli",
+  "genome": "",
+  "media": "",
+  "temperature": "37",
+  "growth": ""
+},
+{
+  "collection": "measurement_std",
+  "signal_carrier_units": "REU",
+  "normalization_instructions": "",
+  "plasmid_description": "",
+  "plasmid_sequence": ""
+},
+{
+  "collection": "logic_constraints",
+  "available_gates": [
+    {
+      "type": "NOT",
+      "max_instances": 2
+    }
+  ]
+},
+{
+  "collection": "gates",
+  "regulator": "LacI",
+  "inducer": "IPTG",
+  "group_name": "LacI",
+  "gate_name": "const_LacI",
+  "gate_type": "NOT",
+  "system": "sensor"
+},
+{
+  "collection": "gates",
+  "regulator": "TetR",
+  "inducer": "aTc",
+  "group_name": "TetR",
+  "gate_name": "const_TetR",
+  "gate_type": "NOT",
+  "system": "sensor"
+},
+{
+  "collection": "response_functions",
+  "gate_name": "const_LacI",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 5.27540867
+    },
+    {
+      "name": "ymin",
+      "value": 0.0116915423
+    },
+    {
+      "name": "K",
+      "value": 0.213145414
+    },
+    {
+      "name": "n",
+      "value": 1.661943472
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "const_TetR",
+  "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+  "variables": [
+    {
+      "name": "x"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "ymax",
+      "value": 8.9257285
+    },
+    {
+      "name": "ymin",
+      "value": 0.008315565
+    },
+    {
+      "name": "K",
+      "value": 0.960097246
+    },
+    {
+      "name": "n",
+      "value": 5.418426561
+    }
+  ]
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "const_LacI",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "rbs_LacI",
+        "LacI",
+        "terminator_LacI"
+      ]
+    }
+  ],
+  "promoter": "pLac"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "const_TetR",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "rbs_TetR",
+        "TetR",
+        "terminator_TetR"
+      ]
+    }
+  ],
+  "promoter": "pTet"
+},
+{
+  "collection": "parts",
+  "name": "rbs_LacI",
+  "type": "rbs",
+  "dnasequence": "aaagaggagaaa"
+},
+{
+  "collection": "parts",
+  "name": "LacI",
+  "type": "cds",
+  "dnasequence": "gtgaaaccagtaacgttatacgatgtcgcagagtatgccggtgtctcttatcagaccgtttcccgcgtggtgaaccaggccagccacgtttctgcgaaaacgcgggaaaaagtggaagcggcgatggcggagctgaattacattcccaaccgcgtggcacaacaactggcgggcaaacagtcgttgctgattggcgttgccacctccagtctggccctgcacgcgccgtcgcaaattgtcgcggcgattaaatctcgcgccgatcaactgggtgccagcgtggtggtgtcgatggtagaacgaagcggcgtcgaagcctgtaaagcggcggtgcacaatcttctcgcgcaacgcgtcagtgggctgatcattaactatccgctggatgaccaggatgccattgctgtggaagctgcctgcactaatgttccggcgttatttcttgatgtctctgaccagacacccatcaacagtattattttctcccatgaagacggtacgcgactgggcgtggagcatctggtcgcattgggtcaccagcaaatcgcgctgttagcgggcccattaagttctgtctcggcgcgtctgcgtctggctggctggcataaatatctcactcgcaatcaaattcagccgatagcggaacgggaaggcgactggagtgccatgtccggttttcaacaaaccatgcaaatgctgaatgagggcatcgttcccactgcgatgctggttgccaacgatcagatggcgctgggcgcaatgcgcgccattaccgagtccgggctgcgcgttggtgcggatatctcggtagtgggatacgacgataccgaagacagctcatgttatatcccgccgttaaccaccatcaaacaggattttcgcctgctggggcaaaccagcgtggaccgcttgctgcaactctctcagggccaggcggtgaagggcaatcagctgttgcccgtctcactggtgaaaagaaaaaccaccctggcgcccaatacgcaaaccgcctctccccgcgcgttggccgattcattaatgcagctggcacgacaggtttcccgactggaaagcgggcagtga"
+},
+{
+  "collection": "parts",
+  "name": "terminator_LacI",
+  "type": "terminator",
+  "dnasequence": "CTCGGTACCAAATTCCAGAAAAGAGGCCTCCCGAAAGGGGGGCCTTTTTTCGTTTTGGTCC"
+},
+{
+  "collection": "parts",
+  "name": "pLac",
+  "type": "promoter",
+  "dnasequence": "AACGATCGTTGGCTGTGTTGACAATTAATCATCGGCTCGTATAATGTGTGGAATTGTGAGCGCTCACAATT"
+},
+{
+  "collection": "parts",
+  "name": "rbs_TetR",
+  "type": "rbs",
+  "dnasequence": "aaagaggagaaa"
+},
+{
+  "collection": "parts",
+  "name": "TetR",
+  "type": "cds",
+  "dnasequence": "atgtccagattagataaaagtaaagtgattaacagcgcattagagctgcttaatgaggtcggaatcgaaggtttaacaacccgtaaactcgcccagaagctaggtgtagagcagcctacattgtattggcatgtaaaaaataagcgggctttgctcgacgccttagccattgagatgttagataggcaccatactcacttttgccctttagaaggggaaagctggcaagattttttacgtaataacgctaaaagttttagatgtgctttactaagtcatcgcgatggagcaaaagtacatttaggtacacggcctacagaaaaacagtatgaaactctcgaaaatcaattagcctttttatgccaacaaggtttttcactagagaatgcattatatgcactcagcgctgtggggcattttactttaggttgcgtattggaagatcaagagcatcaagtcgctaaagaagaaagggaaacacctactactgatagtatgccgccattattacgacaagctatcgaattatttgatcaccaaggtgcagagccagccttcttattcggccttgaattgatcatatgcggattagaaaaacaacttaaatgtgaaagtgggtcctaa"
+},
+{
+  "collection": "parts",
+  "name": "terminator_TetR",
+  "type": "terminator",
+  "dnasequence": "CTCGGTACCAAATTCCAGAAAAGAGGCCTCCCGAAAGGGGGGCCTTTTTTCGTTTTGGTCC"
+},
+{
+  "collection": "parts",
+  "name": "pTet",
+  "type": "promoter",
+  "dnasequence": "TACTCCACCGTTGGCTTTTTTCCCTATCAGTGATAGAGATTGACATCCCTATCAGTGATAGAGATAATGAGCAC"
+},
+{
+  "collection": "parts",
+  "name": "rbs_mxiE",
+  "type": "rbs",
+  "dnasequence": "cctaactggagtagatggg"
+},
+{
+  "collection": "parts",
+  "name": "mxiE",
+  "type": "cds",
+  "dnasequence": "atgagtaaatataaaggcctgaacaccagcaacatgttctacatctacagctctggtcatgaaccggtgaacgttgaactggtgaaagataaagaacgtaacatcatcgaactggcaccggcgtggaaaggctttttctttgtgcgtaaccagaacatcaaattcagcgataacgttaactaccactaccgcttcaacatcaactcttgcgcaaaattcctggcgttttgggattattttagcggcgccctggttgaacattctcacgcagaaaaatgcatccatttctaccacgaaaacgatctgcgtgatagctgtaatacggaatctatgctggataaactgatgctgcgcttcatttttagtagcgatcagaacgtgtctaatgccctggcaatgatccgtatgaccgaaagttatcatctggttctgtacctgctgcgtacgattgaaaaagaaaaagaagtgcgcatcaaaagcctgaccgaacactatggcgtttctgaagcgtactttcgtagtctgtgtcgcaaagcgctgggtgccaaagtgaaagaacagctgaacacgtggcgcctggtgaatggcctgctggatgttttcctgcataaccagaccattacgagcgcggccatgaacaatggttatgcgtctaccagtcacttcagcaatgaaattaaaacgcgtctgggctttagtgcccgcgaactgagcaacatcaccttcctggtgaagaaaattaatgaaaaaatctaa"
+},
+{
+  "collection": "parts",
+  "name": "terminator_mxiE",
+  "type": "terminator",
+  "dnasequence": "GCCCCCGGAAGATCATTCCGGGGGCTTTTTTATT"
+},
+{
+  "collection": "parts",
+  "name": "rbs_exsD",
+  "type": "rbs",
+  "dnasequence": "acatatataaagcgcgcaatgtagtgaggaagccaaggcagaga"
+},
+{
+  "collection": "parts",
+  "name": "exsD",
+  "type": "cds",
+  "dnasequence": "atggagcaggaagacgataagcagtactcccgagaagcggtgttcgctggcaggcgggtatccgtggtgggctcggacgcccgctcgcggggtcgggtgccgggttacgcatcgagcagtttgtatcgtgagtccggaatcatcagtgcgcggcaactggcgttgctgcagcggatgctgccgcgcctgcggctggagcaactgttccgctgcgagtggttgcagcagcgcctggcgcgcggcctggcgctggggcgcgaagaggtgcggcagattctcctctgcgcggcgcaggacgacgacggctggtgctccgaactgggcgaccgggtcaacctcgccgtgccgcagtcgatgatcgactgggtcctgctgccggtctatggctggtgggaaagcctgctcgaccaggcgatccccggctggcgcctgtcgctggtggagctggagacccagtcccggcaactgcgagtcaagtccgaattctggtcccgcgtggccgagctggagccggagcaggcccgcgaggaactggccagggtcgccaagtgccaggcgcgcacccaggaacaggtggccgaactggccggcaagctggagacggcttcggcactggcgaagagcgcctggccgaactggcagcggggcatggcgacgctgctcgccagcggcgggctggccggcttcgagccgatccccgaggtcctcgaatgcctctggcaacctctctgccggctggacgacgacgtcggcgcggcggacgccgtccaggcctggctgcacgaacgcaacctgtgccaggcacaggatcacttctactggcagagctga"
+},
+{
+  "collection": "parts",
+  "name": "rbs_exsA",
+  "type": "rbs",
+  "dnasequence": "acatatataaagcgcgcaatgtagtgaggaagccaaggcagaga"
+},
+{
+  "collection": "parts",
+  "name": "exsA",
+  "type": "cds",
+  "dnasequence": "atgcaaggagccaaatctcttggccgaaagcagataacgtcttgtcattggaacattccaactttcgaatacagggtaaacaaggaagagggcgtatatgttctgctcgagggcgaactgaccgtccaggacatcgattccactttttgcctggcgcctggcgagttgcttttcgtccgccgcggaagctatgtcgtaagtaccaagggaaaggacagccgaatactctggattccattatctgcccagtttctacaaggcttcgtccagcgcttcggcgcgctgttgagtgaagtcgagcgttgcgacgagcccgtgccgggcatcatcgcgttcgctgccacgcctctgctggccggttgcgtcaaggggttgaaggaattgcttgtgcatgagcatccgccgatgctcgcctgcctgaagatcgaggagttgctgatgctcttcgcgttcagtccgcaggggccgctgctgatgtcggtcctgcggcaactgagcaaccggcatgtcgagcgtctgcagctattcatggagaagcactacctcaacgagtggaagctgtccgacttctcccgcgagttcggcatggggctgaccaccttcaagga"
+},
+{
+  "collection": "parts",
+  "name": "terminator_exsDA",
+  "type": "terminator",
+  "dnasequence": "TAGAGATCAAGCCTTAACGAACTAAGACCCCCGCACCGAAAGGTCCGGGGGTTTTTTTTGACCTTAAAAACATAACCGAGGAGCAGACA"
+},
+{
+  "collection": "parts",
+  "name": "pconst",
+  "type": "promoter",
+  "dnasequence": "GATAAGTCCCTAACTTTTACAGCTAGCTCAGTCCTAGGTATTATGCTAGC"
+},
+{
+  "collection": "eugene_rules",
+  "eugene_part_rules": [],
+  "eugene_gate_rules": [
+    "ALL_FORWARD",
+    "gate_mxiE AFTER gate_TetR",
+    "gate_mxiE AFTER gate_LacI",
+    "gate_exsDA AFTER gate_TetR",
+    "gate_exsDA AFTER gate_LacI"
+  ]
+}
+]

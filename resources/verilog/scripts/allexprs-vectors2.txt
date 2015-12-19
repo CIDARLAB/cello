@@ -1,0 +1,768 @@
+0
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) 
+0
+( ( ( ( a * 0 ) * ( b * 0 ) ) * 0 ) * ( c * 0 ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) p(c) p(0) r g(6) t  p(7) p(0) r g(3) t  p(3) p(6) r xFP t  
+1
+( ( ( ( a * 0 ) * ( b * 0 ) ) * 0 ) * c )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) blank(6) p(7) p(0) r g(3) t  p(3) p(c) r xFP t  
+2
+( ( a * 0 ) * ( b * 0 ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) p(1) p(4) r xFP t  
+3
+( ( ( ( a * 0 ) * ( b * c ) ) * 0 ) * b )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(4) p(0) r g(2) t  blank(6) blank(3) p(2) p(b) r xFP t  
+4
+( ( a * 0 ) * ( c * 0 ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) p(c) p(0) r g(6) t  blank(3) p(1) p(6) r xFP t  
+5
+( ( ( ( a * 0 ) * b ) * ( ( a * 0 ) * c ) ) * ( b * c ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  p(b) p(c) r g(5) t  p(8) p(6) r g(2) t  p(1) p(c) r g(6) t  blank(3) p(2) p(5) r xFP t  
+6
+( ( a * 0 ) * ( b * c ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) blank(6) blank(3) p(1) p(5) r xFP t  
+7
+( ( ( a * 0 ) * ( b * c ) ) * ( a * 0 ) )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) blank(6) blank(3) p(4) p(1) r xFP t  
+8
+( ( ( ( b * 0 ) * ( c * 0 ) ) * ( b * c ) ) * ( a * 0 ) )
+blank(9) p(4) p(6) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(7) p(5) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(2) p(1) r xFP t  
+9
+( ( a * 0 ) * c )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) p(1) p(c) r xFP t  
+A
+( ( ( b * c ) * b ) * ( a * 0 ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) p(5) p(b) r g(6) t  blank(3) p(6) p(1) r xFP t  
+B
+( ( a * 0 ) * b )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) p(1) p(b) r xFP t  
+C
+( ( ( b * 0 ) * c ) * ( a * 0 ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(4) p(c) r g(5) t  blank(2) blank(6) blank(3) p(5) p(1) r xFP t  
+D
+( ( ( b * 0 ) * ( c * 0 ) ) * ( a * 0 ) )
+blank(9) p(4) p(6) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) p(c) p(0) r g(6) t  blank(3) p(7) p(1) r xFP t  
+E
+a
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) 
+F
+( ( ( ( a * b ) * ( a * c ) ) * 0 ) * a )
+blank(9) blank(7) p(1) p(0) r g(4) t  p(2) p(3) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(4) p(a) r xFP t  
+10
+( ( b * 0 ) * ( c * 0 ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) blank(5) blank(2) p(c) p(0) r g(6) t  blank(3) p(4) p(6) r xFP t  
+11
+( ( ( ( a * c ) * a ) * ( ( a * c ) * c ) ) * ( b * 0 ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  p(3) p(a) r g(1) t  blank(10) blank(8) blank(5) p(3) p(c) r g(2) t  p(1) p(2) r g(6) t  p(a) p(c) r g(3) t  p(6) p(4) r xFP t  
+12
+( ( a * c ) * ( b * 0 ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) p(a) p(c) r g(3) t  p(3) p(4) r xFP t  
+13
+( ( ( ( a * b ) * a ) * ( ( a * b ) * b ) ) * ( c * 0 ) )
+blank(9) blank(7) blank(4) p(2) p(a) r g(1) t  blank(10) blank(8) p(1) p(3) r g(5) t  p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  p(2) p(b) r g(3) t  p(5) p(6) r xFP t  
+14
+( ( a * b ) * ( c * 0 ) )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(2) p(6) r xFP t  
+15
+( ( ( ( ( a * 0 ) * b ) * ( a * 0 ) ) * c ) * ( ( ( ( a * 0 ) * ( c * 0 ) ) * ( a * b ) ) * ( ( a * 0 ) * b ) ) )
+p(3) p(8) r g(9) t  p(1) p(6) r g(7) t  p(8) p(1) r g(4) t  p(a) p(0) r g(1) t  p(4) p(c) r g(10) t  p(1) p(b) r g(8) t  blank(5) p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  p(7) p(2) r g(3) t  p(10) p(9) r xFP t  
+16
+( ( ( ( ( a * b ) * c ) * ( a * b ) ) * a ) * ( ( ( ( a * b ) * c ) * ( a * b ) ) * b ) )
+blank(9) blank(7) p(1) p(a) r g(4) t  p(5) p(2) r g(1) t  blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(1) p(b) r g(3) t  p(4) p(3) r xFP t  
+17
+( ( ( ( a * b ) * a ) * ( b * c ) ) * ( a * c ) )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(2) p(a) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(4) p(3) r xFP t  
+18
+( ( ( ( a * 0 ) * b ) * c ) * ( ( ( a * 0 ) * c ) * b ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  blank(5) p(8) p(c) r g(2) t  p(1) p(c) r g(6) t  p(6) p(b) r g(3) t  p(2) p(3) r xFP t  
+19
+( ( ( ( a * c ) * a ) * ( ( a * c ) * c ) ) * ( ( ( a * c ) * c ) * b ) )
+blank(9) blank(7) blank(4) p(3) p(a) r g(1) t  blank(10) blank(8) p(2) p(b) r g(5) t  p(3) p(c) r g(2) t  p(1) p(2) r g(6) t  p(a) p(c) r g(3) t  p(6) p(5) r xFP t  
+1A
+( ( ( b * c ) * b ) * ( a * c ) )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) p(5) p(b) r g(6) t  p(a) p(c) r g(3) t  p(6) p(3) r xFP t  
+1B
+( ( ( ( a * b ) * a ) * ( ( a * b ) * b ) ) * ( ( ( a * b ) * b ) * c ) )
+blank(9) blank(7) blank(4) p(2) p(a) r g(1) t  blank(10) blank(8) p(1) p(3) r g(5) t  p(a) p(b) r g(2) t  p(3) p(c) r g(6) t  p(2) p(b) r g(3) t  p(5) p(6) r xFP t  
+1C
+( ( ( b * 0 ) * c ) * ( a * b ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) p(4) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) blank(3) p(5) p(2) r xFP t  
+1D
+( ( ( ( ( b * 0 ) * ( c * 0 ) ) * ( a * 0 ) ) * ( a * 0 ) ) * ( ( ( ( b * 0 ) * ( c * 0 ) ) * ( a * 0 ) ) * ( ( b * 0 ) * ( c * 0 ) ) ) )
+blank(9) p(4) p(6) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(2) p(1) r g(8) t  p(2) p(7) r g(5) t  p(7) p(1) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(8) p(5) r xFP t  
+1E
+( ( a * b ) * ( a * c ) )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(2) p(3) r xFP t  
+1F
+( ( ( a * b ) * ( a * c ) ) * ( a * b ) )
+blank(9) blank(7) blank(4) p(2) p(3) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(1) p(2) r xFP t  
+20
+( ( ( ( a * 0 ) * ( c * 0 ) ) * ( a * c ) ) * ( b * 0 ) )
+blank(9) p(1) p(6) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) p(7) p(3) r g(2) t  p(c) p(0) r g(6) t  p(a) p(c) r g(3) t  p(2) p(4) r xFP t  
+21
+( ( b * 0 ) * c )
+blank(9) blank(7) p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) p(4) p(c) r xFP t  
+22
+( ( ( a * c ) * a ) * ( b * 0 ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  p(3) p(a) r g(1) t  blank(10) blank(8) blank(5) blank(2) blank(6) p(a) p(c) r g(3) t  p(1) p(4) r xFP t  
+23
+( ( ( ( a * 0 ) * b ) * ( a * c ) ) * ( b * c ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  p(b) p(c) r g(5) t  p(8) p(3) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(2) p(5) r xFP t  
+24
+( ( ( ( a * b ) * a ) * c ) * ( ( ( a * b ) * c ) * a ) )
+blank(9) blank(7) p(1) p(c) r g(4) t  p(2) p(a) r g(1) t  blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(5) p(a) r g(3) t  p(4) p(3) r xFP t  
+25
+( ( ( ( b * c ) * b ) * ( ( b * c ) * c ) ) * ( ( ( b * c ) * c ) * a ) )
+blank(9) blank(7) blank(4) p(6) p(3) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(3) p(a) r g(2) t  p(5) p(b) r g(6) t  p(5) p(c) r g(3) t  p(1) p(2) r xFP t  
+26
+( ( ( a * c ) * a ) * ( b * c ) )
+blank(9) blank(7) blank(4) p(3) p(a) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) blank(6) p(a) p(c) r g(3) t  p(1) p(5) r xFP t  
+27
+( ( ( a * c ) * ( b * c ) ) * ( a * b ) )
+blank(9) blank(7) p(3) p(5) r g(4) t  blank(1) blank(10) blank(8) p(b) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(4) p(2) r xFP t  
+28
+( ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( a * b ) ) * c ) * ( ( ( ( a * 0 ) * ( b * 0 ) ) * c ) * ( ( a * 0 ) * ( b * 0 ) ) ) )
+p(7) p(2) r g(9) t  p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  p(9) p(c) r g(10) t  blank(8) blank(5) p(a) p(b) r g(2) t  p(3) p(7) r g(6) t  p(7) p(c) r g(3) t  p(10) p(6) r xFP t  
+29
+( ( a * b ) * c )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) blank(3) p(2) p(c) r xFP t  
+2A
+( ( ( ( a * b ) * c ) * a ) * ( ( ( a * b ) * c ) * b ) )
+blank(9) blank(7) blank(4) p(5) p(b) r g(1) t  blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(5) p(a) r g(3) t  p(3) p(1) r xFP t  
+2B
+( ( ( a * c ) * ( b * 0 ) ) * ( a * b ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  p(3) p(4) r g(6) t  p(a) p(c) r g(3) t  p(6) p(2) r xFP t  
+2C
+( ( ( ( ( b * 0 ) * c ) * ( a * 0 ) ) * ( a * 0 ) ) * ( ( ( ( b * 0 ) * c ) * ( a * 0 ) ) * ( ( b * 0 ) * c ) ) )
+blank(9) p(2) p(5) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(4) p(c) r g(5) t  p(5) p(1) r g(2) t  p(2) p(1) r g(6) t  blank(3) p(6) p(7) r xFP t  
+2D
+( ( ( b * 0 ) * ( c * 0 ) ) * ( a * b ) )
+blank(9) p(4) p(6) r g(7) t  p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(7) p(2) r xFP t  
+2E
+( ( ( a * c ) * a ) * ( a * b ) )
+blank(9) blank(7) blank(4) p(3) p(a) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(1) p(2) r xFP t  
+2F
+( ( a * b ) * a )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) blank(3) p(2) p(a) r xFP t  
+30
+( ( ( a * 0 ) * c ) * ( b * 0 ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) p(1) p(c) r g(6) t  blank(3) p(6) p(4) r xFP t  
+31
+( ( ( a * 0 ) * ( c * 0 ) ) * ( b * 0 ) )
+blank(9) p(1) p(6) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) p(c) p(0) r g(6) t  blank(3) p(7) p(4) r xFP t  
+32
+b
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) 
+33
+( ( ( ( a * b ) * a ) * ( ( a * b ) * b ) ) * ( ( ( a * b ) * a ) * c ) )
+blank(9) blank(7) p(1) p(c) r g(4) t  p(2) p(a) r g(1) t  blank(10) blank(8) p(1) p(3) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(2) p(b) r g(3) t  p(5) p(4) r xFP t  
+34
+( ( ( a * 0 ) * c ) * ( a * b ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  p(1) p(c) r g(6) t  blank(3) p(6) p(2) r xFP t  
+35
+( ( ( ( ( a * 0 ) * ( c * 0 ) ) * ( b * 0 ) ) * ( b * 0 ) ) * ( ( ( ( a * 0 ) * ( c * 0 ) ) * ( b * 0 ) ) * ( ( a * 0 ) * ( c * 0 ) ) ) )
+blank(9) p(1) p(6) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(2) p(7) r g(8) t  blank(5) p(7) p(4) r g(2) t  p(c) p(0) r g(6) t  p(2) p(4) r g(3) t  p(3) p(8) r xFP t  
+36
+( ( a * b ) * ( b * c ) )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) p(b) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) blank(3) p(2) p(5) r xFP t  
+37
+( ( ( a * 0 ) * ( b * c ) ) * ( a * b ) )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) blank(3) p(4) p(2) r xFP t  
+38
+( ( ( ( ( a * 0 ) * c ) * ( b * 0 ) ) * ( b * 0 ) ) * ( ( ( ( a * 0 ) * c ) * ( b * 0 ) ) * ( ( a * 0 ) * c ) ) )
+blank(9) p(2) p(6) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) p(6) p(4) r g(2) t  p(1) p(c) r g(6) t  p(2) p(4) r g(3) t  p(3) p(7) r xFP t  
+39
+( ( ( a * 0 ) * ( c * 0 ) ) * ( a * b ) )
+blank(9) p(1) p(6) r g(7) t  blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(7) p(2) r xFP t  
+3A
+( ( ( b * c ) * b ) * ( a * b ) )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) p(b) p(c) r g(5) t  p(a) p(b) r g(2) t  p(5) p(b) r g(6) t  blank(3) p(6) p(2) r xFP t  
+3B
+( ( ( a * 0 ) * ( b * 0 ) ) * ( a * b ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) blank(3) p(7) p(2) r xFP t  
+3C
+( ( ( ( ( a * 0 ) * c ) * ( b * 0 ) ) * a ) * ( ( ( ( a * 0 ) * c ) * ( b * 0 ) ) * ( b * 0 ) ) )
+blank(9) p(2) p(a) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) p(6) p(4) r g(2) t  p(1) p(c) r g(6) t  p(2) p(4) r g(3) t  p(7) p(3) r xFP t  
+3D
+( ( ( ( ( a * 0 ) * ( c * 0 ) ) * ( b * 0 ) ) * a ) * ( ( ( ( a * 0 ) * ( c * 0 ) ) * ( b * 0 ) ) * ( b * 0 ) ) )
+blank(9) p(1) p(6) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(2) p(a) r g(5) t  p(7) p(4) r g(2) t  p(c) p(0) r g(6) t  p(2) p(4) r g(3) t  p(5) p(3) r xFP t  
+3E
+( ( a * b ) * 0 )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) blank(3) p(2) p(0) r xFP t  
+3F
+( ( ( a * b ) * 0 ) * ( a * c ) )
+blank(9) blank(7) blank(4) p(2) p(0) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(1) p(3) r xFP t  
+40
+( ( ( ( a * 0 ) * ( b * 0 ) ) * ( a * b ) ) * ( c * 0 ) )
+p(7) p(2) r g(9) t  p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(9) p(6) r xFP t  
+41
+( ( ( ( a * 0 ) * c ) * ( a * b ) ) * ( b * c ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(a) p(b) r g(2) t  p(1) p(c) r g(6) t  p(6) p(2) r g(3) t  p(3) p(5) r xFP t  
+42
+( ( ( ( a * c ) * a ) * b ) * ( ( ( a * c ) * b ) * a ) )
+blank(9) blank(7) p(3) p(b) r g(4) t  p(3) p(a) r g(1) t  blank(10) blank(8) p(1) p(b) r g(5) t  p(4) p(a) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(5) p(2) r xFP t  
+43
+( ( b * c ) * b )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) blank(6) blank(3) p(5) p(b) r xFP t  
+44
+( ( ( a * b ) * a ) * ( c * 0 ) )
+blank(9) blank(7) blank(4) p(2) p(a) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(1) p(6) r xFP t  
+45
+( ( ( ( b * c ) * b ) * ( ( b * c ) * c ) ) * ( ( ( b * c ) * b ) * a ) )
+blank(9) blank(7) blank(4) p(6) p(3) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(6) p(a) r g(2) t  p(5) p(b) r g(6) t  p(5) p(c) r g(3) t  p(1) p(2) r xFP t  
+46
+( ( ( a * b ) * a ) * ( b * c ) )
+blank(9) blank(7) blank(4) p(2) p(a) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) blank(3) p(1) p(5) r xFP t  
+47
+( ( ( a * b ) * ( b * c ) ) * ( a * c ) )
+blank(9) blank(7) blank(4) p(2) p(5) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(1) p(3) r xFP t  
+48
+( ( ( ( ( a * 0 ) * ( c * 0 ) ) * ( a * c ) ) * b ) * ( ( ( ( a * 0 ) * ( c * 0 ) ) * b ) * ( ( a * 0 ) * ( c * 0 ) ) ) )
+blank(9) p(1) p(6) r g(7) t  p(7) p(b) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(2) p(b) r g(8) t  p(4) p(7) r g(5) t  p(7) p(3) r g(2) t  p(c) p(0) r g(6) t  p(a) p(c) r g(3) t  p(8) p(5) r xFP t  
+49
+( ( ( a * b ) * ( c * 0 ) ) * ( a * c ) )
+blank(9) blank(7) blank(4) blank(1) blank(10) p(2) p(6) r g(8) t  blank(5) p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  p(a) p(c) r g(3) t  p(8) p(3) r xFP t  
+4A
+( ( ( ( ( b * c ) * b ) * ( a * 0 ) ) * ( a * 0 ) ) * ( ( ( ( b * c ) * b ) * ( a * 0 ) ) * ( ( b * c ) * b ) ) )
+blank(9) blank(7) p(2) p(1) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(6) p(1) r g(2) t  p(5) p(b) r g(6) t  p(2) p(6) r g(3) t  p(4) p(3) r xFP t  
+4B
+( ( a * c ) * b )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) p(a) p(c) r g(3) t  p(3) p(b) r xFP t  
+4C
+( ( ( ( a * c ) * b ) * a ) * ( ( ( a * c ) * b ) * c ) )
+blank(9) blank(7) p(3) p(b) r g(4) t  blank(1) blank(10) blank(8) p(4) p(c) r g(5) t  p(4) p(a) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(2) p(5) r xFP t  
+4D
+( ( ( b * 0 ) * ( c * 0 ) ) * ( a * c ) )
+blank(9) p(4) p(6) r g(7) t  p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) blank(5) blank(2) p(c) p(0) r g(6) t  p(a) p(c) r g(3) t  p(7) p(3) r xFP t  
+4E
+( ( ( a * b ) * a ) * ( a * c ) )
+blank(9) blank(7) blank(4) p(2) p(a) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(1) p(3) r xFP t  
+4F
+( ( a * c ) * a )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) p(a) p(c) r g(3) t  p(3) p(a) r xFP t  
+50
+( ( ( a * 0 ) * b ) * ( c * 0 ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  blank(5) blank(2) p(c) p(0) r g(6) t  blank(3) p(8) p(6) r xFP t  
+51
+( ( ( ( a * c ) * a ) * ( ( a * c ) * c ) ) * ( ( ( a * c ) * a ) * b ) )
+blank(9) blank(7) blank(4) p(3) p(a) r g(1) t  blank(10) blank(8) p(1) p(b) r g(5) t  p(3) p(c) r g(2) t  p(1) p(2) r g(6) t  p(a) p(c) r g(3) t  p(6) p(5) r xFP t  
+52
+( ( ( a * 0 ) * b ) * ( a * c ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  blank(5) blank(2) blank(6) p(a) p(c) r g(3) t  p(8) p(3) r xFP t  
+53
+( ( ( a * 0 ) * ( b * 0 ) ) * ( c * 0 ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) p(c) p(0) r g(6) t  blank(3) p(7) p(6) r xFP t  
+54
+c
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) 
+55
+( ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( c * 0 ) ) * ( c * 0 ) ) * ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( c * 0 ) ) * ( ( a * 0 ) * ( b * 0 ) ) ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(2) p(7) r g(8) t  p(2) p(6) r g(5) t  p(7) p(6) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(5) p(8) r xFP t  
+56
+( ( a * c ) * ( b * c ) )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) blank(6) p(a) p(c) r g(3) t  p(3) p(5) r xFP t  
+57
+( ( ( a * 0 ) * ( b * c ) ) * ( a * c ) )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) blank(6) p(a) p(c) r g(3) t  p(4) p(3) r xFP t  
+58
+( ( ( ( ( a * 0 ) * b ) * ( c * 0 ) ) * ( c * 0 ) ) * ( ( ( ( a * 0 ) * b ) * ( c * 0 ) ) * ( ( a * 0 ) * b ) ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  p(2) p(8) r g(5) t  p(8) p(6) r g(2) t  p(c) p(0) r g(6) t  p(2) p(6) r g(3) t  p(3) p(5) r xFP t  
+59
+( ( ( a * 0 ) * ( c * 0 ) ) * ( a * c ) )
+blank(9) p(1) p(6) r g(7) t  blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) p(c) p(0) r g(6) t  p(a) p(c) r g(3) t  p(7) p(3) r xFP t  
+5A
+( ( ( ( ( a * 0 ) * b ) * ( c * 0 ) ) * a ) * ( ( ( ( a * 0 ) * b ) * ( c * 0 ) ) * ( c * 0 ) ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  p(2) p(a) r g(5) t  p(8) p(6) r g(2) t  p(c) p(0) r g(6) t  p(2) p(6) r g(3) t  p(5) p(3) r xFP t  
+5B
+( ( ( a * 0 ) * ( b * 0 ) ) * ( a * c ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) blank(6) p(a) p(c) r g(3) t  p(7) p(3) r xFP t  
+5C
+( ( ( b * 0 ) * c ) * ( a * c ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) p(4) p(c) r g(5) t  blank(2) blank(6) p(a) p(c) r g(3) t  p(5) p(3) r xFP t  
+5D
+( ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( c * 0 ) ) * a ) * ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( c * 0 ) ) * ( c * 0 ) ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(2) p(a) r g(8) t  p(2) p(6) r g(5) t  p(7) p(6) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(8) p(5) r xFP t  
+5E
+( ( a * c ) * 0 )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) p(a) p(c) r g(3) t  p(3) p(0) r xFP t  
+5F
+( ( ( a * b ) * ( a * c ) ) * ( b * c ) )
+blank(9) blank(7) blank(4) p(2) p(3) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(1) p(5) r xFP t  
+60
+( ( ( ( ( a * b ) * a ) * 0 ) * ( c * 0 ) ) * ( ( ( ( a * b ) * b ) * ( c * 0 ) ) * ( ( a * b ) * a ) ) )
+p(7) p(1) r g(9) t  p(3) p(6) r g(7) t  p(1) p(0) r g(4) t  p(2) p(a) r g(1) t  blank(10) blank(8) p(4) p(6) r g(5) t  p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  p(2) p(b) r g(3) t  p(5) p(9) r xFP t  
+61
+( ( ( a * b ) * ( c * 0 ) ) * ( b * c ) )
+blank(9) blank(7) blank(4) blank(1) blank(10) p(2) p(6) r g(8) t  p(b) p(c) r g(5) t  p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(8) p(5) r xFP t  
+62
+( ( ( ( ( a * c ) * a ) * ( b * 0 ) ) * ( b * 0 ) ) * ( ( ( ( a * c ) * a ) * ( b * 0 ) ) * ( ( a * c ) * a ) ) )
+blank(9) p(2) p(1) r g(7) t  p(b) p(0) r g(4) t  p(3) p(a) r g(1) t  blank(10) blank(8) blank(5) p(1) p(4) r g(2) t  p(2) p(4) r g(6) t  p(a) p(c) r g(3) t  p(6) p(7) r xFP t  
+63
+( ( ( a * c ) * ( b * 0 ) ) * ( b * c ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) p(3) p(4) r g(6) t  p(a) p(c) r g(3) t  p(6) p(5) r xFP t  
+64
+( ( ( ( ( a * b ) * a ) * ( c * 0 ) ) * ( c * 0 ) ) * ( ( ( ( a * b ) * a ) * ( c * 0 ) ) * ( ( a * b ) * a ) ) )
+blank(9) p(3) p(1) r g(7) t  p(3) p(6) r g(4) t  p(2) p(a) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  p(1) p(6) r g(3) t  p(4) p(7) r xFP t  
+65
+( ( ( b * 0 ) * ( c * 0 ) ) * ( b * c ) )
+blank(9) p(4) p(6) r g(7) t  p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) p(c) p(0) r g(6) t  blank(3) p(7) p(5) r xFP t  
+66
+( ( ( ( ( a * b ) * a ) * ( c * 0 ) ) * b ) * ( ( ( ( a * b ) * a ) * ( c * 0 ) ) * ( c * 0 ) ) )
+blank(9) p(3) p(b) r g(7) t  p(3) p(6) r g(4) t  p(2) p(a) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  p(1) p(6) r g(3) t  p(7) p(4) r xFP t  
+67
+( ( ( ( ( a * b ) * ( a * c ) ) * ( b * c ) ) * a ) * ( ( ( ( a * b ) * ( a * c ) ) * ( b * c ) ) * ( b * c ) ) )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(2) p(3) r g(1) t  blank(10) p(4) p(5) r g(8) t  p(b) p(c) r g(5) t  p(a) p(b) r g(2) t  p(4) p(a) r g(6) t  p(a) p(c) r g(3) t  p(6) p(8) r xFP t  
+68
+( ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( a * b ) ) * c ) * ( ( ( ( a * b ) * ( c * 0 ) ) * 0 ) * ( ( a * 0 ) * ( b * 0 ) ) ) )
+p(7) p(2) r g(9) t  p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  p(9) p(c) r g(10) t  p(2) p(6) r g(8) t  p(8) p(0) r g(5) t  p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  p(5) p(7) r g(3) t  p(10) p(3) r xFP t  
+69
+( ( ( ( a * b ) * c ) * c ) * ( ( ( a * b ) * c ) * ( a * b ) ) )
+blank(9) blank(7) blank(4) p(5) p(2) r g(1) t  blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(5) p(c) r g(3) t  p(3) p(1) r xFP t  
+6A
+( ( ( ( ( a * b ) * ( c * 0 ) ) * 0 ) * a ) * ( ( ( ( a * b ) * ( c * 0 ) ) * ( a * c ) ) * b ) )
+blank(9) p(4) p(b) r g(7) t  p(8) p(3) r g(4) t  p(5) p(a) r g(1) t  blank(10) p(2) p(6) r g(8) t  p(8) p(0) r g(5) t  p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  p(a) p(c) r g(3) t  p(1) p(7) r xFP t  
+6B
+( ( ( ( a * c ) * b ) * b ) * ( ( ( a * c ) * b ) * ( a * c ) ) )
+blank(9) blank(7) p(3) p(b) r g(4) t  blank(1) blank(10) blank(8) p(4) p(3) r g(5) t  p(4) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(2) p(5) r xFP t  
+6C
+( ( ( ( ( a * c ) * ( b * 0 ) ) * 0 ) * a ) * ( ( ( ( a * c ) * ( b * 0 ) ) * ( a * b ) ) * c ) )
+p(5) p(c) r g(9) t  p(1) p(a) r g(7) t  p(b) p(0) r g(4) t  p(6) p(0) r g(1) t  blank(10) blank(8) p(6) p(2) r g(5) t  p(a) p(b) r g(2) t  p(3) p(4) r g(6) t  p(a) p(c) r g(3) t  p(7) p(9) r xFP t  
+6D
+( ( ( ( a * b ) * c ) * c ) * ( ( ( a * b ) * c ) * ( b * 0 ) ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  p(5) p(4) r g(1) t  blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(5) p(c) r g(3) t  p(3) p(1) r xFP t  
+6E
+( ( ( ( ( a * b ) * a ) * ( a * c ) ) * b ) * ( ( ( ( a * b ) * a ) * ( a * c ) ) * ( a * c ) ) )
+blank(9) p(4) p(3) r g(7) t  p(1) p(3) r g(4) t  p(2) p(a) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  p(4) p(b) r g(6) t  p(a) p(c) r g(3) t  p(6) p(7) r xFP t  
+6F
+( ( b * c ) * a )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) blank(6) blank(3) p(5) p(a) r xFP t  
+70
+( ( ( ( b * c ) * a ) * b ) * ( ( ( b * c ) * a ) * c ) )
+blank(9) blank(7) blank(4) p(2) p(b) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(5) p(a) r g(2) t  blank(6) p(2) p(c) r g(3) t  p(1) p(3) r xFP t  
+71
+( ( ( a * 0 ) * ( c * 0 ) ) * ( b * c ) )
+blank(9) p(1) p(6) r g(7) t  blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) p(c) p(0) r g(6) t  blank(3) p(7) p(5) r xFP t  
+72
+( ( ( a * 0 ) * b ) * ( b * c ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  p(b) p(c) r g(5) t  blank(2) blank(6) blank(3) p(8) p(5) r xFP t  
+73
+( ( ( a * 0 ) * ( b * 0 ) ) * ( b * c ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) blank(6) blank(3) p(7) p(5) r xFP t  
+74
+( ( ( a * 0 ) * c ) * ( b * c ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) p(1) p(c) r g(6) t  blank(3) p(6) p(5) r xFP t  
+75
+( ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( c * 0 ) ) * b ) * ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( c * 0 ) ) * ( c * 0 ) ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(2) p(6) r g(5) t  p(7) p(6) r g(2) t  p(c) p(0) r g(6) t  p(2) p(b) r g(3) t  p(3) p(5) r xFP t  
+76
+( ( b * c ) * 0 )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) blank(6) blank(3) p(5) p(0) r xFP t  
+77
+( ( ( ( b * c ) * a ) * a ) * ( ( ( b * c ) * a ) * ( b * c ) ) )
+blank(9) blank(7) p(2) p(a) r g(4) t  p(2) p(5) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(5) p(a) r g(2) t  blank(6) blank(3) p(4) p(1) r xFP t  
+78
+( ( ( ( ( a * 0 ) * b ) * 0 ) * ( b * c ) ) * ( ( ( ( a * 0 ) * c ) * ( b * c ) ) * ( ( a * 0 ) * b ) ) )
+blank(9) p(3) p(8) r g(7) t  p(2) p(5) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  p(b) p(c) r g(5) t  p(8) p(0) r g(2) t  p(1) p(c) r g(6) t  p(6) p(5) r g(3) t  p(4) p(7) r xFP t  
+79
+( ( ( ( a * b ) * c ) * c ) * ( ( ( a * b ) * c ) * ( a * 0 ) ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  p(5) p(1) r g(6) t  p(5) p(c) r g(3) t  p(3) p(6) r xFP t  
+7A
+( ( ( ( ( a * 0 ) * b ) * ( b * c ) ) * a ) * ( ( ( ( a * 0 ) * b ) * ( b * c ) ) * ( b * c ) ) )
+blank(9) blank(7) p(2) p(5) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  p(b) p(c) r g(5) t  p(8) p(5) r g(2) t  p(2) p(a) r g(6) t  blank(3) p(6) p(4) r xFP t  
+7B
+( ( ( ( a * c ) * b ) * b ) * ( ( ( a * c ) * b ) * ( a * 0 ) ) )
+blank(9) blank(7) p(3) p(b) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) p(4) p(b) r g(2) t  p(4) p(1) r g(6) t  p(a) p(c) r g(3) t  p(2) p(6) r xFP t  
+7C
+( ( ( ( ( a * 0 ) * c ) * ( b * c ) ) * a ) * ( ( ( ( a * 0 ) * c ) * ( b * c ) ) * ( b * c ) ) )
+blank(9) p(3) p(5) r g(7) t  blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(3) p(a) r g(2) t  p(1) p(c) r g(6) t  p(6) p(5) r g(3) t  p(2) p(7) r xFP t  
+7D
+( ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( a * c ) ) * b ) * ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( a * c ) ) * ( c * 0 ) ) )
+p(2) p(6) r g(9) t  p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(2) p(b) r g(8) t  blank(5) p(7) p(3) r g(2) t  p(c) p(0) r g(6) t  p(a) p(c) r g(3) t  p(8) p(9) r xFP t  
+7E
+( ( ( ( a * b ) * 0 ) * c ) * 0 )
+blank(9) blank(7) blank(4) p(2) p(0) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) p(1) p(c) r g(3) t  p(3) p(0) r xFP t  
+7F
+( ( ( a * b ) * 0 ) * c )
+blank(9) blank(7) blank(4) p(2) p(0) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) blank(3) p(1) p(c) r xFP t  
+80
+( ( ( ( a * 0 ) * ( b * 0 ) ) * ( a * c ) ) * ( ( b * 0 ) * c ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(4) p(c) r g(5) t  p(7) p(3) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(2) p(5) r xFP t  
+81
+( ( ( ( a * 0 ) * ( b * 0 ) ) * ( a * b ) ) * c )
+p(7) p(2) r g(9) t  p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) blank(3) p(9) p(c) r xFP t  
+82
+( ( ( a * 0 ) * b ) * ( ( b * c ) * a ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  p(b) p(c) r g(5) t  p(5) p(a) r g(2) t  blank(6) blank(3) p(8) p(2) r xFP t  
+83
+( ( ( ( a * 0 ) * ( b * c ) ) * ( a * c ) ) * b )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(4) p(3) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(2) p(b) r xFP t  
+84
+( ( ( a * 0 ) * c ) * ( ( b * c ) * a ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(5) p(a) r g(2) t  p(1) p(c) r g(6) t  blank(3) p(6) p(2) r xFP t  
+85
+( ( ( ( ( a * b ) * a ) * ( ( a * b ) * b ) ) * c ) * ( ( ( ( a * b ) * a ) * c ) * ( ( a * b ) * b ) ) )
+blank(9) p(4) p(3) r g(7) t  p(1) p(c) r g(4) t  p(2) p(a) r g(1) t  blank(10) blank(8) p(1) p(3) r g(5) t  p(a) p(b) r g(2) t  p(5) p(c) r g(6) t  p(2) p(b) r g(3) t  p(6) p(7) r xFP t  
+86
+( ( ( ( ( b * c ) * 0 ) * a ) * a ) * ( ( ( ( b * c ) * 0 ) * a ) * ( ( b * c ) * 0 ) ) )
+blank(9) blank(7) p(3) p(1) r g(4) t  p(5) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(3) p(a) r g(2) t  blank(6) p(1) p(a) r g(3) t  p(2) p(4) r xFP t  
+87
+( b * c )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) p(b) p(c) r xFP t  
+88
+( ( ( ( ( b * 0 ) * c ) * c ) * ( ( ( b * 0 ) * c ) * ( b * 0 ) ) ) * ( ( ( ( b * 0 ) * c ) * c ) * a ) )
+blank(9) p(6) p(3) r g(7) t  p(b) p(0) r g(4) t  p(6) p(a) r g(1) t  blank(10) blank(8) p(4) p(c) r g(5) t  blank(2) p(5) p(c) r g(6) t  p(5) p(4) r g(3) t  p(7) p(1) r xFP t  
+89
+( ( ( a * b ) * a ) * c )
+blank(9) blank(7) blank(4) p(2) p(a) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) blank(3) p(1) p(c) r xFP t  
+8A
+( ( ( b * c ) * a ) * ( ( b * c ) * b ) )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) p(b) p(c) r g(5) t  p(5) p(a) r g(2) t  p(5) p(b) r g(6) t  blank(3) p(2) p(6) r xFP t  
+8B
+( ( ( a * c ) * a ) * b )
+blank(9) blank(7) blank(4) p(3) p(a) r g(1) t  blank(10) blank(8) blank(5) blank(2) blank(6) p(a) p(c) r g(3) t  p(1) p(b) r xFP t  
+8C
+( ( ( b * c ) * a ) * ( ( b * c ) * c ) )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) p(b) p(c) r g(5) t  p(5) p(a) r g(2) t  blank(6) p(5) p(c) r g(3) t  p(2) p(3) r xFP t  
+8D
+( ( ( ( ( b * 0 ) * a ) * c ) * a ) * ( ( ( ( b * 0 ) * a ) * c ) * ( b * 0 ) ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  p(5) p(4) r g(1) t  blank(10) blank(8) p(2) p(c) r g(5) t  p(4) p(a) r g(2) t  p(5) p(a) r g(6) t  blank(3) p(6) p(1) r xFP t  
+8E
+( ( ( b * c ) * a ) * 0 )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) p(b) p(c) r g(5) t  p(5) p(a) r g(2) t  blank(6) blank(3) p(2) p(0) r xFP t  
+8F
+( ( ( ( a * b ) * ( a * c ) ) * ( b * c ) ) * a )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(2) p(3) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(4) p(a) r xFP t  
+90
+( ( ( a * b ) * c ) * ( ( a * c ) * b ) )
+blank(9) blank(7) p(3) p(b) r g(4) t  blank(1) blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(5) p(4) r xFP t  
+91
+( ( ( ( ( a * b ) * a ) * 0 ) * c ) * ( ( ( ( a * b ) * b ) * c ) * ( ( a * b ) * a ) ) )
+blank(9) blank(7) p(1) p(0) r g(4) t  p(2) p(a) r g(1) t  blank(10) p(6) p(1) r g(8) t  p(4) p(c) r g(5) t  p(a) p(b) r g(2) t  p(3) p(c) r g(6) t  p(2) p(b) r g(3) t  p(5) p(8) r xFP t  
+92
+( ( ( ( ( a * c ) * 0 ) * b ) * b ) * ( ( ( ( a * c ) * 0 ) * b ) * ( ( a * c ) * 0 ) ) )
+blank(9) blank(7) p(5) p(1) r g(4) t  p(3) p(0) r g(1) t  blank(10) blank(8) p(1) p(b) r g(5) t  blank(2) p(5) p(b) r g(6) t  p(a) p(c) r g(3) t  p(6) p(4) r xFP t  
+93
+( ( ( ( ( a * c ) * a ) * 0 ) * b ) * ( ( ( ( a * c ) * c ) * b ) * ( ( a * c ) * a ) ) )
+blank(9) p(4) p(b) r g(7) t  p(1) p(0) r g(4) t  p(3) p(a) r g(1) t  blank(10) p(5) p(1) r g(8) t  p(2) p(b) r g(5) t  p(3) p(c) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(7) p(8) r xFP t  
+94
+( ( ( ( ( a * b ) * 0 ) * c ) * c ) * ( ( ( ( a * b ) * 0 ) * c ) * ( ( a * b ) * 0 ) ) )
+blank(9) blank(7) p(3) p(c) r g(4) t  p(2) p(0) r g(1) t  blank(10) blank(8) p(3) p(1) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(1) p(c) r g(3) t  p(4) p(5) r xFP t  
+95
+( ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( a * b ) ) * ( c * 0 ) ) * ( ( ( ( a * b ) * c ) * 0 ) * ( ( a * 0 ) * ( b * 0 ) ) ) )
+p(7) p(2) r g(9) t  p(3) p(7) r g(11) t  p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(9) p(6) r g(8) t  p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  p(5) p(0) r g(3) t  p(8) p(11) r xFP t  
+96
+( ( ( ( a * b ) * 0 ) * ( a * c ) ) * ( ( ( a * c ) * ( b * c ) ) * ( a * b ) ) )
+blank(9) p(4) p(2) r g(7) t  p(3) p(5) r g(4) t  p(2) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(a) p(b) r g(2) t  p(1) p(3) r g(6) t  p(a) p(c) r g(3) t  p(6) p(7) r xFP t  
+97
+( ( ( ( a * b ) * a ) * ( b * c ) ) * ( ( b * c ) * c ) )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(2) p(a) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(5) p(c) r g(3) t  p(4) p(3) r xFP t  
+98
+( ( ( b * c ) * b ) * ( ( b * c ) * c ) )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) p(5) p(b) r g(6) t  p(5) p(c) r g(3) t  p(6) p(3) r xFP t  
+99
+( ( ( ( ( a * b ) * a ) * c ) * c ) * ( ( ( ( a * b ) * a ) * c ) * ( ( a * b ) * a ) ) )
+blank(9) blank(7) p(1) p(c) r g(4) t  p(2) p(a) r g(1) t  blank(10) blank(8) p(4) p(1) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(4) p(c) r g(3) t  p(3) p(5) r xFP t  
+9A
+( ( ( ( ( a * b ) * a ) * c ) * b ) * ( ( ( ( a * b ) * a ) * c ) * c ) )
+blank(9) blank(7) p(1) p(c) r g(4) t  p(2) p(a) r g(1) t  blank(10) blank(8) p(4) p(b) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(4) p(c) r g(3) t  p(5) p(3) r xFP t  
+9B
+( ( ( ( ( a * c ) * a ) * b ) * b ) * ( ( ( ( a * c ) * a ) * b ) * ( ( a * c ) * a ) ) )
+blank(9) blank(7) p(5) p(1) r g(4) t  p(3) p(a) r g(1) t  blank(10) blank(8) p(1) p(b) r g(5) t  p(5) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(2) p(4) r xFP t  
+9C
+( ( ( ( ( a * c ) * a ) * b ) * b ) * ( ( ( ( a * c ) * a ) * b ) * c ) )
+blank(9) blank(7) p(5) p(c) r g(4) t  p(3) p(a) r g(1) t  blank(10) blank(8) p(1) p(b) r g(5) t  p(5) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(2) p(4) r xFP t  
+9D
+( ( ( ( ( b * 0 ) * ( c * 0 ) ) * ( ( b * c ) * a ) ) * ( ( b * 0 ) * ( c * 0 ) ) ) * ( ( ( ( b * 0 ) * ( c * 0 ) ) * ( ( b * c ) * a ) ) * ( ( b * c ) * a ) ) )
+p(3) p(2) r g(9) t  p(4) p(6) r g(7) t  p(b) p(0) r g(4) t  blank(1) blank(10) p(3) p(7) r g(8) t  p(b) p(c) r g(5) t  p(5) p(a) r g(2) t  p(c) p(0) r g(6) t  p(7) p(2) r g(3) t  p(8) p(9) r xFP t  
+9E
+( ( ( ( ( b * c ) * a ) * 0 ) * b ) * ( ( ( ( b * c ) * a ) * 0 ) * c ) )
+blank(9) blank(7) p(1) p(b) r g(4) t  p(2) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(5) p(a) r g(2) t  p(1) p(c) r g(6) t  blank(3) p(4) p(6) r xFP t  
+9F
+( a * c )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) p(a) p(c) r xFP t  
+A0
+( ( ( ( ( a * 0 ) * c ) * c ) * ( ( ( a * 0 ) * c ) * ( a * 0 ) ) ) * ( ( ( ( a * 0 ) * c ) * c ) * b ) )
+blank(9) p(6) p(1) r g(7) t  p(5) p(7) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(6) p(c) r g(5) t  p(5) p(b) r g(2) t  p(1) p(c) r g(6) t  blank(3) p(4) p(2) r xFP t  
+A1
+( ( ( a * 0 ) * b ) * c )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  blank(5) blank(2) blank(6) blank(3) p(8) p(c) r xFP t  
+A2
+( ( ( a * c ) * a ) * ( ( a * c ) * b ) )
+blank(9) blank(7) p(3) p(b) r g(4) t  p(3) p(a) r g(1) t  blank(10) blank(8) blank(5) blank(2) blank(6) p(a) p(c) r g(3) t  p(1) p(4) r xFP t  
+A3
+( ( ( ( a * 0 ) * b ) * ( a * c ) ) * ( ( a * 0 ) * c ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  blank(5) p(8) p(3) r g(2) t  p(1) p(c) r g(6) t  p(a) p(c) r g(3) t  p(2) p(6) r xFP t  
+A4
+( ( ( a * c ) * a ) * ( ( a * c ) * c ) )
+blank(9) blank(7) blank(4) p(3) p(a) r g(1) t  blank(10) blank(8) blank(5) p(3) p(c) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(1) p(2) r xFP t  
+A5
+( ( ( ( ( a * 0 ) * b ) * c ) * c ) * ( ( ( ( a * 0 ) * b ) * c ) * ( ( a * 0 ) * b ) ) )
+blank(9) blank(7) p(2) p(8) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  blank(5) p(8) p(c) r g(2) t  blank(6) p(2) p(c) r g(3) t  p(3) p(4) r xFP t  
+A6
+( ( ( ( ( a * 0 ) * b ) * c ) * a ) * ( ( ( ( a * 0 ) * b ) * c ) * c ) )
+blank(9) blank(7) p(2) p(a) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  blank(5) p(8) p(c) r g(2) t  blank(6) p(2) p(c) r g(3) t  p(4) p(3) r xFP t  
+A7
+( ( ( a * 0 ) * ( b * 0 ) ) * c )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) p(7) p(c) r xFP t  
+A8
+( ( ( ( ( a * 0 ) * ( b * 0 ) ) * c ) * c ) * ( ( ( ( a * 0 ) * ( b * 0 ) ) * c ) * ( ( a * 0 ) * ( b * 0 ) ) ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(3) p(c) r g(5) t  blank(2) p(3) p(7) r g(6) t  p(7) p(c) r g(3) t  p(5) p(6) r xFP t  
+A9
+( c * 0 )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) p(c) p(0) r xFP t  
+AA
+( ( ( c * 0 ) * a ) * ( ( c * 0 ) * b ) )
+blank(9) blank(7) blank(4) p(6) p(a) r g(1) t  blank(10) blank(8) blank(5) p(6) p(b) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(1) p(2) r xFP t  
+AB
+( ( ( a * c ) * ( b * 0 ) ) * ( ( a * c ) * a ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  p(3) p(a) r g(1) t  blank(10) blank(8) blank(5) blank(2) p(3) p(4) r g(6) t  p(a) p(c) r g(3) t  p(6) p(1) r xFP t  
+AC
+( ( ( ( ( a * 0 ) * ( b * 0 ) ) * c ) * a ) * ( ( ( ( a * 0 ) * ( b * 0 ) ) * c ) * c ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(3) p(c) r g(5) t  blank(2) p(3) p(a) r g(6) t  p(7) p(c) r g(3) t  p(6) p(5) r xFP t  
+AD
+( ( ( b * 0 ) * ( c * 0 ) ) * ( ( c * 0 ) * a ) )
+blank(9) p(4) p(6) r g(7) t  p(b) p(0) r g(4) t  p(6) p(a) r g(1) t  blank(10) blank(8) blank(5) blank(2) p(c) p(0) r g(6) t  blank(3) p(7) p(1) r xFP t  
+AE
+( ( ( a * c ) * a ) * 0 )
+blank(9) blank(7) blank(4) p(3) p(a) r g(1) t  blank(10) blank(8) blank(5) blank(2) blank(6) p(a) p(c) r g(3) t  p(1) p(0) r xFP t  
+AF
+( ( ( a * c ) * b ) * a )
+blank(9) blank(7) p(3) p(b) r g(4) t  blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) p(a) p(c) r g(3) t  p(4) p(a) r xFP t  
+B0
+( ( ( a * c ) * b ) * ( ( a * c ) * c ) )
+blank(9) blank(7) p(3) p(b) r g(4) t  blank(1) blank(10) blank(8) blank(5) p(3) p(c) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(4) p(2) r xFP t  
+B1
+( ( ( ( ( a * 0 ) * b ) * c ) * b ) * ( ( ( ( a * 0 ) * b ) * c ) * ( a * 0 ) ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  p(2) p(1) r g(5) t  p(8) p(c) r g(2) t  blank(6) p(2) p(b) r g(3) t  p(3) p(5) r xFP t  
+B2
+( ( ( a * c ) * b ) * 0 )
+blank(9) blank(7) p(3) p(b) r g(4) t  blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) p(a) p(c) r g(3) t  p(4) p(0) r xFP t  
+B3
+( ( ( ( ( b * c ) * b ) * a ) * a ) * ( ( ( ( b * c ) * b ) * a ) * ( ( b * c ) * b ) ) )
+blank(9) blank(7) blank(4) p(2) p(a) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(6) p(a) r g(2) t  p(5) p(b) r g(6) t  p(2) p(6) r g(3) t  p(1) p(3) r xFP t  
+B4
+( ( ( ( ( a * c ) * b ) * a ) * a ) * ( ( ( ( a * c ) * b ) * a ) * c ) )
+blank(9) blank(7) p(3) p(b) r g(4) t  p(2) p(a) r g(1) t  blank(10) blank(8) blank(5) p(4) p(a) r g(2) t  p(2) p(c) r g(6) t  p(a) p(c) r g(3) t  p(1) p(6) r xFP t  
+B5
+( ( ( ( ( a * 0 ) * ( c * 0 ) ) * ( ( a * c ) * b ) ) * ( ( a * 0 ) * ( c * 0 ) ) ) * ( ( ( ( a * 0 ) * ( c * 0 ) ) * ( ( a * c ) * b ) ) * ( ( a * c ) * b ) ) )
+p(8) p(7) r g(9) t  p(1) p(6) r g(7) t  p(3) p(b) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(7) p(4) r g(8) t  blank(5) p(8) p(4) r g(2) t  p(c) p(0) r g(6) t  p(a) p(c) r g(3) t  p(9) p(2) r xFP t  
+B6
+( ( ( ( ( a * c ) * b ) * 0 ) * a ) * ( ( ( ( a * c ) * b ) * 0 ) * c ) )
+blank(9) blank(7) p(3) p(b) r g(4) t  p(4) p(0) r g(1) t  blank(10) blank(8) p(1) p(c) r g(5) t  p(1) p(a) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(2) p(5) r xFP t  
+B7
+( ( ( a * 0 ) * ( b * c ) ) * ( ( b * c ) * b ) )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) p(5) p(b) r g(6) t  blank(3) p(4) p(6) r xFP t  
+B8
+( ( ( ( ( a * 0 ) * ( b * 0 ) ) * c ) * b ) * ( ( ( ( a * 0 ) * ( b * 0 ) ) * c ) * c ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(3) p(c) r g(5) t  blank(2) p(3) p(b) r g(6) t  p(7) p(c) r g(3) t  p(6) p(5) r xFP t  
+B9
+( ( ( a * 0 ) * ( c * 0 ) ) * ( ( c * 0 ) * b ) )
+blank(9) p(1) p(6) r g(7) t  blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) p(6) p(b) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(7) p(2) r xFP t  
+BA
+( ( ( b * c ) * b ) * 0 )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) p(5) p(b) r g(6) t  blank(3) p(6) p(0) r xFP t  
+BB
+( ( ( ( ( a * c ) * b ) * a ) * a ) * ( ( ( ( a * c ) * b ) * a ) * ( ( a * c ) * b ) ) )
+blank(9) blank(7) p(3) p(b) r g(4) t  p(2) p(a) r g(1) t  blank(10) blank(8) blank(5) p(4) p(a) r g(2) t  p(2) p(4) r g(6) t  p(a) p(c) r g(3) t  p(1) p(6) r xFP t  
+BC
+( ( ( ( ( a * c ) * b ) * ( ( a * c ) * c ) ) * a ) * ( ( ( ( a * c ) * b ) * ( ( a * c ) * c ) ) * ( ( a * c ) * b ) ) )
+blank(9) p(1) p(4) r g(7) t  p(3) p(b) r g(4) t  p(4) p(2) r g(1) t  blank(10) blank(8) p(1) p(a) r g(5) t  p(3) p(c) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(5) p(7) r xFP t  
+BD
+( ( ( ( ( a * 0 ) * ( c * 0 ) ) * ( ( c * 0 ) * b ) ) * a ) * ( ( ( ( a * 0 ) * ( c * 0 ) ) * ( ( c * 0 ) * b ) ) * ( ( c * 0 ) * b ) ) )
+blank(9) p(1) p(6) r g(7) t  p(3) p(a) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(3) p(2) r g(8) t  blank(5) p(6) p(b) r g(2) t  p(c) p(0) r g(6) t  p(7) p(2) r g(3) t  p(4) p(8) r xFP t  
+BE
+( ( ( ( a * b ) * 0 ) * ( a * c ) ) * 0 )
+blank(9) blank(7) blank(4) p(2) p(0) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  p(1) p(3) r g(6) t  p(a) p(c) r g(3) t  p(6) p(0) r xFP t  
+BF
+( a * b )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) p(a) p(b) r xFP t  
+C0
+( ( ( ( ( a * 0 ) * b ) * b ) * ( ( ( a * 0 ) * b ) * ( a * 0 ) ) ) * ( ( ( ( a * 0 ) * b ) * b ) * c ) )
+blank(9) blank(7) p(8) p(1) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  blank(5) p(6) p(c) r g(2) t  p(8) p(b) r g(6) t  p(6) p(4) r g(3) t  p(3) p(2) r xFP t  
+C1
+( ( ( ( a * 0 ) * c ) * ( a * b ) ) * ( ( a * 0 ) * b ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  blank(5) p(a) p(b) r g(2) t  p(1) p(c) r g(6) t  p(6) p(2) r g(3) t  p(3) p(8) r xFP t  
+C2
+( ( ( a * b ) * a ) * ( ( a * b ) * b ) )
+blank(9) blank(7) blank(4) p(2) p(a) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) p(2) p(b) r g(3) t  p(1) p(3) r xFP t  
+C3
+( ( ( a * 0 ) * c ) * b )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) p(1) p(c) r g(6) t  blank(3) p(6) p(b) r xFP t  
+C4
+( ( ( a * b ) * a ) * ( ( a * b ) * c ) )
+blank(9) blank(7) blank(4) p(2) p(a) r g(1) t  blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) blank(3) p(1) p(5) r xFP t  
+C5
+( ( ( ( ( a * 0 ) * c ) * b ) * b ) * ( ( ( ( a * 0 ) * c ) * b ) * ( ( a * 0 ) * c ) ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) p(3) p(6) r g(5) t  p(3) p(b) r g(2) t  p(1) p(c) r g(6) t  p(6) p(b) r g(3) t  p(2) p(5) r xFP t  
+C6
+( ( ( ( ( a * 0 ) * c ) * b ) * a ) * ( ( ( ( a * 0 ) * c ) * b ) * b ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) p(3) p(a) r g(5) t  p(3) p(b) r g(2) t  p(1) p(c) r g(6) t  p(6) p(b) r g(3) t  p(5) p(2) r xFP t  
+C7
+( ( ( a * 0 ) * ( b * c ) ) * b )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) blank(6) blank(3) p(4) p(b) r xFP t  
+C8
+( ( ( ( ( a * 0 ) * ( c * 0 ) ) * b ) * b ) * ( ( ( ( a * 0 ) * ( c * 0 ) ) * b ) * ( ( a * 0 ) * ( c * 0 ) ) ) )
+blank(9) p(1) p(6) r g(7) t  p(7) p(b) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(4) p(7) r g(5) t  blank(2) p(c) p(0) r g(6) t  p(4) p(b) r g(3) t  p(3) p(5) r xFP t  
+C9
+( ( ( a * b ) * ( c * 0 ) ) * ( ( a * b ) * a ) )
+blank(9) blank(7) blank(4) p(2) p(a) r g(1) t  blank(10) p(2) p(6) r g(8) t  blank(5) p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(8) p(1) r xFP t  
+CA
+( ( ( ( ( a * 0 ) * ( b * c ) ) * b ) * a ) * ( ( ( ( a * 0 ) * ( b * c ) ) * b ) * b ) )
+blank(9) p(2) p(a) r g(7) t  p(1) p(5) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(4) p(b) r g(2) t  blank(6) p(2) p(b) r g(3) t  p(7) p(3) r xFP t  
+CB
+( b * 0 )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) p(b) p(0) r xFP t  
+CC
+( ( ( b * 0 ) * a ) * ( ( b * 0 ) * c ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) p(4) p(c) r g(5) t  p(4) p(a) r g(2) t  blank(6) blank(3) p(2) p(5) r xFP t  
+CD
+( ( ( b * 0 ) * ( c * 0 ) ) * ( ( b * 0 ) * a ) )
+blank(9) p(4) p(6) r g(7) t  p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) blank(5) p(4) p(a) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(7) p(2) r xFP t  
+CE
+( ( ( a * b ) * a ) * 0 )
+blank(9) blank(7) blank(4) p(2) p(a) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) blank(3) p(1) p(0) r xFP t  
+CF
+( ( ( a * b ) * c ) * a )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) blank(3) p(5) p(a) r xFP t  
+D0
+( ( ( a * b ) * b ) * ( ( a * b ) * c ) )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(2) p(b) r g(3) t  p(3) p(5) r xFP t  
+D1
+( ( ( ( ( b * 0 ) * c ) * a ) * a ) * ( ( ( ( b * 0 ) * c ) * a ) * ( ( b * 0 ) * c ) ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  p(5) p(a) r g(1) t  blank(10) blank(8) p(4) p(c) r g(5) t  p(1) p(5) r g(2) t  p(1) p(a) r g(6) t  blank(3) p(6) p(2) r xFP t  
+D2
+( ( ( ( ( a * b ) * c ) * a ) * a ) * ( ( ( ( a * b ) * c ) * a ) * b ) )
+blank(9) blank(7) blank(4) p(3) p(a) r g(1) t  blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  p(3) p(b) r g(6) t  p(5) p(a) r g(3) t  p(1) p(6) r xFP t  
+D3
+( ( ( ( ( a * 0 ) * c ) * b ) * c ) * ( ( ( ( a * 0 ) * c ) * b ) * ( a * 0 ) ) )
+blank(9) blank(7) p(3) p(1) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(3) p(c) r g(5) t  blank(2) p(1) p(c) r g(6) t  p(6) p(b) r g(3) t  p(5) p(4) r xFP t  
+D4
+( ( ( a * b ) * c ) * 0 )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) blank(3) p(5) p(0) r xFP t  
+D5
+( ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( ( a * b ) * c ) ) * ( ( a * 0 ) * ( b * 0 ) ) ) * ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( ( a * b ) * c ) ) * ( ( a * b ) * c ) ) )
+p(6) p(5) r g(9) t  p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(6) p(7) r g(8) t  p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  p(7) p(5) r g(6) t  blank(3) p(8) p(9) r xFP t  
+D6
+( ( ( ( ( a * b ) * c ) * 0 ) * a ) * ( ( ( ( a * b ) * c ) * 0 ) * b ) )
+blank(9) blank(7) p(3) p(b) r g(4) t  blank(1) blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  p(3) p(a) r g(6) t  p(5) p(0) r g(3) t  p(6) p(4) r xFP t  
+D7
+( ( ( a * 0 ) * ( b * c ) ) * ( ( b * c ) * c ) )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) blank(6) p(5) p(c) r g(3) t  p(4) p(3) r xFP t  
+D8
+( ( ( ( ( a * 0 ) * ( b * c ) ) * b ) * b ) * ( ( ( ( a * 0 ) * ( b * c ) ) * b ) * c ) )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(4) p(b) r g(2) t  p(2) p(c) r g(6) t  p(2) p(b) r g(3) t  p(3) p(6) r xFP t  
+D9
+( ( ( ( ( a * b ) * c ) * a ) * a ) * ( ( ( ( a * b ) * c ) * a ) * ( ( a * b ) * c ) ) )
+blank(9) blank(7) blank(4) p(3) p(a) r g(1) t  blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  p(3) p(5) r g(6) t  p(5) p(a) r g(3) t  p(1) p(6) r xFP t  
+DA
+( ( ( ( ( a * b ) * b ) * ( ( a * b ) * c ) ) * a ) * ( ( ( ( a * b ) * b ) * ( ( a * b ) * c ) ) * ( ( a * b ) * c ) ) )
+blank(9) p(1) p(a) r g(7) t  blank(4) p(3) p(5) r g(1) t  blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  p(1) p(5) r g(6) t  p(2) p(b) r g(3) t  p(7) p(6) r xFP t  
+DB
+( ( ( a * 0 ) * ( b * 0 ) ) * ( ( b * 0 ) * c ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(4) p(c) r g(5) t  blank(2) blank(6) blank(3) p(7) p(5) r xFP t  
+DC
+( ( ( b * 0 ) * c ) * 0 )
+blank(9) blank(7) p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) p(4) p(c) r g(5) t  blank(2) blank(6) blank(3) p(5) p(0) r xFP t  
+DD
+( ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( ( b * 0 ) * c ) ) * a ) * ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( ( b * 0 ) * c ) ) * ( ( b * 0 ) * c ) ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(2) p(a) r g(8) t  p(4) p(c) r g(5) t  p(7) p(5) r g(2) t  p(2) p(5) r g(6) t  blank(3) p(8) p(6) r xFP t  
+DE
+( ( ( ( a * b ) * ( a * c ) ) * ( a * b ) ) * 0 )
+blank(9) blank(7) p(1) p(2) r g(4) t  p(2) p(3) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(4) p(0) r xFP t  
+DF
+( ( ( a * b ) * ( a * c ) ) * a )
+blank(9) blank(7) blank(4) p(2) p(3) r g(1) t  blank(10) blank(8) blank(5) p(a) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(1) p(a) r xFP t  
+E0
+( ( ( ( ( b * 0 ) * ( c * 0 ) ) * a ) * a ) * ( ( ( ( b * 0 ) * ( c * 0 ) ) * a ) * ( ( b * 0 ) * ( c * 0 ) ) ) )
+blank(9) p(4) p(6) r g(7) t  p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) p(2) p(7) r g(5) t  p(7) p(a) r g(2) t  p(c) p(0) r g(6) t  p(2) p(a) r g(3) t  p(3) p(5) r xFP t  
+E1
+( ( ( a * b ) * ( c * 0 ) ) * ( ( a * b ) * b ) )
+blank(9) blank(7) blank(4) blank(1) blank(10) p(2) p(6) r g(8) t  blank(5) p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  p(2) p(b) r g(3) t  p(8) p(3) r xFP t  
+E2
+( ( ( ( ( a * b ) * ( a * c ) ) * 0 ) * a ) * ( ( ( ( a * b ) * ( a * c ) ) * 0 ) * b ) )
+blank(9) p(4) p(b) r g(7) t  p(1) p(0) r g(4) t  p(2) p(3) r g(1) t  blank(10) blank(8) p(4) p(a) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(a) p(c) r g(3) t  p(5) p(7) r xFP t  
+E3
+( ( ( a * c ) * ( b * 0 ) ) * ( ( a * c ) * c ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) blank(5) p(3) p(c) r g(2) t  p(3) p(4) r g(6) t  p(a) p(c) r g(3) t  p(6) p(2) r xFP t  
+E4
+( ( ( ( ( a * b ) * a ) * ( ( a * b ) * c ) ) * ( ( a * b ) * a ) ) * ( ( ( ( a * b ) * a ) * ( ( a * b ) * c ) ) * ( ( a * b ) * c ) ) )
+blank(9) blank(7) p(3) p(5) r g(4) t  p(2) p(a) r g(1) t  blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  p(3) p(1) r g(6) t  p(1) p(5) r g(3) t  p(6) p(4) r xFP t  
+E5
+( ( ( ( ( a * b ) * c ) * b ) * b ) * ( ( ( ( a * b ) * c ) * b ) * ( ( a * b ) * c ) ) )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(5) p(b) r g(1) t  blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  blank(6) p(1) p(b) r g(3) t  p(3) p(4) r xFP t  
+E6
+( ( ( ( ( a * b ) * a ) * ( ( a * b ) * c ) ) * b ) * ( ( ( ( a * b ) * a ) * ( ( a * b ) * c ) ) * ( ( a * b ) * c ) ) )
+blank(9) blank(7) p(3) p(5) r g(4) t  p(2) p(a) r g(1) t  blank(10) blank(8) p(2) p(c) r g(5) t  p(a) p(b) r g(2) t  p(3) p(b) r g(6) t  p(1) p(5) r g(3) t  p(6) p(4) r xFP t  
+E7
+( ( ( ( ( a * 0 ) * ( b * 0 ) ) * c ) * ( a * 0 ) ) * ( ( ( ( a * 0 ) * ( b * 0 ) ) * c ) * ( b * 0 ) ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(3) p(4) r g(5) t  p(3) p(1) r g(2) t  blank(6) p(7) p(c) r g(3) t  p(2) p(5) r xFP t  
+E8
+( ( ( ( ( a * 0 ) * b ) * ( ( b * 0 ) * a ) ) * ( ( ( a * 0 ) * ( b * 0 ) ) * c ) ) * ( ( ( ( a * 0 ) * ( b * 0 ) ) * c ) * c ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  p(6) p(3) r g(10) t  p(1) p(b) r g(8) t  p(3) p(c) r g(5) t  p(4) p(a) r g(2) t  p(8) p(2) r g(6) t  p(7) p(c) r g(3) t  p(10) p(5) r xFP t  
+E9
+( ( ( a * b ) * ( c * 0 ) ) * 0 )
+blank(9) blank(7) blank(4) blank(1) blank(10) p(2) p(6) r g(8) t  blank(5) p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(8) p(0) r xFP t  
+EA
+( ( ( ( ( a * b ) * ( c * 0 ) ) * 0 ) * a ) * ( ( ( ( a * b ) * ( c * 0 ) ) * 0 ) * b ) )
+blank(9) blank(7) p(5) p(b) r g(4) t  p(5) p(a) r g(1) t  blank(10) p(2) p(6) r g(8) t  p(8) p(0) r g(5) t  p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  blank(3) p(1) p(4) r xFP t  
+EB
+( ( ( a * c ) * ( b * 0 ) ) * 0 )
+blank(9) blank(7) p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) blank(5) blank(2) p(3) p(4) r g(6) t  p(a) p(c) r g(3) t  p(6) p(0) r xFP t  
+EC
+( ( ( ( ( a * c ) * ( b * 0 ) ) * 0 ) * a ) * ( ( ( ( a * c ) * ( b * 0 ) ) * 0 ) * c ) )
+blank(9) p(1) p(a) r g(7) t  p(b) p(0) r g(4) t  p(6) p(0) r g(1) t  blank(10) blank(8) p(1) p(c) r g(5) t  blank(2) p(3) p(4) r g(6) t  p(a) p(c) r g(3) t  p(7) p(5) r xFP t  
+ED
+( ( ( b * 0 ) * ( c * 0 ) ) * 0 )
+blank(9) p(4) p(6) r g(7) t  p(b) p(0) r g(4) t  blank(1) blank(10) blank(8) blank(5) blank(2) p(c) p(0) r g(6) t  blank(3) p(7) p(0) r xFP t  
+EE
+( ( ( ( ( a * b ) * a ) * 0 ) * ( a * c ) ) * ( ( ( ( a * b ) * a ) * 0 ) * ( c * 0 ) ) )
+blank(9) blank(7) p(1) p(0) r g(4) t  p(2) p(a) r g(1) t  blank(10) p(4) p(3) r g(8) t  p(4) p(6) r g(5) t  p(a) p(b) r g(2) t  p(c) p(0) r g(6) t  p(a) p(c) r g(3) t  p(8) p(5) r xFP t  
+EF
+( a * 0 )
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) p(a) p(0) r xFP t  
+F0
+( ( ( a * 0 ) * b ) * ( ( a * 0 ) * c ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  blank(5) blank(2) p(1) p(c) r g(6) t  blank(3) p(8) p(6) r xFP t  
+F1
+( ( ( a * 0 ) * ( c * 0 ) ) * ( ( a * 0 ) * b ) )
+blank(9) p(1) p(6) r g(7) t  blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  blank(5) blank(2) p(c) p(0) r g(6) t  blank(3) p(7) p(8) r xFP t  
+F2
+( ( ( a * 0 ) * b ) * 0 )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  blank(5) blank(2) blank(6) blank(3) p(8) p(0) r xFP t  
+F3
+( ( ( a * 0 ) * ( b * 0 ) ) * ( ( a * 0 ) * c ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) p(1) p(c) r g(6) t  blank(3) p(7) p(6) r xFP t  
+F4
+( ( ( a * 0 ) * c ) * 0 )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) p(1) p(c) r g(6) t  blank(3) p(6) p(0) r xFP t  
+F5
+( ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( ( a * 0 ) * c ) ) * b ) * ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( ( a * 0 ) * c ) ) * ( ( a * 0 ) * c ) ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(2) p(b) r g(8) t  blank(5) p(7) p(6) r g(2) t  p(1) p(c) r g(6) t  p(2) p(6) r g(3) t  p(8) p(3) r xFP t  
+F6
+( ( ( ( a * 0 ) * ( b * c ) ) * ( a * 0 ) ) * 0 )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  p(4) p(1) r g(2) t  blank(6) blank(3) p(2) p(0) r xFP t  
+F7
+( ( ( a * 0 ) * ( b * c ) ) * 0 )
+blank(9) blank(7) p(1) p(5) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) p(b) p(c) r g(5) t  blank(2) blank(6) blank(3) p(4) p(0) r xFP t  
+F8
+( ( ( ( ( a * 0 ) * b ) * ( ( a * 0 ) * c ) ) * ( ( a * 0 ) * b ) ) * ( ( ( ( a * 0 ) * b ) * ( ( a * 0 ) * c ) ) * ( ( a * 0 ) * c ) ) )
+blank(9) blank(7) blank(4) p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  p(2) p(6) r g(5) t  p(8) p(6) r g(2) t  p(1) p(c) r g(6) t  p(2) p(8) r g(3) t  p(3) p(5) r xFP t  
+F9
+( ( ( a * 0 ) * ( c * 0 ) ) * 0 )
+blank(9) p(1) p(6) r g(7) t  blank(4) p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) p(c) p(0) r g(6) t  blank(3) p(7) p(0) r xFP t  
+FA
+( ( ( ( ( a * 0 ) * b ) * 0 ) * ( b * c ) ) * ( ( ( ( a * 0 ) * b ) * 0 ) * ( c * 0 ) ) )
+blank(9) blank(7) p(2) p(5) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  p(b) p(c) r g(5) t  p(8) p(0) r g(2) t  p(c) p(0) r g(6) t  p(2) p(6) r g(3) t  p(4) p(3) r xFP t  
+FB
+( ( ( a * 0 ) * ( b * 0 ) ) * 0 )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) p(7) p(0) r xFP t  
+FC
+( ( ( ( ( a * 0 ) * b ) * ( ( a * 0 ) * c ) ) * ( b * 0 ) ) * ( ( ( ( a * 0 ) * b ) * ( ( a * 0 ) * c ) ) * ( ( a * 0 ) * b ) ) )
+blank(9) blank(7) p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(1) p(b) r g(8) t  p(2) p(4) r g(5) t  p(8) p(6) r g(2) t  p(1) p(c) r g(6) t  p(2) p(8) r g(3) t  p(5) p(3) r xFP t  
+FD
+( ( ( ( ( a * 0 ) * ( b * 0 ) ) * 0 ) * ( c * 0 ) ) * ( ( ( ( a * 0 ) * ( b * 0 ) ) * ( c * 0 ) ) * ( c * 0 ) ) )
+blank(9) p(1) p(4) r g(7) t  p(b) p(0) r g(4) t  p(a) p(0) r g(1) t  blank(10) p(3) p(6) r g(8) t  p(2) p(6) r g(5) t  p(7) p(6) r g(2) t  p(c) p(0) r g(6) t  p(7) p(0) r g(3) t  p(8) p(5) r xFP t  
+FE
+1
+blank(9) blank(7) blank(4) blank(1) blank(10) blank(8) blank(5) blank(2) blank(6) blank(3) 
+FF

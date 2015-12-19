@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="B3_BM3R1_sbml_model">
+    <listOfParameters>
+      <parameter id="ymin" value="0.01"/>
+      <parameter id="IL" value="0.263"/>
+      <parameter id="ymax" value="0.8"/>
+      <parameter id="n" value="3.4"/>
+      <parameter id="IH" value="0.944"/>
+      <parameter id="K" value="0.26"/>
+      <parameter id="y" constant="false"/>
+      <parameter id="x"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="y">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <plus/>
+            <ci> ymin </ci>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <ci> ymax </ci>
+                <ci> ymin </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <cn> 1 </cn>
+                <apply>
+                  <power/>
+                  <apply>
+                    <divide/>
+                    <ci> x </ci>
+                    <ci> K </ci>
+                  </apply>
+                  <ci> n </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+            </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>

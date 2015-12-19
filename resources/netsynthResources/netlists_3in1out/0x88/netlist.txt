@@ -1,0 +1,1 @@
+NOR(out,in2,in3)

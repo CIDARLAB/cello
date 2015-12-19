@@ -1,0 +1,2 @@
+AND SicA_InvF  pSicA	RiboH10 RBSforSicA SicA BBa_B1006_U10		RiboH11 RBSforInvF  InvF  hismins
+AND ExsC_ExsDA pExsC 	RiboH12 RBSforExsC ExsC M13central    		RiboH24 RBSforExsDA ExsDA ilvGEDA

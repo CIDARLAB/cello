@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:prov="http://www.w3.org/ns/prov#" xmlns:sbol="http://sbols.org/v2#">
+  <sbol:ComponentDefinition rdf:about="http://cellocad.org/RiboJ54">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/RiboJ54"/>
+    <sbol:displayId>RiboJ54</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://purl.obolibrary.org/obo/SO_0000627"/>
+    <sbol:sequence rdf:resource="http://cellocad.org/RiboJ54_sequence"/>
+  </sbol:ComponentDefinition>
+  <sbol:Sequence rdf:about="http://cellocad.org/RiboJ54_sequence">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/RiboJ54_sequence"/>
+    <sbol:displayId>RiboJ54_sequence</sbol:displayId>
+    <sbol:elements>CTGAAGGGGTCAGTTGATGTGCTTTCAACTCTGATGAGTCAGTGATGACGAAACCCCCTCTACAAATAATTTTGTTTAA</sbol:elements>
+    <sbol:encoding rdf:resource="http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html"/>
+  </sbol:Sequence>
+</rdf:RDF>

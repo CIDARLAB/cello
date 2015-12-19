@@ -1,0 +1,41 @@
+
+div {
+    text-align: center;
+}
+
+div.left
+{
+    float:left;
+    width:50px;
+    margin:0;
+    padding:1em;
+}
+div.content
+{
+    text-align: left;
+    background: #FFFFFF;
+    margin-left:50px;
+    margin-right:50px;
+
+    /*border-left:1px solid gray;*/
+    padding:1em;
+}
+div.center {
+    text-align: center;
+}
+
+table { /*disable highlight*/
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+button:hover { cursor: pointer;}
+input { cursor: pointer; }
+.pointer {
+    cursor: pointer;
+}
+
+#header_details {
+    margin-left: 0px;
+}

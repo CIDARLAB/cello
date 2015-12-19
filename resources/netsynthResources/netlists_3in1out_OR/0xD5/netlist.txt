@@ -1,0 +1,2 @@
+NOR(n7,in1,in2)
+OR(out,in3,n7)

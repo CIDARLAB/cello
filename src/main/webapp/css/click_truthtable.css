@@ -1,0 +1,32 @@
+canvas.on {
+    background-color: #555;
+    border: 2px solid #555;
+    border-radius:5px;
+    display: inline;
+}
+canvas.off {
+    background-color: #ffffff;
+    border: 2px solid #555;
+    border-radius:5px;
+    display: inline;
+}
+canvas.dc {
+    background-color: #FF0000;
+    border: 2px solid #555;
+    border-radius:5px;
+    display: inline;
+}
+
+table td.off {
+    height: 30px;
+    width: 30px;
+    background-color: #ffffff;
+    border: 2px solid #555;
+    border-radius:5px;
+    display: inline;
+}
+table { /*disable highlight*/
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}

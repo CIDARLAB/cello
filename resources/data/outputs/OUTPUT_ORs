@@ -1,0 +1,121 @@
+
+
+            for(int gi=0; gi<best_lc.get_Gates().size(); ++gi) {
+                Gate g = best_lc.get_Gates().get(gi);
+
+                System.out.println(gi + " " + g.Name);
+            }
+
+                /*
+                0 output_YFP
+                1 NOR_A1-AmtR
+                2 NOR_F1-AmeR
+                3 NOR_S3-SrpR
+                4 NOR_H2-HlyIIR
+                5 NOR_E2-BetI
+                6 NOR_P3-PhlF
+                7 NOR_B2-BM3R1
+                8 input_pBAD
+                9 input_pTac
+                10 input_pTet
+                 */
+
+                /*
+                PPhlF-PHlyIIR, 6:4
+                PSrpR-PAmtR,   3:1
+                PBAD-PAmtR,    8:1
+                PTac-PAmeR,    9:2
+                PBM3R1-PHlyIIR,7:4
+                PSrpR-PBetI,   3:5
+                PPhlF-PTet     6:10
+                */
+
+            Gate pPhlF_pHlyIIR = new Gate();
+            pPhlF_pHlyIIR.Name = "pPhlF_pHlyIIR";
+            pPhlF_pHlyIIR.Type = "OUTPUT_OR";
+            pPhlF_pHlyIIR.Outgoing = new Wire();
+            pPhlF_pHlyIIR.Outgoing.Next = new Wire();
+            pPhlF_pHlyIIR.Outgoing.To = best_lc.get_Gates().get(6);
+            pPhlF_pHlyIIR.Outgoing.Next.To = best_lc.get_Gates().get(4);
+            Evaluate.simulateLogic(pPhlF_pHlyIIR);
+            pPhlF_pHlyIIR.set_convreus(GateUtil.getSumOfGateInputHistograms(pPhlF_pHlyIIR));
+            FigureHelper.makeConvolutionMultiplotGate(pPhlF_pHlyIIR, "OR", "truth");
+
+            Gate pSrpR_pAmtR = new Gate();
+            pSrpR_pAmtR.Name = "pSrpR_pAmtR";
+            pSrpR_pAmtR.Type = "OUTPUT_OR";
+            pSrpR_pAmtR.Outgoing = new Wire();
+            pSrpR_pAmtR.Outgoing.Next = new Wire();
+            pSrpR_pAmtR.Outgoing.To = best_lc.get_Gates().get(3);
+            pSrpR_pAmtR.Outgoing.Next.To = best_lc.get_Gates().get(1);
+            pSrpR_pAmtR.set_convreus(GateUtil.getSumOfGateInputHistograms(pSrpR_pAmtR));
+            Evaluate.simulateLogic(pSrpR_pAmtR);
+            pSrpR_pAmtR.set_convreus(GateUtil.getSumOfGateInputHistograms(pSrpR_pAmtR));
+            FigureHelper.makeConvolutionMultiplotGate(pSrpR_pAmtR, "OR", "truth");
+
+            Gate pBAD_pAmtR = new Gate();
+            pBAD_pAmtR.Name = "pBAD_pAmtR";
+            pBAD_pAmtR.Type = "OUTPUT_OR";
+            pBAD_pAmtR.Outgoing = new Wire();
+            pBAD_pAmtR.Outgoing.Next = new Wire();
+            pBAD_pAmtR.Outgoing.To = best_lc.get_Gates().get(8);
+            pBAD_pAmtR.Outgoing.Next.To = best_lc.get_Gates().get(1);
+            pBAD_pAmtR.set_convreus(GateUtil.getSumOfGateInputHistograms(pBAD_pAmtR));
+            Evaluate.simulateLogic(pBAD_pAmtR);
+            pBAD_pAmtR.set_convreus(GateUtil.getSumOfGateInputHistograms(pBAD_pAmtR));
+            FigureHelper.makeConvolutionMultiplotGate(pBAD_pAmtR, "OR", "truth");
+
+            Gate pTac_pAmeR = new Gate();
+            pTac_pAmeR.Name = "pTac_pAmeR";
+            pTac_pAmeR.Type = "OUTPUT_OR";
+            pTac_pAmeR.Outgoing = new Wire();
+            pTac_pAmeR.Outgoing.Next = new Wire();
+            pTac_pAmeR.Outgoing.To = best_lc.get_Gates().get(9);
+            pTac_pAmeR.Outgoing.Next.To = best_lc.get_Gates().get(2);
+            pTac_pAmeR.set_convreus(GateUtil.getSumOfGateInputHistograms(pTac_pAmeR));
+            Evaluate.simulateLogic(pTac_pAmeR);
+            pTac_pAmeR.set_convreus(GateUtil.getSumOfGateInputHistograms(pTac_pAmeR));
+            FigureHelper.makeConvolutionMultiplotGate(pTac_pAmeR, "OR", "truth");
+
+            Gate pBM3R1_pHlyIIR = new Gate();
+            pBM3R1_pHlyIIR.Name = "pBM3R1_pHlyIIR";
+            pBM3R1_pHlyIIR.Type = "OUTPUT_OR";
+            pBM3R1_pHlyIIR.Outgoing = new Wire();
+            pBM3R1_pHlyIIR.Outgoing.Next = new Wire();
+            pBM3R1_pHlyIIR.Outgoing.To = best_lc.get_Gates().get(7);
+            pBM3R1_pHlyIIR.Outgoing.Next.To = best_lc.get_Gates().get(4);
+            pBM3R1_pHlyIIR.set_convreus(GateUtil.getSumOfGateInputHistograms(pBM3R1_pHlyIIR));
+            Evaluate.simulateLogic(pBM3R1_pHlyIIR);
+            pBM3R1_pHlyIIR.set_convreus(GateUtil.getSumOfGateInputHistograms(pBM3R1_pHlyIIR));
+            FigureHelper.makeConvolutionMultiplotGate(pBM3R1_pHlyIIR, "OR", "truth");
+
+            Gate pSrpR_pBetI = new Gate();
+            pSrpR_pBetI.Name = "pSrpR_pBetI";
+            pSrpR_pBetI.Type = "OUTPUT_OR";
+            pSrpR_pBetI.Outgoing = new Wire();
+            pSrpR_pBetI.Outgoing.Next = new Wire();
+            pSrpR_pBetI.Outgoing.To = best_lc.get_Gates().get(3);
+            pSrpR_pBetI.Outgoing.Next.To = best_lc.get_Gates().get(5);
+            pSrpR_pBetI.set_convreus(GateUtil.getSumOfGateInputHistograms(pSrpR_pBetI));
+            Evaluate.simulateLogic(pSrpR_pBetI);
+            pSrpR_pBetI.set_convreus(GateUtil.getSumOfGateInputHistograms(pSrpR_pBetI));
+            FigureHelper.makeConvolutionMultiplotGate(pSrpR_pBetI, "OR", "truth");
+
+            Gate pPhlF_pTet = new Gate();
+            pPhlF_pTet.Name = "pPhlF_pTet";
+            pPhlF_pTet.Type = "OUTPUT_OR";
+            pPhlF_pTet.Outgoing = new Wire();
+            pPhlF_pTet.Outgoing.Next = new Wire();
+            pPhlF_pTet.Outgoing.To = best_lc.get_Gates().get(6);
+            pPhlF_pTet.Outgoing.Next.To = best_lc.get_Gates().get(10);
+            pPhlF_pTet.set_convreus(GateUtil.getSumOfGateInputHistograms(pPhlF_pTet));
+            Evaluate.simulateLogic(pPhlF_pTet);
+            pPhlF_pTet.set_convreus(GateUtil.getSumOfGateInputHistograms(pPhlF_pTet));
+            FigureHelper.makeConvolutionMultiplotGate(pPhlF_pTet, "OR", "truth");
+
+
+            for(Gate g: best_lc.get_logic_gates()) {
+                FigureHelper.makeConvolutionMultiplotGate(g, "Wire", "truth");
+            }
+            FigureHelper.makeConvolutionMultiplot(best_lc, "Wire", "truth");
+        }

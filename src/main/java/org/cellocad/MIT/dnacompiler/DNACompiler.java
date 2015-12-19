@@ -1,0 +1,1900 @@
+package org.cellocad.MIT.dnacompiler;
+/**
+ * Created by Bryan Der on 3/26/14.
+ */
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import org.cellocad.BU.netsynth.NetSynthSwitch;
+import org.cellocad.MIT.dnacompiler.Gate.GateType;
+import org.cellocad.MIT.figures.*;
+import org.cellocad.MIT.tandem_promoter.InterpolateTandemPromoter;
+import org.cellocad.adaptors.eugeneadaptor.EugeneAdaptor;
+import org.cellocad.adaptors.sboladaptor.SBOLCircuitWriterIWBDA;
+import org.cellocad.adaptors.ucfadaptor.UCFAdaptor;
+import org.cellocad.adaptors.ucfadaptor.UCFReader;
+import org.cellocad.adaptors.ucfadaptor.UCFValidator;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ObjectNode;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Modifier;
+import java.util.*;
+
+//import net.sf.json.JSONObject;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+
+
+//@Slf4j
+public class DNACompiler {
+
+    /*
+     * These enum values are used to report a job/result status to the front-end web application.
+     * If the job does not succeed, it is helpful to know why.
+     */
+    public enum ResultStatus{
+        success,
+        wiring_diagram_invalid,
+        not_enough_gates_in_library,
+        no_assignments_found,
+        roadblocking_inputs,
+        ucf_invalid,
+    }
+
+    public enum CircuitType{
+        combinational,
+        sequential
+    }
+
+    /**
+     *
+     * Cello main
+     *
+     * 1. Set runtime arguments/options.
+     * 2. Get abstract circuit (wiring diagram).
+     * 3. Load input, repressor, output, toxicity, histogram data.
+     * 4. Assignment of repressors to gates.
+     * 5. Generate plasmid DNA sequences.
+     * 6. Generate figures.
+     *
+     */
+
+
+    public void run(String[] args) {
+
+        System.setProperty("logfile.name", "default.log");
+        PropertyConfigurator.configure(_options.get_home() + "/src/main/resources/log4j.properties");
+
+
+        /**
+         * read command-line arguments.  Verilog file required, others are optional.
+         */
+
+        //_options = new Args();
+        _options.parse(args);
+
+
+        /**
+         * set paths to data files (Inputs, Outputs, NOR_Gates, AND_Gates, ToxicityTable)
+         * set jobID prefix for output files
+         */
+        setPaths();
+        Util.createDirectory(_options.get_output_directory());
+
+
+
+
+
+        /**
+         * Instead of System.out.println, use a logging system.
+         * Need to set logfile.name before any logger is instantiated to avoid error messages.
+         * Here we are using log4j.  See /src/main/resources/log4j.properties for the configuration details.
+         */
+
+        //filepath + filename
+        String logfile = _options.get_output_directory() + _options.get_jobID() + "_dnacompiler_output.txt";
+
+        //the logger will write to the specified file
+        System.setProperty("logfile.name", logfile);
+        PropertyConfigurator.configure(_options.get_home() + "/src/main/resources/log4j.properties");
+
+        //initialize the logger
+        log = Logger.getLogger(this.getClass().getPackage().getName());
+
+
+
+        log.info("\n");
+        log.info("///////////////////////////////////////////////////////////");
+        log.info("///////////////   Welcome to Cello   //////////////////////");
+        log.info("///////////////////////////////////////////////////////////\n");
+
+
+        //print the options for record-keeping
+        //log.info(Arrays.toString(args).replaceAll(",", "") + "\n");
+        log.info("\n");
+        log.info("///////////////////////////////////////////////////////////");
+        log.info("///////////////   Options   ///////////////////////////////");
+        log.info("///////////////////////////////////////////////////////////\n");
+        log.info(objToJSONString(_options));
+
+        log.info("\n");
+        log.info("///////////////////////////////////////////////////////////");
+        log.info("///////////////   UCF Validation   ////////////////////////");
+        log.info("///////////////////////////////////////////////////////////\n");
+        /**
+         * read all UCF collections
+         */
+
+        //UCFReader reads the JSON text file and creates the UCF object.
+        UCFReader ucf_reader = new UCFReader();
+
+        //UCF.  JSON objects organized by 'collection'.
+        UCF ucf = ucf_reader.readAllCollections(_options.get_UCFfilepath());
+
+        //UCFValidator. returns 'false' if something is not valid in the UCF.
+        //(note: some collections are optional)
+        UCFValidator ucf_validator = new UCFValidator();
+
+
+
+        //optional collections
+        // toxicity
+        // cytometry
+        // eugene rules
+        // motif_library
+        // genetic locations
+
+        //options is passed in order to turn off the toxicity, histogram, plasmid options if that data
+        //is missing from the UCF.
+
+
+        JSONObject ucf_validation_map = ucf_validator.validateAllUCFCollections(ucf, _options);
+        log.info(gson.toJson(ucf_validation_map));
+
+        boolean is_ucf_valid = (boolean) ucf_validation_map.get("is_valid");
+
+        if (!is_ucf_valid) {
+            _result_status = ResultStatus.ucf_invalid;
+            log.warn("invalid UCF");
+            return;
+        }
+
+        /**
+         * abstract_lc:     Boolean circuit.  Also called wiring diagram.
+         *
+         * unassigned_lcs:  input gates and output gates assigned, logic gates not assigned.
+         *                  multiple possible if permuting input order
+         *
+         * assigned_lcs:    all logic gates assigned with genetic gates
+         */
+        LogicCircuit abstract_lc = new LogicCircuit();
+        ArrayList<LogicCircuit> unassigned_lcs = new ArrayList<LogicCircuit>();
+        ArrayList<LogicCircuit> assigned_lcs = new ArrayList<LogicCircuit>();
+
+        log.info("\n");
+        log.info("///////////////////////////////////////////////////////////");
+        log.info("///////////////   Logic synthesis, Wiring diagram   ///////");
+        log.info("///////////////////////////////////////////////////////////\n");
+
+
+
+
+        /**
+         * NetSynth: convert Verilog to Boolean wiring diagram
+         */
+        try {
+            abstract_lc = getAbstractCircuit(_options.get_fin_verilog(), ucf);
+        } catch(Exception e) {
+            throw new IllegalStateException("Error in abstract circuit.  Exiting.");
+        }
+
+
+
+
+        /**
+         * A logic circuit must have at least one input gate and one output gate
+         */
+        if (abstract_lc.get_input_gates().size() == 0 || abstract_lc.get_output_gates().size() == 0) {
+            _result_status = ResultStatus.wiring_diagram_invalid;
+            log.warn("incorrect wiring diagram, no inputs/outputs");
+            return;
+        }
+
+
+        /**
+         * circuit size
+         */
+        for (GateType gtype : abstract_lc.get_gate_types().keySet()) {
+            log.info("Circuit has " + abstract_lc.get_gate_types().get(gtype).size() + " " + gtype + " gates.");
+        }
+
+        log.info("N logic gates: " + abstract_lc.get_logic_gates().size() + "");
+
+
+        /**
+         *
+         * Set the logic for the input gates.
+         * For combinational logic, this means permuting all input combinations.
+         * For sequential logic, the input 'waveforms' will used as the truth table.
+         *
+         * For a 3-input circuit:
+         *
+         * in1 in2 in3
+         *  0   0   0
+         *  0   0   1
+         *  0   1   0
+         *  0   1   1
+         *  1   0   0
+         *  1   0   1
+         *  1   1   0
+         *  1   1   1
+         */
+
+        if(_options.get_circuit_type() == CircuitType.sequential) {
+            HashMap<String, List<Integer>> initial_logics = new HashMap<>();
+            int nrows = SequentialHelper.loadInitialLogicsFromTruthtable(initial_logics, get_options().get_fin_sequential_waveform());
+
+            SequentialHelper.setInitialLogics(abstract_lc, initial_logics, nrows);
+            SequentialHelper.printTruthTable(abstract_lc);
+
+            log.info("Cycle 1");
+            SequentialHelper.updateLogics(abstract_lc);
+            SequentialHelper.printTruthTable(abstract_lc);
+
+            log.info("Cycle 2");
+            SequentialHelper.updateLogics(abstract_lc);
+            SequentialHelper.printTruthTable(abstract_lc);
+
+            log.info("Cycle 3");
+            SequentialHelper.updateLogics(abstract_lc);
+            SequentialHelper.printTruthTable(abstract_lc);
+
+            //assert logic is valid
+            if(! SequentialHelper.validLogic(abstract_lc)) {
+                throw new IllegalStateException("SequentialHelper: Invalid logic.  Exiting.");
+            }
+
+        }
+        else {
+
+            LogicCircuitUtil.setInputLogics(abstract_lc);
+
+            /**
+             *  propagate logic through gates
+             */
+            //initialize logic to all zeroes
+            Integer nrows = abstract_lc.get_input_gates().get(0).get_logics().size();
+            for (Gate g : abstract_lc.get_Gates()) {
+                if (g.get_logics().isEmpty()) {
+                    ArrayList<Integer> logics = new ArrayList<>();
+                    for (int i = 0; i < nrows; ++i) {
+                        logics.add(0);
+                    }
+                    g.set_logics(logics);
+                }
+            }
+            //compute Boolean logic for each gate in the circuit.
+            Evaluate.simulateLogic(abstract_lc);
+
+        }
+
+
+        /**
+         *  abstract circuit is now fully specified
+         *
+         *  generate figures for abstract circuit
+         */
+        log.info(abstract_lc.printGraph());
+
+        if (_options.is_figures()) {
+            log.info("=========== Graphviz wiring diagram ==========");
+            Graphviz graphviz = new Graphviz(_options.get_home(), _options.get_output_directory(), _options.get_jobID());
+            graphviz.printGraphvizDotText(abstract_lc, _options.get_jobID() + "_wiring_agrn.dot");
+
+            ScriptCommands script_commands = new ScriptCommands(_options.get_home(), _options.get_output_directory(), _options.get_jobID());
+            script_commands.makeDot2Png(_options.get_jobID() + "_wiring_agrn.dot");
+
+            if (_options.is_dnaplotlib()) {
+                //PlotLibAbstractTruthtableWriter.writeAbstractCircuitTruthtableForDNAPlotLib( abstract_lc );
+            }
+        }
+
+        /**
+         * If you only want to see the Boolean wiring diagram, we are done.
+         */
+        if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.abstract_only) {
+            return;
+        }
+
+
+
+
+        // TODO organize DNACompiler in a more modular way.
+        // TODO with a more clear API.
+        // abstract circuit: Verilog in, LogicCircuit out
+        // assigned circuits: abstract_lc in, UCF in, Args in, assigned_lcs out.
+        // plasmids: assigned_lc in, ArrayList<Part> out
+        // SBOL: plasmid in, SBOL out
+        // figures: assigned_lcs in, Args in,
+
+
+        /**
+         * The UCF (user constraint file) specifies the gate library, data, and other options.
+         * UCF.java: UCF object
+         * UCFReader: reads .json text file and creates UCF object.
+         * UCFAdaptor: returns java data types from the UCF object.
+         */
+        UCFAdaptor ucf_adaptor = new UCFAdaptor();
+
+        log.info("\n");
+        log.info("///////////////////////////////////////////////////////////");
+        log.info("///////////////   Loading parts   /////////////////////////");
+        log.info("///////////////////////////////////////////////////////////\n");
+
+        /**
+         * Part objects mapped to the part name.
+         */
+        PartLibrary part_library = ucf_adaptor.createPartLibrary(ucf);
+
+        for (Part p : part_library.get_ALL_PARTS().values()) {
+            log.info("Part: " + p.get_type() + " " + p.get_name());
+        }
+
+
+        log.info("\n");
+        log.info("///////////////////////////////////////////////////////////");
+        log.info("///////////////   Loading Gate Library   //////////////////");
+        log.info("///////////////////////////////////////////////////////////\n");
+
+
+        /**
+         * In order to initialize gate_library, the number of inputs/outputs must be known.
+         * This is because data members in the gate library are 'final' and cannot be modified.
+         */
+        Integer n_inputs = InputOutputGateReader.nInputs(_options.get_fin_input_promoters());
+        Integer n_outputs = InputOutputGateReader.nOutputs(_options.get_fin_output_genes());
+
+        //TODO this is a comment with blue
+
+        /**
+         * The gate library is a list of input, logic, and output gates.
+         * input and output gates were specified using text files (user input),
+         * but the logic gates were specified in the UCF.
+         * input gates and logic gates were purposefully omitted from the UCF,
+         * the idea being that the same gate library can be used to design circuits with different inputs/outputs.
+         */
+        GateLibrary gate_library = ucf_adaptor.createGateLibrary(ucf, n_inputs, n_outputs, _options);
+
+
+        for(Gate g: gate_library.get_GATES_BY_NAME().values()) {
+            log.info("loading gate from UCF gates collection: " + g.Name);
+        }
+
+
+        log.info("\n");
+        log.info("///////////////////////////////////////////////////////////");
+        log.info("///////////////   Loading input and output gates   ////////");
+        log.info("///////////////////////////////////////////////////////////\n");
+
+        /**
+         *
+         * read text files for input promoters and output genes, populate gate_library with data.
+         *
+         * Inputs:  pTac, pTet, pBAD, etc.
+         *      includes promoter name, REU OFF, REU ON, and DNA sequence
+         *
+         * Outputs: YFP, etc.
+         *      includes output gene name, and the concatenated DNA sequence of the output cassette (typically ribozyme, rbs, cds, terminator concatenated)
+         *
+         * gate_library is passed in because it will be modified with the input/output data that's read in
+         */
+        InputOutputGateReader.readInputsFromFile(_options.get_fin_input_promoters(), gate_library);
+        InputOutputGateReader.readOutputsFromFile(_options.get_fin_output_genes(), gate_library);
+
+
+
+        log.info("\n");
+        log.info("///////////////////////////////////////////////////////////");
+        log.info("///////////////   Loading Gate Parts   ////////////////////");
+        log.info("///////////////////////////////////////////////////////////\n");
+
+        //associate Part objects with the _downstream_parts and _regulable_promoter data members of Gate.java
+        ucf_adaptor.setGateParts(ucf, gate_library, part_library);
+
+
+        //make sure all gates have gate parts defined
+        if(!ucf_validator.allGatesHaveGateParts(gate_library)) {
+            _result_status = ResultStatus.ucf_invalid;
+            return;
+        }
+
+
+
+        log.info("\n");
+        log.info("///////////////////////////////////////////////////////////");
+        log.info("///////////////   Loading Response Functions   ////////////");
+        log.info("///////////////////////////////////////////////////////////\n");
+
+        ucf_adaptor.setResponseFunctions(ucf, gate_library);
+
+
+        //make sure all gates have a response function defined.
+        if(!ucf_validator.allGatesHaveResponseFunctions(gate_library)) {
+            _result_status = ResultStatus.ucf_invalid;
+            return;
+        }
+
+        //printing the response functions
+        for (Gate g : gate_library.get_GATES_BY_NAME().values()) {
+            log.info(g.Name + " " + g.get_equation() + " " + g.get_params().toString());
+        }
+
+
+        log.info("\n");
+        log.info("///////////////////////////////////////////////////////////");
+        log.info("///////////////   Loading Toxicity Data   /////////////////");
+        log.info("///////////////////////////////////////////////////////////\n");
+
+        /**
+         * populate the gate objects with the Part objects for 'downstream_parts' and 'regulable_promoter'.
+         */
+        ucf_adaptor.setGateToxicity(ucf, gate_library, _options);
+
+        if (_options.is_toxicity()) {
+            Toxicity.initializeCircuitToxicity(abstract_lc);
+        }
+
+
+        log.info("\n");
+        log.info("///////////////////////////////////////////////////////////");
+        log.info("///////////////   Loading Cytometry Data   ////////////////");
+        log.info("///////////////////////////////////////////////////////////\n");
+
+        ucf_adaptor.setGateCytometry(ucf, gate_library, _options);
+
+
+
+
+
+
+        /**
+         * populate the gate objects with the Part objects for 'downstream_parts' and 'regulable_promoter'.
+         */
+        if(_options.is_tandem_promoter()) {
+
+            log.info("\n");
+            log.info("///////////////////////////////////////////////////////////");
+            log.info("///////////////   Loading Tandem Promoter Data   //////////");
+            log.info("///////////////////////////////////////////////////////////\n");
+
+            ucf_adaptor.setTandemPromoters(ucf, gate_library, _options);
+        }
+
+
+
+
+
+        /**
+         * print statements for inputs/outputs
+         */
+        for (String i : gate_library.get_INPUT_NAMES()) {
+            String input_info = "input:    " + String.format("%-16s", i);
+            input_info += "   off_reu=" + Util.sc(gate_library.get_INPUTS_OFF().get(i));
+            input_info += "   on_reu=" + Util.sc(gate_library.get_INPUTS_ON().get(i));
+            log.info(input_info);
+        }
+        for (String i : gate_library.get_OUTPUT_NAMES()) {
+            String output_info = "output:   " + String.format("%-16s", i);
+            log.info(output_info);
+        }
+
+
+        /**
+         * Allow NOR gates to also be used as NOT gates
+         */
+        if (_options.is_NOTequalsNOR1() && gate_library.get_GATES_BY_TYPE().containsKey(GateType.NOR)) {
+
+            LinkedHashMap<String, Gate> NOR_Gates = gate_library.get_GATES_BY_TYPE().get(GateType.NOR);
+
+            gate_library.get_GATES_BY_TYPE().put(GateType.NOT, NOR_Gates);
+
+            LinkedHashMap<String, ArrayList<Gate>> NOR_Gate_Groups = gate_library.get_GATES_BY_GROUP().get(GateType.NOR);
+
+            gate_library.get_GATES_BY_GROUP().put(GateType.NOT, NOR_Gate_Groups);
+
+        }
+
+        for (Gate g : gate_library.get_GATES_BY_NAME().values()) {
+            log.info("Gate: " + g.System + " " + g.Type + " " + g.Name + " " + g.Group);
+        }
+
+        for (GateType gtype : gate_library.get_GATES_BY_GROUP().keySet()) {
+            log.info("GateLibrary groups: " + gtype + " " + gate_library.get_GATES_BY_GROUP().get(gtype).size());
+        }
+
+        for (GateType gtype : gate_library.get_GATES_BY_GROUP().keySet()) {
+
+            LinkedHashMap<String, ArrayList<Gate>> groups = gate_library.get_GATES_BY_GROUP().get(gtype);
+
+            for (String group_name : groups.keySet()) {
+
+                String group_string_builder = gtype + ": group name: " + group_name;
+
+                ArrayList<Gate> gates = groups.get(group_name);
+
+                for (Gate g : gates) {
+                    group_string_builder += " " + g.Name;
+                }
+
+                log.info(group_string_builder);
+            }
+        }
+
+
+        for(Gate g: _abstract_lc.get_logic_gates()) {
+            System.out.println(g.Type);
+        }
+
+
+        /**
+         * are there enough gates of each type (input, output, logic to build the circuit
+         */
+        if (abstract_lc.get_input_gates().size() > gate_library.get_INPUT_NAMES().length) {
+            log.warn("Number of input gates out of range: " + abstract_lc.get_input_gates().size());
+            return;
+        }
+
+        if (abstract_lc.get_output_gates().size() > gate_library.get_OUTPUT_NAMES().length) {
+            log.warn("Number of output gates out of range: " + abstract_lc.get_output_gates().size());
+            return;
+        }
+
+        if (!LogicCircuitUtil.libraryGatesCoverCircuitGates(abstract_lc, gate_library)) {
+            //log.info("Not enough gates in the library to cover the gates in the circuit.");
+            //return;
+            log.warn("Not enough gates in the library to cover the gates in the circuit.");
+            return;
+
+        } else {
+            log.info("The gates library can cover the circuit.");
+        }
+
+
+        /**
+         *
+         * Assign input promoters to input gates, and also assign output gates
+         *
+         * _options.get_permute_inputs == false: unassigned_lcs.size() == 1
+         * _options.get_permute_inputs == true:  unassigned_lcs.size() == 2^(n_inputs)
+         *
+         */
+        //_options.get_permute_inputs = true;
+
+
+        unassigned_lcs = LogicCircuitUtil.getInputAssignments(abstract_lc, gate_library, _options.is_permute_inputs());
+
+
+
+        for(LogicCircuit lc: unassigned_lcs) {
+            LogicCircuitUtil.setInputOutputGroups(lc);
+        }
+
+        /**
+         *
+         * Promoter interference has been observed for certain promoters when downstream in the txn unit,
+         *      likely due to the inability of RNAP to pass through.  Our term for this is roadblocking,
+         *      which disrupts the assumption that tandem promoter activities are additive.
+         *
+         * As a result, two roadblocking promoters cannot be inputs to a NOR gate or OUTPUT_OR gate,
+         *      because one of the promoters must be downstream in the txn unit, which leads to interference.
+         *
+         *
+         * Roadblocking inducible promoters: pTac, pBAD
+         * Roadblocking repressible promoters: pSrpR, pPhlF, pBM3R1, pQacR
+         *
+         */
+
+        ArrayList<String> eugene_part_rules = ucf_adaptor.getEugenePartRules(ucf);
+        Roadblock roadblock = new Roadblock();
+        roadblock.set_roadblockers(eugene_part_rules, gate_library);
+
+
+        //gate_library.setHashMapsForGates();
+
+        /**
+         *
+         * If inducible promoters (pTac, pBAD) result in roadblocking in the input order given, promoter interference
+         *      will occur, but we design the circuit and provide a warning message.
+         *
+         * However, when a repressible promoter participates in roadblocking, this will be treated as an illegal assignment.
+         *
+         */
+        ArrayList<LogicCircuit> nonRB_unassigned_lcs = new ArrayList<LogicCircuit>();
+        for (LogicCircuit unassigned_lc : unassigned_lcs) {
+
+
+            /*if (_options.is_assign_C_pBAD()) {
+            	// This is a hack for Lauren's latched designs
+                for (Gate g : unassigned_lc.get_input_gates()) {
+                    if (g.Group.equals("C") && g.Name.equals("pBAD")) {
+                        if (!roadblock.illegalInputRoadblocking(unassigned_lc)) {
+                            nonRB_unassigned_lcs.add(unassigned_lc);
+                        }
+                    }
+                }
+            }*/
+
+
+            if (!roadblock.illegalInputRoadblocking(unassigned_lc)) {
+                nonRB_unassigned_lcs.add(unassigned_lc);
+            }
+
+        }
+
+
+        if (nonRB_unassigned_lcs.size() == 0) {
+            log.info("\n");
+            log.info("-----------------------------------------------------------");
+            log.info("---------------   Warning: input promoter roadblocking ----");
+            log.info("-----------------------------------------------------------\n");
+
+            /*
+             * Choose one input assignment... it's roadblocking, but we will continue with the design anyway.
+             */
+            nonRB_unassigned_lcs.add(unassigned_lcs.get(0));
+        }
+
+
+        /**
+         *
+         * Ready to assign genetic gates
+         *
+         * Random
+         * BreadthFirstSearch (guarantees global max)
+         * Hill climbing
+         * Simulated annealing
+         *
+         */
+
+
+        //No assignment needed if no logic gates.  2-input OR has no logic gates, for example
+        if (unassigned_lcs.get(0).get_logic_gates().size() == 0) {
+            assigned_lcs = nonRB_unassigned_lcs;
+        }
+
+        else {
+            log.info("\n");
+            log.info("///////////////////////////////////////////////////////////");
+            log.info("///////////////   Assignment algorithm   //////////////////");
+            log.info("///////////////////////////////////////////////////////////\n");
+            log.info("assignment algorithm:  " + _options.get_assignment_algorithm());
+
+            Date datestart = new Date();
+            long starttime = datestart.getTime();
+
+
+            BuildCircuits circuit_builder = new BuildCircuits(); //base class
+
+            log.info("=========== Assignment algorithm =============");
+
+            //default
+            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.breadth_first) {
+                circuit_builder = new BuildCircuitsByBreadthFirstSearch(_options, gate_library, roadblock);
+            }
+            //second recommendation is hill climbing.  Many swaps with accept/reject based on score increase/decrease.
+            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.hill_climbing) {
+                circuit_builder = new BuildCircuitsByHillClimbing(_options, gate_library, roadblock);
+            }
+            //similar to hill climbing, but with a cooling schedule
+            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.sim_annealing) {
+                circuit_builder = new BuildCircuitsBySimAnnealing(_options, gate_library, roadblock);
+            }
+            //similar to hill climbing, but explores all options for a single swap and chooses the best swap each time.
+            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.steepest_ascent) {
+                circuit_builder = new BuildCircuitsBySteepestAscent(_options, gate_library, roadblock);
+            }
+            //completely randomizes the gate assignment.  Does this many times.
+            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.random) {
+                circuit_builder = new BuildCircuitsByRandom(_options, gate_library, roadblock);
+            }
+            //exhaustive... does not scale.
+            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.permute) {
+                circuit_builder = new BuildCircuitsByPermutingOneGateType(_options, gate_library, roadblock);
+            }
+            //if you want to reload a prior assignment.  Based on x_logic_circuit.txt parsing.
+            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.reload) {
+                circuit_builder = new BuildCircuitsByReloading2(_options, gate_library, roadblock);
+            }
+            //do not use.
+            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.preset) {
+                circuit_builder = new BuildCircuitsByPreset(_options, gate_library, roadblock);
+            }
+
+            //when circuits have one or more feedback loops, it's a sequential circuit rather than combinational.
+            //currently hacky, needs to be refined.
+            /*if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.sequential) {
+                _options.set_histogram(false);
+                circuit_builder = new SequentialHelper(_options, gate_library, roadblock);
+            }*/
+
+
+            System.out.println(unassigned_lcs.size());
+
+            for (LogicCircuit unassigned_lc : nonRB_unassigned_lcs) {
+
+                circuit_builder.set_unassigned_lc(unassigned_lc);
+
+
+                /**
+                 * Run assignment algorithm
+                 */
+                circuit_builder.buildCircuits();
+
+
+                // TODO hard-coded for Jonghyeon
+
+                boolean only_tp = false;
+
+                if (only_tp) {
+
+                    for (LogicCircuit lc : circuit_builder.get_logic_circuits()) {
+
+                        boolean has_all_tp_data = LogicCircuitUtil.dataFoundForAllTandemPromoters(gate_library, lc);
+
+                        if (has_all_tp_data) {
+                            assigned_lcs.add(lc);
+                        }
+                    }
+                }
+                //
+
+                else {
+
+                    assigned_lcs.addAll(circuit_builder.get_logic_circuits());
+
+                }
+            }
+
+            /**
+             *
+             * Assignment complete.
+             *
+             */
+            log.info("=========== Assigned circuits ================");
+            log.info("assigned lcs: " + assigned_lcs.size() + "");
+
+
+            Date datestop = new Date();
+            long endtime = datestop.getTime();
+            long elapsedtime = endtime - starttime;
+            log.info("Total elapsed time for assignment algorithm: " + elapsedtime + " milliseconds");
+
+            if (assigned_lcs.size() == 0) {
+
+                _result_status = ResultStatus.no_assignments_found;
+
+                log.info("\n");
+                log.info("///////////////////////////////////////////////////////////");
+                log.info("////////   No assignments found. Exiting Cello.   /////////");
+                log.info("///////////////////////////////////////////////////////////\n");
+
+                return;
+            }
+        }
+
+
+
+        /**
+         *
+         * Multiple circuits will exist:
+         *      if permuting input order,
+         *      if the search algorithm saves multiple circuits instead of just the best circuit.
+         *
+         * To get the best circuit, sort the LogicCircuit objects by score
+         *
+         */
+        sortLogicCircuitsByScore(assigned_lcs);
+
+        log.info("best assignment score: " + String.format("%-5.4f", assigned_lcs.get(0).get_scores().get_score()));
+
+
+        /**
+         * Predict distributions (optional).
+         * Generate plasmids.
+         * Generate figures.
+         */
+        log.info("\n");
+        log.info("///////////////////////////////////////////////////////////");
+        log.info("///////////////   Processing best circuits   //////////////");
+        log.info("///////////////////////////////////////////////////////////\n");
+
+
+
+
+        //sim annealing / hill climbing can add duplicate assignments
+        //this doesn't matter if only 1 assignment will be the Cello output
+        //but could cause problems if more than 1 assignment is desired
+
+        ArrayList<LogicCircuit> unique_lcs = assigned_lcs;
+
+        LinkedHashMap<String, LogicCircuit> unique_lcs_map = new LinkedHashMap<>();
+        if(_options.is_output_all_assignments()) {
+            for(LogicCircuit lc: assigned_lcs) {
+                String score = Util.sc(lc.get_scores().get_score());
+                unique_lcs_map.put(score, lc);
+            }
+            unique_lcs = new ArrayList<>(unique_lcs_map.values());
+        }
+
+        log.info("all lcs " + assigned_lcs.size());
+        log.info("unique lcs " + unique_lcs.size());
+        sortLogicCircuitsByScore(unique_lcs);
+
+
+        /*if (_options.is_unique_rbs_assignments()) {
+            ArrayList<LogicCircuit> unique_assignment_lcs = BuildCircuitsUtil.removeIdenticalTUs(unique_lcs, gate_library, part_library);
+            unique_lcs = unique_assignment_lcs;
+        }
+        else if (_options.is_unique_repressor_assignments()) {
+            ArrayList<LogicCircuit> unique_repressor_lcs = BuildCircuitsUtil.getUniqueRepressorAssignments(unique_lcs, gate_library, part_library);
+            unique_lcs = unique_repressor_lcs;
+        }*/
+
+
+        if(_options.get_nA() > unique_lcs.size()) {
+            _options.set_nA(unique_lcs.size());
+        }
+
+        if(_options.is_output_all_assignments()) {
+
+            if(_options.is_histogram()) {
+
+                for(Gate g: gate_library.get_GATES_BY_NAME().values()) {
+                    HistogramUtil.interpolateTransferFunctionTitrations(g.Name, gate_library);
+                }
+
+                String file_name_default = _options.get_home() + _options.get_datapath() + "default_histogram.txt";
+                InputOutputGateReader.makeHistogramsforInputREUs(gate_library, file_name_default);
+
+                for(LogicCircuit lc: unique_lcs) {
+                    LogicCircuitUtil.setInputREU(lc, gate_library);
+
+                    for (Gate g : lc.get_Gates()) {
+                        g.get_histogram_bins().init();
+                    }
+
+                    for (Gate g : lc.get_logic_gates()) {
+                        g.set_xfer_hist(gate_library.get_GATES_BY_NAME().get(g.Name).get_xfer_hist());
+                    }
+
+                    Evaluate.evaluateCircuitHistogramOverlap(lc, gate_library, _options);
+                }
+
+
+                for(LogicCircuit lc: unique_lcs) {
+                    Double overlap_score = lc.get_scores().get_conv_overlap();
+                    lc.get_scores().set_onoff_ratio(overlap_score);
+                }
+
+                sortLogicCircuitsByScore(unique_lcs);
+
+            }
+
+            int asn_counter = 0;
+            for(LogicCircuit lc: unique_lcs) {
+                String asn = "";
+                for(Gate g: lc.get_logic_gates()) {
+                    asn += g.Name + " ";
+                }
+                Double score = lc.get_scores().get_score();
+                if(score > 1.0) {
+                    asn += Util.sc(score);
+
+                    asn = asn.replace("_", "-");
+                    asn = asn.replace("js", "NOR_js");
+                    asn = asn.replace("an0", "NOR_an0");
+                    log.info("Assignment: " + asn);
+
+                    lc.set_assignment_name( _options.get_jobID() + "_A" + String.format("%03d", asn_counter) );
+                    asn_counter++;
+                    Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_logic_circuit.txt", lc.toString(), false);
+
+                    log.info("=========== Circuit bionetlist ===============");
+                    Plasmid.setGateParts(lc, gate_library, part_library);
+                    Netlist.setBioNetlist(lc, false);
+                    Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_bionetlist.txt", lc.get_netlist(), false);
+
+                }
+            }
+
+            System.exit(-1);
+        }
+
+
+
+
+        /*for(LogicCircuit lc: unique_lcs) {
+
+            //boolean has_all_tp_data = LogicCircuitUtil.dataFoundForAllTandemPromoters(gate_library, lc);
+
+            boolean maximize_tp_reg_score_ratio = true;
+
+            if(maximize_tp_reg_score_ratio) {
+                Double tp_score = lc.get_scores().get_score();
+                lc.get_scores().set_tp_onoff_ratio(tp_score);
+
+                _options.set_tandem_promoter(false);
+
+                Evaluate.evaluateCircuit(lc, gate_library, _options);
+
+                Double reg_score = lc.get_scores().get_score();
+                lc.get_scores().set_reg_onoff_ratio(reg_score);
+
+                _options.set_tandem_promoter(true);
+
+                Double ratio_score = tp_score / reg_score;
+                lc.get_scores().set_onoff_ratio(ratio_score);
+            }
+        }*/
+
+
+
+
+        sortLogicCircuitsByScore(unique_lcs);
+
+
+        for(int a=0; a<_options.get_nA(); ++a) {
+
+            Assignment asn = new Assignment();
+
+            LogicCircuit lc = new LogicCircuit(unique_lcs.get(a));
+
+            lc.set_index(a);
+
+            lc.set_assignment_name( _options.get_jobID() + "_A" + String.format("%03d", a) );
+
+
+            Double unit_conversion = ucf_adaptor.getUnitConversion(ucf);
+            for(Gate g: lc.get_output_gates()) {
+                g.set_unit_conversion(unit_conversion);
+            }
+
+            Evaluate.evaluateCircuit(lc, gate_library, _options);
+            for (Gate g : lc.get_Gates()) {
+                Evaluate.evaluateGate(g, _options);
+            }
+            if (_options.is_toxicity()) {
+                Toxicity.evaluateCircuitToxicity(lc, gate_library);
+            }
+
+
+
+            log.info("=========== Circuit assignment details =======");
+            log.info(lc.toString() + "\n");
+            Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_logic_circuit.txt", lc.toString(), false);
+
+
+            // TODO
+            log.info("=========== Circuit bionetlist ===============");
+            Plasmid.setGateParts(lc, gate_library, part_library);
+            Netlist.setBioNetlist(lc, false);
+            log.info(lc.get_netlist());
+            Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_bionetlist.txt", lc.get_netlist(), false);
+
+
+
+            if(_options.is_histogram()) {
+
+                log.info("=========== Simulate cytometry distributions");
+
+                String file_name_default = _options.get_home() + _options.get_datapath() + "default_histogram.txt";
+                InputOutputGateReader.makeHistogramsforInputREUs(gate_library, file_name_default);
+
+                LogicCircuitUtil.setInputREU(lc, gate_library);
+
+
+                for(Gate g: lc.get_Gates()) {
+                    g.get_histogram_bins().init();
+                }
+
+
+                for(Gate g: lc.get_logic_gates()) {
+
+                    HistogramUtil.interpolateTransferFunctionTitrations(g.Name, gate_library);
+
+                    g.set_xfer_hist(gate_library.get_GATES_BY_NAME().get(g.Name).get_xfer_hist());
+
+                    log.info("histogram interpolation for " + g.Name + " " + g.get_xfer_hist().get_xfer_interp().size() + " " + g.get_xfer_hist().get_xfer_interp().get(0).length );
+
+                }
+
+                Evaluate.evaluateCircuitHistogramOverlap(lc, gate_library, _options);
+
+                log.info("distribution score: " + lc.get_scores().get_conv_overlap());
+            }
+
+            //if(_options.get_histogram() && lc.get_scores().get_conv_overlap() < _options.get_histogram()_threshold) {
+            //    continue;
+            //}
+
+
+
+            /*SBOLCircuitWriterIWBDA sbol_circuit_writer = new SBOLCircuitWriterIWBDA();
+
+            sbol_circuit_writer.setCircuitName(lc.get_assignment_name());
+            //String sbol_document = sbol_circuit_writer.writeSBOLCircuit(lc.get_assignment_name() + "_SBOL.xml", lc, lc.get_assignment_name(), _options);
+            String sbol_document = sbol_circuit_writer.writeSBOLCircuit(lc.get_assignment_name() + "_circuit.sbol", lc, lc.get_assignment_name(), _options);*/
+
+
+            if (_options.is_figures()) {
+                log.info("\n");
+                log.info("///////////////////////////////////////////////////////////");
+                log.info("////////////////////////   Figures   //////////////////////");
+                log.info("///////////////////////////////////////////////////////////\n");
+
+                generateFigures(lc, gate_library);
+            }
+
+            if(_options.is_plasmid()) {
+                log.info("\n");
+                log.info("///////////////////////////////////////////////////////////");
+                log.info("///////////////   Plasmid DNA sequences   /////////////////");
+                log.info("///////////////////////////////////////////////////////////\n");
+
+                Plasmid.findPartComponentsInOutputGates(lc, gate_library, part_library);
+
+                generatePlasmids(lc, gate_library, part_library, ucf, asn);
+            }
+
+
+
+            ScriptCommands script_commands = new ScriptCommands(_options.get_home(), _options.get_output_directory(), _options.get_jobID());
+            script_commands.removeEPS(_options.get_output_directory());
+            //script_commands.removeGateFiles(_options.get_output_directory());
+
+
+            /**
+             * This warning was printed earlier, but it is more noticeable at the end of the text file
+             */
+            if (roadblock.illegalInputRoadblocking(lc)) {
+
+                _result_status = ResultStatus.roadblocking_inputs;
+
+                log.info("\n");
+                log.info("-----------------------------------------------------------");
+                log.info("---------------   Warning: input promoter roadblocking ----");
+                log.info("-----------------------------------------------------------\n");
+            }
+
+            asn.set_logic_circuit(lc);
+            asn.set_logic_circuit_node(lcToNode(lc));
+            //asn.set_sbol_file(sbol_document);
+
+            if(_options.is_write_circuit_json()) {
+                Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_logic_circuit.json", asn.get_logic_circuit_node().toString(), false);
+            }
+
+            _assignments.add(asn);
+        }
+
+        if(_result_status != ResultStatus.roadblocking_inputs) {
+            _result_status = ResultStatus.success;
+        }
+
+
+
+        log.info("\n");
+        log.info("///////////////////////////////////////////////////////////");
+        log.info("///////////////   Cello finished playing   ////////////////");
+        log.info("///////////////////////////////////////////////////////////\n");
+
+
+        return;
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////           DNACompiler functions              ///////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    /**
+     *
+     *  Use Eugene for rules-based permutation of txn unit order/orientation to generate additional plasmid variants.
+     *
+     * @param lc
+     * @param gate_library
+     * @param part_library
+     */
+    public void generatePlasmids(LogicCircuit lc, GateLibrary gate_library, PartLibrary part_library, UCF ucf, Assignment asn) {
+
+        String name_Eug_circuit_rules =  lc.get_assignment_name() + "_Eugene_circuit_module_rules.eug";
+        String name_Eug_circuit_parts =  lc.get_assignment_name() + "_Eugene_circuit_module_part_list.txt";
+        String name_Eug_circuit_gates =  lc.get_assignment_name() + "_Eugene_circuit_module_gate_list.txt";
+
+        String name_Eug_output_rules  =  lc.get_assignment_name() + "_Eugene_output_module_rules.eug";
+        String name_Eug_output_parts  =  lc.get_assignment_name() + "_Eugene_output_module_part_list.txt";
+        String name_cirdna_out =  lc.get_assignment_name() + "_P000_cirdna.txt";
+
+
+        String correct_seq = "";
+        String jobHex = get_options().get_jobID();
+        if(jobHex.contains("circuit_")) {
+            jobHex = get_options().get_jobID().split("circuit_")[1];
+        }
+        System.out.println("Job Hex " + jobHex);
+
+        ArrayList<ArrayList<String>> correct_seqs = Util.fileTokenizer("/Users/peng/Dropbox (MIT)/writing/cellopaper/circuit_DNA_sequences_v2_bd.csv");
+        for(ArrayList<String> rows: correct_seqs) {
+            String hex = rows.get(1);
+            if(hex.equals(jobHex)) {
+                correct_seq = rows.get(2);
+                break;
+            }
+        }
+
+
+
+        log.info("=========== Setting gate parts according to assigned gate names");
+
+        //Plasmid.setGateParts(lc, gate_library, part_library);
+
+        Plasmid.setTxnUnits(lc, gate_library);
+
+        EugeneAdaptor eugeneAdaptor = new EugeneAdaptor();
+
+
+        ArrayList<String> sensor_module_lines = Util.fileLines(_options.get_fin_sensor_module());
+        String sensor_module_sequence = "";
+        for(String s: sensor_module_lines) {
+            sensor_module_sequence += s;
+        }
+        Part sensor_module_part = new Part("sensor_module", "backbone", sensor_module_sequence);
+        ArrayList<Part> sensor_module_list = new ArrayList<Part>();
+        ArrayList<ArrayList<Part>> sensor_module_lists = new ArrayList<ArrayList<Part>>();
+        sensor_module_list.add(sensor_module_part);
+        sensor_module_lists.add(sensor_module_list);
+
+        lc.set_sensor_module_parts(sensor_module_lists);
+
+        String circuit_eugene_file_string = "";
+
+        UCFAdaptor ucf_adaptor = new UCFAdaptor();
+
+
+        ArrayList<String> eugene_part_rules = ucf_adaptor.getEugenePartRules(ucf);
+        ArrayList<String> eugene_gate_rules = ucf_adaptor.getEugeneGateRules(ucf);
+
+        eugeneAdaptor.set_eugene_part_rules(eugene_part_rules);
+        eugeneAdaptor.set_eugene_gate_rules(eugene_gate_rules);
+
+
+        String circuit_module_location_name = ucf_adaptor.getCircuitModuleLocationName(ucf);
+        String output_module_location_name = ucf_adaptor.getOutputModuleLocationName(ucf);
+
+
+        if(circuit_module_location_name == null || circuit_module_location_name.isEmpty() ||
+                output_module_location_name == null || output_module_location_name.isEmpty() ||
+                circuit_module_location_name.equals(output_module_location_name) ) {
+
+            log.info("=========== Eugene: circuit module and output module combined ===========");
+
+            ArrayList<Gate> logic_and_output_gates = new ArrayList<>();
+            logic_and_output_gates.addAll(lc.get_logic_gates());
+            logic_and_output_gates.addAll(lc.get_output_gates());
+
+
+            circuit_eugene_file_string = eugeneAdaptor.generateEugeneFile(logic_and_output_gates, name_Eug_circuit_rules, part_library, _options);
+
+            log.info("Eugene: combinatorial design of plasmid layouts...\n");
+
+            eugeneAdaptor.callEugene(name_Eug_circuit_rules, lc.get_circuit_module_parts(), part_library, _options);
+
+            log.info("Number of circuit module layouts: " + lc.get_circuit_module_parts().size());
+
+        }
+
+        else if(!circuit_module_location_name.isEmpty() && ! output_module_location_name.isEmpty() && !circuit_module_location_name.equals(output_module_location_name)) {
+            log.info("=========== Eugene: circuit module ===========");
+
+            circuit_eugene_file_string = eugeneAdaptor.generateEugeneFile(lc.get_logic_gates(), name_Eug_circuit_rules, part_library, _options);
+
+            log.info("Eugene: combinatorial design of plasmid layouts...\n");
+
+            eugeneAdaptor.callEugene(name_Eug_circuit_rules, lc.get_circuit_module_parts(), part_library, _options);
+
+            log.info("Number of circuit module layouts: " + lc.get_circuit_module_parts().size());
+
+
+            log.info("=========== Eugene: output module ============");
+
+            //_options.get_eugene_scars = false;
+            String output_eugene_file_string = eugeneAdaptor.generateEugeneFile(lc.get_output_gates(), name_Eug_output_rules, part_library, _options);
+
+            eugeneAdaptor.callEugene(name_Eug_output_rules, lc.get_output_module_parts(), part_library, _options);
+
+            log.info("Number of output module layouts: " + lc.get_output_module_parts().size());
+        }
+
+
+        int p_counter = 0;
+        String fulldna = "";
+        String part_names = "";
+
+        for(ArrayList<Part> module: lc.get_circuit_module_parts()) {
+
+            String N = lc.get_assignment_name() + "_P" + String.format("%03d", p_counter);
+            ArrayList<String> parts_list = new ArrayList<String>();
+            ArrayList<String> gates_list = new ArrayList<String>();
+            for(Part p: module) {
+
+
+//                System.out.println(p.get_name() + ", " + p.get_seq());
+//                if(p.get_type().equalsIgnoreCase("scar")) {
+//                    String seq = correct_seq.substring(fulldna.length(), fulldna.length()+4);
+//                    p.set_seq(seq);
+//                }
+//                fulldna += p.get_seq();
+
+//                if(!correct_seq.toUpperCase().startsWith(fulldna.toUpperCase())) {
+//                    log.info("############# Problem with \n" + p.get_name() + " \n" + p.get_seq());
+//                    Integer length_last = p.get_seq().length();
+//                    String expected = correct_seq.substring(fulldna.length()-length_last, fulldna.length());
+//                    log.info(expected);
+//                    System.exit(-1);
+//                }
+//                else {
+//                    System.out.println("match " + p.get_name());
+//                }
+
+                part_names += p.get_name() + ", " + p.get_seq() + "\n";
+                parts_list.add(p.get_direction() + p.get_name());
+                if(p.get_type().equals("cds")) {
+                    gates_list.add(p.get_direction() + "gate_" + p.get_name());
+                }
+            }
+
+            Util.fileWriter(_options.get_output_directory() + name_Eug_circuit_parts, N + " " + parts_list.toString()+"\n", true);
+            Util.fileWriter(_options.get_output_directory() + name_Eug_circuit_gates, N + " " + gates_list.toString()+"\n", true);
+            ++p_counter;
+        }
+//        String outdnafile = get_options().get_output_directory() + "/" + get_options().get_jobID() + "_fulldna.txt";
+//        Util.fileWriter(outdnafile, get_options().get_jobID() + "," + fulldna, false);
+//
+//        String outpartfile = get_options().get_output_directory() + "/" + get_options().get_jobID() + "_partlist.txt";
+//        Util.fileWriter(outpartfile, part_names, false);
+
+        for(ArrayList<Part> module: lc.get_output_module_parts()) {
+
+            String N = lc.get_assignment_name() + "_P" + String.format("%03d", p_counter);
+            ArrayList<String> parts_list = new ArrayList<String>();
+            ArrayList<String> gates_list = new ArrayList<String>();
+            for (Part p : module) {
+                parts_list.add(p.get_direction() + p.get_name());
+            }
+            Util.fileWriter(_options.get_output_directory() + name_Eug_output_parts, N + " " + parts_list.toString()+"\n", true);
+        }
+
+
+
+        if(ucf.get_genetic_locations().isEmpty()) {
+            lc.set_sensor_plasmid_parts(lc.get_sensor_module_parts());
+            lc.set_circuit_plasmid_parts(lc.get_circuit_module_parts());
+            lc.set_output_plasmid_parts(lc.get_output_module_parts());
+        }
+        else {
+            if (! ucf.get_genetic_locations().containsKey("sensor_module_location")) {
+                lc.set_sensor_plasmid_parts(lc.get_sensor_module_parts());
+            }
+            if (! ucf.get_genetic_locations().containsKey("circuit_module_location")) {
+                System.out.println("Setting circuit module parts");
+                lc.set_circuit_plasmid_parts(lc.get_circuit_module_parts());
+            }
+            if (! ucf.get_genetic_locations().containsKey("output_module_location")) {
+                lc.set_output_plasmid_parts(lc.get_output_module_parts());
+            }
+        }
+
+        System.out.println(lc.get_sensor_module_parts().size());
+        System.out.println(lc.get_circuit_module_parts().size());
+        System.out.println(lc.get_output_module_parts().size());
+
+        GeneticLocationWriter.insertModulePartsIntoGeneticLocations(lc, ucf);
+
+//        System.out.println("Circuit module parts");
+//        System.out.println(lc.get_circuit_module_parts().get(0).toString());
+//
+//        System.out.println("Circuit plasmid parts");
+//        System.out.println(lc.get_circuit_plasmid_parts().get(0).toString());
+
+        ArrayList<String> all_plasmid_strings = new ArrayList<>();
+
+        if(lc.get_sensor_plasmid_parts().size() > 0) {
+            all_plasmid_strings.addAll( Plasmid.writePlasmidFiles(lc.get_sensor_plasmid_parts(), lc.get_assignment_name(), "plasmid_sensor", _options.get_output_directory()) );
+        }
+        if(lc.get_circuit_plasmid_parts().size() > 0) {
+            all_plasmid_strings.addAll( Plasmid.writePlasmidFiles(lc.get_circuit_plasmid_parts(), lc.get_assignment_name(), "plasmid_circuit", _options.get_output_directory()) );
+        }
+        if(lc.get_output_plasmid_parts().size() > 0) {
+            all_plasmid_strings.addAll( Plasmid.writePlasmidFiles(lc.get_output_plasmid_parts(), lc.get_assignment_name(), "plasmid_output", _options.get_output_directory()) );
+        }
+
+
+        log.info("\n=========== SBOL for circuit plasmids ========");
+
+        //currently not writing an SBOL document for the output plasmid if the output module is on a different plasmid than the circuit.
+        for(int i=0; i<lc.get_circuit_plasmid_parts().size(); ++i) {
+            ArrayList<Part> plasmid = lc.get_circuit_plasmid_parts().get(i);
+
+            SBOLCircuitWriterIWBDA sbol_circuit_writer = new SBOLCircuitWriterIWBDA();
+
+            sbol_circuit_writer.setCircuitName(lc.get_assignment_name());
+            String sbol_filename = lc.get_assignment_name() + "_sbol_circuit" + "_P" + String.format("%03d", i) + ".sbol";
+            String sbol_plasmid_name = lc.get_assignment_name() + "_P" + String.format("%03d", i);
+
+            String sbol_document = sbol_circuit_writer.writeSBOLCircuit(sbol_filename, lc, plasmid, sbol_plasmid_name, _options);
+        }
+
+
+        asn.set_eugene_file(circuit_eugene_file_string);
+        asn.set_plasmid_files(all_plasmid_strings);
+
+
+        Plasmid.resetParentGates(lc);
+
+        if(_options.is_figures()) {
+            if (_options.is_dnaplotlib()) {
+                log.info("\n");
+                log.info("=========== DNAPlotLib =======================");
+                log.info("rendering genetic diagram image...");
+
+                PlotLibWriter.writeCircuitsForDNAPlotLib(lc.get_circuit_plasmid_parts(), lc.get_index(), _options);
+            }
+        }
+
+        log.info("");
+    }
+
+    /**
+     *
+     * Automated figure generation.
+     *
+     */
+    public void generateFigures(LogicCircuit lc, GateLibrary gate_library) {
+
+        Integer a = lc.get_index();
+        String name_wiring_xfer =  lc.get_assignment_name() + "_wiring_xfer.dot";
+        String name_wiring_reu  =  lc.get_assignment_name() + "_wiring_reu.dot";
+        String name_wiring_grn  =  lc.get_assignment_name() + "_wiring_grn.dot";
+
+        Gnuplot gnuplot = new Gnuplot(_options.get_home(), _options.get_output_directory(), _options.get_jobID());
+        Graphviz graphviz = new Graphviz(_options.get_home(), _options.get_output_directory(), _options.get_jobID());
+        ScriptCommands script_commands = new ScriptCommands(_options.get_home(), _options.get_output_directory(), _options.get_jobID());
+
+        log.info("=========== Graphviz wiring diagram ==========");
+        Colors.setColors();
+        graphviz.printGraphvizDotText(lc, name_wiring_grn);
+        script_commands.makeDot2Png(name_wiring_grn);
+
+        if(_options.is_response_fn()) {
+            log.info("=========== Graphviz Xfer figures ============");
+            gnuplot.printGnuplotXfer(lc, _options);
+            graphviz.printGraphvizXferPNG(lc, name_wiring_xfer);
+            script_commands.makeCircuitREUFigure(lc.get_assignment_name());
+            script_commands.makeDot2Png(name_wiring_xfer);
+        }
+        if(_options.is_snr()) {
+            log.info("=========== SNR figures =======================");
+            for(Gate g: lc.get_logic_gates()) {
+                gnuplot.printGnuplotGateSNR(g, lc.get_assignment_name(), _options);
+            }
+            script_commands.makeCircuitSNRFigure(lc.get_assignment_name());
+        }
+        if(_options.is_tandem_promoter()) {
+            log.info("=========== Tandem promoter figures =======================");
+            gnuplot.makeTandemPromoterHeatmaps(lc, gate_library, _options);
+
+
+            InterpolateTandemPromoter itp = new InterpolateTandemPromoter();
+
+            HistogramBins hbins = new HistogramBins();
+            hbins.init();
+
+            for(Gate g: lc.get_Gates()) {
+                if(g.Type == GateType.INPUT) {
+                    continue;
+                }
+
+
+                boolean tp_exists = false;
+                String tp_name = "";
+                double[][] grid = new double[hbins.get_NBINS()][hbins.get_NBINS()];
+                Gate child1 = new Gate();
+                Gate child2 = new Gate();
+                ArrayList<String> fanin_gate_names = new ArrayList<>();
+
+                String var = "x";
+                if(g.get_variable_names().size() == 1) {
+                    var = g.get_variable_names().get(0);
+                }
+
+
+                if (g.get_variable_wires().get(var).size() == 2) { //hard-coded
+
+                    child1 = g.getChildren().get(0);
+                    child2 = g.getChildren().get(1);
+
+                    if (child1.Type == Gate.GateType.INPUT) {
+                        fanin_gate_names.add("input_" + child1.Name);
+                    } else {
+                        fanin_gate_names.add(child1.Name);
+                    }
+
+                    if (child2.Type == Gate.GateType.INPUT) {
+                        fanin_gate_names.add("input_" + child2.Name);
+                    } else {
+                        fanin_gate_names.add(child2.Name);
+                    }
+
+
+                    String tandem_promoter_name_1 = fanin_gate_names.get(0) + "_" + fanin_gate_names.get(1);
+                    String tandem_promoter_name_2 = fanin_gate_names.get(1) + "_" + fanin_gate_names.get(0);
+                    tp_name = tandem_promoter_name_1;
+
+                    if (gate_library.get_TANDEM_PROMOTERS().containsKey(tandem_promoter_name_1)) {
+                        grid = gate_library.get_TANDEM_PROMOTERS().get(tandem_promoter_name_1);
+                        tp_name = tandem_promoter_name_1;
+                        tp_exists = true;
+                    } else if (gate_library.get_TANDEM_PROMOTERS().containsKey(tandem_promoter_name_2)) {
+                        grid = gate_library.get_TANDEM_PROMOTERS().get(tandem_promoter_name_2);
+                        tp_name = tandem_promoter_name_2;
+                        tp_exists = true;
+                    }
+                }
+
+
+                if(tp_exists) {
+
+                    String file_points_on  = "grid_tp_" + tp_name + "_points_on.txt";
+                    String file_points_off = "grid_tp_" + tp_name + "_points_off.txt";
+                    String file_interp = "grid_tp_" + tp_name + ".txt";
+                    String file_points_on_path  = _options.get_output_directory() + "/" + file_points_on;
+                    String file_points_off_path = _options.get_output_directory() + "/" + file_points_off;
+                    String file_interp_path = _options.get_output_directory() + "/" + file_interp;
+
+                    System.out.println("////////////////////////////////////////// ");
+                    System.out.println("making " + file_interp);
+
+                    itp.writeGridstoFiles(grid, file_interp_path, 5);
+
+
+
+
+                    String gate1_name = fanin_gate_names.get(0);
+                    String gate2_name = fanin_gate_names.get(1);
+
+                    String points_on  = "";
+                    String points_off = "";
+
+                    String v = "x";
+
+                    for(int row=0; row<g.get_logics().size(); ++row) {
+
+                        Double in1 = 0.0;
+                        Double in2 = 0.0;
+
+                        if (child1.Type == Gate.GateType.INPUT) {
+                            if (child1.get_logics().get(row) == 0) {
+                                in1 = Math.pow(10, hbins.get_LOGMIN());
+                            } else if (child1.get_logics().get(row) == 1) {
+                                in1 = Math.pow(10, hbins.get_LOGMAX());
+                            }
+                        } else {
+                            in1 = child1.get_inreus().get(v).get(row);
+                        }
+
+
+                        if (child2.Type == Gate.GateType.INPUT) {
+                            if (child2.get_logics().get(row) == 0) {
+                                in2 = Math.pow(10, hbins.get_LOGMIN());
+                            } else if (child2.get_logics().get(row) == 1) {
+                                in2 = Math.pow(10, hbins.get_LOGMAX());
+                            }
+                        } else {
+                            in2 = child2.get_inreus().get(v).get(row);
+                        }
+
+
+                        if (tp_name.startsWith(gate1_name) && tp_name.endsWith(gate2_name)) {
+                            //correct in1 and in2 order
+                        } else if (tp_name.startsWith(gate2_name) && tp_name.endsWith(gate1_name)) {
+                            Double temp = new Double(in1);
+                            in1 = in2;
+                            in2 = temp;
+                        } else {
+                            throw new IllegalStateException("Problem with tandem promoter lookup");
+                        }
+
+                        Integer bin1 = HistogramUtil.bin_of_logreu(Math.log10(in1), hbins);
+                        Integer bin2 = HistogramUtil.bin_of_logreu(Math.log10(in2), hbins);
+
+                        int logic = g.get_logics().get(row);
+
+                        if (g.Type == GateType.NOR) {
+                            logic = BooleanLogic.computeNOT(logic);
+                        }
+
+                        if(logic == 0) {
+                            points_off += bin1 + " " + bin2 + " 1\n";
+                        }
+                        if(logic == 1) {
+                            points_on += bin1 + " " + bin2 + " 1\n";
+                        }
+
+                    }
+
+                    Util.fileWriter(file_points_on_path, points_on, false);
+                    Util.fileWriter(file_points_off_path, points_off, false);
+
+
+                    String cmd = "perl " + _options.get_home() + "/resources/scripts/make_tandem_promoter_heatmaps.pl " +
+                            _options.get_output_directory() + " " +
+                            _options.get_jobID() + " " +
+                            _options.get_home() + "/resources/scripts/" + " " +
+                            file_interp + " " +
+                            file_points_on + " " +
+                            file_points_off + " " +
+                            tp_name;
+
+                    String command_result = Util.executeCommand(cmd);
+                }
+
+                else {
+                    System.out.println(tp_name + " DOES NOT EXIST ");
+                }
+
+
+            }
+
+        }
+
+
+        if (_options.is_truthtable_reu()) {
+            log.info("=========== Truth table figure(s) ============");
+
+            if (_options.is_histogram()) {
+                log.info("=========== histogram multiplots =============");
+
+                String input_truth = "";
+                for(int i=0; i<lc.get_input_gates().get(0).get_logics().size(); ++i) {
+                    for (Gate g : lc.get_input_gates()) {
+                        input_truth += g.get_logics().get(i);
+                    }
+                    input_truth += ",";
+                }
+
+                gnuplot.makeHistogramMultiplot(lc, "truth", input_truth);
+
+
+
+                for (Gate g : lc.get_logic_gates()) {
+                    gnuplot.makeHistogramMultiplotGate(g, lc.get_assignment_name(), "gate", input_truth);
+                }
+                /*for (Gate g : lc.get_input_gates()) {
+                    gnuplot.makeHistogramMultiplotGate(g, lc.get_assignment_name(), "gate");
+                }*/
+                for (Gate g : lc.get_output_gates()) {
+                    gnuplot.makeHistogramMultiplotGate(g, lc.get_assignment_name(), "gate", input_truth);
+                }
+                graphviz.printGraphvizDistrPNG(lc, name_wiring_reu);
+                script_commands.makeDot2Png(name_wiring_reu);
+            }
+            else {
+                log.info("=========== bargraph multiplots ==============");
+                gnuplot.makeTruthtableBargraph(lc, "truth");
+
+                for (Gate g : lc.get_logic_gates()) {
+                    gnuplot.makeTruthtableBargraph(g, lc.get_assignment_name(), "gate");
+                }
+                /*for (Gate g : lc.get_input_gates()) {
+                    gnuplot.makeTruthtableBargraph(g, lc.get_assignment_name(), "gate");
+                }*/
+                for (Gate g : lc.get_output_gates()) {
+                    gnuplot.makeTruthtableBargraph(g, lc.get_assignment_name(), "gate");
+                }
+                graphviz.printGraphvizDistrPNG(lc, name_wiring_reu);
+                script_commands.makeDot2Png(name_wiring_reu);
+            }
+        }
+
+        if(_options.is_toxicity() && _options.is_truthtable_tox()) {
+            log.info("============== cell growth plots =============");
+            gnuplot.makeCellGrowthFigure(lc, "toxicity");
+        }
+
+
+        log.info("=========== Table of predicted expression levels (REU)");
+        String reu_table = lc.printREUTable();
+        String outfile_reutable = lc.get_assignment_name() + "_reutable.txt";
+        Util.fileWriter(_options.get_output_directory() + outfile_reutable, reu_table, false);
+        log.info(reu_table);
+
+        if(_options.is_toxicity()) {
+            log.info("=========== Table of predicted cell growth (relative OD600)");
+            String tox_table = Toxicity.writeToxicityTable(lc);
+            log.info(tox_table);
+            String outfile = lc.get_assignment_name() + "_toxtable.txt";
+            Util.fileWriter(_options.get_output_directory() + outfile, tox_table, false);
+        }
+
+    }
+
+
+
+
+
+    /**
+     *
+     * set filepaths to load input, output, repressor, toxicity data.
+     *
+     * Command-line arguments can be used for custom file inputs
+     *
+     */
+    public void setPaths() {
+
+        //Date: prefix for output files
+        if(_options.get_jobID().equals("")) {
+            java.util.Date date=new Date();
+            _options.set_jobID( "job_" + String.valueOf(date.getTime()) );
+        }
+
+        if(_options.get_fin_sensor_module() == "") {
+            _options.set_fin_sensor_module( _options.get_home() + _options.get_datapath() + "inputs/sensor_module.txt" );
+        }
+        if(_options.get_fin_input_promoters() == "") {
+            _options.set_fin_input_promoters( _options.get_home() + _options.get_datapath() + "inputs/Inputs.txt" );
+        }
+        if(_options.get_fin_output_genes() == "") {
+            _options.set_fin_output_genes( _options.get_home() + _options.get_datapath() + "outputs/Outputs.txt" );
+        }
+
+        if(_options.get_UCFfilepath() == "") {
+            _options.set_UCFfilepath( _options.get_home() + "/resources/UCF/Eco1C1G1T1b.UCF.json" );
+        }
+
+        if(_options.get_output_directory().equals("")) {
+            _options.set_output_directory( _options.get_jobID() + "/" );
+        }
+
+    }
+
+
+    /**
+     *
+     * Prashant Vaidyanathan's NetlistSynthesizer generates the wiring diagram from Verilog input
+     *
+     * Flow 1: ABC to AND-Inverter Graph to NOR/NOT
+     * Flow 2: Espresso to POS to NOR/NOT
+     * Other: precomputed netlists for 3-input 1-output (by Swapnil Bhatia)
+     *
+     */
+    public LogicCircuit getAbstractCircuit(String verilog_filepath, UCF ucf) throws IOException, ParseException {
+
+        if(_options.get_circuit_type() == CircuitType.sequential) {
+
+            if( ! _options.get_synthesis().equals("originalstructural")) {
+                throw new IllegalStateException("ARGUMENTS: sequential logic requires originalstructural logic synthesis.");
+            }
+
+            if(get_options().get_fin_sequential_waveform() == "") {
+                throw new IllegalStateException("ARGUMENTS: missing sequential waveform");
+            }
+
+            LogicCircuit abstract_lc = StructuralVerilogToDAG.createDAG(get_options().get_fin_verilog());
+
+            return abstract_lc;
+        }
+
+
+
+        LogicCircuit abstract_logic_circuit = new LogicCircuit();
+
+        ////////////////// Create LogicCircuit from NetSynth //////////////
+
+
+        //get Abstract Circuit with options
+        org.cellocad.BU.DAG.DAGW GW = new org.cellocad.BU.DAG.DAGW();
+
+        String verilog_string = "";
+        ArrayList<String> verilog_lines = Util.fileLines(verilog_filepath);
+        for(String s: verilog_lines) {
+            verilog_string += s + "\n";
+        }
+
+        List<NetSynthSwitch> switches = new ArrayList<>();
+        org.json.JSONArray motifLibrary = new org.json.JSONArray();
+
+        FileReader reader = new FileReader(_options.get_home() + "/resources/netsynthResources/netlist_in3out1_OUTPUT_OR.json");
+        JSONParser jsonParser = new JSONParser();
+        JSONArray jsonArray = (JSONArray) jsonParser.parse(reader);
+
+        System.out.println(jsonArray.size());
+        for(int i=0; i<jsonArray.size(); ++i) {
+            Object obj = (Object) jsonArray.get(i);
+            motifLibrary.put(obj);
+        }
+
+        GW = org.cellocad.BU.netsynth.NetSynth.runNetSynth(
+                verilog_filepath,
+                new ArrayList<NetSynthSwitch>(),
+                motifLibrary
+        );
+
+
+        abstract_logic_circuit = new LogicCircuit(GW.Gates, GW.Wires);
+
+        for(Gate g: abstract_logic_circuit.get_Gates()) {
+            if(g.Outgoing != null) {
+                g.Outgoing_wire_index = g.Outgoing.Index;
+            }
+        }
+        for(Wire w: abstract_logic_circuit.get_Wires()) {
+            if(w.From != null) {
+                w.From_index = w.From.Index;
+            }
+            if(w.To != null) {
+                w.To_index = w.To.Index;
+            }
+            if(w.Next != null) {
+                w.Next_index = w.Next.Index;
+            }
+        }
+
+        LogicCircuitUtil.renameGatesWires(abstract_logic_circuit);
+
+        log.info(Netlist.getNetlist(abstract_logic_circuit));
+
+        _abstract_lc = abstract_logic_circuit;
+
+
+        return abstract_logic_circuit;
+    }
+
+
+
+    /**
+     *
+     * sorts LogicCircuit objects by score
+     *
+     *
+     */
+    public static void sortLogicCircuitsByScore(ArrayList<LogicCircuit> circuits) {
+        Collections.sort(circuits,
+                new Comparator<LogicCircuit>() {
+                    public int compare(LogicCircuit lc1, LogicCircuit lc2){
+                        int result = 0;
+                        if ( (lc2.get_scores().get_score() - lc1.get_scores().get_score()) > 1e-10 ){
+                            result = 1;
+                        }else if ( (lc2.get_scores().get_score() - lc1.get_scores().get_score()) < -1.0e-10){
+                            result = -1;
+                        }
+                        return result;
+                    }
+                }
+        );
+    }
+
+    public ObjectNode lcToNode(LogicCircuit lc) {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode node = mapper.valueToTree(lc);
+        return node;
+    }
+
+
+    public String objToJSONString(Object o) {
+        Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).setPrettyPrinting().create();
+        //Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(o);
+        return json.toString();
+    }
+
+    public void objToJSON(Object o, String filename) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        try
+        {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(_options.get_home() + "/src/test/resources/"+filename), o);
+        } catch (JsonGenerationException e)
+        {
+            e.printStackTrace();
+        } catch (JsonMappingException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public LogicCircuit lcJSONToObj(GateLibrary gate_library) {
+
+        GsonBuilder gson_builder = new GsonBuilder();
+
+        try {
+
+            java.io.BufferedReader br = new java.io.BufferedReader(
+                    new java.io.FileReader(_options.get_home() + "/src/test/resources/circuit.json"));
+
+            //convert the json string back to object
+            LogicCircuit obj = gson_builder.create().fromJson(br, LogicCircuit.class);
+            obj.reconnectCircuitByIndexes();
+            LogicCircuit lc = new LogicCircuit(obj);
+
+            Evaluate.simulateLogic(lc);
+            Evaluate.evaluateCircuit(lc, gate_library, _options);
+
+            return lc;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    public GateLibrary glJSONToObj() {
+
+        GsonBuilder gson_builder = new GsonBuilder();
+
+        try {
+
+            java.io.BufferedReader br = new java.io.BufferedReader(
+                    new java.io.FileReader(_options.get_home() + "/src/test/resources/gate_library.json"));
+
+            //convert the json string back to object
+            GateLibrary obj = gson_builder.create().fromJson(br, GateLibrary.class);
+
+            return obj;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /////////////////////////
+    //
+    // Private member data
+    //
+    /////////////////////////
+
+
+    @Getter @Setter private ArrayList<Assignment> _assignments = new ArrayList<>();
+
+    @Getter @Setter private LogicCircuit _abstract_lc = new LogicCircuit();
+
+    @Getter @Setter private ResultStatus _result_status;
+
+    @Getter private final Args _options = new Args();
+
+    private Logger log;
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+}
+
+

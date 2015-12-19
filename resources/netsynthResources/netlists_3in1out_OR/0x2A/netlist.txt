@@ -1,0 +1,2 @@
+NOR(n7,in1,in2)
+NOR(out,in3,n7)

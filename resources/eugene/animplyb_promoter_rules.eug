@@ -1,0 +1,115 @@
+PartType Promoter;
+PartType Insulator;
+PartType RBS;
+PartType CDS;
+PartType Terminator;
+
+CDS AmtR;
+CDS PhlF;
+CDS output_YFP;
+Insulator BydvJ;
+Insulator RiboJ53;
+Promoter input_pTac;
+Promoter input_pTet;
+Promoter pAmtRjs;
+Promoter pPhlF;
+RBS A2;
+RBS P3;
+Terminator ECK120033737;
+Terminator L3S2P55;
+
+
+Device gate_NOR_A2_AmtR(
+    Promoter,
+    +BydvJ,
+    +A2,
+    +AmtR,
+    +L3S2P55
+);
+
+Device gate_output_YFP(
+	Promoter,
+    +output_YFP
+);
+
+Device gate_NOR_P3_PhlF(
+    Promoter,
+    Promoter,
+    +RiboJ53,
+    +P3,
+    +PhlF,
+    +ECK120033737
+);
+
+Rule NOR_A2_AmtR_promoters(ON gate_NOR_A2_AmtR:
+	input_pTet EXACTLY 1 AND
+	all_forward
+);
+
+Rule NOR_P3_PhlF_promoters(ON gate_NOR_P3_PhlF:
+    input_pTac EXACTLY 1 AND
+    pAmtRjs EXACTLY 1 and
+    //input_pTac BEFORE pAmtRjs AND
+    all_forward
+);
+
+Rule output_YFP_promoters(ON gate_output_YFP:
+	pPhlF exactly 1 AND
+	all_forward
+);
+
+gate_NOR_A2_AmtR_devices = product(gate_NOR_A2_AmtR);
+gate_NOR_P3_PhlF_devices = product(gate_NOR_P3_PhlF);
+gate_output_YFP_devices  = product(gate_output_YFP);
+
+
+Device logic_gates();
+Device out_YFP();
+Device A2_AmtR();
+Device P3_PhlF();
+
+Rule allRules(ON logic_gates:
+    P3_PhlF exactly 1 AND
+    A2_AmtR exactly 1 AND
+    out_YFP exactly 1 AND
+	ENDSWITH out_YFP AND
+	FORWARD out_YFP AND
+	P3_PhlF BEFORE A2_AmtR AND
+	A2_AmtR BEFORE out_YFP AND
+	ALL_FORWARD
+);
+
+sum = 0;
+
+Array allResults;
+counter = 0;
+
+for(num k=0; k<sizeof(gate_NOR_A2_AmtR_devices); k=k+1) {
+for(num j=0; j<sizeof(gate_NOR_P3_PhlF_devices); j=j+1) {
+for(num i=0; i<sizeof(gate_output_YFP_devices); i=i+1) {
+
+  	A2_AmtR = gate_NOR_A2_AmtR_devices[k];
+	P3_PhlF = gate_NOR_P3_PhlF_devices[j];
+  	out_YFP = gate_output_YFP_devices[i];
+
+	Device logic_gates(
+		A2_AmtR,
+		P3_PhlF,
+		out_YFP);
+
+	result = permute(logic_gates);
+
+	allResults = allResults + result;
+
+  	//for(num r=0; r<SIZEOF(result); r=r+1) {
+  		//println(result[r]);
+  	//}
+
+  	sum = sum + sizeof(result);
+
+}
+}
+}
+
+println(sizeof(allResults));
+println(sum);

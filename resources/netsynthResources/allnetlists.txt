@@ -1,0 +1,2355 @@
+
+Expression for 1 : ( ( ( ( a * _0 ) * ( b * _0 ) ) * _0 ) * ( c * _0 ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+	NOR2(Wire4, c, _0)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 2 : ( ( ( ( a * _0 ) * ( b * _0 ) ) * _0 ) * c )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+	NOR2(Wire4, Wire3, c)
+
+
+Expression for 3 : ( ( a * _0 ) * ( b * _0 ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+
+
+Expression for 4 : ( ( ( ( a * _0 ) * ( b * c ) ) * _0 ) * b )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+	NOR2(Wire4, Wire3, b)
+
+
+Expression for 5 : ( ( a * _0 ) * ( c * _0 ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+
+
+Expression for 6 : ( ( ( ( a * _0 ) * b ) * ( ( a * _0 ) * c ) ) * ( b * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, b, c)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 7 : ( ( a * _0 ) * ( b * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+
+
+Expression for 8 : ( ( ( a * _0 ) * ( b * c ) ) * ( a * _0 ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, Wire0)
+
+
+Expression for 9 : ( ( ( ( b * _0 ) * ( c * _0 ) ) * ( b * c ) ) * ( a * _0 ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, b, c)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, a, _0)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for A : ( ( a * _0 ) * c )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+
+
+Expression for B : ( ( ( b * c ) * b ) * ( a * _0 ) )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, a, _0)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for C : ( ( a * _0 ) * b )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+
+
+Expression for D : ( ( ( b * _0 ) * c ) * ( a * _0 ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, a, _0)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for E : ( ( ( b * _0 ) * ( c * _0 ) ) * ( a * _0 ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, _0)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for F : a
+
+
+
+Expression for 10 : ( ( ( ( a * b ) * ( a * c ) ) * _0 ) * a )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, a, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+	NOR2(Wire4, Wire3, a)
+
+
+Expression for 11 : ( ( b * _0 ) * ( c * _0 ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+
+
+Expression for 12 : ( ( ( ( a * c ) * a ) * ( ( a * c ) * c ) ) * ( b * _0 ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, b, _0)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 13 : ( ( a * c ) * ( b * _0 ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+
+
+Expression for 14 : ( ( ( ( a * b ) * a ) * ( ( a * b ) * b ) ) * ( c * _0 ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, b)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, c, _0)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 15 : ( ( a * b ) * ( c * _0 ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+
+
+Expression for 16 : ( ( ( ( ( a * _0 ) * b ) * ( a * _0 ) ) * c ) * ( ( ( ( a * _0 ) * ( c * _0 ) ) * ( a * b ) ) * ( ( a * _0 ) * b ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, Wire0)
+	NOR2(Wire3, Wire2, c)
+	NOR2(Wire4, c, _0)
+	NOR2(Wire5, Wire0, Wire4)
+	NOR2(Wire6, a, b)
+	NOR2(Wire7, Wire5, Wire6)
+	NOR2(Wire8, Wire7, Wire1)
+	NOR2(Wire9, Wire3, Wire8)
+
+
+Expression for 17 : ( ( ( ( ( a * b ) * c ) * ( a * b ) ) * a ) * ( ( ( ( a * b ) * c ) * ( a * b ) ) * b ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, Wire0)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire2, b)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 18 : ( ( ( ( a * b ) * a ) * ( b * c ) ) * ( a * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, b, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, a, c)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 19 : ( ( ( ( a * _0 ) * b ) * c ) * ( ( ( a * _0 ) * c ) * b ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, c)
+	NOR2(Wire3, Wire0, c)
+	NOR2(Wire4, Wire3, b)
+	NOR2(Wire5, Wire2, Wire4)
+
+
+Expression for 1A : ( ( ( ( a * c ) * a ) * ( ( a * c ) * c ) ) * ( ( ( a * c ) * c ) * b ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire2, b)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 1B : ( ( ( b * c ) * b ) * ( a * c ) )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, a, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 1C : ( ( ( ( a * b ) * a ) * ( ( a * b ) * b ) ) * ( ( ( a * b ) * b ) * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, b)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire2, c)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 1D : ( ( ( b * _0 ) * c ) * ( a * b ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, a, b)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 1E : ( ( ( ( ( b * _0 ) * ( c * _0 ) ) * ( a * _0 ) ) * ( a * _0 ) ) * ( ( ( ( b * _0 ) * ( c * _0 ) ) * ( a * _0 ) ) * ( ( b * _0 ) * ( c * _0 ) ) ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, _0)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, Wire3)
+	NOR2(Wire6, Wire4, Wire2)
+	NOR2(Wire7, Wire5, Wire6)
+
+
+Expression for 1F : ( ( a * b ) * ( a * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, a, c)
+	NOR2(Wire2, Wire0, Wire1)
+
+
+Expression for 20 : ( ( ( a * b ) * ( a * c ) ) * ( a * b ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, a, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, Wire0)
+
+
+Expression for 21 : ( ( ( ( a * _0 ) * ( c * _0 ) ) * ( a * c ) ) * ( b * _0 ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, c)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, b, _0)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 22 : ( ( b * _0 ) * c )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, Wire0, c)
+
+
+Expression for 23 : ( ( ( a * c ) * a ) * ( b * _0 ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, b, _0)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 24 : ( ( ( ( a * _0 ) * b ) * ( a * c ) ) * ( b * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, a, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, b, c)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 25 : ( ( ( ( a * b ) * a ) * c ) * ( ( ( a * b ) * c ) * a ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, c)
+	NOR2(Wire3, Wire0, c)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, Wire2, Wire4)
+
+
+Expression for 26 : ( ( ( ( b * c ) * b ) * ( ( b * c ) * c ) ) * ( ( ( b * c ) * c ) * a ) )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire2, a)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 27 : ( ( ( a * c ) * a ) * ( b * c ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, b, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 28 : ( ( ( a * c ) * ( b * c ) ) * ( a * b ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, b)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 29 : ( ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( a * b ) ) * c ) * ( ( ( ( a * _0 ) * ( b * _0 ) ) * c ) * ( ( a * _0 ) * ( b * _0 ) ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, b)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, c)
+	NOR2(Wire6, Wire2, c)
+	NOR2(Wire7, Wire6, Wire2)
+	NOR2(Wire8, Wire5, Wire7)
+
+
+Expression for 2A : ( ( a * b ) * c )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, c)
+
+
+Expression for 2B : ( ( ( ( a * b ) * c ) * a ) * ( ( ( a * b ) * c ) * b ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, a)
+	NOR2(Wire3, Wire1, b)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 2C : ( ( ( a * c ) * ( b * _0 ) ) * ( a * b ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, b)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 2D : ( ( ( ( ( b * _0 ) * c ) * ( a * _0 ) ) * ( a * _0 ) ) * ( ( ( ( b * _0 ) * c ) * ( a * _0 ) ) * ( ( b * _0 ) * c ) ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, a, _0)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, Wire2)
+	NOR2(Wire5, Wire3, Wire1)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 2E : ( ( ( b * _0 ) * ( c * _0 ) ) * ( a * b ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, b)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 2F : ( ( ( a * c ) * a ) * ( a * b ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, a, b)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 30 : ( ( a * b ) * a )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+
+
+Expression for 31 : ( ( ( a * _0 ) * c ) * ( b * _0 ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, b, _0)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 32 : ( ( ( a * _0 ) * ( c * _0 ) ) * ( b * _0 ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, b, _0)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 33 : b
+
+
+
+Expression for 34 : ( ( ( ( a * b ) * a ) * ( ( a * b ) * b ) ) * ( ( ( a * b ) * a ) * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, b)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire1, c)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 35 : ( ( ( a * _0 ) * c ) * ( a * b ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, a, b)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 36 : ( ( ( ( ( a * _0 ) * ( c * _0 ) ) * ( b * _0 ) ) * ( b * _0 ) ) * ( ( ( ( a * _0 ) * ( c * _0 ) ) * ( b * _0 ) ) * ( ( a * _0 ) * ( c * _0 ) ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, b, _0)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, Wire3)
+	NOR2(Wire6, Wire4, Wire2)
+	NOR2(Wire7, Wire5, Wire6)
+
+
+Expression for 37 : ( ( a * b ) * ( b * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+
+
+Expression for 38 : ( ( ( a * _0 ) * ( b * c ) ) * ( a * b ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, b)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 39 : ( ( ( ( ( a * _0 ) * c ) * ( b * _0 ) ) * ( b * _0 ) ) * ( ( ( ( a * _0 ) * c ) * ( b * _0 ) ) * ( ( a * _0 ) * c ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, b, _0)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, Wire2)
+	NOR2(Wire5, Wire3, Wire1)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 3A : ( ( ( a * _0 ) * ( c * _0 ) ) * ( a * b ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, b)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 3B : ( ( ( b * c ) * b ) * ( a * b ) )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, a, b)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 3C : ( ( ( a * _0 ) * ( b * _0 ) ) * ( a * b ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, b)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 3D : ( ( ( ( ( a * _0 ) * c ) * ( b * _0 ) ) * a ) * ( ( ( ( a * _0 ) * c ) * ( b * _0 ) ) * ( b * _0 ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, b, _0)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, Wire3, Wire2)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 3E : ( ( ( ( ( a * _0 ) * ( c * _0 ) ) * ( b * _0 ) ) * a ) * ( ( ( ( a * _0 ) * ( c * _0 ) ) * ( b * _0 ) ) * ( b * _0 ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, b, _0)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, a)
+	NOR2(Wire6, Wire4, Wire3)
+	NOR2(Wire7, Wire5, Wire6)
+
+
+Expression for 3F : ( ( a * b ) * _0 )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, _0)
+
+
+Expression for 40 : ( ( ( a * b ) * _0 ) * ( a * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, _0)
+	NOR2(Wire2, a, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 41 : ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( a * b ) ) * ( c * _0 ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, b)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, c, _0)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 42 : ( ( ( ( a * _0 ) * c ) * ( a * b ) ) * ( b * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, a, b)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, b, c)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 43 : ( ( ( ( a * c ) * a ) * b ) * ( ( ( a * c ) * b ) * a ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, b)
+	NOR2(Wire3, Wire0, b)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, Wire2, Wire4)
+
+
+Expression for 44 : ( ( b * c ) * b )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, b)
+
+
+Expression for 45 : ( ( ( a * b ) * a ) * ( c * _0 ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, c, _0)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 46 : ( ( ( ( b * c ) * b ) * ( ( b * c ) * c ) ) * ( ( ( b * c ) * b ) * a ) )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire1, a)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 47 : ( ( ( a * b ) * a ) * ( b * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, b, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 48 : ( ( ( a * b ) * ( b * c ) ) * ( a * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 49 : ( ( ( ( ( a * _0 ) * ( c * _0 ) ) * ( a * c ) ) * b ) * ( ( ( ( a * _0 ) * ( c * _0 ) ) * b ) * ( ( a * _0 ) * ( c * _0 ) ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, c)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, b)
+	NOR2(Wire6, Wire2, b)
+	NOR2(Wire7, Wire6, Wire2)
+	NOR2(Wire8, Wire5, Wire7)
+
+
+Expression for 4A : ( ( ( a * b ) * ( c * _0 ) ) * ( a * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 4B : ( ( ( ( ( b * c ) * b ) * ( a * _0 ) ) * ( a * _0 ) ) * ( ( ( ( b * c ) * b ) * ( a * _0 ) ) * ( ( b * c ) * b ) ) )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, a, _0)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, Wire2)
+	NOR2(Wire5, Wire3, Wire1)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 4C : ( ( a * c ) * b )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, b)
+
+
+Expression for 4D : ( ( ( ( a * c ) * b ) * a ) * ( ( ( a * c ) * b ) * c ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, a)
+	NOR2(Wire3, Wire1, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 4E : ( ( ( b * _0 ) * ( c * _0 ) ) * ( a * c ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 4F : ( ( ( a * b ) * a ) * ( a * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, a, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 50 : ( ( a * c ) * a )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+
+
+Expression for 51 : ( ( ( a * _0 ) * b ) * ( c * _0 ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, c, _0)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 52 : ( ( ( ( a * c ) * a ) * ( ( a * c ) * c ) ) * ( ( ( a * c ) * a ) * b ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire1, b)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 53 : ( ( ( a * _0 ) * b ) * ( a * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, a, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 54 : ( ( ( a * _0 ) * ( b * _0 ) ) * ( c * _0 ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, c, _0)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 55 : c
+
+
+
+Expression for 56 : ( ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( c * _0 ) ) * ( c * _0 ) ) * ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( c * _0 ) ) * ( ( a * _0 ) * ( b * _0 ) ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, c, _0)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, Wire3)
+	NOR2(Wire6, Wire4, Wire2)
+	NOR2(Wire7, Wire5, Wire6)
+
+
+Expression for 57 : ( ( a * c ) * ( b * c ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+
+
+Expression for 58 : ( ( ( a * _0 ) * ( b * c ) ) * ( a * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 59 : ( ( ( ( ( a * _0 ) * b ) * ( c * _0 ) ) * ( c * _0 ) ) * ( ( ( ( a * _0 ) * b ) * ( c * _0 ) ) * ( ( a * _0 ) * b ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, c, _0)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, Wire2)
+	NOR2(Wire5, Wire3, Wire1)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 5A : ( ( ( a * _0 ) * ( c * _0 ) ) * ( a * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 5B : ( ( ( ( ( a * _0 ) * b ) * ( c * _0 ) ) * a ) * ( ( ( ( a * _0 ) * b ) * ( c * _0 ) ) * ( c * _0 ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, c, _0)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, Wire3, Wire2)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 5C : ( ( ( a * _0 ) * ( b * _0 ) ) * ( a * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 5D : ( ( ( b * _0 ) * c ) * ( a * c ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, a, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 5E : ( ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( c * _0 ) ) * a ) * ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( c * _0 ) ) * ( c * _0 ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, c, _0)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, a)
+	NOR2(Wire6, Wire4, Wire3)
+	NOR2(Wire7, Wire5, Wire6)
+
+
+Expression for 5F : ( ( a * c ) * _0 )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, _0)
+
+
+Expression for 60 : ( ( ( a * b ) * ( a * c ) ) * ( b * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, a, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, b, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 61 : ( ( ( ( ( a * b ) * a ) * _0 ) * ( c * _0 ) ) * ( ( ( ( a * b ) * b ) * ( c * _0 ) ) * ( ( a * b ) * a ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, _0)
+	NOR2(Wire3, c, _0)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire0, b)
+	NOR2(Wire6, Wire5, Wire3)
+	NOR2(Wire7, Wire6, Wire1)
+	NOR2(Wire8, Wire4, Wire7)
+
+
+Expression for 62 : ( ( ( a * b ) * ( c * _0 ) ) * ( b * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, b, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 63 : ( ( ( ( ( a * c ) * a ) * ( b * _0 ) ) * ( b * _0 ) ) * ( ( ( ( a * c ) * a ) * ( b * _0 ) ) * ( ( a * c ) * a ) ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, b, _0)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, Wire2)
+	NOR2(Wire5, Wire3, Wire1)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 64 : ( ( ( a * c ) * ( b * _0 ) ) * ( b * c ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, b, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 65 : ( ( ( ( ( a * b ) * a ) * ( c * _0 ) ) * ( c * _0 ) ) * ( ( ( ( a * b ) * a ) * ( c * _0 ) ) * ( ( a * b ) * a ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, c, _0)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, Wire2)
+	NOR2(Wire5, Wire3, Wire1)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 66 : ( ( ( b * _0 ) * ( c * _0 ) ) * ( b * c ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, b, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 67 : ( ( ( ( ( a * b ) * a ) * ( c * _0 ) ) * b ) * ( ( ( ( a * b ) * a ) * ( c * _0 ) ) * ( c * _0 ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, c, _0)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, b)
+	NOR2(Wire5, Wire3, Wire2)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 68 : ( ( ( ( ( a * b ) * ( a * c ) ) * ( b * c ) ) * a ) * ( ( ( ( a * b ) * ( a * c ) ) * ( b * c ) ) * ( b * c ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, a, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, b, c)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, a)
+	NOR2(Wire6, Wire4, Wire3)
+	NOR2(Wire7, Wire5, Wire6)
+
+
+Expression for 69 : ( ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( a * b ) ) * c ) * ( ( ( ( a * b ) * ( c * _0 ) ) * _0 ) * ( ( a * _0 ) * ( b * _0 ) ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, b)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, c)
+	NOR2(Wire6, c, _0)
+	NOR2(Wire7, Wire3, Wire6)
+	NOR2(Wire8, Wire7, _0)
+	NOR2(Wire9, Wire8, Wire2)
+	NOR2(Wire10, Wire5, Wire9)
+
+
+Expression for 6A : ( ( ( ( a * b ) * c ) * c ) * ( ( ( a * b ) * c ) * ( a * b ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, c)
+	NOR2(Wire3, Wire1, Wire0)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 6B : ( ( ( ( ( a * b ) * ( c * _0 ) ) * _0 ) * a ) * ( ( ( ( a * b ) * ( c * _0 ) ) * ( a * c ) ) * b ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, a, c)
+	NOR2(Wire6, Wire2, Wire5)
+	NOR2(Wire7, Wire6, b)
+	NOR2(Wire8, Wire4, Wire7)
+
+
+Expression for 6C : ( ( ( ( a * c ) * b ) * b ) * ( ( ( a * c ) * b ) * ( a * c ) ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, b)
+	NOR2(Wire3, Wire1, Wire0)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 6D : ( ( ( ( ( a * c ) * ( b * _0 ) ) * _0 ) * a ) * ( ( ( ( a * c ) * ( b * _0 ) ) * ( a * b ) ) * c ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, a, b)
+	NOR2(Wire6, Wire2, Wire5)
+	NOR2(Wire7, Wire6, c)
+	NOR2(Wire8, Wire4, Wire7)
+
+
+Expression for 6E : ( ( ( ( a * b ) * c ) * c ) * ( ( ( a * b ) * c ) * ( b * _0 ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, c)
+	NOR2(Wire3, b, _0)
+	NOR2(Wire4, Wire1, Wire3)
+	NOR2(Wire5, Wire2, Wire4)
+
+
+Expression for 6F : ( ( ( ( ( a * b ) * a ) * ( a * c ) ) * b ) * ( ( ( ( a * b ) * a ) * ( a * c ) ) * ( a * c ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, a, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, b)
+	NOR2(Wire5, Wire3, Wire2)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 70 : ( ( b * c ) * a )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, a)
+
+
+Expression for 71 : ( ( ( ( b * c ) * a ) * b ) * ( ( ( b * c ) * a ) * c ) )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, b)
+	NOR2(Wire3, Wire1, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 72 : ( ( ( a * _0 ) * ( c * _0 ) ) * ( b * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, b, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 73 : ( ( ( a * _0 ) * b ) * ( b * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, b, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 74 : ( ( ( a * _0 ) * ( b * _0 ) ) * ( b * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, b, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 75 : ( ( ( a * _0 ) * c ) * ( b * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, b, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 76 : ( ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( c * _0 ) ) * b ) * ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( c * _0 ) ) * ( c * _0 ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, c, _0)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, b)
+	NOR2(Wire6, Wire4, Wire3)
+	NOR2(Wire7, Wire5, Wire6)
+
+
+Expression for 77 : ( ( b * c ) * _0 )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, _0)
+
+
+Expression for 78 : ( ( ( ( b * c ) * a ) * a ) * ( ( ( b * c ) * a ) * ( b * c ) ) )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, a)
+	NOR2(Wire3, Wire1, Wire0)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for 79 : ( ( ( ( ( a * _0 ) * b ) * _0 ) * ( b * c ) ) * ( ( ( ( a * _0 ) * c ) * ( b * c ) ) * ( ( a * _0 ) * b ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, _0)
+	NOR2(Wire3, b, c)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire0, c)
+	NOR2(Wire6, Wire5, Wire3)
+	NOR2(Wire7, Wire6, Wire1)
+	NOR2(Wire8, Wire4, Wire7)
+
+
+Expression for 7A : ( ( ( ( a * b ) * c ) * c ) * ( ( ( a * b ) * c ) * ( a * _0 ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, c)
+	NOR2(Wire3, a, _0)
+	NOR2(Wire4, Wire1, Wire3)
+	NOR2(Wire5, Wire2, Wire4)
+
+
+Expression for 7B : ( ( ( ( ( a * _0 ) * b ) * ( b * c ) ) * a ) * ( ( ( ( a * _0 ) * b ) * ( b * c ) ) * ( b * c ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, b, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, Wire3, Wire2)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 7C : ( ( ( ( a * c ) * b ) * b ) * ( ( ( a * c ) * b ) * ( a * _0 ) ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, b)
+	NOR2(Wire3, a, _0)
+	NOR2(Wire4, Wire1, Wire3)
+	NOR2(Wire5, Wire2, Wire4)
+
+
+Expression for 7D : ( ( ( ( ( a * _0 ) * c ) * ( b * c ) ) * a ) * ( ( ( ( a * _0 ) * c ) * ( b * c ) ) * ( b * c ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, b, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, Wire3, Wire2)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 7E : ( ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( a * c ) ) * b ) * ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( a * c ) ) * ( c * _0 ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, c)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, b)
+	NOR2(Wire6, c, _0)
+	NOR2(Wire7, Wire4, Wire6)
+	NOR2(Wire8, Wire5, Wire7)
+
+
+Expression for 7F : ( ( ( ( a * b ) * _0 ) * c ) * _0 )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, _0)
+	NOR2(Wire2, Wire1, c)
+	NOR2(Wire3, Wire2, _0)
+
+
+Expression for 80 : ( ( ( a * b ) * _0 ) * c )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, _0)
+	NOR2(Wire2, Wire1, c)
+
+
+Expression for 81 : ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( a * c ) ) * ( ( b * _0 ) * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, c)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire1, c)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 82 : ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( a * b ) ) * c )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, b)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, c)
+
+
+Expression for 83 : ( ( ( a * _0 ) * b ) * ( ( b * c ) * a ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, b, c)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire1, Wire3)
+
+
+Expression for 84 : ( ( ( ( a * _0 ) * ( b * c ) ) * ( a * c ) ) * b )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, c)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, b)
+
+
+Expression for 85 : ( ( ( a * _0 ) * c ) * ( ( b * c ) * a ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, b, c)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire1, Wire3)
+
+
+Expression for 86 : ( ( ( ( ( a * b ) * a ) * ( ( a * b ) * b ) ) * c ) * ( ( ( ( a * b ) * a ) * c ) * ( ( a * b ) * b ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, b)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, c)
+	NOR2(Wire5, Wire1, c)
+	NOR2(Wire6, Wire5, Wire2)
+	NOR2(Wire7, Wire4, Wire6)
+
+
+Expression for 87 : ( ( ( ( ( b * c ) * _0 ) * a ) * a ) * ( ( ( ( b * c ) * _0 ) * a ) * ( ( b * c ) * _0 ) ) )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, _0)
+	NOR2(Wire2, Wire1, a)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire2, Wire1)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 88 : ( b * c )
+
+	NOR2(Wire0, b, c)
+
+
+Expression for 89 : ( ( ( ( ( b * _0 ) * c ) * c ) * ( ( ( b * _0 ) * c ) * ( b * _0 ) ) ) * ( ( ( ( b * _0 ) * c ) * c ) * a ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, c)
+	NOR2(Wire3, Wire1, Wire0)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire2, a)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for 8A : ( ( ( a * b ) * a ) * c )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, c)
+
+
+Expression for 8B : ( ( ( b * c ) * a ) * ( ( b * c ) * b ) )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, b)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 8C : ( ( ( a * c ) * a ) * b )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, b)
+
+
+Expression for 8D : ( ( ( b * c ) * a ) * ( ( b * c ) * c ) )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 8E : ( ( ( ( ( b * _0 ) * a ) * c ) * a ) * ( ( ( ( b * _0 ) * a ) * c ) * ( b * _0 ) ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, c)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire2, Wire0)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 8F : ( ( ( b * c ) * a ) * _0 )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, _0)
+
+
+Expression for 90 : ( ( ( ( a * b ) * ( a * c ) ) * ( b * c ) ) * a )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, a, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, b, c)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, a)
+
+
+Expression for 91 : ( ( ( a * b ) * c ) * ( ( a * c ) * b ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, a, c)
+	NOR2(Wire3, Wire2, b)
+	NOR2(Wire4, Wire1, Wire3)
+
+
+Expression for 92 : ( ( ( ( ( a * b ) * a ) * _0 ) * c ) * ( ( ( ( a * b ) * b ) * c ) * ( ( a * b ) * a ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, _0)
+	NOR2(Wire3, Wire2, c)
+	NOR2(Wire4, Wire0, b)
+	NOR2(Wire5, Wire4, c)
+	NOR2(Wire6, Wire5, Wire1)
+	NOR2(Wire7, Wire3, Wire6)
+
+
+Expression for 93 : ( ( ( ( ( a * c ) * _0 ) * b ) * b ) * ( ( ( ( a * c ) * _0 ) * b ) * ( ( a * c ) * _0 ) ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, _0)
+	NOR2(Wire2, Wire1, b)
+	NOR2(Wire3, Wire2, b)
+	NOR2(Wire4, Wire2, Wire1)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 94 : ( ( ( ( ( a * c ) * a ) * _0 ) * b ) * ( ( ( ( a * c ) * c ) * b ) * ( ( a * c ) * a ) ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, _0)
+	NOR2(Wire3, Wire2, b)
+	NOR2(Wire4, Wire0, c)
+	NOR2(Wire5, Wire4, b)
+	NOR2(Wire6, Wire5, Wire1)
+	NOR2(Wire7, Wire3, Wire6)
+
+
+Expression for 95 : ( ( ( ( ( a * b ) * _0 ) * c ) * c ) * ( ( ( ( a * b ) * _0 ) * c ) * ( ( a * b ) * _0 ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, _0)
+	NOR2(Wire2, Wire1, c)
+	NOR2(Wire3, Wire2, c)
+	NOR2(Wire4, Wire2, Wire1)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 96 : ( ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( a * b ) ) * ( c * _0 ) ) * ( ( ( ( a * b ) * c ) * _0 ) * ( ( a * _0 ) * ( b * _0 ) ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, b)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, c, _0)
+	NOR2(Wire6, Wire4, Wire5)
+	NOR2(Wire7, Wire3, c)
+	NOR2(Wire8, Wire7, _0)
+	NOR2(Wire9, Wire8, Wire2)
+	NOR2(Wire10, Wire6, Wire9)
+
+
+Expression for 97 : ( ( ( ( a * b ) * _0 ) * ( a * c ) ) * ( ( ( a * c ) * ( b * c ) ) * ( a * b ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, _0)
+	NOR2(Wire2, a, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, b, c)
+	NOR2(Wire5, Wire2, Wire4)
+	NOR2(Wire6, Wire5, Wire0)
+	NOR2(Wire7, Wire3, Wire6)
+
+
+Expression for 98 : ( ( ( ( a * b ) * a ) * ( b * c ) ) * ( ( b * c ) * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, b, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire2, c)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 99 : ( ( ( b * c ) * b ) * ( ( b * c ) * c ) )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for 9A : ( ( ( ( ( a * b ) * a ) * c ) * c ) * ( ( ( ( a * b ) * a ) * c ) * ( ( a * b ) * a ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, c)
+	NOR2(Wire3, Wire2, c)
+	NOR2(Wire4, Wire2, Wire1)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 9B : ( ( ( ( ( a * b ) * a ) * c ) * b ) * ( ( ( ( a * b ) * a ) * c ) * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, c)
+	NOR2(Wire3, Wire2, b)
+	NOR2(Wire4, Wire2, c)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 9C : ( ( ( ( ( a * c ) * a ) * b ) * b ) * ( ( ( ( a * c ) * a ) * b ) * ( ( a * c ) * a ) ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, b)
+	NOR2(Wire3, Wire2, b)
+	NOR2(Wire4, Wire2, Wire1)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 9D : ( ( ( ( ( a * c ) * a ) * b ) * b ) * ( ( ( ( a * c ) * a ) * b ) * c ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, b)
+	NOR2(Wire3, Wire2, b)
+	NOR2(Wire4, Wire2, c)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for 9E : ( ( ( ( ( b * _0 ) * ( c * _0 ) ) * ( ( b * c ) * a ) ) * ( ( b * _0 ) * ( c * _0 ) ) ) * ( ( ( ( b * _0 ) * ( c * _0 ) ) * ( ( b * c ) * a ) ) * ( ( b * c ) * a ) ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, b, c)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, Wire2, Wire4)
+	NOR2(Wire6, Wire5, Wire2)
+	NOR2(Wire7, Wire5, Wire4)
+	NOR2(Wire8, Wire6, Wire7)
+
+
+Expression for 9F : ( ( ( ( ( b * c ) * a ) * _0 ) * b ) * ( ( ( ( b * c ) * a ) * _0 ) * c ) )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, _0)
+	NOR2(Wire3, Wire2, b)
+	NOR2(Wire4, Wire2, c)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for A0 : ( a * c )
+
+	NOR2(Wire0, a, c)
+
+
+Expression for A1 : ( ( ( ( ( a * _0 ) * c ) * c ) * ( ( ( a * _0 ) * c ) * ( a * _0 ) ) ) * ( ( ( ( a * _0 ) * c ) * c ) * b ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, c)
+	NOR2(Wire3, Wire1, Wire0)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire2, b)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for A2 : ( ( ( a * _0 ) * b ) * c )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, c)
+
+
+Expression for A3 : ( ( ( a * c ) * a ) * ( ( a * c ) * b ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, b)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for A4 : ( ( ( ( a * _0 ) * b ) * ( a * c ) ) * ( ( a * _0 ) * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, a, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire0, c)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for A5 : ( ( ( a * c ) * a ) * ( ( a * c ) * c ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for A6 : ( ( ( ( ( a * _0 ) * b ) * c ) * c ) * ( ( ( ( a * _0 ) * b ) * c ) * ( ( a * _0 ) * b ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, c)
+	NOR2(Wire3, Wire2, c)
+	NOR2(Wire4, Wire2, Wire1)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for A7 : ( ( ( ( ( a * _0 ) * b ) * c ) * a ) * ( ( ( ( a * _0 ) * b ) * c ) * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, c)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire2, c)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for A8 : ( ( ( a * _0 ) * ( b * _0 ) ) * c )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, c)
+
+
+Expression for A9 : ( ( ( ( ( a * _0 ) * ( b * _0 ) ) * c ) * c ) * ( ( ( ( a * _0 ) * ( b * _0 ) ) * c ) * ( ( a * _0 ) * ( b * _0 ) ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, c)
+	NOR2(Wire4, Wire3, c)
+	NOR2(Wire5, Wire3, Wire2)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for AA : ( c * _0 )
+
+	NOR2(Wire0, c, _0)
+
+
+Expression for AB : ( ( ( c * _0 ) * a ) * ( ( c * _0 ) * b ) )
+
+	NOR2(Wire0, c, _0)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, b)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for AC : ( ( ( a * c ) * ( b * _0 ) ) * ( ( a * c ) * a ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire0, a)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for AD : ( ( ( ( ( a * _0 ) * ( b * _0 ) ) * c ) * a ) * ( ( ( ( a * _0 ) * ( b * _0 ) ) * c ) * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, c)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, Wire3, c)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for AE : ( ( ( b * _0 ) * ( c * _0 ) ) * ( ( c * _0 ) * a ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire1, a)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for AF : ( ( ( a * c ) * a ) * _0 )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, _0)
+
+
+Expression for B0 : ( ( ( a * c ) * b ) * a )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, a)
+
+
+Expression for B1 : ( ( ( a * c ) * b ) * ( ( a * c ) * c ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for B2 : ( ( ( ( ( a * _0 ) * b ) * c ) * b ) * ( ( ( ( a * _0 ) * b ) * c ) * ( a * _0 ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, c)
+	NOR2(Wire3, Wire2, b)
+	NOR2(Wire4, Wire2, Wire0)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for B3 : ( ( ( a * c ) * b ) * _0 )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, _0)
+
+
+Expression for B4 : ( ( ( ( ( b * c ) * b ) * a ) * a ) * ( ( ( ( b * c ) * b ) * a ) * ( ( b * c ) * b ) ) )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, a)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire2, Wire1)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for B5 : ( ( ( ( ( a * c ) * b ) * a ) * a ) * ( ( ( ( a * c ) * b ) * a ) * c ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, a)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire2, c)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for B6 : ( ( ( ( ( a * _0 ) * ( c * _0 ) ) * ( ( a * c ) * b ) ) * ( ( a * _0 ) * ( c * _0 ) ) ) * ( ( ( ( a * _0 ) * ( c * _0 ) ) * ( ( a * c ) * b ) ) * ( ( a * c ) * b ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, c)
+	NOR2(Wire4, Wire3, b)
+	NOR2(Wire5, Wire2, Wire4)
+	NOR2(Wire6, Wire5, Wire2)
+	NOR2(Wire7, Wire5, Wire4)
+	NOR2(Wire8, Wire6, Wire7)
+
+
+Expression for B7 : ( ( ( ( ( a * c ) * b ) * _0 ) * a ) * ( ( ( ( a * c ) * b ) * _0 ) * c ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, _0)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire2, c)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for B8 : ( ( ( a * _0 ) * ( b * c ) ) * ( ( b * c ) * b ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire1, b)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for B9 : ( ( ( ( ( a * _0 ) * ( b * _0 ) ) * c ) * b ) * ( ( ( ( a * _0 ) * ( b * _0 ) ) * c ) * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, c)
+	NOR2(Wire4, Wire3, b)
+	NOR2(Wire5, Wire3, c)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for BA : ( ( ( a * _0 ) * ( c * _0 ) ) * ( ( c * _0 ) * b ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire1, b)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for BB : ( ( ( b * c ) * b ) * _0 )
+
+	NOR2(Wire0, b, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, _0)
+
+
+Expression for BC : ( ( ( ( ( a * c ) * b ) * a ) * a ) * ( ( ( ( a * c ) * b ) * a ) * ( ( a * c ) * b ) ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, a)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire2, Wire1)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for BD : ( ( ( ( ( a * c ) * b ) * ( ( a * c ) * c ) ) * a ) * ( ( ( ( a * c ) * b ) * ( ( a * c ) * c ) ) * ( ( a * c ) * b ) ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, Wire3, Wire1)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for BE : ( ( ( ( ( a * _0 ) * ( c * _0 ) ) * ( ( c * _0 ) * b ) ) * a ) * ( ( ( ( a * _0 ) * ( c * _0 ) ) * ( ( c * _0 ) * b ) ) * ( ( c * _0 ) * b ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire1, b)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, a)
+	NOR2(Wire6, Wire4, Wire3)
+	NOR2(Wire7, Wire5, Wire6)
+
+
+Expression for BF : ( ( ( ( a * b ) * _0 ) * ( a * c ) ) * _0 )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, _0)
+	NOR2(Wire2, a, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, _0)
+
+
+Expression for C0 : ( a * b )
+
+	NOR2(Wire0, a, b)
+
+
+Expression for C1 : ( ( ( ( ( a * _0 ) * b ) * b ) * ( ( ( a * _0 ) * b ) * ( a * _0 ) ) ) * ( ( ( ( a * _0 ) * b ) * b ) * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, b)
+	NOR2(Wire3, Wire1, Wire0)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire2, c)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for C2 : ( ( ( ( a * _0 ) * c ) * ( a * b ) ) * ( ( a * _0 ) * b ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, a, b)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire0, b)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for C3 : ( ( ( a * b ) * a ) * ( ( a * b ) * b ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, b)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for C4 : ( ( ( a * _0 ) * c ) * b )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, b)
+
+
+Expression for C5 : ( ( ( a * b ) * a ) * ( ( a * b ) * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for C6 : ( ( ( ( ( a * _0 ) * c ) * b ) * b ) * ( ( ( ( a * _0 ) * c ) * b ) * ( ( a * _0 ) * c ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, b)
+	NOR2(Wire3, Wire2, b)
+	NOR2(Wire4, Wire2, Wire1)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for C7 : ( ( ( ( ( a * _0 ) * c ) * b ) * a ) * ( ( ( ( a * _0 ) * c ) * b ) * b ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, b)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire2, b)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for C8 : ( ( ( a * _0 ) * ( b * c ) ) * b )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, b)
+
+
+Expression for C9 : ( ( ( ( ( a * _0 ) * ( c * _0 ) ) * b ) * b ) * ( ( ( ( a * _0 ) * ( c * _0 ) ) * b ) * ( ( a * _0 ) * ( c * _0 ) ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, b)
+	NOR2(Wire4, Wire3, b)
+	NOR2(Wire5, Wire3, Wire2)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for CA : ( ( ( a * b ) * ( c * _0 ) ) * ( ( a * b ) * a ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire0, a)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for CB : ( ( ( ( ( a * _0 ) * ( b * c ) ) * b ) * a ) * ( ( ( ( a * _0 ) * ( b * c ) ) * b ) * b ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, b)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, Wire3, b)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for CC : ( b * _0 )
+
+	NOR2(Wire0, b, _0)
+
+
+Expression for CD : ( ( ( b * _0 ) * a ) * ( ( b * _0 ) * c ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for CE : ( ( ( b * _0 ) * ( c * _0 ) ) * ( ( b * _0 ) * a ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire0, a)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for CF : ( ( ( a * b ) * a ) * _0 )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, _0)
+
+
+Expression for D0 : ( ( ( a * b ) * c ) * a )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, a)
+
+
+Expression for D1 : ( ( ( a * b ) * b ) * ( ( a * b ) * c ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for D2 : ( ( ( ( ( b * _0 ) * c ) * a ) * a ) * ( ( ( ( b * _0 ) * c ) * a ) * ( ( b * _0 ) * c ) ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, a)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire2, Wire1)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for D3 : ( ( ( ( ( a * b ) * c ) * a ) * a ) * ( ( ( ( a * b ) * c ) * a ) * b ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, a)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire2, b)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for D4 : ( ( ( ( ( a * _0 ) * c ) * b ) * c ) * ( ( ( ( a * _0 ) * c ) * b ) * ( a * _0 ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, b)
+	NOR2(Wire3, Wire2, c)
+	NOR2(Wire4, Wire2, Wire0)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for D5 : ( ( ( a * b ) * c ) * _0 )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, _0)
+
+
+Expression for D6 : ( ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( ( a * b ) * c ) ) * ( ( a * _0 ) * ( b * _0 ) ) ) * ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( ( a * b ) * c ) ) * ( ( a * b ) * c ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, a, b)
+	NOR2(Wire4, Wire3, c)
+	NOR2(Wire5, Wire2, Wire4)
+	NOR2(Wire6, Wire5, Wire2)
+	NOR2(Wire7, Wire5, Wire4)
+	NOR2(Wire8, Wire6, Wire7)
+
+
+Expression for D7 : ( ( ( ( ( a * b ) * c ) * _0 ) * a ) * ( ( ( ( a * b ) * c ) * _0 ) * b ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, _0)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire2, b)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for D8 : ( ( ( a * _0 ) * ( b * c ) ) * ( ( b * c ) * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire1, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for D9 : ( ( ( ( ( a * _0 ) * ( b * c ) ) * b ) * b ) * ( ( ( ( a * _0 ) * ( b * c ) ) * b ) * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, b)
+	NOR2(Wire4, Wire3, b)
+	NOR2(Wire5, Wire3, c)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for DA : ( ( ( ( ( a * b ) * c ) * a ) * a ) * ( ( ( ( a * b ) * c ) * a ) * ( ( a * b ) * c ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, a)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire2, Wire1)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for DB : ( ( ( ( ( a * b ) * b ) * ( ( a * b ) * c ) ) * a ) * ( ( ( ( a * b ) * b ) * ( ( a * b ) * c ) ) * ( ( a * b ) * c ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, Wire3, Wire2)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for DC : ( ( ( a * _0 ) * ( b * _0 ) ) * ( ( b * _0 ) * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire1, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for DD : ( ( ( b * _0 ) * c ) * _0 )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, _0)
+
+
+Expression for DE : ( ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( ( b * _0 ) * c ) ) * a ) * ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( ( b * _0 ) * c ) ) * ( ( b * _0 ) * c ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire1, c)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, a)
+	NOR2(Wire6, Wire4, Wire3)
+	NOR2(Wire7, Wire5, Wire6)
+
+
+Expression for DF : ( ( ( ( a * b ) * ( a * c ) ) * ( a * b ) ) * _0 )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, a, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, Wire0)
+	NOR2(Wire4, Wire3, _0)
+
+
+Expression for E0 : ( ( ( a * b ) * ( a * c ) ) * a )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, a, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, a)
+
+
+Expression for E1 : ( ( ( ( ( b * _0 ) * ( c * _0 ) ) * a ) * a ) * ( ( ( ( b * _0 ) * ( c * _0 ) ) * a ) * ( ( b * _0 ) * ( c * _0 ) ) ) )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, Wire3, Wire2)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for E2 : ( ( ( a * b ) * ( c * _0 ) ) * ( ( a * b ) * b ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire0, b)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for E3 : ( ( ( ( ( a * b ) * ( a * c ) ) * _0 ) * a ) * ( ( ( ( a * b ) * ( a * c ) ) * _0 ) * b ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, a, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, Wire3, b)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for E4 : ( ( ( a * c ) * ( b * _0 ) ) * ( ( a * c ) * c ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire0, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for E5 : ( ( ( ( ( a * b ) * a ) * ( ( a * b ) * c ) ) * ( ( a * b ) * a ) ) * ( ( ( ( a * b ) * a ) * ( ( a * b ) * c ) ) * ( ( a * b ) * c ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, Wire1)
+	NOR2(Wire5, Wire3, Wire2)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for E6 : ( ( ( ( ( a * b ) * c ) * b ) * b ) * ( ( ( ( a * b ) * c ) * b ) * ( ( a * b ) * c ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, b)
+	NOR2(Wire3, Wire2, b)
+	NOR2(Wire4, Wire2, Wire1)
+	NOR2(Wire5, Wire3, Wire4)
+
+
+Expression for E7 : ( ( ( ( ( a * b ) * a ) * ( ( a * b ) * c ) ) * b ) * ( ( ( ( a * b ) * a ) * ( ( a * b ) * c ) ) * ( ( a * b ) * c ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, b)
+	NOR2(Wire5, Wire3, Wire2)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for E8 : ( ( ( ( ( a * _0 ) * ( b * _0 ) ) * c ) * ( a * _0 ) ) * ( ( ( ( a * _0 ) * ( b * _0 ) ) * c ) * ( b * _0 ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, c)
+	NOR2(Wire4, Wire3, Wire0)
+	NOR2(Wire5, Wire3, Wire1)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for E9 : ( ( ( ( ( a * _0 ) * b ) * ( ( b * _0 ) * a ) ) * ( ( ( a * _0 ) * ( b * _0 ) ) * c ) ) * ( ( ( ( a * _0 ) * ( b * _0 ) ) * c ) * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, b, _0)
+	NOR2(Wire3, Wire2, a)
+	NOR2(Wire4, Wire1, Wire3)
+	NOR2(Wire5, Wire0, Wire2)
+	NOR2(Wire6, Wire5, c)
+	NOR2(Wire7, Wire4, Wire6)
+	NOR2(Wire8, Wire6, c)
+	NOR2(Wire9, Wire7, Wire8)
+
+
+Expression for EA : ( ( ( a * b ) * ( c * _0 ) ) * _0 )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+
+
+Expression for EB : ( ( ( ( ( a * b ) * ( c * _0 ) ) * _0 ) * a ) * ( ( ( ( a * b ) * ( c * _0 ) ) * _0 ) * b ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, Wire3, b)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for EC : ( ( ( a * c ) * ( b * _0 ) ) * _0 )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+
+
+Expression for ED : ( ( ( ( ( a * c ) * ( b * _0 ) ) * _0 ) * a ) * ( ( ( ( a * c ) * ( b * _0 ) ) * _0 ) * c ) )
+
+	NOR2(Wire0, a, c)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+	NOR2(Wire4, Wire3, a)
+	NOR2(Wire5, Wire3, c)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for EE : ( ( ( b * _0 ) * ( c * _0 ) ) * _0 )
+
+	NOR2(Wire0, b, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+
+
+Expression for EF : ( ( ( ( ( a * b ) * a ) * _0 ) * ( a * c ) ) * ( ( ( ( a * b ) * a ) * _0 ) * ( c * _0 ) ) )
+
+	NOR2(Wire0, a, b)
+	NOR2(Wire1, Wire0, a)
+	NOR2(Wire2, Wire1, _0)
+	NOR2(Wire3, a, c)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, c, _0)
+	NOR2(Wire6, Wire2, Wire5)
+	NOR2(Wire7, Wire4, Wire6)
+
+
+Expression for F0 : ( a * _0 )
+
+	NOR2(Wire0, a, _0)
+
+
+Expression for F1 : ( ( ( a * _0 ) * b ) * ( ( a * _0 ) * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+
+
+Expression for F2 : ( ( ( a * _0 ) * ( c * _0 ) ) * ( ( a * _0 ) * b ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire0, b)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for F3 : ( ( ( a * _0 ) * b ) * _0 )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, _0)
+
+
+Expression for F4 : ( ( ( a * _0 ) * ( b * _0 ) ) * ( ( a * _0 ) * c ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire0, c)
+	NOR2(Wire4, Wire2, Wire3)
+
+
+Expression for F5 : ( ( ( a * _0 ) * c ) * _0 )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, c)
+	NOR2(Wire2, Wire1, _0)
+
+
+Expression for F6 : ( ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( ( a * _0 ) * c ) ) * b ) * ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( ( a * _0 ) * c ) ) * ( ( a * _0 ) * c ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire0, c)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, Wire4, b)
+	NOR2(Wire6, Wire4, Wire3)
+	NOR2(Wire7, Wire5, Wire6)
+
+
+Expression for F7 : ( ( ( ( a * _0 ) * ( b * c ) ) * ( a * _0 ) ) * _0 )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, Wire0)
+	NOR2(Wire4, Wire3, _0)
+
+
+Expression for F8 : ( ( ( a * _0 ) * ( b * c ) ) * _0 )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, c)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+
+
+Expression for F9 : ( ( ( ( ( a * _0 ) * b ) * ( ( a * _0 ) * c ) ) * ( ( a * _0 ) * b ) ) * ( ( ( ( a * _0 ) * b ) * ( ( a * _0 ) * c ) ) * ( ( a * _0 ) * c ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, Wire3, Wire1)
+	NOR2(Wire5, Wire3, Wire2)
+	NOR2(Wire6, Wire4, Wire5)
+
+
+Expression for FA : ( ( ( a * _0 ) * ( c * _0 ) ) * _0 )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, c, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+
+
+Expression for FB : ( ( ( ( ( a * _0 ) * b ) * _0 ) * ( b * c ) ) * ( ( ( ( a * _0 ) * b ) * _0 ) * ( c * _0 ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire1, _0)
+	NOR2(Wire3, b, c)
+	NOR2(Wire4, Wire2, Wire3)
+	NOR2(Wire5, c, _0)
+	NOR2(Wire6, Wire2, Wire5)
+	NOR2(Wire7, Wire4, Wire6)
+
+
+Expression for FC : ( ( ( a * _0 ) * ( b * _0 ) ) * _0 )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+
+
+Expression for FD : ( ( ( ( ( a * _0 ) * b ) * ( ( a * _0 ) * c ) ) * ( b * _0 ) ) * ( ( ( ( a * _0 ) * b ) * ( ( a * _0 ) * c ) ) * ( ( a * _0 ) * b ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, Wire0, b)
+	NOR2(Wire2, Wire0, c)
+	NOR2(Wire3, Wire1, Wire2)
+	NOR2(Wire4, b, _0)
+	NOR2(Wire5, Wire3, Wire4)
+	NOR2(Wire6, Wire3, Wire1)
+	NOR2(Wire7, Wire5, Wire6)
+
+
+Expression for FE : ( ( ( ( ( a * _0 ) * ( b * _0 ) ) * _0 ) * ( c * _0 ) ) * ( ( ( ( a * _0 ) * ( b * _0 ) ) * ( c * _0 ) ) * ( c * _0 ) ) )
+
+	NOR2(Wire0, a, _0)
+	NOR2(Wire1, b, _0)
+	NOR2(Wire2, Wire0, Wire1)
+	NOR2(Wire3, Wire2, _0)
+	NOR2(Wire4, c, _0)
+	NOR2(Wire5, Wire3, Wire4)
+	NOR2(Wire6, Wire2, Wire4)
+	NOR2(Wire7, Wire6, Wire4)
+	NOR2(Wire8, Wire5, Wire7)
+

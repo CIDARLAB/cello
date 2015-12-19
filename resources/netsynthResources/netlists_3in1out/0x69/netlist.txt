@@ -1,0 +1,8 @@
+NOR(w9,inB,inC)
+NOR(w8,w9,inC)
+NOR(w7,w9,inB)
+NOR(w6,w7,w8)
+NOR(w4,inA,w6)
+NOR(w3,w4,w6)
+NOR(w2,w4,inA)
+NOR(out,w2,w3)

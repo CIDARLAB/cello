@@ -1,0 +1,213 @@
+PartType Promoter;
+PartType Insulator;
+PartType RBS;
+PartType CDS;
+PartType Terminator;
+PartType Scar;
+
+Scar A;
+Scar B;
+Scar C;
+Scar D;
+Scar E;
+Scar F;
+Scar G;
+CDS AmtR;
+CDS BetI;
+CDS HlyIIR;
+CDS PhlF;
+CDS QacR;
+CDS SrpR;
+Insulator BydvJ;
+Insulator RiboJ10;
+Insulator RiboJ51;
+Insulator RiboJ53;
+Insulator RiboJ57;
+Insulator RiboJ60;
+Promoter pAmtR;
+Promoter pBAD;
+Promoter pHlyIIR;
+Promoter pQacR;
+Promoter pSrpR;
+Promoter pTac;
+Promoter pTet;
+RBS A1;
+RBS E1;
+RBS H1;
+RBS P3;
+RBS Q2;
+RBS S4;
+Terminator ECK120010818;
+Terminator ECK120029600;
+Terminator ECK120033736;
+Terminator ECK120033737;
+Terminator L3S2P55;
+Terminator L3S3P11;
+
+Device PhlF_device(
+   Promoter,
+   Promoter,
+   RiboJ53,
+   P3,
+   PhlF,
+   ECK120033737
+);
+Device BetI_device(
+   Promoter,
+   Promoter,
+   RiboJ57,
+   E1,
+   BetI,
+   L3S3P11
+);
+Device SrpR_device(
+   Promoter,
+   RiboJ10,
+   S4,
+   SrpR,
+   ECK120029600
+);
+Device HlyIIR_device(
+   Promoter,
+   Promoter,
+   RiboJ51,
+   H1,
+   HlyIIR,
+   ECK120033736
+);
+Device AmtR_device(
+   Promoter,
+   BydvJ,
+   A1,
+   AmtR,
+   L3S2P55
+);
+Device QacR_device(
+   Promoter,
+   RiboJ60,
+   Q2,
+   QacR,
+   ECK120010818
+);
+
+Rule PhlF_rules( ON PhlF_device:
+   CONTAINS pSrpR AND
+   CONTAINS pHlyIIR AND
+   //STARTSWITH pSrpR AND
+   ALL_FORWARD
+);
+Rule BetI_rules( ON BetI_device:
+   CONTAINS pQacR AND
+   CONTAINS pAmtR AND
+   //STARTSWITH pQacR AND
+   ALL_FORWARD
+);
+Rule SrpR_rules( ON SrpR_device:
+   CONTAINS pTac AND
+   ALL_FORWARD
+);
+Rule HlyIIR_rules( ON HlyIIR_device:
+   CONTAINS pBAD AND
+   CONTAINS pTet AND
+   //STARTSWITH pBAD AND
+   ALL_FORWARD
+);
+Rule AmtR_rules( ON AmtR_device:
+   CONTAINS pBAD AND
+   ALL_FORWARD
+);
+Rule QacR_rules( ON QacR_device:
+   CONTAINS pTet AND
+   ALL_FORWARD
+);
+
+
+PhlF_devices   = product(PhlF_device);
+BetI_devices   = product(BetI_device);
+SrpR_devices   = product(SrpR_device);
+HlyIIR_devices = product(HlyIIR_device);
+AmtR_devices   = product(AmtR_device);
+QacR_devices   = product(QacR_device);
+
+Device circuit();
+Device gate_PhlF();
+Device gate_BetI();
+Device gate_SrpR();
+Device gate_HlyIIR();
+Device gate_AmtR();
+Device gate_QacR();
+
+Rule allRules( ON circuit:
+   A            EXACTLY 1 AND
+   B            EXACTLY 1 AND
+   C            EXACTLY 1 AND
+   D            EXACTLY 1 AND
+   E            EXACTLY 1 AND
+   F            EXACTLY 1 AND
+   G            EXACTLY 1 AND
+   gate_PhlF    EXACTLY 1 AND
+   gate_BetI    EXACTLY 1 AND
+   gate_SrpR    EXACTLY 1 AND
+   gate_HlyIIR  EXACTLY 1 AND
+   gate_AmtR    EXACTLY 1 AND
+   gate_QacR    EXACTLY 1 AND
+   gate_PhlF    BEFORE  gate_BetI   AND
+   gate_BetI    BEFORE  gate_SrpR   AND
+   gate_SrpR    BEFORE  gate_HlyIIR AND
+   gate_HlyIIR  BEFORE  gate_AmtR   AND
+   gate_AmtR    BEFORE  gate_QacR   AND
+   [0]  EQUALS E AND
+   [2]  EQUALS A AND
+   [4]  EQUALS B AND
+   [6]  EQUALS D AND
+   [8]  EQUALS F AND
+   [10] EQUALS G AND
+   [12] EQUALS C AND
+   ALL_FORWARD
+);
+
+Array allResults;
+
+for(num i0=0; i0<sizeof(PhlF_devices);   i0=i0+1) {
+for(num i1=0; i1<sizeof(BetI_devices);   i1=i1+1) {
+for(num i2=0; i2<sizeof(SrpR_devices);   i2=i2+1) {
+for(num i3=0; i3<sizeof(HlyIIR_devices); i3=i3+1) {
+for(num i4=0; i4<sizeof(AmtR_devices);   i4=i4+1) {
+for(num i5=0; i5<sizeof(QacR_devices);   i5=i5+1) {
+
+gate_PhlF   = PhlF_devices[i0];
+gate_BetI   = BetI_devices[i1];
+gate_SrpR   = SrpR_devices[i2];
+gate_HlyIIR = HlyIIR_devices[i3];
+gate_AmtR   = AmtR_devices[i4];
+gate_QacR   = QacR_devices[i5];
+
+Device circuit(
+   E,
+   A,
+   B,
+   D,
+   F,
+   G,
+   C,
+   gate_PhlF,
+   gate_BetI,
+   gate_SrpR,
+   gate_HlyIIR,
+   gate_AmtR,
+   gate_QacR
+);
+
+result = permute(circuit);
+
+allResults = allResults + result;
+
+}
+}
+}
+}
+}
+}
+
+println(sizeof(allResults));
+//println(allResults[0]);

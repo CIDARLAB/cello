@@ -1,0 +1,256 @@
+0x00.v 	 0 	 0 	 
+0x01.v 	 6 	 6 	 
+0x02.v 	 5 	 5 	 
+0x03.v 	 3 	 3 	 
+0x04.v 	 5 	 5 	 
+0x05.v 	 3 	 3 	 
+0x06.v 	 7 	 7 	 
+0x07.v 	 3 	 3 	 
+0x08.v 	 4 	 4 	 
+0x09.v 	 7 	 7 	 
+0x0A.v 	 2 	 2 	 
+0x0B.v 	 4 	 4 	 
+0x0C.v 	 2 	 2 	 
+0x0D.v 	 4 	 4 	 
+0x0E.v 	 5 	 5 	 
+0x0F.v 	 0 	 0 	 
+0x10.v 	 5 	 5 	 
+0x11.v 	 3 	 3 	 
+0x12.v 	 7 	 7 	 
+0x13.v 	 3 	 3 	 
+0x14.v 	 7 	 7 	 
+0x15.v 	 3 	 3 	 
+0x16.v 	 12 	 10 	 OUTPUT_OR
+0x17.v 	 8 	 6 	 OUTPUT_OR
+0x18.v 	 11 	 9 	 OUTPUT_OR
+0x19.v 	 9 	 7 	 OUTPUT_OR
+0x1A.v 	 9 	 7 	 OUTPUT_OR
+0x1B.v 	 7 	 5 	 OUTPUT_OR
+0x1C.v 	 9 	 7 	 OUTPUT_OR
+0x1D.v 	 7 	 5 	 OUTPUT_OR
+0x1E.v 	 9 	 7 	 OUTPUT_OR
+0x1F.v 	 5 	 3 	 OUTPUT_OR
+0x20.v 	 4 	 4 	 
+0x21.v 	 7 	 7 	 
+0x22.v 	 2 	 2 	 
+0x23.v 	 4 	 4 	 
+0x24.v 	 11 	 9 	 OUTPUT_OR
+0x25.v 	 9 	 7 	 OUTPUT_OR
+0x26.v 	 9 	 7 	 OUTPUT_OR
+0x27.v 	 7 	 5 	 OUTPUT_OR
+0x28.v 	 6 	 6 	 
+0x29.v 	 12 	 10 	 OUTPUT_OR
+0x2A.v 	 2 	 2 	 
+0x2B.v 	 7 	 5 	 OUTPUT_OR
+0x2C.v 	 8 	 6 	 OUTPUT_OR
+0x2D.v 	 8 	 6 	 OUTPUT_OR
+0x2E.v 	 6 	 4 	 OUTPUT_OR
+0x2F.v 	 4 	 4 	 
+0x30.v 	 2 	 2 	 
+0x31.v 	 4 	 4 	 
+0x32.v 	 5 	 5 	 
+0x33.v 	 0 	 0 	 
+0x34.v 	 9 	 7 	 OUTPUT_OR
+0x35.v 	 7 	 5 	 OUTPUT_OR
+0x36.v 	 9 	 7 	 OUTPUT_OR
+0x37.v 	 5 	 3 	 OUTPUT_OR
+0x38.v 	 8 	 6 	 OUTPUT_OR
+0x39.v 	 8 	 6 	 OUTPUT_OR
+0x3A.v 	 6 	 4 	 OUTPUT_OR
+0x3B.v 	 4 	 4 	 
+0x3C.v 	 6 	 4 	 OUTPUT_OR
+0x3D.v 	 7 	 5 	 OUTPUT_OR
+0x3E.v 	 8 	 6 	 OUTPUT_OR
+0x3F.v 	 2 	 2 	 
+0x40.v 	 4 	 4 	 
+0x41.v 	 7 	 7 	 
+0x42.v 	 11 	 9 	 OUTPUT_OR
+0x43.v 	 9 	 7 	 OUTPUT_OR
+0x44.v 	 2 	 2 	 
+0x45.v 	 4 	 4 	 
+0x46.v 	 9 	 7 	 OUTPUT_OR
+0x47.v 	 7 	 5 	 OUTPUT_OR
+0x48.v 	 6 	 6 	 
+0x49.v 	 12 	 10 	 OUTPUT_OR
+0x4A.v 	 8 	 6 	 OUTPUT_OR
+0x4B.v 	 8 	 6 	 OUTPUT_OR
+0x4C.v 	 2 	 2 	 
+0x4D.v 	 8 	 6 	 OUTPUT_OR
+0x4E.v 	 6 	 4 	 OUTPUT_OR
+0x4F.v 	 4 	 4 	 
+0x50.v 	 2 	 2 	 
+0x51.v 	 4 	 4 	 
+0x52.v 	 9 	 7 	 OUTPUT_OR
+0x53.v 	 7 	 5 	 OUTPUT_OR
+0x54.v 	 5 	 5 	 
+0x55.v 	 0 	 0 	 
+0x56.v 	 9 	 7 	 OUTPUT_OR
+0x57.v 	 5 	 3 	 OUTPUT_OR
+0x58.v 	 8 	 6 	 OUTPUT_OR
+0x59.v 	 8 	 6 	 OUTPUT_OR
+0x5A.v 	 6 	 4 	 OUTPUT_OR
+0x5B.v 	 7 	 5 	 OUTPUT_OR
+0x5C.v 	 6 	 4 	 OUTPUT_OR
+0x5D.v 	 4 	 4 	 
+0x5E.v 	 8 	 6 	 OUTPUT_OR
+0x5F.v 	 2 	 2 	 
+0x60.v 	 6 	 6 	 
+0x61.v 	 12 	 10 	 OUTPUT_OR
+0x62.v 	 8 	 6 	 OUTPUT_OR
+0x63.v 	 8 	 6 	 OUTPUT_OR
+0x64.v 	 8 	 6 	 OUTPUT_OR
+0x65.v 	 8 	 6 	 OUTPUT_OR
+0x66.v 	 6 	 4 	 OUTPUT_OR
+0x67.v 	 7 	 5 	 OUTPUT_OR
+0x68.v 	 12 	 10 	 OUTPUT_OR
+0x69.v 	 11 	 9 	 OUTPUT_OR
+0x6A.v 	 7 	 5 	 OUTPUT_OR
+0x6B.v 	 12 	 10 	 OUTPUT_OR
+0x6C.v 	 7 	 5 	 OUTPUT_OR
+0x6D.v 	 12 	 10 	 OUTPUT_OR
+0x6E.v 	 6 	 4 	 OUTPUT_OR
+0x6F.v 	 8 	 6 	 OUTPUT_OR
+0x70.v 	 2 	 2 	 
+0x71.v 	 8 	 6 	 OUTPUT_OR
+0x72.v 	 6 	 4 	 OUTPUT_OR
+0x73.v 	 4 	 4 	 
+0x74.v 	 6 	 4 	 OUTPUT_OR
+0x75.v 	 4 	 4 	 
+0x76.v 	 8 	 6 	 OUTPUT_OR
+0x77.v 	 2 	 2 	 
+0x78.v 	 7 	 5 	 OUTPUT_OR
+0x79.v 	 12 	 10 	 OUTPUT_OR
+0x7A.v 	 6 	 4 	 OUTPUT_OR
+0x7B.v 	 8 	 6 	 OUTPUT_OR
+0x7C.v 	 6 	 4 	 OUTPUT_OR
+0x7D.v 	 8 	 6 	 OUTPUT_OR
+0x7E.v 	 10 	 8 	 OUTPUT_OR
+0x7F.v 	 4 	 4 	 
+0x80.v 	 3 	 3 	 
+0x81.v 	 11 	 9 	 OUTPUT_OR
+0x82.v 	 6 	 6 	 
+0x83.v 	 8 	 6 	 OUTPUT_OR
+0x84.v 	 6 	 6 	 
+0x85.v 	 8 	 6 	 OUTPUT_OR
+0x86.v 	 12 	 10 	 OUTPUT_OR
+0x87.v 	 7 	 5 	 OUTPUT_OR
+0x88.v 	 1 	 1 	 
+0x89.v 	 9 	 7 	 OUTPUT_OR
+0x8A.v 	 3 	 3 	 
+0x8B.v 	 6 	 4 	 OUTPUT_OR
+0x8C.v 	 3 	 3 	 
+0x8D.v 	 6 	 4 	 OUTPUT_OR
+0x8E.v 	 7 	 5 	 OUTPUT_OR
+0x8F.v 	 3 	 3 	 
+0x90.v 	 6 	 6 	 
+0x91.v 	 8 	 6 	 OUTPUT_OR
+0x92.v 	 12 	 10 	 OUTPUT_OR
+0x93.v 	 7 	 5 	 OUTPUT_OR
+0x94.v 	 12 	 10 	 OUTPUT_OR
+0x95.v 	 7 	 5 	 OUTPUT_OR
+0x96.v 	 11 	 9 	 OUTPUT_OR
+0x97.v 	 12 	 10 	 OUTPUT_OR
+0x98.v 	 8 	 6 	 OUTPUT_OR
+0x99.v 	 6 	 4 	 OUTPUT_OR
+0x9A.v 	 8 	 6 	 OUTPUT_OR
+0x9B.v 	 7 	 5 	 OUTPUT_OR
+0x9C.v 	 8 	 6 	 OUTPUT_OR
+0x9D.v 	 6 	 4 	 OUTPUT_OR
+0x9E.v 	 12 	 10 	 OUTPUT_OR
+0x9F.v 	 8 	 6 	 OUTPUT_OR
+0xA0.v 	 1 	 1 	 
+0xA1.v 	 9 	 7 	 OUTPUT_OR
+0xA2.v 	 3 	 3 	 
+0xA3.v 	 6 	 4 	 OUTPUT_OR
+0xA4.v 	 8 	 6 	 OUTPUT_OR
+0xA5.v 	 6 	 4 	 OUTPUT_OR
+0xA6.v 	 8 	 6 	 OUTPUT_OR
+0xA7.v 	 7 	 5 	 OUTPUT_OR
+0xA8.v 	 4 	 4 	 
+0xA9.v 	 9 	 7 	 OUTPUT_OR
+0xAA.v 	 1 	 1 	 
+0xAB.v 	 6 	 4 	 OUTPUT_OR
+0xAC.v 	 5 	 3 	 OUTPUT_OR
+0xAD.v 	 8 	 6 	 OUTPUT_OR
+0xAE.v 	 5 	 3 	 OUTPUT_OR
+0xAF.v 	 3 	 3 	 
+0xB0.v 	 3 	 3 	 
+0xB1.v 	 6 	 4 	 OUTPUT_OR
+0xB2.v 	 7 	 5 	 OUTPUT_OR
+0xB3.v 	 3 	 3 	 
+0xB4.v 	 8 	 6 	 OUTPUT_OR
+0xB5.v 	 6 	 4 	 OUTPUT_OR
+0xB6.v 	 12 	 10 	 OUTPUT_OR
+0xB7.v 	 8 	 6 	 OUTPUT_OR
+0xB8.v 	 5 	 3 	 OUTPUT_OR
+0xB9.v 	 8 	 6 	 OUTPUT_OR
+0xBA.v 	 5 	 3 	 OUTPUT_OR
+0xBB.v 	 3 	 3 	 
+0xBC.v 	 7 	 5 	 OUTPUT_OR
+0xBD.v 	 10 	 8 	 OUTPUT_OR
+0xBE.v 	 9 	 7 	 OUTPUT_OR
+0xBF.v 	 5 	 3 	 OUTPUT_OR
+0xC0.v 	 1 	 1 	 
+0xC1.v 	 9 	 7 	 OUTPUT_OR
+0xC2.v 	 8 	 6 	 OUTPUT_OR
+0xC3.v 	 6 	 4 	 OUTPUT_OR
+0xC4.v 	 3 	 3 	 
+0xC5.v 	 6 	 4 	 OUTPUT_OR
+0xC6.v 	 8 	 6 	 OUTPUT_OR
+0xC7.v 	 7 	 5 	 OUTPUT_OR
+0xC8.v 	 4 	 4 	 
+0xC9.v 	 9 	 7 	 OUTPUT_OR
+0xCA.v 	 5 	 3 	 OUTPUT_OR
+0xCB.v 	 8 	 6 	 OUTPUT_OR
+0xCC.v 	 1 	 1 	 
+0xCD.v 	 6 	 4 	 OUTPUT_OR
+0xCE.v 	 5 	 3 	 OUTPUT_OR
+0xCF.v 	 3 	 3 	 
+0xD0.v 	 3 	 3 	 
+0xD1.v 	 6 	 4 	 OUTPUT_OR
+0xD2.v 	 8 	 6 	 OUTPUT_OR
+0xD3.v 	 6 	 4 	 OUTPUT_OR
+0xD4.v 	 8 	 6 	 OUTPUT_OR
+0xD5.v 	 3 	 3 	 
+0xD6.v 	 12 	 10 	 OUTPUT_OR
+0xD7.v 	 8 	 6 	 OUTPUT_OR
+0xD8.v 	 5 	 3 	 OUTPUT_OR
+0xD9.v 	 7 	 5 	 OUTPUT_OR
+0xDA.v 	 7 	 5 	 OUTPUT_OR
+0xDB.v 	 10 	 8 	 OUTPUT_OR
+0xDC.v 	 5 	 3 	 OUTPUT_OR
+0xDD.v 	 3 	 3 	 
+0xDE.v 	 9 	 7 	 OUTPUT_OR
+0xDF.v 	 5 	 3 	 OUTPUT_OR
+0xE0.v 	 4 	 4 	 
+0xE1.v 	 9 	 7 	 OUTPUT_OR
+0xE2.v 	 5 	 3 	 OUTPUT_OR
+0xE3.v 	 7 	 5 	 OUTPUT_OR
+0xE4.v 	 5 	 3 	 OUTPUT_OR
+0xE5.v 	 7 	 5 	 OUTPUT_OR
+0xE6.v 	 7 	 5 	 OUTPUT_OR
+0xE7.v 	 10 	 8 	 OUTPUT_OR
+0xE8.v 	 7 	 5 	 OUTPUT_OR
+0xE9.v 	 12 	 10 	 OUTPUT_OR
+0xEA.v 	 4 	 4 	 
+0xEB.v 	 9 	 7 	 OUTPUT_OR
+0xEC.v 	 4 	 4 	 
+0xED.v 	 9 	 7 	 OUTPUT_OR
+0xEE.v 	 4 	 4 	 
+0xEF.v 	 6 	 4 	 OUTPUT_OR
+0xF0.v 	 1 	 1 	 
+0xF1.v 	 6 	 4 	 OUTPUT_OR
+0xF2.v 	 5 	 3 	 OUTPUT_OR
+0xF3.v 	 3 	 3 	 
+0xF4.v 	 5 	 3 	 OUTPUT_OR
+0xF5.v 	 3 	 3 	 
+0xF6.v 	 9 	 7 	 OUTPUT_OR
+0xF7.v 	 5 	 3 	 OUTPUT_OR
+0xF8.v 	 4 	 4 	 
+0xF9.v 	 9 	 7 	 OUTPUT_OR
+0xFA.v 	 4 	 4 	 
+0xFB.v 	 6 	 4 	 OUTPUT_OR
+0xFC.v 	 4 	 4 	 
+0xFD.v 	 6 	 4 	 OUTPUT_OR
+0xFE.v 	 7 	 5 	 OUTPUT_OR
+0xFF.v 	 0 	 0 	 

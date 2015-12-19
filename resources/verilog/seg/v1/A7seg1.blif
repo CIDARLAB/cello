@@ -1,0 +1,15 @@
+.model simple
+.inputs a b c d
+.outputs out
+.names a b c d out
+
+0000 1
+0010 1
+0011 1
+0101 1
+0111 1
+1000 1
+1001 1
+1101 1
+
+.end

@@ -1,0 +1,16 @@
+id,type,name,sequence
+4,scar,F_scar,CGCT
+5,scar,E_scar,GCTT
+6,scar,D_scar,AGGT
+7,scar,C_scar,AATG
+8,scar,B_scar,TACG
+9,scar,A_scar,GGAG
+10,scar,Y_scar,ATTG
+11,scar,X_scar,TGTC
+12,scar,V_scar,TCTG
+13,scar,U_scar,GGGC
+14,scar,R_scar,GTAA
+15,scar,Q_scar,GAGT
+16,scar,P_scar,CCTA
+17,scar,O_scar,ATGC
+24,scar,G_scar,ATAG

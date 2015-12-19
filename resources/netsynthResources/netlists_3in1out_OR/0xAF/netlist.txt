@@ -1,0 +1,2 @@
+NOT(0Wire11338,in3)
+OR(out,0Wire11338,in1)

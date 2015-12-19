@@ -1,0 +1,6 @@
+NOT(n4,in1)
+NOR(n7,in2,in3)
+NOT(n8,n7)
+NOR(n9,in1,n7)
+NOR(n11,n4,n8)
+OR(out,n9,n11)

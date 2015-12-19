@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" href="images/cello_small.png">
+
+    <!--CSS style sheets-->
+    <link href="css/tabcontent.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">-->
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-57223580-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</head>
+
+
+<nav id="main-navbar"  class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div>
+            <div>
+                <a class="navbar-brand" href="index.html">Cello</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li><a id="verilog_link" href="">Verilog</a></li>
+                    <li><a id="results_link" href="">Results</a></li>
+                    <li><a id="options_link" href="">Options</a></li>
+                    <li class="active"><a href="download.html">Documentation</a></li>
+                </ul>
+            </div>
+            <div id="loginArea">
+                <div class="navbar-form pull-right">
+                    <input id="login_username" type="text" class="span2" placeholder="Login">
+                    <input id="login_password" type="password" class="span2" placeholder="Password">
+                    <input id="btnLogin" type="submit" value="Login" class="btn btn-warning">
+                    <div id="loginError"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<body oncontextmenu="return false;">
+
+<div class="container-fluid">
+
+</div>
+
+
+<div class="container-fluid center">
+
+    <div class="col-sm-6 col-md-6 col-lg-6 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
+
+        <div class="well text-center">
+            <img src="images/logo-cello-color.png" style="width: 75%">
+
+            <h1>
+                <small>
+                    Download the software:
+                </small>
+            </h1>
+            <h3>
+                <small>
+                    (repository is currently private)
+                </small>
+            </h3>
+            <a class="btn btn-warning btn-lg" type="button" target="_blank" href="https://github.com/CIDARLAB/cello-lite">Cello GitHub repository</a>
+
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+        <hr/>
+        <h4><small>Cello is a trademark of <a id='nona_link' href='http://www.nonasoftware.org'>Nona Research Foundation, Inc.</a></small></h4>
+        <hr/>
+    </div>
+
+</div>
+
+
+
+</body>
+
+
+<!--JavaScript libraries-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="controller/SessionController.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
+
+
+<script type="text/javascript">
+
+    isRegistered();
+
+
+</script>
+
+
+<footer>
+    <div class="container" align="center">
+    </div>
+</footer>
+
+<style type="text/css">
+</style>
+
+
+</html>

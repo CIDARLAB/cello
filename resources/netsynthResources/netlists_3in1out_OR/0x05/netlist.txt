@@ -1,0 +1,3 @@
+NOT(0Wire210,in1)
+NOT(0Wire211,in3)
+NOR(out,0Wire210,0Wire211)

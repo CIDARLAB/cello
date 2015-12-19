@@ -1,0 +1,39 @@
+Organize Imports for all directories
+method commenting
+update README
+update INSTALL
+update RUN
+
+
+
+Spring Security + new derbydb
+
+function to wire/unwire circuit (indexes v. object-level)
+JSON specification for LogicCircuit
+Jackson for UCF
+
+inputs/outputs to JSON?
+hard-coding of "x"
+clean up tandem promoter code
+logger/concurrency
+plasmid writing
+SBOL writing
+hill climbing and sim annealing merge? converge condition
+jobid must start with a letter, or prepend in SBOL
+
+Cello API
+      make it work
+      CLT
+      RAML
+      client helper, python
+      UCF client helper, python
+      error handling
+
+Unit Tests / Integration Tests :(
+     AND with hill climbing
+     0xFE with breadth-first
+     plasmid sequences for Alec's designs
+     SR-latch
+     multi-output
+     netsynth 3-input 1-output     
+     write and reload circuit, same score

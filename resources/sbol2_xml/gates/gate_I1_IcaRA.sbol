@@ -1,0 +1,246 @@
+<?xml version="1.0" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:cellocad="http://cellocad.org/" xmlns:sbol="http://sbols.org/v2#" xmlns:prov="http://www.w3.org/ns/prov#">
+  <sbol:ModuleDefinition rdf:about="http://cellocad.org/I1_IcaRA">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA"/>
+    <sbol:displayId>I1_IcaRA</sbol:displayId>
+    <cellocad:response_function>
+{
+  'variables': [
+    {
+      'off_threshold': 0.105541491,
+      'on_threshold': 1.010814719,
+      'name': 'x'
+    }
+  ],
+  'equation': 'ymin+(ymax-ymin)/(1.0+(x/K)^n)',
+  'parameters': [
+    {
+      'name': 'ymin',
+      'value': 0.08
+    },
+    {
+      'name': 'ymax',
+      'value': 2.2
+    },
+    {
+      'name': 'K',
+      'value': 0.1
+    },
+    {
+      'name': 'n',
+      'value': 1.4
+    }
+  ]
+}
+</cellocad:response_function>
+    <sbol:role rdf:resource="http://cellocad.org/Gate"/>
+    <sbol:functionalComponent>
+      <sbol:FunctionalComponent rdf:about="http://cellocad.org/I1_IcaRA/IcaRA">
+        <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA/IcaRA"/>
+        <sbol:displayId>IcaRA</sbol:displayId>
+        <sbol:definition rdf:resource="http://cellocad.org/IcaRA"/>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:direction rdf:resource="http://sbols.org/v2#none"/>
+      </sbol:FunctionalComponent>
+    </sbol:functionalComponent>
+    <sbol:functionalComponent>
+      <sbol:FunctionalComponent rdf:about="http://cellocad.org/I1_IcaRA/pIcaRA">
+        <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA/pIcaRA"/>
+        <sbol:displayId>pIcaRA</sbol:displayId>
+        <sbol:definition rdf:resource="http://cellocad.org/pIcaRA"/>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:direction rdf:resource="http://sbols.org/v2#none"/>
+      </sbol:FunctionalComponent>
+    </sbol:functionalComponent>
+    <sbol:interaction>
+      <sbol:Interaction rdf:about="http://cellocad.org/I1_IcaRA/IcaRA_represses_pIcaRA">
+        <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA/IcaRA_represses_pIcaRA"/>
+        <sbol:displayId>IcaRA_represses_pIcaRA</sbol:displayId>
+        <sbol:type rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000169"/>
+        <sbol:participation>
+          <sbol:Participation rdf:about="http://cellocad.org/I1_IcaRA/IcaRA_represses_pIcaRA/IcaRA_participation">
+            <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA/IcaRA_represses_pIcaRA/IcaRA_participation"/>
+            <sbol:displayId>IcaRA_participation</sbol:displayId>
+            <sbol:participant rdf:resource="http://cellocad.org/I1_IcaRA/IcaRA"/>
+          </sbol:Participation>
+        </sbol:participation>
+        <sbol:participation>
+          <sbol:Participation rdf:about="http://cellocad.org/I1_IcaRA/IcaRA_represses_pIcaRA/pIcaRA_participation">
+            <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA/IcaRA_represses_pIcaRA/pIcaRA_participation"/>
+            <sbol:displayId>pIcaRA_participation</sbol:displayId>
+            <sbol:participant rdf:resource="http://cellocad.org/I1_IcaRA/pIcaRA"/>
+          </sbol:Participation>
+        </sbol:participation>
+      </sbol:Interaction>
+    </sbol:interaction>
+  </sbol:ModuleDefinition>
+  <sbol:ComponentDefinition rdf:about="http://cellocad.org/pIcaRA">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/pIcaRA"/>
+    <sbol:displayId>pIcaRA</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://purl.obolibrary.org/obo/SO_0000167"/>
+    <sbol:sequence rdf:resource="http://cellocad.org/pIcaRA_sequence"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://cellocad.org/I1_IcaRA_cassette">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA_cassette"/>
+    <sbol:displayId>I1_IcaRA_cassette</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:component>
+      <sbol:Component rdf:about="http://cellocad.org/I1_IcaRA_cassette/I1">
+        <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA_cassette/I1"/>
+        <sbol:displayId>I1</sbol:displayId>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://cellocad.org/I1"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://cellocad.org/I1_IcaRA_cassette/ECK120016170">
+        <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA_cassette/ECK120016170"/>
+        <sbol:displayId>ECK120016170</sbol:displayId>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://cellocad.org/ECK120016170"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://cellocad.org/I1_IcaRA_cassette/IcaRA">
+        <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA_cassette/IcaRA"/>
+        <sbol:displayId>IcaRA</sbol:displayId>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://cellocad.org/IcaRA"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://cellocad.org/I1_IcaRA_cassette/ElvJ">
+        <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA_cassette/ElvJ"/>
+        <sbol:displayId>ElvJ</sbol:displayId>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://cellocad.org/ElvJ"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_IcaRA">
+        <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_IcaRA"/>
+        <sbol:displayId>sequence_annotation_IcaRA</sbol:displayId>
+        <sbol:location>
+          <sbol:Range rdf:about="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_IcaRA/locationID3">
+            <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_IcaRA/locationID3"/>
+            <sbol:displayId>locationID3</sbol:displayId>
+            <sbol:start>204</sbol:start>
+            <sbol:end>768</sbol:end>
+          </sbol:Range>
+        </sbol:location>
+        <sbol:component rdf:resource="http://cellocad.org/I1_IcaRA_cassette/IcaRA"/>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_I1">
+        <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_I1"/>
+        <sbol:displayId>sequence_annotation_I1</sbol:displayId>
+        <sbol:location>
+          <sbol:Range rdf:about="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_I1/locationID2">
+            <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_I1/locationID2"/>
+            <sbol:displayId>locationID2</sbol:displayId>
+            <sbol:start>84</sbol:start>
+            <sbol:end>120</sbol:end>
+          </sbol:Range>
+        </sbol:location>
+        <sbol:component rdf:resource="http://cellocad.org/I1_IcaRA_cassette/I1"/>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_ECK120016170">
+        <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_ECK120016170"/>
+        <sbol:displayId>sequence_annotation_ECK120016170</sbol:displayId>
+        <sbol:location>
+          <sbol:Range rdf:about="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_ECK120016170/locationID4">
+            <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_ECK120016170/locationID4"/>
+            <sbol:displayId>locationID4</sbol:displayId>
+            <sbol:start>972</sbol:start>
+            <sbol:end>1019</sbol:end>
+          </sbol:Range>
+        </sbol:location>
+        <sbol:component rdf:resource="http://cellocad.org/I1_IcaRA_cassette/ECK120016170"/>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_ElvJ">
+        <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_ElvJ"/>
+        <sbol:displayId>sequence_annotation_ElvJ</sbol:displayId>
+        <sbol:location>
+          <sbol:Range rdf:about="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_ElvJ/locationID1">
+            <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA_cassette/sequence_annotation_ElvJ/locationID1"/>
+            <sbol:displayId>locationID1</sbol:displayId>
+            <sbol:start>1</sbol:start>
+            <sbol:end>83</sbol:end>
+          </sbol:Range>
+        </sbol:location>
+        <sbol:component rdf:resource="http://cellocad.org/I1_IcaRA_cassette/ElvJ"/>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequence rdf:resource="http://cellocad.org/I1_IcaRA_cassette_sequence"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://cellocad.org/ElvJ">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/ElvJ"/>
+    <sbol:displayId>ElvJ</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://purl.obolibrary.org/obo/SO_0000627"/>
+    <sbol:sequence rdf:resource="http://cellocad.org/ElvJ_sequence"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://cellocad.org/I1">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1"/>
+    <sbol:displayId>I1</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://purl.obolibrary.org/obo/SO_0000204"/>
+    <sbol:sequence rdf:resource="http://cellocad.org/I1_sequence"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://cellocad.org/ECK120016170">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/ECK120016170"/>
+    <sbol:displayId>ECK120016170</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://purl.obolibrary.org/obo/SO_0000141"/>
+    <sbol:sequence rdf:resource="http://cellocad.org/ECK120016170_sequence"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://cellocad.org/IcaRA">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/IcaRA"/>
+    <sbol:displayId>IcaRA</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://purl.obolibrary.org/obo/SO_0000316"/>
+    <sbol:sequence rdf:resource="http://cellocad.org/IcaRA_sequence"/>
+  </sbol:ComponentDefinition>
+  <sbol:Sequence rdf:about="http://cellocad.org/ElvJ_sequence">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/ElvJ_sequence"/>
+    <sbol:displayId>ElvJ_sequence</sbol:displayId>
+    <sbol:elements>CTGAagCCCCATAGGGTGGTGTGTACCACCCCTGATGAGTCCAAAAGGACGAAATGGGGcctctacaaataattttgtttaa</sbol:elements>
+    <sbol:encoding rdf:resource="http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html"/>
+  </sbol:Sequence>
+  <sbol:Sequence rdf:about="http://cellocad.org/IcaRA_sequence">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/IcaRA_sequence"/>
+    <sbol:displayId>IcaRA_sequence</sbol:displayId>
+    <sbol:elements>GTGAAAGACAAAATTATCGATAACGCCATCACCCTGTTTAGCGAAAAAGGTTATGACGGCACCACCCTGGATGATATTGCAAAAAGCGTGAACATCAAAAAAGCCAGCCTGTATTATCACTTTGATAGCAAAAAAAGCATCTACGAGCAGAGCGTTAAATGCTGTTTCGATTATCTGAACAACATCATCATGATGAACCAGAACAAAAGCAACTATAGCATCGATGCCCTGTATCAGTTTCTGTTTGAGTTCATCTTCGATATCGAGGAACGCTATATTCGTATGTATGTTCAGCTGAGCAACACACCGGAAGAATTTTCAGGTAACATTTATGGCCAGATCCAGGATCTGAATCAGAGCCTGAGCAAAGAAATCGCCAAATTCTATGACGAAAGCAAAATCAAAATGACCAAAGAGGACTTCCAGAATCTGATTCTGCTGTTTCTGGAAAGCTGGTATCTGAAAGCCAGCTTTAGCCAGAAATTTGGTGCAGTTGAAGAAAGCAAAAGCCAGTTTAAAGATGAGGTTTATAGCCTGCTGAACATCTTTCTGAAGAAATAATAA</sbol:elements>
+    <sbol:encoding rdf:resource="http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html"/>
+  </sbol:Sequence>
+  <sbol:Sequence rdf:about="http://cellocad.org/ECK120016170_sequence">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/ECK120016170_sequence"/>
+    <sbol:displayId>ECK120016170_sequence</sbol:displayId>
+    <sbol:elements>ACAATTTTCGAAAAAACCCGCTTCGGCGGGTTTTTTTATAGCTAAAA</sbol:elements>
+    <sbol:encoding rdf:resource="http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html"/>
+  </sbol:Sequence>
+  <sbol:Sequence rdf:about="http://cellocad.org/pIcaRA_sequence">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/pIcaRA_sequence"/>
+    <sbol:displayId>pIcaRA_sequence</sbol:displayId>
+    <sbol:elements>GTCAACTCATAAGATtctgattcgttaccaattgacaaTTCACCTACCTTTCGTTAGgTTAGGTTGT</sbol:elements>
+    <sbol:encoding rdf:resource="http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html"/>
+  </sbol:Sequence>
+  <sbol:Sequence rdf:about="http://cellocad.org/I1_sequence">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_sequence"/>
+    <sbol:displayId>I1_sequence</sbol:displayId>
+    <sbol:elements>ATTGCTATGGACTATGTTTCAAAGTGAGAATACTAG</sbol:elements>
+    <sbol:encoding rdf:resource="http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html"/>
+  </sbol:Sequence>
+  <sbol:Sequence rdf:about="http://cellocad.org/I1_IcaRA_cassette_sequence">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/I1_IcaRA_cassette_sequence"/>
+    <sbol:displayId>I1_IcaRA_cassette_sequence</sbol:displayId>
+    <sbol:elements>CTGAagCCCCATAGGGTGGTGTGTACCACCCCTGATGAGTCCAAAAGGACGAAATGGGGcctctacaaataattttgtttaaATTGCTATGGACTATGTTTCAAAGTGAGAATACTAGGTGAAAGACAAAATTATCGATAACGCCATCACCCTGTTTAGCGAAAAAGGTTATGACGGCACCACCCTGGATGATATTGCAAAAAGCGTGAACATCAAAAAAGCCAGCCTGTATTATCACTTTGATAGCAAAAAAAGCATCTACGAGCAGAGCGTTAAATGCTGTTTCGATTATCTGAACAACATCATCATGATGAACCAGAACAAAAGCAACTATAGCATCGATGCCCTGTATCAGTTTCTGTTTGAGTTCATCTTCGATATCGAGGAACGCTATATTCGTATGTATGTTCAGCTGAGCAACACACCGGAAGAATTTTCAGGTAACATTTATGGCCAGATCCAGGATCTGAATCAGAGCCTGAGCAAAGAAATCGCCAAATTCTATGACGAAAGCAAAATCAAAATGACCAAAGAGGACTTCCAGAATCTGATTCTGCTGTTTCTGGAAAGCTGGTATCTGAAAGCCAGCTTTAGCCAGAAATTTGGTGCAGTTGAAGAAAGCAAAAGCCAGTTTAAAGATGAGGTTTATAGCCTGCTGAACATCTTTCTGAAGAAATAATAAACAATTTTCGAAAAAACCCGCTTCGGCGGGTTTTTTTATAGCTAAAA</sbol:elements>
+    <sbol:encoding rdf:resource="http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html"/>
+  </sbol:Sequence>
+</rdf:RDF>

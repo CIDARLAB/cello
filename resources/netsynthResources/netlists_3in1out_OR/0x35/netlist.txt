@@ -1,0 +1,4 @@
+NOT(n4,in1)
+NOR(n7,in1,in2)
+NOR(n9,n4,in3)
+NOR(out,n7,n9)

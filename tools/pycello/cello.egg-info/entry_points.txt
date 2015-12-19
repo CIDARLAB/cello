@@ -1,0 +1,4 @@
+
+        [console_scripts]
+        cello=cello_client:cli
+    

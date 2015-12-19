@@ -1,0 +1,60 @@
+package org.cellocad.MIT.dnacompiler;
+
+
+import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+
+/***********************************************************************
+ Synopsis    [ Default algorithm to assign repressors to gates.]
+
+ Exhaustive search.  Intractable as circuit size grows, but guarantees finding the best score.
+
+ Two permutations are required:
+ 1. Permute assignment of repressors to gates.
+ 2. Permute choice of all possible RBS-variants of the repressor assignment.
+
+ ***********************************************************************/
+
+public class BuildCircuitsByPreset extends BuildCircuits {
+
+
+    public BuildCircuitsByPreset(Args options, GateLibrary gate_library, Roadblock roadblock) {
+        super(options, gate_library, roadblock);
+    }
+
+
+    /***********************************************************************
+
+     Synopsis    [ ]
+
+     ***********************************************************************/
+    @Override
+    public void buildCircuits() {
+
+        LogicCircuit lc = get_unassigned_lc();
+
+        ArrayList<String> gate_names = Util.fileLines(get_options().get_fin_preset());
+        for(String gate_name: gate_names) {
+            System.out.println(gate_name);
+        }
+
+        for(int i=0; i<lc.get_logic_gates().size(); ++i) {
+            Gate g = lc.get_logic_gates().get(i);
+            g.Name = gate_names.get(i);
+            g.Group = get_gate_library().get_GATES_BY_NAME().get(g.Name).Group;
+        }
+
+        Evaluate.evaluateCircuit(lc, get_gate_library(), get_options());
+        for(Gate g: lc.get_Gates()) {
+            Evaluate.evaluateGate(g, get_options());
+        }
+        System.out.println(lc.printGraph());
+
+        get_logic_circuits().add(lc);
+    }
+
+    private Logger log = Logger.getLogger( this.getClass().getPackage().getName() );
+
+
+}

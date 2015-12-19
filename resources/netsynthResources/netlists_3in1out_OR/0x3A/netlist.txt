@@ -1,0 +1,4 @@
+NOR(Wire0,in1,in2)
+NOR(Wire1,Wire0,in1)
+NOR(Wire2,Wire0,in3)
+OR(out,Wire1,Wire2)

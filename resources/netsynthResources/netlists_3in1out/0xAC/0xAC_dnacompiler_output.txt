@@ -1,0 +1,34 @@
+
+///////////////////////////////////////////////////////////
+///////////////   Welcome to Cello   //////////////////////
+///////////////////////////////////////////////////////////
+
+JobID by date: 0xAC
+
+[ -dateID 0xAC -figures false -external_directory true -assignment_algorithm abstract_only  -verilog /Users/peng/cello/resources/verilog/3-input/0xAC.v  -output_or false]
+
+///////////////////////////////////////////////////////////
+///////////////   Logic synthesis, Wiring diagram   ///////
+///////////////////////////////////////////////////////////
+
+fin_ver /Users/peng/cello/resources/verilog/3-input/0xAC.v
+Input gates  = 3
+Logic gates  = 5
+  NOR gates  = 5
+  AND gates  = 0
+Output gates = 1
+
+----- Logic Circuit #0 -----
+OUTPUT      10101100          out               0  (1)         
+NOT         10101100          ~                 1  (2)         
+NOR         01010011          ~|                2  (4,3)       
+NOR         00001100          ~|                3  (5,8)       
+NOR         10100000          ~|                4  (6,7)       
+NOT         11110000          ~                 5  (6)         
+INPUT       00001111          in1               6              
+INPUT       00110011          in2               8              
+INPUT       01010101          in3               7              
+
+
+
+Cello finished playing.  Abstract circuit only.

@@ -1,0 +1,64 @@
+PartType Promoter;
+PartType CDS;
+
+CDS PhlF;
+CDS SrpR;
+
+Promoter pTac;
+Promoter pTet;
+Promoter pPhlF;
+Promoter pSrpR;
+
+
+//////////// This works ///////////
+/*Device NOR1(pTac,pTet,PhlF);
+Device NOR2(pTac,pPhlF,SrpR);
+
+Device logic_gates(
+NOR1,
+NOR2);
+
+Rule allRules(ON logic_gates:
+NOR1 exactly 1 AND
+NOR2 exactly 1);
+
+result = permute(logic_gates);
+*/
+///////////////////////////////////
+
+
+
+//////////// This fails ///////////
+Device NOR1(Promoter,Promoter,PhlF);
+Device NOR2(Promoter,Promoter,SrpR);
+
+Rule nor1Rules(ON NOR1:
+CONTAINS pTac AND
+CONTAINS pTet);
+
+Rule nor2Rules(ON NOR2:
+CONTAINS pTac AND
+CONTAINS pPhlF);
+
+Device logic_gates(
+NOR1,
+NOR2);
+
+Rule allRules(ON logic_gates:
+NOR1 exactly 1 AND
+NOR2 exactly 1);
+
+result = permute(logic_gates);
+
+///////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+

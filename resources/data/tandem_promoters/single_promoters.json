@@ -1,0 +1,145 @@
+{
+  "F1_AmeR": {
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "promoter": "F1_AmeR",
+    "source": "in4bb",
+    "params": {
+      "ymin": 0.655932888,
+      "ymax": 28.92404143,
+      "K": 0.788535636,
+      "n": 1.33207058
+    }
+  },
+  "I1_IcaRA": {
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "promoter": "I1_IcaRA",
+    "source": "in4bb",
+    "params": {
+      "ymin": 0.685343078,
+      "ymax": 17.9001218,
+      "K": 1.608204534,
+      "n": 1.514038909
+    }
+  },
+  "input_pTet": {
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "promoter": "input_pTet",
+    "source": "in4bb",
+    "params": {
+      "ymin": 0.08315565,
+      "ymax": 81.9257285,
+      "K": 0.960097246,
+      "n": 5.418426561
+    }
+  },
+  "E1_BetI": {
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "promoter": "E1_BetI",
+    "source": "in4bb",
+    "params": {
+      "ymin": 0.287164404,
+      "ymax": 40.40521301,
+      "K": 2.757154998,
+      "n": 2.556416683
+    }
+  },
+  "input_pBAD": {
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "promoter": "input_pBAD",
+    "source": "in4bb",
+    "params": {
+      "ymin": 0.307702559,
+      "ymax": 31.95904407,
+      "K": 0.081978583,
+      "n": 4.328645982
+    }
+  },
+  "Q2_QacR": {
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "promoter": "Q2_QacR",
+    "source": "in4bb",
+    "params": {
+      "ymin": 0.26636975,
+      "ymax": 28.0465597,
+      "K": 2.683631456,
+      "n": 2.82472426
+    }
+  },
+  "input_pLuxStar": {
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "promoter": "input_pLuxStar",
+    "source": "in4bb",
+    "params": {
+      "ymin": 0.071384151,
+      "ymax": 11.69651741,
+      "K": 0.071271151,
+      "n": 1.205257109
+    }
+  },
+  "P3_PhlF": {
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "promoter": "P3_PhlF",
+    "source": "in4bb",
+    "params": {
+      "ymin": 0.079824094,
+      "ymax": 79.03837953,
+      "K": 2.837616503,
+      "n": 5.05419803
+    }
+  },
+  "B3_BM3R1": {
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "promoter": "B3_BM3R1",
+    "source": "in4bb",
+    "params": {
+      "ymin": 0.068052594,
+      "ymax": 9.228944563,
+      "K": 3.130749843,
+      "n": 3.776012984
+    }
+  },
+  "A1_AmtR": {
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "promoter": "A1_AmtR",
+    "source": "in4bb",
+    "params": {
+      "ymin": 0.659369427,
+      "ymax": 33.01167315,
+      "K": 0.595688986,
+      "n": 1.737459254
+    }
+  },
+  "S4_SrpR": {
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "promoter": "S4_SrpR",
+    "source": "in4bb",
+    "params": {
+      "ymin": 0.075382018,
+      "ymax": 37.47832267,
+      "K": 0.920887926,
+      "n": 3.151379683
+    }
+  },
+  "H1_HlyIIR": {
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "promoter": "H1_HlyIIR",
+    "source": "in4bb",
+    "params": {
+      "ymin": 0.100693656,
+      "ymax": 16.58612008,
+      "K": 1.414959792,
+      "n": 2.401131171
+    }
+  },
+  "input_pTac": {
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "promoter": "input_pTac",
+    "source": "in4bb",
+    "params": {
+      "ymin": 0.116915423,
+      "ymax": 51.27540867,
+      "K": 0.213145414,
+      "n": 1.661943472
+    }
+  }
+}

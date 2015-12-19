@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="E1_BetI_sbml_model">
+    <listOfParameters>
+      <parameter id="ymin" value="0.07"/>
+      <parameter id="IL" value="0.417"/>
+      <parameter id="ymax" value="3.8"/>
+      <parameter id="n" value="2.4"/>
+      <parameter id="IH" value="2.138"/>
+      <parameter id="K" value="0.41"/>
+      <parameter id="y" constant="false"/>
+      <parameter id="x"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="y">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <plus/>
+            <ci> ymin </ci>
+            <apply>
+              <divide/>
+              <apply>
+                <minus/>
+                <ci> ymax </ci>
+                <ci> ymin </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <cn> 1 </cn>
+                <apply>
+                  <power/>
+                  <apply>
+                    <divide/>
+                    <ci> x </ci>
+                    <ci> K </ci>
+                  </apply>
+                  <ci> n </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+            </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>

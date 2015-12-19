@@ -1,0 +1,3 @@
+NOT(0Wire8790,in2)
+NOR(n6,0Wire8790,in1)
+NOR(out,in3,n6)

@@ -1,0 +1,6 @@
+NOR(0Wire15285,in3,in1)
+NOR(n6,in1,0Wire15285)
+NOR(n8,in3,0Wire15285)
+NOR(n10,n6,n8)
+NOT(0Wire15281,in2)
+OR(out,0Wire15281,n10)

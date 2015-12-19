@@ -1,0 +1,2 @@
+NOT(0Wire490,in1)
+NOR(out,0Wire490,in3)

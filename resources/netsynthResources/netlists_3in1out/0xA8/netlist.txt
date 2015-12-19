@@ -1,0 +1,4 @@
+NOT(0Wire10994,in1)
+NOT(0Wire10995,in2)
+NOR(n5,0Wire10994,0Wire10995)
+NOR(out,in3,n5)

@@ -1,0 +1,6 @@
+cello.egg-info/PKG-INFO
+cello.egg-info/SOURCES.txt
+cello.egg-info/dependency_links.txt
+cello.egg-info/entry_points.txt
+cello.egg-info/requires.txt
+cello.egg-info/top_level.txt

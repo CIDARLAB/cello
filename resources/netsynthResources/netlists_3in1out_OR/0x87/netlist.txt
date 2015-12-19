@@ -1,0 +1,5 @@
+NOR(n7,in2,in3)
+NOR(0Wire8626,in1,n7)
+NOR(n9,n7,0Wire8626)
+NOR(n11,in1,0Wire8626)
+OR(out,n9,n11)

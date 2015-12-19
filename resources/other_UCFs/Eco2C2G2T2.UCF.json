@@ -1,0 +1,803 @@
+[
+{
+  "collection": "header",
+  "description": "CRISRPi NOR/NOT gates, maximum of 5",
+  "version": "ECo2C2G2T2",
+  "date": "Fri May 29 10:44:28 EDT 2015",
+  "author": [
+    "Bryan Der"
+  ],
+  "organism": "Escherichia coli strain K-12 substrain MG1655",
+  "genome": "K-12 MG1655* [F-kilvG- rfb-50 rph-1 D(araCBAD) D(LacI)]",
+  "media": "Cells were grown in LB Miller broth (Difco, MI, 90003-350) for overnight growth and cloning, and MOPS EZ Rich Defined Medium (Teknova, CA, M2105) with 0.4% glycerol carbon source for measurement experiments.  Ampicillin (100 lg/ml), kanamycin (50 lg/ml), and spectinomycin sulfate (50 lg/ml) were used to maintain plasmids. Arabinose (Sigma Aldrich, MO, A3256), 2,4-diacetylphloroglucinol (Santa Cruz Biotechnology, TX, CAS 2161-86-6), and anhydrotetracycline (aTc) (Sigma Aldrich, MO, 37919) were used as chemical inducers. The fluorescent protein reporters YFP (Cormack et al, 1996) and mRFP1 (Campbell et al, 2002) were measured with cytometry to determine gene expression.",
+  "temperature": "37",
+  "growth": "Escherichia coli MG1655* cells were transformed with three plasmids encoding: (i) inducible dCas9, (ii) one or more sgRNAs, and (iii) a fluorescent reporter. Cells were plated on LB agar plates with appropriate antibiotics. Transformed colonies were inoculated intoMOPS EZ Rich Defined Medium with 0.4% glycerol and appropriate antibiotics and were then grown overnight in V-bottom 96-well plates (Nunc, Roskilde, Denmark, 249952) in an ELMI Digital Thermos Microplates shaker incubator (Elmi Ltd, Riga, Latvia) at 1,000 rpm and 37°C. The next day, cultures were diluted 180-fold into EZ Rich Medium with antibiotics and grown with the same shaking incubator parameters for 3 h. At 3 h, cells were diluted 700-fold into EZ Rich Medium with antibiotics and inducers. The cells were grown using the same shaking incubator parameters for 6 h. For cytometry measurements, 40 ll of the cell culture was added to 160 ll of phosphate-buffered saline with 0.5 mg/ml kanamycin to arrest cell growth. The cells were placed in a 4°C refrigerator for 1 h to allow the fluorophores to mature prior to cytometry analysis."
+},
+{
+  "collection": "measurement_std",
+  "signal_carrier_units": "REU",
+  "normalization_instructions": "The following equation converts the median YFP fluorescence to REU.  REU = (YFP – YFP0)/(YFPREU – YFP0), where YFP is the median fluorescence of the cells of interest, YFP0 is the median autofluorescence, and YFPREU is the median fluorescence of the cells containing the measurement standard plasmid",
+  "plasmid_description": "p15A plasmid backbone with kanamycin resistance and a YFP expression cassette. Upstream isulation by terminator L3S3P21\nand a 5’-promoter spacer.  Promoter BBa_J23101, ribozyme RiboJ, RBS BBa_B0064 drives constitutive YFP expression, with transcriptional termination by L3S3P21.",
+  "plasmid_sequence": [
+    "LOCUS       pAN801star__LacI        2853 bp ds-DNA     circular     27-MAR-2015",
+    "SOURCE      ",
+    "  ORGANISM  ",
+    "COMMENT     ",
+    "COMMENT     ",
+    "COMMENT     ApEinfo:methylated:1",
+    "FEATURES             Location/Qualifiers",
+    "     misc_feature    160..879",
+    "                     /label=YFP 3snp",
+    "                     /ApEinfo_fwdcolor=#ffff00",
+    "                     /ApEinfo_revcolor=#ffff00",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     misc_feature    join(61..64,66..133)",
+    "                     /label=RiboJ spacer",
+    "                     /ApEinfo_fwdcolor=#808040",
+    "                     /ApEinfo_revcolor=#808040",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     misc_feature    59..133",
+    "                     /label=RiboJ",
+    "                     /ApEinfo_fwdcolor=#ffff80",
+    "                     /ApEinfo_revcolor=#ffff80",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     misc_feature    complement(214..243)",
+    "                     /label=AAKN 37 primer binding site",
+    "                     /ApEinfo_fwdcolor=#804040",
+    "                     /ApEinfo_revcolor=#804040",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     misc_feature    134..139",
+    "                     /label=SCAR",
+    "                     /ApEinfo_fwdcolor=#c0c0c0",
+    "                     /ApEinfo_revcolor=#c0c0c0",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     misc_feature    154..159",
+    "                     /label=SCAR(1)",
+    "                     /ApEinfo_label=SCAR",
+    "                     /ApEinfo_fwdcolor=#c0c0c0",
+    "                     /ApEinfo_revcolor=#c0c0c0",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     misc_feature    142..153",
+    "                     /label=B0064",
+    "                     /ApEinfo_fwdcolor=#ff8040",
+    "                     /ApEinfo_revcolor=green",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     misc_feature    134..141",
+    "                     /label=SCAR(2)",
+    "                     /ApEinfo_label=SCAR",
+    "                     /ApEinfo_fwdcolor=#c0c0c0",
+    "                     /ApEinfo_revcolor=#c0c0c0",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     rep_origin      complement(1251..1251)",
+    "                     /vntifkey=\"33\"",
+    "                     /label=origin",
+    "                     /ApEinfo_fwdcolor=pink",
+    "                     /ApEinfo_revcolor=pink",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     rep_origin      978..1813",
+    "                     /vntifkey=\"33\"",
+    "                     /label=more\\stringent\\p15A",
+    "                     /ApEinfo_fwdcolor=pink",
+    "                     /ApEinfo_revcolor=pink",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     CDS             complement(1885..2700)",
+    "                     /vntifkey=\"4\"",
+    "                     /label=Kanamycin\\phosphotransferase",
+    "                     /ApEinfo_fwdcolor=pink",
+    "                     /ApEinfo_revcolor=pink",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     misc_feature    880..940",
+    "                     /label=terminator (L3S2P21)",
+    "                     /ApEinfo_fwdcolor=#ff0000",
+    "                     /ApEinfo_revcolor=green",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     misc_feature    complement(988..1015)",
+    "                     /label=pMJS02 seq R v2",
+    "                     /ApEinfo_fwdcolor=cyan",
+    "                     /ApEinfo_revcolor=cyan",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     misc_feature    2801..2853",
+    "                     /label=L3S3P21",
+    "                     /ApEinfo_fwdcolor=#ff0000",
+    "                     /ApEinfo_revcolor=#ff0000",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     misc_feature    20..54",
+    "                     /label=J23101",
+    "                     /ApEinfo_fwdcolor=#00ff00",
+    "                     /ApEinfo_revcolor=#00ff00",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     misc_feature    20..39",
+    "                     /label=spacer:J23101",
+    "                     /ApEinfo_fwdcolor=#ff8040",
+    "                     /ApEinfo_revcolor=#804040",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     misc_feature    complement(29..48)",
+    "                     /label=spacer:A23001-2",
+    "                     /ApEinfo_fwdcolor=#800000",
+    "                     /ApEinfo_revcolor=#ff8000",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "     misc_feature    5..19",
+    "                     /label=pre-J23101 random DNA",
+    "                     /ApEinfo_fwdcolor=cyan",
+    "                     /ApEinfo_revcolor=cyan",
+    "                     /ApEinfo_graphicformat=arrow_data {{0 1 2 0 0 -1} {} 0}",
+    "                     width 5 offset 0",
+    "ORIGIN",
+    "        1 gcttGATAAG TCCCTAACTT TTACAGCTAG CTCAGTCCTA GGTATTATGC TAGCCTGAAG",
+    "       61 CTGTCACCGG ATGTGCTTTC CGGTCTGATG AGTCCGTGAG GACGAAACAG CCTCTACAAA",
+    "      121 TAATTTTGTT TAATACTAGA GAAAGAGGGG AAATACTAGA TGGTGAGCAA GGGCGAGGAG",
+    "      181 CTGTTCACCG GGGTGGTGCC CATCCTGGTC GAGCTGGACG GCGACGTAAA CGGCCACAAG",
+    "      241 TTCAGCGTGT CCGGCGAGGG CGAGGGCGAT GCCACCTACG GCAAGCTGAC CCTGAAGTTC",
+    "      301 ATCTGCACCA CAGGCAAGCT GCCCGTGCCC TGGCCCACCC TCGTGACCAC CTTCGGCTAC",
+    "      361 GGCCTGCAAT GCTTCGCCCG CTACCCCGAC CACATGAAGC TGCACGACTT CTTCAAGTCC",
+    "      421 GCCATGCCCG AAGGCTACGT CCAGGAGCGC ACCATCTTCT TCAAGGACGA CGGCAACTAC",
+    "      481 AAGACCCGCG CCGAGGTGAA GTTCGAGGGC GACACCCTGG TGAACCGCAT CGAGCTGAAG",
+    "      541 GGCATCGACT TCAAGGAGGA CGGCAACATC CTGGGGCACA AGCTGGAGTA CAACTACAAC",
+    "      601 AGCCACAACG TCTATATCAT GGCCGACAAG CAGAAGAACG GCATCAAGGT GAACTTCAAG",
+    "      661 ATCCGCCACA ACATCGAGGA CGGCAGCGTG CAGCTCGCCG ACCACTACCA GCAGAACACC",
+    "      721 CCAATCGGCG ACGGCCCCGT GCTGCTGCCC GACAACCACT ACCTTAGCTA CCAGTCCGCC",
+    "      781 CTGAGCAAAG ACCCCAACGA GAAGCGCGAT CACATGGTCC TGCTGGAGTT CGTGACCGCC",
+    "      841 GCCGGGATCA CTCTCGGCAT GGACGAGCTG TACAAGTAAC TCGGTACCAA ATTCCAGAAA",
+    "      901 AGAGGCCTCC CGAAAGGGGG GCCTTTTTTC GTTTTGGTCC AGGTGCTTCC TCGCTCACTG",
+    "      961 ACTCGCTGCA CGAGGCAGAC CTCAGCGCTA GCGGAGTGTA TACTGGCTTA CTATGTTGGC",
+    "     1021 ACTGATGAGG GTGTCAGTGA AGTGCTTCAT GTGGCAGGAG AAAAAAGGCT GCACCGGTGC",
+    "     1081 GTCAGCAGAA TATGTGATAC AGGATATATT CCGCTTCCTC GCTCACTGAC TCGCTACGCT",
+    "     1141 CGGTCGTTCG ACTGCGGCGA GCGGAAATGG CTTACGAACG GGGCGGAGAT TTCCTGGAAG",
+    "     1201 ATGCCAGGAA GATACTTAAC AGGGAAGTGA GAGGGCCGCG GCAAAGCCGT TTTTCCATAG",
+    "     1261 GCTCCGCCCC CCTGACAAGC ATCACGAAAT CTGACGCTCA AATCAGTGGT GGCGAAACCC",
+    "     1321 GACAGGACTA TAAAGATACC AGGCGTTTCC CCTGGCGGCT CCCTCGTGCG CTCTCCTGTT",
+    "     1381 CCTGCCTTTC GGTTTACCGG TGTCATTCCG CTGTTATGGC CGCGTTTGTC TCATTCCACG",
+    "     1441 CCTGACACTC AGTTCCGGGT AGGCAGTTCG CTCCAAGCTG GACTGTATGC ACGAACCCCC",
+    "     1501 CGTTCAGTCC GACCGCTGCG CCTTATCCGG TAACTATCGT CTTGAGTCCA ACCCGGAAAG",
+    "     1561 ACATGCAAAA GCACCACTGG CAGCAGCCAC TGGTAATTGA TTTAGAGGAG TTAGTCTTGA",
+    "     1621 AGTCATGCGC CGGTTAAGGC TAAACTGAAA GGACAAGTTT TGGTGACTGC GCTCCTCCAA",
+    "     1681 GCCAGTTACC TCGGTTCAAA GAGTTGGTAG CTCAGAGAAC CTTCGAAAAA CCGCCCTGCA",
+    "     1741 AGGCGGTTTT TTCGTTTTCA GAGCAAGAGA TTACGCGCAG ACCAAAACGA TCTCAAGAAG",
+    "     1801 ATCATCTTAT TAAGGGGTCT GACGCTCAGT GGAACGAAAA ATCAATCTAA AGTATATATG",
+    "     1861 AGTAAACTTG GTCTGACAGT TACCTTAGAA AAACTCATCG AGCATCAAAT GAAACTGCAA",
+    "     1921 TTTATTCATA TCAGGATTAT CAATACCATA TTTTTGAAAA AGCCGTTTCT GTAATGAAGG",
+    "     1981 AGAAAACTCA CCGAGGCAGT TCCATAGGAT GGCAAGATCC TGGTATCGGT CTGCGATTCC",
+    "     2041 GACTCGTCCA ACATCAATAC AACCTATTAA TTTCCCCTCG TCAAAAATAA GGTTATCAAG",
+    "     2101 TGAGAAATCA CCATGAGTGA CGACTGAATC CGGTGAGAAT GGCAAAAGCT TATGCATTTC",
+    "     2161 TTTCCAGACT TGTTCAACAG GCCAGCCATT ACGCTCGTCA TCAAAATCAC TCGCATCAAC",
+    "     2221 CAAACCGTTA TTCATTCGTG ATTGCGCCTG AGCGAGACGA AATACGCGAT CGCTGTTAAA",
+    "     2281 AGGACAATTA CAAACAGGAA TCGAATGCAA CCGGCGCAGG AACACTGCCA GCGCATCAAC",
+    "     2341 AATATTTTCA CCTGAATCAG GATATTCTTC TAATACCTGG AATGCTGTTT TCCCGGGGAT",
+    "     2401 CGCAGTGGTG AGTAACCATG CATCATCAGG AGTACGGATA AAATGCTTGA TGGTCGGAAG",
+    "     2461 AGGCATAAAT TCCGTCAGCC AGTTTAGTCT GACCATCTCA TCTGTAACAT CATTGGCAAC",
+    "     2521 GCTACCTTTG CCATGTTTCA GAAACAACTC TGGCGCATCG GGCTTCCCAT ACAATCGATA",
+    "     2581 GATTGTCGCA CCTGATTGCC CGACATTATC GCGAGCCCAT TTATACCCAT ATAAATCAGC",
+    "     2641 ATCCATGTTG GAATTTAATC GCGGCCTCGA GCAAGACGTT TCCCGTTGAA TATGGCTCAT",
+    "     2701 AACACCCCTT GTATTACTGT TTATGTAAGC AGACAGTTTT ATTGTTCATG ATGATATATT",
+    "     2761 TTTATCTTGT GCAATGTACA TCAGAGATTT TGAGACACAA CCAATTATTG AAGGCCTCCC",
+    "     2821 TAACGGGGGG CCTTTTTTTG TTTCTGGTCT CCC  ",
+    "//"
+  ]
+},
+{
+  "collection": "logic_constraints",
+  "available_gates": [
+    {
+      "type": "NOR",
+      "max_instances": 5
+    }
+  ]
+},
+{
+  "collection": "gates",
+  "regulator": "sgRNA_A1T",
+  "group_name": "sgRNA_A1",
+  "gate_name": "sgRNA_A1T",
+  "gate_type": "NOR",
+  "system": "CRISPRi"
+},
+{
+  "collection": "gates",
+  "regulator": "sgRNA_A1NT",
+  "group_name": "sgRNA_A1",
+  "gate_name": "sgRNA_A1NT",
+  "gate_type": "NOR",
+  "system": "CRISPRi"
+},
+{
+  "collection": "gates",
+  "regulator": "sgRNA_A2T",
+  "group_name": "sgRNA_A2",
+  "gate_name": "sgRNA_A2T",
+  "gate_type": "NOR",
+  "system": "CRISPRi"
+},
+{
+  "collection": "gates",
+  "regulator": "sgRNA_A2NT",
+  "group_name": "sgRNA_A2",
+  "gate_name": "sgRNA_A2NT",
+  "gate_type": "NOR",
+  "system": "CRISPRi"
+},
+{
+  "collection": "gates",
+  "regulator": "sgRNA_A3T",
+  "group_name": "sgRNA_A3",
+  "gate_name": "sgRNA_A3T",
+  "gate_type": "NOR",
+  "system": "CRISPRi"
+},
+{
+  "collection": "gates",
+  "regulator": "sgRNA_A3NT",
+  "group_name": "sgRNA_A3",
+  "gate_name": "sgRNA_A3NT",
+  "gate_type": "NOR",
+  "system": "CRISPRi"
+},
+{
+  "collection": "gates",
+  "regulator": "sgRNA_A4T",
+  "group_name": "sgRNA_A4",
+  "gate_name": "sgRNA_A4T",
+  "gate_type": "NOR",
+  "system": "CRISPRi"
+},
+{
+  "collection": "gates",
+  "regulator": "sgRNA_A4NT",
+  "group_name": "sgRNA_A4",
+  "gate_name": "sgRNA_A4NT",
+  "gate_type": "NOR",
+  "system": "CRISPRi"
+},
+{
+  "collection": "gates",
+  "regulator": "sgRNA_A5T",
+  "group_name": "sgRNA_A5",
+  "gate_name": "sgRNA_A5T",
+  "gate_type": "NOR",
+  "system": "CRISPRi"
+},
+{
+  "collection": "gates",
+  "regulator": "sgRNA_A5NT",
+  "group_name": "sgRNA_A5",
+  "gate_name": "sgRNA_A5NT",
+  "gate_type": "NOR",
+  "system": "CRISPRi"
+},
+{
+  "collection": "response_functions",
+  "gate_name": "sgRNA_A1T",
+  "equation": "a/x^b",
+  "variables": [
+    {
+      "name": "x"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "a",
+      "value": 0.55
+    },
+    {
+      "name": "b",
+      "value": 0.85
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "sgRNA_A1NT",
+  "equation": "a/x^b",
+  "variables": [
+    {
+      "name": "x"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "a",
+      "value": 0.52
+    },
+    {
+      "name": "b",
+      "value": 0.95
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "sgRNA_A2T",
+  "equation": "a/x^b",
+  "variables": [
+    {
+      "name": "x"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "a",
+      "value": 0.45
+    },
+    {
+      "name": "b",
+      "value": 0.89
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "sgRNA_A2NT",
+  "equation": "a/x^b",
+  "variables": [
+    {
+      "name": "x"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "a",
+      "value": 0.48
+    },
+    {
+      "name": "b",
+      "value": 1.1
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "sgRNA_A3T",
+  "equation": "a/x^b",
+  "variables": [
+    {
+      "name": "x"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "a",
+      "value": 0.5
+    },
+    {
+      "name": "b",
+      "value": 1.0
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "sgRNA_A3NT",
+  "equation": "a/x^b",
+  "variables": [
+    {
+      "name": "x"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "a",
+      "value": 0.65
+    },
+    {
+      "name": "b",
+      "value": 1.05
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "sgRNA_A4T",
+  "equation": "a/x^b",
+  "variables": [
+    {
+      "name": "x"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "a",
+      "value": 0.55
+    },
+    {
+      "name": "b",
+      "value": 0.92
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "sgRNA_A4NT",
+  "equation": "a/x^b",
+  "variables": [
+    {
+      "name": "x"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "a",
+      "value": 0.52
+    },
+    {
+      "name": "b",
+      "value": 0.8
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "sgRNA_A5T",
+  "equation": "a/x^b",
+  "variables": [
+    {
+      "name": "x"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "a",
+      "value": 0.4
+    },
+    {
+      "name": "b",
+      "value": 1.0
+    }
+  ]
+},
+{
+  "collection": "response_functions",
+  "gate_name": "sgRNA_A5NT",
+  "equation": "a/x^b",
+  "variables": [
+    {
+      "name": "x"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "a",
+      "value": 0.63
+    },
+    {
+      "name": "b",
+      "value": 0.85
+    }
+  ]
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "sgRNA_A1T",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "sgRNA_A1T",
+        "L3S2P11"
+      ]
+    }
+  ],
+  "promoter": "pA1"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "sgRNA_A1NT",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "sgRNA_A1NT",
+        "L3S2P11"
+      ]
+    }
+  ],
+  "promoter": "pA1"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "sgRNA_A2T",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "sgRNA_A2T",
+        "L3S2P55"
+      ]
+    }
+  ],
+  "promoter": "pA2"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "sgRNA_A2NT",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "sgRNA_A2NT",
+        "L3S2P55"
+      ]
+    }
+  ],
+  "promoter": "pA2"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "sgRNA_A3T",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "sgRNA_A3T",
+        "L3S2P21"
+      ]
+    }
+  ],
+  "promoter": "pA3"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "sgRNA_A3NT",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "sgRNA_A3NT",
+        "L3S2P21"
+      ]
+    }
+  ],
+  "promoter": "pA3"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "sgRNA_A4T",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "sgRNA_A4T",
+        "ECK120033737"
+      ]
+    }
+  ],
+  "promoter": "pA4"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "sgRNA_A4NT",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "sgRNA_A4NT",
+        "ECK120033737"
+      ]
+    }
+  ],
+  "promoter": "pA4"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "sgRNA_A5T",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "sgRNA_A5T",
+        "ECK120029600"
+      ]
+    }
+  ],
+  "promoter": "pA5"
+},
+{
+  "collection": "gate_parts",
+  "gate_name": "sgRNA_A5NT",
+  "expression_cassettes": [
+    {
+      "maps_to_variable": "x",
+      "cassette_parts": [
+        "sgRNA_A5NT",
+        "ECK120029600"
+      ]
+    }
+  ],
+  "promoter": "pA5"
+},
+{
+  "collection": "parts",
+  "type": "sgRNA",
+  "name": "sgRNA_A1T",
+  "dnasequence": "TTTACACCTAGCTCAGTCCTGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGATTGCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTT"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "L3S2P11",
+  "dnasequence": "CTCGGTACCAAATTCCAGAAAAGAGACGCTTTCGAGCGTCTTTTTTCGTTTTGGTCC"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pA1",
+  "dnasequence": "GCTCTTATCCTGCATCGAAATTTACACCTAGCTCAGTCCTAGGTATTATGCTAGC"
+},
+{
+  "collection": "parts",
+  "type": "sgRNA",
+  "name": "sgRNA_A1NT",
+  "dnasequence": "ATAATACCTAGGACTGAGCTGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGATTGCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTT"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "L3S2P11",
+  "dnasequence": "CTCGGTACCAAATTCCAGAAAAGAGACGCTTTCGAGCGTCTTTTTTCGTTTTGGTCC"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pA1",
+  "dnasequence": "GCTCTTATCCTGCATCGAAATTTACACCTAGCTCAGTCCTAGGTATTATGCTAGC"
+},
+{
+  "collection": "parts",
+  "type": "sgRNA",
+  "name": "sgRNA_A2T",
+  "dnasequence": "TTTACACCAACGGGTCACACGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTT"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "L3S2P55",
+  "dnasequence": "CTCGGTACCAAAGACGAACAATAAGACGCTGAAAAGCGTCTTTTTTCGTTTTGGTCC"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pA2",
+  "dnasequence": "GATAGGAAGCAGGAATAGTTTTTACACCAACGGGTCACACGGGTATTATGCTAGC"
+},
+{
+  "collection": "parts",
+  "type": "sgRNA",
+  "name": "sgRNA_A2NT",
+  "dnasequence": "ATAATACCCGTGTGACCCGTGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTT"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "L3S2P55",
+  "dnasequence": "CTCGGTACCAAAGACGAACAATAAGACGCTGAAAAGCGTCTTTTTTCGTTTTGGTCC"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pA2",
+  "dnasequence": "GATAGGAAGCAGGAATAGTTTTTACACCAACGGGTCACACGGGTATTATGCTAGC"
+},
+{
+  "collection": "parts",
+  "type": "sgRNA",
+  "name": "sgRNA_A3T",
+  "dnasequence": "TTTACACCCGAAATGGAGCAGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTCCACAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTT"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "L3S2P21",
+  "dnasequence": "CTCGGTACCAAATTCCAGAAAAGAGGCCTCCCGAAAGGGGGGCCTTTTTTCGTTTTGGTCC"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pA3",
+  "dnasequence": "TCCGAATGACATGCGTCTCCTTTACACCCGAAATGGAGCATGGTATTATGCTAGC"
+},
+{
+  "collection": "parts",
+  "type": "sgRNA",
+  "name": "sgRNA_A3NT",
+  "dnasequence": "ATAATACCATGCTCCATTTCGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTCCACAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTT"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "L3S2P21",
+  "dnasequence": "CTCGGTACCAAATTCCAGAAAAGAGGCCTCCCGAAAGGGGGGCCTTTTTTCGTTTTGGTCC"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pA3",
+  "dnasequence": "TCCGAATGACATGCGTCTCCTTTACACCCGAAATGGAGCATGGTATTATGCTAGC"
+},
+{
+  "collection": "parts",
+  "type": "sgRNA",
+  "name": "sgRNA_A4T",
+  "dnasequence": "TTTACACCTCCACAACTAGCGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGGCTTCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTT"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "ECK120033737",
+  "dnasequence": "GGAAACACAGAAAAAAGCCCGCACCTGACAGTGCGGGCTTTTTTTTTCGACCAAAGG"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pA4",
+  "dnasequence": "GAAGGCTCAGGATGCACAGGTTTACACCTCCACAACTAGCTGGTATTATGCTAGC"
+},
+{
+  "collection": "parts",
+  "type": "sgRNA",
+  "name": "sgRNA_A4NT",
+  "dnasequence": "ATAATACCAGCTAGTTGTGGGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGGCTTCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTT"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "ECK120033737",
+  "dnasequence": "GGAAACACAGAAAAAAGCCCGCACCTGACAGTGCGGGCTTTTTTTTTCGACCAAAGG"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pA4",
+  "dnasequence": "GAAGGCTCAGGATGCACAGGTTTACACCTCCACAACTAGCTGGTATTATGCTAGC"
+},
+{
+  "collection": "parts",
+  "type": "sgRNA",
+  "name": "sgRNA_A5T",
+  "dnasequence": "TTTACACCAAAACACTCGGAGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGGACGCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTT"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "ECK120029600",
+  "dnasequence": "TTCAGCCAAAAAACTTAAGACCGCCGGTCTTGTCCACTACCTTGCAGTAATGCGGTGGACAGGATCGGCGGTTTTCTTTTCTCTTCTCAA"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pA5",
+  "dnasequence": "GCGGATGGCGCCACGACTTATTTACACCAAAACACTCGGAGGGTATTATGCTAGC"
+},
+{
+  "collection": "parts",
+  "type": "sgRNA",
+  "name": "sgRNA_A5NT",
+  "dnasequence": "ATAATACCCTCCGAGTGTTTGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGGACGCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTT"
+},
+{
+  "collection": "parts",
+  "type": "terminator",
+  "name": "ECK120029600",
+  "dnasequence": "TTCAGCCAAAAAACTTAAGACCGCCGGTCTTGTCCACTACCTTGCAGTAATGCGGTGGACAGGATCGGCGGTTTTCTTTTCTCTTCTCAA"
+},
+{
+  "collection": "parts",
+  "type": "promoter",
+  "name": "pA5",
+  "dnasequence": "GCGGATGGCGCCACGACTTATTTACACCAAAACACTCGGAGGGTATTATGCTAGC"
+}
+]

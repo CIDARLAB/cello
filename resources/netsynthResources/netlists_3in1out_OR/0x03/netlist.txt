@@ -1,0 +1,3 @@
+NOT(0Wire128,in1)
+NOT(0Wire129,in2)
+NOR(out,0Wire128,0Wire129)

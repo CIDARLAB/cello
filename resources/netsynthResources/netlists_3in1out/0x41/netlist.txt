@@ -1,0 +1,7 @@
+NOT(n4,in1)
+NOT(n5,in2)
+NOR(n6,n4,n5)
+NOR(n8,in1,in2)
+NOR(n10,n6,n8)
+NOT(0Wire3778,in3)
+NOR(out,0Wire3778,n10)

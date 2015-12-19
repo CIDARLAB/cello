@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:prov="http://www.w3.org/ns/prov#" xmlns:sbol="http://sbols.org/v2#">
+  <sbol:ComponentDefinition rdf:about="http://cellocad.org/Y_scar">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/Y_scar"/>
+    <sbol:displayId>Y_scar</sbol:displayId>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:sequence rdf:resource="http://cellocad.org/Y_scar_sequence"/>
+  </sbol:ComponentDefinition>
+  <sbol:Sequence rdf:about="http://cellocad.org/Y_scar_sequence">
+    <sbol:persistentIdentity rdf:resource="http://cellocad.org/Y_scar_sequence"/>
+    <sbol:displayId>Y_scar_sequence</sbol:displayId>
+    <sbol:elements>ATTG</sbol:elements>
+    <sbol:encoding rdf:resource="http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html"/>
+  </sbol:Sequence>
+</rdf:RDF>

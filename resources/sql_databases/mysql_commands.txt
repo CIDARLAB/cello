@@ -1,0 +1,98 @@
+Instructions for setting up MySQL database:
+>mysql -u root
+  >CREATE USER 'bder'@'localhost' IDENTIFIED BY '123';
+  >grant all privileges on *.* to 'bder'@'localhost' with grant option;
+  >mysql -u your_username -p
+       (enter password your_password)
+  >show databases;
+  > CREATE DATABASE cello;
+  > show databases;
+  > use cello;
+  > source /path/to/cello-lite/cello_database_dump.sql;
+  > show tables;
+  > select * from Equation;
+
+
+
+///////// to insert a row into the table
+
+START TRANSACTION;
+
+UPDATE table1 SET id = id + 1 WHERE id >= 3 order by id DESC;
+
+INSERT INTO table1 (id, value) VALUES (3, 300);
+
+INSERT INTO Var SELECT NULL id, Name, VarTypeID, Min, Max, Unit, 48 ModelID, 8 PartID FROM Var WHERE ModelID=39;
+
+COMMIT;
+
+
+///////// for PartXRef, copy multiple rows and append to table
+// NULL id allows id to automatically be generated
+// 209 Child sets the value for Child
+// Parent and Position are copied
+
+INSERT INTO PartXRef SELECT NULL id, 209 Child, Parent, Position FROM PartXRef WHERE Child=192;
+
+INSERT INTO Param SELECT NULL id, 48 ModelID, Name, Value FROM Param WHERE ModelID=40;
+
+/////////// renumber ID's, USE CAUTION.
+set @a=0;
+update TABLENAME set COLUMNNAME=(@a:=@a+1);
+
+
+update Part SET ApeColor="blue" where PartTypeID=21;
+update Part SET DNAseq="" where DNAseq is NULL;
+create database redsox2014;
+use redsox2014;
+
+create table Games(id INT, date DATE, opponent VARCHAR(100), location VARCHAR(4), winloss CHAR(1), record VARCHAR(7));
+
+show columns from Games;
+
+create table Pitching(
+    -> id INT,
+    -> gameID INT,
+    -> lastName VARCHAR(32),
+    -> IP INT,
+    -> H INT,
+    -> R INT,
+    -> ER INT,
+    -> BB INT,
+    -> SO INT,
+    -> HR INT,
+    -> ERA FLOAT);
+
+
+create table Batting(
+    -> id INT,
+    -> gameID INT,
+    -> lastName varchar(32),
+    -> AB INT,
+    -> R INT,
+    -> H INT,
+    -> RBI INT,
+    -> BB INT,
+    -> SO INT,
+    -> LOB INT,
+    -> AVG FLOAT,
+    -> OBP FLOAT);
+
+
+
+CREATE TABLE samples (
+  sampleid INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  sampledate DATE NOT NULL,
+  location VARCHAR(25) NOT NULL,
+)
+
+delete from Gates where id=1 limit 1;
+
+ALTER TABLE `Gates` AUTO_INCREMENT = 1;
+
+INSERT INTO Gates (type, promoter, promoterDNA, insulator, insulatorDNA, rbs, rbsDNA, cds, cdsDNA, terminator, terminatorDNA, pmin, pmax, Kd, n) VALUES ('REPRESSOR', 'pSrpR', 'TCTATGATTGGTCCAGATTCGTTACCAATTGACAGCTAGCTCAGTCCTAGGTATATACATACATGCTTGTTTGTTTGTAAAC', 'RiboJ10', 'CTGAAGCGCTCAACGGGTGTGCTTCCCGTTCTGATGAGTCCGTGAGGACGAAAGCGCCTCTACAAATAATTTTGTTTAA', 'RBS0', 'CTATGGACTATGTTTTCACACAGGAAATACCAGG', 'SrpR', 'ATGGCACGTAAAACCGCAGCAGAAGCAGAAGAAACCCGTCAGCGTATTATTGATGCAGCACTGGAAGTTTTTGTTGCACAGGGTGTTAGTGATGCAACCCTGGATCAGATTGCACGTAAAGCCGGTGTTACCCGTGGTGCAGTTTATTGGCATTTTAATGGTAAACTGGAAGTTCTGCAGGCAGTTCTGGCAAGCCGTCAGCATCCGCTGGAACTGGATTTTACACCGGATCTGGGTATTGAACGTAGCTGGGAAGCAGTTGTTGTTGCAATGCTGGATGCAGTTCATAGTCCGCAGAGCAAACAGTTTAGCGAAATTCTGATTTATCAGGGTCTGGATGAAAGCGGTCTGATTCATAATCGTATGGTTCAGGCAAGCGATCGTTTTCTGCAGTATATTCATCAGGTTCTGCGTCATGCAGTTACCCAGGGTGAACTGCCGATTAATCTGGATCTGCAGACCAGCATTGGTGTTTTTAAAGGTCTGATTACCGGTCTGCTGTATGAAGGTCTGCGTAGCAAAGATCAGCAGGCACAGATTATCAAAGTTGCACTGGGTAGCTTTTGGGCACTGCTGCGTGAACCGCCTCGTTTTCTGCTGTGTGAAGAAGCACAGATTAAACAGGTGAAATCCTTCGAATAA', 'ECK120029600', 'TTCAGCCAAAAAACTTAAGACCGCCGGTCTTGTCCACTACCTTGCAGTAATGCGGTGGACAGGATCGGCGGTTTTCTTTTCTCTTCTCAA', '10', '0.01', '0.1', '1');
+
+
+
+
+mysqldump -u peng -p celloFlat > celloFlat_v7.sql

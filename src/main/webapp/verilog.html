@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Cello</title>
+    <link rel="shortcut icon" href="images/cello_small.png">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- Other CSS -->
+    <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
+    <link href="css/neat.css" rel="stylesheet" type="text/css">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-57223580-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+</head>
+
+<nav id="main-navbar"  class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div>
+            <div>
+                <a class="navbar-brand" href="index.html">Cello</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a id="verilog_link" href="">Verilog</a></li>
+                    <li><a id="results_link" href="">Results</a></li>
+                    <li><a id="options_link" href="">Options</a></li>
+                    <li><a href="download.html">Documentation</a></li>
+                </ul>
+            </div>
+            <div id="loginArea">
+                <div class="navbar-form pull-right">
+                    <input id="login_username" type="text" class="span2" placeholder="Login">
+                    <input id="login_password" type="password" class="span2" placeholder="Password">
+                    <input id="btnLogin" type="submit" value="Login" class="btn btn-warning">
+                    <div id="loginError"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<body>
+
+<div class="container-fluid">
+
+
+
+<div id="verilog_dialog" class="dialog" title="Verilog and validation" style="display: none">
+
+</div>
+
+<div id="dialog" class="dialog" title="message to user" style="display: none">
+    <pre id="dialog_pre"></pre>
+</div>
+
+
+
+<div id="new_input_div" class="dialog" title="add new input promoter" style="display: none">
+    <form id="new_input_form" action="JavaScript:addNewInput()">
+        <input required type="text" placeholder="name" id="add_input_name" pattern="[_a-zA-Z0-9]+" title="alphanumeric, underscore only">
+        <br>
+        <input required type="number" min=0.001 max=100 step="any" placeholder="low REU" id="add_input_lowREU">
+        <br>
+        <input required type="number" min=0.001 max=100 step="any" placeholder="high REU" id="add_input_highREU">
+        <br>
+        <input required type="text" placeholder="DNA sequence" id="add_input_sequence" pattern="[atcgATCG]+" title="atcgATCG only">
+        <br>
+        <button class="btn btn-success">add</button>
+    </form>
+</div>
+
+<div id="new_output_div" class="dialog" title="add new output gene" style="display: none">
+    <form id="new_output_form" action="JavaScript:addNewOutput()">
+        <input required type="text" placeholder="name" id="add_output_name" pattern="[_a-zA-Z0-9]+" title="alphanumeric, underscore only">
+        <br>
+        <input required type="text" placeholder="DNA sequence" id="add_output_sequence" pattern="[atcgATCG]+" title="atcgATCG only">
+        <br>
+        <button class="btn btn-success">add</button>
+    </form>
+</div>
+
+<div id="delete_input" class="dialog" title="delete input" style="display: none">
+    <form id="delete_input_form" action="JavaScript:deleteInputFile()">
+        <input required type="text" placeholder="name" id="delete_input_name">
+        <br>
+        <button class="btn btn-danger">delete</button>
+    </form>
+</div>
+
+<div id="delete_output" class="dialog" title="delete output" style="display: none">
+    <form id="delete_output_form" action="JavaScript:deleteOutputFile()">
+        <input required type="text" placeholder="name" id="delete_output_name">
+        <br>
+        <button class="btn btn-danger">delete</button>
+    </form>
+</div>
+
+
+
+
+<form id="frmCompile" action="JavaScript:submitCello()" method="post">
+
+
+    <div id="verilogAreaDiv" class="well col-sm-12 col-md-5 col-lg-5 dynamic_height_div">
+
+        <h4 style="display: inline-block">Verilog</h4>
+
+        <select id="method" class="span3" onchange="setVerilogMethod()" style="margin-left: 20px; display: inline-block">
+        <option value="choose">choose</option>
+        <option value="case">case</option>
+        <option value="assign">assign</option>
+        <option value="structural">structural</option>
+        <option value="upload">upload file</option>
+    </select>
+
+        <button id='info_verilog' class="btn btn-default" type="button">info</button>
+        <button id='instructions' class="btn btn-default" type="button">instructions</button>
+
+        <input type="file" id="upload_verilog"  onchange="processUploadFile(this)" style="display: none">
+
+        <textarea id="verilogArea"></textarea>
+
+        <div align="center" style="margin-top: 10px">
+            <input type="text" id="design_name" required style="display: none"  placeholder="design name" pattern="[A-Za-z][A-Za-z0-9_]+" title="starts with letter, contains only alphanumeric and underscore characters">
+            <br><br>
+            <button class="btn btn-lg btn-white" style="display: block" id="validate"  type="button" onclick="getNetlist()">Validate Verilog</button>
+            <button class="btn btn-lg btn-success" style="display: none" id="submit">Run</button>
+            <button class="btn btn-lg" style="display: none" id="running"   type="button">Running...</button>
+        </div>
+
+    </div>
+
+
+
+    <div id="input_output_div" class="well col-xs-12 col-sm-12 col-md-7 col-lg-7 dynamic_height_div">
+
+        <h4>Input promoters</h4>
+        <select id="input_pulldown" onchange="setInputFromList()">
+        </select>
+
+        <button class="btn btn-default" type="button" onclick="inputFormDialog()">Add new</button>
+        <button class="btn btn-default" type="button" onclick="deleteInputDialog()">Delete</button>
+        <button class="btn btn-default" type="button" onclick="resetInputList()">clear</button>
+        <button class="btn btn-default" type="button" id='info_inputs'>info</button>
+
+        <table id='inputs_table' class="table table-bordered table-condensed">
+            <tr>
+                <td width="10%" ><input value="index" readonly></td>
+                <td width="20%" ><input value="name" readonly></td>
+                <td width="15%" ><input value="low REU" readonly></td>
+                <td width="15%" ><input value="high REU" readonly></td>
+                <td width="40%"><input value="DNA sequence (promoter)" readonly></td>
+            </tr>
+        </table>
+
+
+        <h4>Output genes</h4>
+        <select id="output_pulldown" onchange="setOutputFromList()">
+        </select>
+
+
+        <button class="btn btn-default" type="button" onclick="outputFormDialog()">Add new</button>
+        <button class="btn btn-default" type="button" onclick="deleteOutputDialog()">Delete</button>
+        <button class="btn btn-default" type="button" onclick="resetOutputList()">clear</button>
+        <button class="btn btn-default" type="button" id='info_outputs'>info</button>
+
+        <table id='outputs_table' class="table table-bordered table-condensed">
+            <tbody>
+            <tr>
+                <td width="10%"><input readonly value="index"></td>
+                <td width="20%"><input readonly value="name" ></td>
+                <td width="70%"><input readonly value="DNA sequence (recommended: ribozyme rbs cds terminator)"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <div id="dnac" class="well col-xs-12 col-sm-12 col-md-7 col-lg-7 dynamic_height_div" style="display: none">
+        <pre id="dnac_txt"></pre>
+    </div>
+
+
+
+</form>
+
+
+<div class="col-sm-12 col-md-12 col-lg-12 text-center">
+    <hr/>
+    <h4><small>Cello is a trademark of <a id='nona_link' href='http://www.nonasoftware.org'>Nona Research Foundation, Inc.</a></small></h4>
+    <hr/>
+</div>
+
+
+
+</div>
+
+<!--JavaScript libraries-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="http://codemirror.net/lib/codemirror.js"></script>
+<script type="text/javascript" src="controller/SessionController.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/verilog_codemirror.js"></script>
+<script type="text/javascript" src="js/verilog.js"></script>
+
+<!-- must be included after verilog.js-->
+<script type="text/javascript" src="js/input_output.js"></script>
+<script type="text/javascript" src="js/verilog_helpers.js"></script>
+
+
+<script type ="text/javascript">
+
+</script>
+
+</body>
+</html>
+
+<style type="text/css">
+
+
+
+</style>

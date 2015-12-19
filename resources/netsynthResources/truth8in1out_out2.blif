@@ -1,0 +1,7 @@
+.model simple
+.inputs a b c d e f g h
+.outputs out
+.names a b c d e f g h out
+1XXX11XX 1
+XXX1X1X1 1
+.end
