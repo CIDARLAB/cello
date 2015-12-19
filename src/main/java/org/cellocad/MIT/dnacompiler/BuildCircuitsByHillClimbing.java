@@ -37,8 +37,8 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
 
     @Override
     public void buildCircuits(){
-
-        log.info("Enumerating logic circuits using hill climbing...");
+        logger = Logger.getLogger(threadDependentLoggername);
+        System.out.println("Enumerating logic circuits using hill climbing...");
 
 
         double max_score = 0.0;
@@ -244,7 +244,7 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
 
                                 if(get_best_score() > max_score) {
                                     max_score = get_best_score();
-                                    log.info("HILL_CLIMB " + String.format("%-8s", "#" + get_n_total_assignments()) + " score:" + Util.sc(get_best_score()) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + get_roadblock().numberRoadblocking(lc, get_gate_library()));
+                                    System.out.println("HILL_CLIMB " + String.format("%-8s", "#" + get_n_total_assignments()) + " score:" + Util.sc(get_best_score()) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + get_roadblock().numberRoadblocking(lc, get_gate_library()));
                                 }
                             }
                         }
@@ -256,7 +256,7 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
             }
 
 
-            //log.info("HILL_CLIMB " + String.format("%-8s", "#" + traj) + " score:" + Util.sc(_best_score) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + _roadblock.numberRoadblocking(lc));
+            //System.out.println("HILL_CLIMB " + String.format("%-8s", "#" + traj) + " score:" + Util.sc(_best_score) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + _roadblock.numberRoadblocking(lc));
             //System.out.println(traj + " best score " + _best_score);
             set_best_score( 0.0 );
             //max_score = 0.0;
@@ -374,6 +374,5 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
     //
     /////////////////////////
 
-    private Logger log = Logger.getLogger( this.getClass().getPackage().getName() );
-
+    private Logger logger;
 }

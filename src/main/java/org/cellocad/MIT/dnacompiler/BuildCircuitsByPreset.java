@@ -31,6 +31,7 @@ public class BuildCircuitsByPreset extends BuildCircuits {
      ***********************************************************************/
     @Override
     public void buildCircuits() {
+        logger = Logger.getLogger(threadDependentLoggername);
 
         LogicCircuit lc = get_unassigned_lc();
 
@@ -54,7 +55,6 @@ public class BuildCircuitsByPreset extends BuildCircuits {
         get_logic_circuits().add(lc);
     }
 
-    private Logger log = Logger.getLogger( this.getClass().getPackage().getName() );
-
+    private Logger logger;
 
 }

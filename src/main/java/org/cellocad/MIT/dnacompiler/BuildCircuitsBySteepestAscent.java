@@ -29,8 +29,8 @@ public class BuildCircuitsBySteepestAscent extends BuildCircuits {
 
     @Override
     public void buildCircuits(){
-
-        log.info("Enumerating logic circuits using steepest ascent...");
+        logger = Logger.getLogger(threadDependentLoggername);
+        System.out.println("Enumerating logic circuits using steepest ascent...");
 
         Random generator = new Random();
 
@@ -178,7 +178,7 @@ public class BuildCircuitsBySteepestAscent extends BuildCircuits {
 
             }
 
-            log.info("STEEPEST_ASCENT " + String.format("%-8s", "#" + traj) + " score:" + Util.sc(get_best_score()) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + get_roadblock().numberRoadblocking(lc, get_gate_library()));
+            System.out.println("STEEPEST_ASCENT " + String.format("%-8s", "#" + traj) + " score:" + Util.sc(get_best_score()) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + get_roadblock().numberRoadblocking(lc, get_gate_library()));
             set_best_score ( 0.0 );
         }
 
@@ -363,5 +363,5 @@ public class BuildCircuitsBySteepestAscent extends BuildCircuits {
         Evaluate.evaluateCircuit(B_lc, get_gate_library(), get_options());
     }
 
-    private Logger log = Logger.getLogger( this.getClass().getPackage().getName() );
+    private Logger logger;
 }

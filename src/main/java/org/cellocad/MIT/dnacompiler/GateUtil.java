@@ -755,8 +755,8 @@ public class GateUtil {
 
                     if(g.Type == Gate.GateType.OUTPUT_OR) {
 
-                        //log.info("in1: " + in1 + " in2: " + in2);
-                        //log.info("additive: " + dtest + "  lookup: " + out + " bin1: " + bin1 + " bin2: " + bin2);
+                        //System.out.println("in1: " + in1 + " in2: " + in2);
+                        //System.out.println("additive: " + dtest + "  lookup: " + out + " bin1: " + bin1 + " bin2: " + bin2);
 
                         /*Double log_c1 = grid[0][0];
                         Double log_c2 = grid[0][hbins.get_NBINS()-1];
@@ -768,10 +768,10 @@ public class GateUtil {
                         Double c3 = Math.pow(10, log_c3);
                         Double c4 = Math.pow(10, log_c4);
 
-                        log.info("c1: " + c1);
-                        log.info("c2: " + c2);
-                        log.info("c3: " + c3);
-                        log.info("c4: " + c4);*/
+                        System.out.println("c1: " + c1);
+                        System.out.println("c2: " + c2);
+                        System.out.println("c3: " + c3);
+                        System.out.println("c4: " + c4);*/
                     }
 
 

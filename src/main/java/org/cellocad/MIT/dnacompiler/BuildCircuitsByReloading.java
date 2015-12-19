@@ -29,8 +29,8 @@ public class BuildCircuitsByReloading extends BuildCircuits {
      ***********************************************************************/
     @Override
     public void buildCircuits(){
-
-        log.info("build circuit by reloading " + get_options().get_fin_reload());
+        logger = Logger.getLogger(threadDependentLoggername);
+        System.out.println("build circuit by reloading " + get_options().get_fin_reload());
         setGate_name_map();
 
         LogicCircuit lc = get_unassigned_lc();
@@ -83,7 +83,7 @@ public class BuildCircuitsByReloading extends BuildCircuits {
         }
 
 
-        log.info(lc.printGraph());
+        System.out.println(lc.printGraph());
 
         //fixInputOrder(lc);
 
@@ -202,6 +202,6 @@ public class BuildCircuitsByReloading extends BuildCircuits {
 
     private HashMap<String, String> gate_name_map = new HashMap();
 
-    private Logger log = Logger.getLogger( this.getClass().getPackage().getName() );
+    private Logger logger;
 
 }

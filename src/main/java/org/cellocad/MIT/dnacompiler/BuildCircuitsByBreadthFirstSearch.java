@@ -1,6 +1,8 @@
 package org.cellocad.MIT.dnacompiler;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -51,13 +53,13 @@ public class BuildCircuitsByBreadthFirstSearch extends BuildCircuits {
      */
     @Override
     public void buildCircuits() {
+        logger = Logger.getLogger(threadDependentLoggername);
+        logger.info("Building circuits by breadth first search");
+
 
         set_logic_circuits( new ArrayList<LogicCircuit>() );
 
         LogicCircuit lc = get_unassigned_lc();
-
-        log.info("Building circuits by breadth first search");
-
 
         LogicCircuitUtil.sortGatesByStage(lc);
 
@@ -138,7 +140,7 @@ public class BuildCircuitsByBreadthFirstSearch extends BuildCircuits {
                         if(get_options().is_check_roadblocking()) {
 
                             if (get_roadblock().numberRoadblocking(lc, get_gate_library()) > 0) {
-                                //System.out.println("rb");
+                                //logger.info("rb");
                                 continue;
                             }
                         }
@@ -150,7 +152,7 @@ public class BuildCircuitsByBreadthFirstSearch extends BuildCircuits {
                             Toxicity.evaluateGateToxicity(gc);
 
                             if (Toxicity.mostToxicRow(gc) < get_options().get_toxicity_threshold()) {
-                                //System.out.println("tox");
+                                //logger.info("tox");
                                 continue;
                             }
                         }
@@ -158,7 +160,7 @@ public class BuildCircuitsByBreadthFirstSearch extends BuildCircuits {
                         if(get_options().is_noise_margin()) {
 
                             if (!gc.get_scores().is_noise_margin_contract()) {
-                                //System.out.println("nm");
+                                //logger.info("nm");
                                 continue;
                             }
                         }
@@ -178,7 +180,7 @@ public class BuildCircuitsByBreadthFirstSearch extends BuildCircuits {
                         //curr_asns is a list of passing assignments
                         next_asns.add(new ArrayList<String>(pass_asn));
 
-                        //System.out.println("child: " + gc.Outgoing.To.Name + " gate: " + gc.Name);
+                        //logger.info("child: " + gc.Outgoing.To.Name + " gate: " + gc.Name);
 
                     }
 
@@ -212,15 +214,15 @@ public class BuildCircuitsByBreadthFirstSearch extends BuildCircuits {
              *
              * Notice that the number of passing assignments can actually decrease from one round to the next
              */
-            log.info("Assignments for gates " + Arrays.toString( gate_indexes_assigned ) + ": " + curr_asns.size());
+            logger.info("Assignments for gates " + Arrays.toString(gate_indexes_assigned) + ": " + curr_asns.size());
 
         }
 
 
-        //log.info("Final stage assignments: " + assignments.size() + " Gates: " + lc.get_logic_gates().size());
+        //logger.info("Final stage assignments: " + assignments.size() + " Gates: " + lc.get_logic_gates().size());
         //System.exit(-1);
 
-        log.info("\nScoring all assignments...");
+        logger.info("\nScoring all assignments...");
 
 
         /**
@@ -248,7 +250,7 @@ public class BuildCircuitsByBreadthFirstSearch extends BuildCircuits {
 
             Toxicity.evaluateCircuitToxicity(lc, get_gate_library());
 
-            //log.info("score_v_growth: " + Util.sc(lc.get_scores().get_score()) + " " + Util.sc(Toxicity.mostToxicRow(lc)));
+            //logger.info("score_v_growth: " + Util.sc(lc.get_scores().get_score()) + " " + Util.sc(Toxicity.mostToxicRow(lc)));
 
             LogicCircuitUtil.sortGatesByIndex(lc);
 
@@ -280,7 +282,6 @@ public class BuildCircuitsByBreadthFirstSearch extends BuildCircuits {
     }
 
 
-    private Logger log = Logger.getLogger( this.getClass().getPackage().getName() );
-
+    private Logger logger;
 
 }

@@ -25,12 +25,14 @@ public class BuildCircuitsByPermutingOneGateType extends BuildCircuits {
      ***********************************************************************/
     @Override
     public void buildCircuits() {
+        logger = Logger.getLogger(threadDependentLoggername);
+        System.out.println("Building circuits by permute");
 
         set_logic_circuits( new ArrayList<LogicCircuit>() );
 
         LogicCircuit lc = get_unassigned_lc();
 
-        log.info("Building circuits by permute");
+
 
         Integer n_gates_circuit = lc.get_logic_gates().size();
         Integer n_gates_library = get_gate_library().get_GATES_BY_NAME().keySet().size();
@@ -76,18 +78,18 @@ public class BuildCircuitsByPermutingOneGateType extends BuildCircuits {
                 nchoosek_combinations *= i;
             }
 
-            log.info("n NOR gates:  " + n_nor_gates);
-            log.info("n repressors: " + n_available_gates);
-            log.info("n choose k:   " + nchoosek_combinations);
+            System.out.println("n NOR gates:  " + n_nor_gates);
+            System.out.println("n repressors: " + n_available_gates);
+            System.out.println("n choose k:   " + nchoosek_combinations);
 
 
             Permute.getIndexProduct(_NOR_indexes_set, n, Nr, 0);  //_indexes_set gets populated here
 
-            log.info("Permuting repressor assignments: " + Arrays.toString(_NOR_indexes_set.get(0)) + " to " + Arrays.toString(_NOR_indexes_set.get(_NOR_indexes_set.size()-1)));
+            System.out.println("Permuting repressor assignments: " + Arrays.toString(_NOR_indexes_set.get(0)) + " to " + Arrays.toString(_NOR_indexes_set.get(_NOR_indexes_set.size()-1)));
 
         }
         else {
-            log.info("not enough repressors for " + n_nor_gates + " NOR gates");
+            System.out.println("not enough repressors for " + n_nor_gates + " NOR gates");
         }
     }
 
@@ -126,7 +128,7 @@ public class BuildCircuitsByPermutingOneGateType extends BuildCircuits {
     public static void permuteRBS(int[] asn, ArrayList< ArrayList<Gate>> repr_assignment, ArrayList<int[]> rbs_assignment ) {
 
         rbs_assignment.add(asn.clone());
-        //log.info(Arrays.toString(asn));
+        //System.out.println(Arrays.toString(asn));
 
         //if max is [1,0,3] and asn=[1,0,3], permutation is complete.
         boolean complete = true;
@@ -179,8 +181,8 @@ public class BuildCircuitsByPermutingOneGateType extends BuildCircuits {
 
      ***********************************************************************/
     public void enumerateAssignments(){
-        log.info("Enumerating logic circuits...");
-        log.info("_NOR_indexes_set " + _NOR_indexes_set.size());
+        System.out.println("Enumerating logic circuits...");
+        System.out.println("_NOR_indexes_set " + _NOR_indexes_set.size());
 
 
         for(int[] NOR_indexes: _NOR_indexes_set){
@@ -267,10 +269,10 @@ public class BuildCircuitsByPermutingOneGateType extends BuildCircuits {
             counter++;
 
             if (counter % 1000 == 0) {
-                log.info(counter);
+                System.out.println(counter);
             }
 
-            //log.info(gate_assignment.toString());
+            //System.out.println(gate_assignment.toString());
 
             for (int a = 0; a < gate_assignment.size(); ++a) {
                 String gate_name = gate_assignment.get(a);
@@ -318,7 +320,7 @@ public class BuildCircuitsByPermutingOneGateType extends BuildCircuits {
             lc.get_logic_gates().get(i).Name  = repr_assignment.get(i).get(rbs_asn[i]).Name;
             //gates_assignment += repr_assignment.get(i).get(rbs_asn[i]).Name + " ";
         }
-        //log.info(gates_assignment);
+        //System.out.println(gates_assignment);
 
     }
 
@@ -331,6 +333,5 @@ public class BuildCircuitsByPermutingOneGateType extends BuildCircuits {
 
     public static ArrayList<int[]> _NOR_indexes_set;
 
-    private Logger log = Logger.getLogger( this.getClass().getPackage().getName() );
-
+    private Logger logger;
 }

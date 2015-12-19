@@ -25,7 +25,7 @@ public class UCFValidator {
     public boolean allGatesHaveResponseFunctions(GateLibrary gate_library) {
         for (Gate g : gate_library.get_GATES_BY_NAME().values()) {
             if(g.get_equation().isEmpty() || g.get_params().isEmpty() || g.get_variable_names().isEmpty()) {
-                log.warn("invalid UCF. response_function data missing for " + g.Name);
+                System.out.println("invalid UCF. response_function data missing for " + g.Name);
                 return false;
             }
         }
@@ -100,7 +100,7 @@ public class UCFValidator {
 
         for(String field: required_fields) {
             if(!obj.containsKey(field)) {
-                log.warn("missing field: " + field);
+                System.out.println("missing field: " + field);
                 return true;
             }
         }

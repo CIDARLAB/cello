@@ -101,8 +101,8 @@ public class BuildCircuitsByLaurensSRLatches extends BuildCircuits {
 
     @Override
     public void buildCircuits() {
-
-        log.info("build circuit by reloading SR latches" + get_options().get_fin_reload());
+        logger = Logger.getLogger(threadDependentLoggername);
+        System.out.println("build circuit by reloading SR latches" + get_options().get_fin_reload());
 
         set_logic_circuits( new ArrayList<LogicCircuit>() );
 
@@ -341,7 +341,6 @@ public class BuildCircuitsByLaurensSRLatches extends BuildCircuits {
     
     private HashMap<String, String> _rbs_map = new HashMap();
     private HashMap<String, String> _input_map = new HashMap();
-    
-    private Logger log = Logger.getLogger( this.getClass().getPackage().getName() );
 
+    private Logger logger;
 }

@@ -178,7 +178,7 @@ public class SequentialHelper {
             tt += "\n";
         }
 
-        log.info(tt);
+        System.out.println(tt);
     }
 
 
@@ -265,7 +265,7 @@ public class SequentialHelper {
                 Integer expected_logic = BooleanLogic.computeLogic(g.Type, child_logics);
 
                 if(expected_logic != logic) {
-                    log.info(g.Group + " " + logic + " " + expected_logic + " : from " + child_logics.toString());
+                    System.out.println(g.Group + " " + logic + " " + expected_logic + " : from " + child_logics.toString());
                     return false;
                 }
             }
@@ -282,7 +282,7 @@ public class SequentialHelper {
         ArrayList<String> file_lines = Util.fileLines(fin_sequential_waveform);
 
         for(String line: file_lines) {
-            log.info(line);
+            System.out.println(line);
         }
 
 
@@ -321,7 +321,7 @@ public class SequentialHelper {
         for(String label: labels) {
             initial_logics.put(label, io_logics_map.get(label));
 
-            log.info("Initial logics " + label + " " + io_logics_map.get(label));
+            System.out.println("Initial logics " + label + " " + io_logics_map.get(label));
         }
 
 

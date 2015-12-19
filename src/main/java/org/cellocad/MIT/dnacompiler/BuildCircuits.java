@@ -95,4 +95,6 @@ public class BuildCircuits {
     @Getter @Setter private GateLibrary _gate_library; // gates from the library are assigned to Boolean gates in the circuit
     @Getter @Setter private Roadblock _roadblock; //
 
+    @Getter @Setter
+    public String threadDependentLoggername;
 }

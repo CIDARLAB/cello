@@ -58,17 +58,17 @@ public class LogicCircuitUtil{
         }
 
         for(int a[]: indexes_set) {
-            log.info("Input order: " + Arrays.toString(a));
+            System.out.println("Input order: " + Arrays.toString(a));
 
             LogicCircuit input_lc = new LogicCircuit(lc);
 
             for(int i=0; i<input_lc.get_output_gates().size(); ++i) {
                 input_lc.get_output_gates().get(i).Name = gate_library.get_OUTPUT_NAMES()[i];
-                log.info("Getting output name " + i + " " + gate_library.get_OUTPUT_NAMES()[i]);
+                System.out.println("Getting output name " + i + " " + gate_library.get_OUTPUT_NAMES()[i]);
             }
             for(int i=0; i<input_lc.get_input_gates().size(); ++i) {
                 input_lc.get_input_gates().get(i).Name = gate_library.get_INPUT_NAMES()[a[i]]; //change the name, which will allow REU values to change when calling setInputREU
-                log.info("Getting input name " + a[i] + " " + gate_library.get_INPUT_NAMES()[a[i]]);
+                System.out.println("Getting input name " + a[i] + " " + gate_library.get_INPUT_NAMES()[a[i]]);
             }
             setInputREU(input_lc, gate_library);
 
@@ -166,12 +166,6 @@ public class LogicCircuitUtil{
 
         for(Gate input_gate: lc.get_input_gates()) {
 
-//            String gate_name = input_gate.Name;
-//            if(input_gate.Name.startsWith("input_")) {
-//                gate_name = input_gate.Name.split("input_")[1];
-//            }
-//            input_gate.Name = gate_name;
-
             if(input_gate.get_logics() == null || input_gate.get_logics().size() == 0) {
                 throw new IllegalStateException("trying to initialize reus before initializing logics.  exiting.");
             }
@@ -181,17 +175,14 @@ public class LogicCircuitUtil{
                 if(i == 0) {
                     reus.add(gate_library.get_INPUTS_OFF().get(input_gate.Name)); //low
                     convreus.add(gate_library.get_INPUTS_HIST_OFF().get(input_gate.Name)); //low
-                    //log.info("Setting input   " + String.format("%-20s", input_gate.Name) + " logic " + i + " reu " + gate_library.get_INPUTS_OFF().get(input_gate.Name));
                 }
                 else if(i == 1) {
                     reus.add(gate_library.get_INPUTS_ON().get(input_gate.Name)); //high
                     convreus.add(gate_library.get_INPUTS_HIST_ON().get(input_gate.Name)); //high
-                    //log.info("Setting input   " + String.format("%-20s", input_gate.Name) + " logic " + i + " reu " + gate_library.get_INPUTS_ON().get(input_gate.Name));
                 }
                 else if(i == 2) {
                     reus.add(0.0);
                     convreus.add(new double[input_gate.get_histogram_bins().get_NBINS()]);
-                    //log.info("Setting input   " + String.format("%-20s", input_gate.Name) + " logic " + i + " reu " + "dontcare");
                 }
             }
             input_gate.set_unvisited( false );
@@ -199,8 +190,6 @@ public class LogicCircuitUtil{
 
             input_gate.set_outreus(reus);
             input_gate.set_histogram_reus(convreus);
-//            input_gate.set_in_histogram_reus(convreus);
-
         }
 
     }
@@ -380,9 +369,6 @@ public class LogicCircuitUtil{
             }
 
             if(!gate_library.get_GATES_BY_GROUP().containsKey(gtype)) {
-
-                System.out.println("Gate library does not contain " + gtype);
-
                 return false;
             }
 
@@ -410,7 +396,7 @@ public class LogicCircuitUtil{
 
             if(assigned_groups.get(gtype) < lc.get_gate_types().get(gtype).size()) {
 
-                log.info("Not enough " + gtype + " gates in the library");
+                System.out.println("Not enough " + gtype + " gates in the library");
 
                 return false;
             }

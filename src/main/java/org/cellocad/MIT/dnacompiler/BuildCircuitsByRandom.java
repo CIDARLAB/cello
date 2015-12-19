@@ -35,8 +35,8 @@ public class BuildCircuitsByRandom extends BuildCircuits {
 
     @Override
     public void buildCircuits(){
-
-        log.info("Enumerating logic circuits using random...");
+        logger = Logger.getLogger(threadDependentLoggername);
+        System.out.println("Enumerating logic circuits using random...");
 
         double max_score = 0.0;
 
@@ -134,7 +134,7 @@ public class BuildCircuitsByRandom extends BuildCircuits {
                     if(get_best_score() > max_score) {
                         //_logic_circuits.add(new LogicCircuit(lc));
                         max_score = get_best_score();
-                        log.info("RANDOM " + get_n_total_assignments() + " " + Util.sc(get_best_score()) + " ACCEPT ");
+                        System.out.println("RANDOM " + get_n_total_assignments() + " " + Util.sc(get_best_score()) + " ACCEPT ");
                     }
                 }
 
@@ -154,6 +154,5 @@ public class BuildCircuitsByRandom extends BuildCircuits {
     //
     /////////////////////////
 
-    private Logger log = Logger.getLogger( this.getClass().getPackage().getName() );
-
+    private Logger logger;
 }

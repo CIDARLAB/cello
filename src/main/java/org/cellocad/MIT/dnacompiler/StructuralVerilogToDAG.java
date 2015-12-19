@@ -14,7 +14,7 @@ public class StructuralVerilogToDAG {
 
     public static LogicCircuit createDAG(String fin_verilog) {
 
-        log.info("Structural Verilog to DAG");
+        System.out.println("Structural Verilog to DAG");
 
         //ArrayList<Gate> gates = new ArrayList<>();
 

@@ -163,7 +163,7 @@ public class EugeneAdaptor {
 
 			}
 
-			log.info("Number of Eugene solutions "
+			System.out.println("Number of Eugene solutions "
 					+ variants.getElements().size());
 
 		} catch (EugeneException exception) {
@@ -581,7 +581,7 @@ public class EugeneAdaptor {
 
 		// eug += "\n\nprintln(sizeof(allResults));\n";
 
-		log.info(eug);
+		System.out.println(eug);
 
 		// write the file to disk
 		Util.fileWriter(options.get_output_directory() + filename, eug, false);
@@ -620,7 +620,7 @@ public class EugeneAdaptor {
 						|| rules.contains("startswith")) {
 					if (rule.contains("STARTSWITH")
 							|| rule.contains("startswith")) {
-						log.info("more than 1 STARTSWITH rules found, omitting rule: "
+						System.out.println("more than 1 STARTSWITH rules found, omitting rule: "
 								+ rule);
 						inconsistent_rules = true;
 					}

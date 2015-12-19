@@ -71,7 +71,7 @@ public class Plasmid {
 
 
     public static ArrayList<String> writePlasmidFiles(ArrayList<ArrayList<Part>> plasmids, String prefixA, String label, String directory) {
-        log.info("\n=========== Writing plasmid files ============");
+        System.out.println("\n=========== Writing plasmid files ============");
 
         ArrayList<String> plasmid_strings = new ArrayList<String>();
 
@@ -88,7 +88,7 @@ public class Plasmid {
             plasmid_strings.add(plasmid_string);
 
             Util.fileWriter(directory + fout, plasmid_string, false);
-            log.info("Write file: " + fout);
+            System.out.println("Write file: " + fout);
 
         }
 

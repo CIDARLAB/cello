@@ -96,7 +96,7 @@ public class BuildCircuitsUtil {
 
             if(!unique_repressor_assignments.containsKey(asn)) {
                 if(!asn.contains("LmrA") && !asn.contains("PsrA")) {
-                    //log.info("Unique Assignment Name: " + asn);
+                    //System.out.println("Unique Assignment Name: " + asn);
                     unique_repressor_assignments.put(asn, lc);
                 }
             }
@@ -195,7 +195,7 @@ public class BuildCircuitsUtil {
 
                 if(!asn.contains("LmrA") && !asn.contains("PsrA")) {
 
-                    //log.info("Unique Assignment Name: " + asn);
+                    //System.out.println("Unique Assignment Name: " + asn);
                     unique_repressor_assignments.put(asn, lc);
                 }
             }
@@ -238,7 +238,4 @@ public class BuildCircuitsUtil {
     public static HashMap<String, String> _gate_name_map = new HashMap();
 
 
-
-    //static cannot do this.getClass
-    private static Logger log = Logger.getLogger( new Object() { }.getClass().getEnclosingClass() );
 }

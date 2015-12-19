@@ -73,7 +73,7 @@ public class UCFReader {
                         }
                     }
                     else {
-                        log.warn("unknown json object in UCF");
+                        System.out.println("unknown json object in UCF");
                         System.exit(-1);
                     }
                 }

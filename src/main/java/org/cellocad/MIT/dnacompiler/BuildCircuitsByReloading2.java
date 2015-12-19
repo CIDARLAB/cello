@@ -31,6 +31,8 @@ public class BuildCircuitsByReloading2 extends BuildCircuits {
      ***********************************************************************/
     @Override
     public void buildCircuits(){
+        logger = Logger.getLogger(threadDependentLoggername);
+
         BuildCircuitsUtil.setGate_name_map();
         HashMap<String, String> gate_name_map = BuildCircuitsUtil._gate_name_map;
 
@@ -170,19 +172,6 @@ public class BuildCircuitsByReloading2 extends BuildCircuits {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private Logger log = Logger.getLogger( this.getClass().getPackage().getName() );
+    private Logger logger;
 
 }

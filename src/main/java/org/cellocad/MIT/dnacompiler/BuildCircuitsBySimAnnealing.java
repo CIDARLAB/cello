@@ -34,10 +34,8 @@ public class BuildCircuitsBySimAnnealing extends BuildCircuits {
 
     @Override
     public void buildCircuits(){
-
-
-
-        log.info("Enumerating logic circuits using simulated annealing...");
+        logger = Logger.getLogger(threadDependentLoggername);
+        System.out.println("Enumerating logic circuits using simulated annealing...");
 
         Random generator = new Random();
 
@@ -259,7 +257,7 @@ public class BuildCircuitsBySimAnnealing extends BuildCircuits {
                             if(get_roadblock().numberRoadblocking(lc, get_gate_library()) == 0 && Toxicity.mostToxicRow(lc) > get_options().get_toxicity_threshold()) {
                                 get_logic_circuits().add(new LogicCircuit(lc));
                                 max_score = get_best_score();
-                                log.info("SIM_ANNEAL " + String.format("%-8s","#"+get_n_total_assignments()) + " score:" + Util.sc(get_best_score()) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + get_roadblock().numberRoadblocking(lc, get_gate_library()));
+                                System.out.println("SIM_ANNEAL " + String.format("%-8s","#"+get_n_total_assignments()) + " score:" + Util.sc(get_best_score()) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + get_roadblock().numberRoadblocking(lc, get_gate_library()));
                             }
                         }
                     }
@@ -372,6 +370,6 @@ public class BuildCircuitsBySimAnnealing extends BuildCircuits {
     //
     /////////////////////////
 
-    private Logger log = Logger.getLogger( this.getClass().getPackage().getName() );
+    private Logger logger;
 
 }

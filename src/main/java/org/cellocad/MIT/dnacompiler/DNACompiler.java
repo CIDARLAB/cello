@@ -7,8 +7,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+
+import org.apache.log4j.*;
 import org.cellocad.BU.netsynth.NetSynthSwitch;
 import org.cellocad.MIT.dnacompiler.Gate.GateType;
 import org.cellocad.MIT.figures.*;
@@ -32,10 +32,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.*;
+import java.util.UUID;
 
 //import net.sf.json.JSONObject;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
+
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+//import org.slf4j.MDC;
+
+//import org.apache.log4j.PropertyConfigurator;
 
 
 //@Slf4j
@@ -72,11 +79,24 @@ public class DNACompiler {
      *
      */
 
+//    static Logger logger = LoggerFactory.getLogger(DNACompiler.class);
 
     public void run(String[] args) {
 
-        System.setProperty("logfile.name", "default.log");
-        PropertyConfigurator.configure(_options.get_home() + "/src/main/resources/log4j.properties");
+//        System.setProperty("logfile.name", "default.log");
+//        PropertyConfigurator.configure(_options.get_home() + "/src/main/resources/log4j.properties");
+
+
+
+//        MDC.put("logFileName", "log001");
+//
+//        logger.debug("log_bder_test");
+//
+//        //remember remove this
+//        MDC.remove("logFileName");
+
+
+
 
 
         /**
@@ -95,45 +115,63 @@ public class DNACompiler {
         Util.createDirectory(_options.get_output_directory());
 
 
+        String threadDependentLoggername = String.valueOf(UUID.randomUUID());
+//        String threadDependentLoggername = "test001";
+        String logfile = _options.get_output_directory() + _options.get_jobID() + "_dnacompiler_output.txt";
+
+        logger = Logger.getLogger(threadDependentLoggername);
+        FileAppender appender = new FileAppender();
+        appender.setFile(logfile);
+        appender.setLayout(new PatternLayout("%m%n"));
+        appender.setName(threadDependentLoggername);
+        appender.setThreshold(Level.DEBUG);
+        appender.activateOptions();
+
+        ConsoleAppender console = new ConsoleAppender();
+        console.setLayout(new PatternLayout("%m%n"));
+        console.setThreshold(Level.DEBUG);
+        console.activateOptions();
+
+        logger.addAppender(appender);
+        logger.addAppender(console);
+        logger.info("test_bder_logging");
+
 
 
 
         /**
-         * Instead of System.out.println, use a logging system.
+         * Instead of logger.info, use a logging system.
          * Need to set logfile.name before any logger is instantiated to avoid error messages.
          * Here we are using log4j.  See /src/main/resources/log4j.properties for the configuration details.
          */
 
-        //filepath + filename
-        String logfile = _options.get_output_directory() + _options.get_jobID() + "_dnacompiler_output.txt";
+
 
         //the logger will write to the specified file
-        System.setProperty("logfile.name", logfile);
-        PropertyConfigurator.configure(_options.get_home() + "/src/main/resources/log4j.properties");
-
-        //initialize the logger
-        log = Logger.getLogger(this.getClass().getPackage().getName());
+//        System.setProperty("logfile.name", logfile);
+//        PropertyConfigurator.configure(_options.get_home() + "/src/main/resources/log4j.properties");
+//        log = Logger.getLogger(this.getClass().getPackage().getName());
 
 
 
-        log.info("\n");
-        log.info("///////////////////////////////////////////////////////////");
-        log.info("///////////////   Welcome to Cello   //////////////////////");
-        log.info("///////////////////////////////////////////////////////////\n");
+        logger.info("\n");
+        logger.info("///////////////////////////////////////////////////////////");
+        logger.info("///////////////   Welcome to Cello   //////////////////////");
+        logger.info("///////////////////////////////////////////////////////////\n");
 
 
         //print the options for record-keeping
-        //log.info(Arrays.toString(args).replaceAll(",", "") + "\n");
-        log.info("\n");
-        log.info("///////////////////////////////////////////////////////////");
-        log.info("///////////////   Options   ///////////////////////////////");
-        log.info("///////////////////////////////////////////////////////////\n");
-        log.info(objToJSONString(_options));
+        //logger.info(Arrays.toString(args).replaceAll(",", "") + "\n");
+        logger.info("\n");
+        logger.info("///////////////////////////////////////////////////////////");
+        logger.info("///////////////   Options   ///////////////////////////////");
+        logger.info("///////////////////////////////////////////////////////////\n");
+        logger.info(objToJSONString(_options));
 
-        log.info("\n");
-        log.info("///////////////////////////////////////////////////////////");
-        log.info("///////////////   UCF Validation   ////////////////////////");
-        log.info("///////////////////////////////////////////////////////////\n");
+        logger.info("\n");
+        logger.info("///////////////////////////////////////////////////////////");
+        logger.info("///////////////   UCF Validation   ////////////////////////");
+        logger.info("///////////////////////////////////////////////////////////\n");
         /**
          * read all UCF collections
          */
@@ -162,13 +200,13 @@ public class DNACompiler {
 
 
         JSONObject ucf_validation_map = ucf_validator.validateAllUCFCollections(ucf, _options);
-        log.info(gson.toJson(ucf_validation_map));
+        logger.info(gson.toJson(ucf_validation_map));
 
         boolean is_ucf_valid = (boolean) ucf_validation_map.get("is_valid");
 
         if (!is_ucf_valid) {
             _result_status = ResultStatus.ucf_invalid;
-            log.warn("invalid UCF");
+            logger.info("invalid UCF");
             return;
         }
 
@@ -184,10 +222,10 @@ public class DNACompiler {
         ArrayList<LogicCircuit> unassigned_lcs = new ArrayList<LogicCircuit>();
         ArrayList<LogicCircuit> assigned_lcs = new ArrayList<LogicCircuit>();
 
-        log.info("\n");
-        log.info("///////////////////////////////////////////////////////////");
-        log.info("///////////////   Logic synthesis, Wiring diagram   ///////");
-        log.info("///////////////////////////////////////////////////////////\n");
+        logger.info("\n");
+        logger.info("///////////////////////////////////////////////////////////");
+        logger.info("///////////////   Logic synthesis, Wiring diagram   ///////");
+        logger.info("///////////////////////////////////////////////////////////\n");
 
 
 
@@ -209,7 +247,7 @@ public class DNACompiler {
          */
         if (abstract_lc.get_input_gates().size() == 0 || abstract_lc.get_output_gates().size() == 0) {
             _result_status = ResultStatus.wiring_diagram_invalid;
-            log.warn("incorrect wiring diagram, no inputs/outputs");
+            logger.info("incorrect wiring diagram, no inputs/outputs");
             return;
         }
 
@@ -218,10 +256,10 @@ public class DNACompiler {
          * circuit size
          */
         for (GateType gtype : abstract_lc.get_gate_types().keySet()) {
-            log.info("Circuit has " + abstract_lc.get_gate_types().get(gtype).size() + " " + gtype + " gates.");
+            logger.info("Circuit has " + abstract_lc.get_gate_types().get(gtype).size() + " " + gtype + " gates.");
         }
 
-        log.info("N logic gates: " + abstract_lc.get_logic_gates().size() + "");
+        logger.info("N logic gates: " + abstract_lc.get_logic_gates().size() + "");
 
 
         /**
@@ -250,15 +288,15 @@ public class DNACompiler {
             SequentialHelper.setInitialLogics(abstract_lc, initial_logics, nrows);
             SequentialHelper.printTruthTable(abstract_lc);
 
-            log.info("Cycle 1");
+            logger.info("Cycle 1");
             SequentialHelper.updateLogics(abstract_lc);
             SequentialHelper.printTruthTable(abstract_lc);
 
-            log.info("Cycle 2");
+            logger.info("Cycle 2");
             SequentialHelper.updateLogics(abstract_lc);
             SequentialHelper.printTruthTable(abstract_lc);
 
-            log.info("Cycle 3");
+            logger.info("Cycle 3");
             SequentialHelper.updateLogics(abstract_lc);
             SequentialHelper.printTruthTable(abstract_lc);
 
@@ -297,10 +335,10 @@ public class DNACompiler {
          *
          *  generate figures for abstract circuit
          */
-        log.info(abstract_lc.printGraph());
+        logger.info(abstract_lc.printGraph());
 
         if (_options.is_figures()) {
-            log.info("=========== Graphviz wiring diagram ==========");
+            logger.info("=========== Graphviz wiring diagram ==========");
             Graphviz graphviz = new Graphviz(_options.get_home(), _options.get_output_directory(), _options.get_jobID());
             graphviz.printGraphvizDotText(abstract_lc, _options.get_jobID() + "_wiring_agrn.dot");
 
@@ -339,10 +377,10 @@ public class DNACompiler {
          */
         UCFAdaptor ucf_adaptor = new UCFAdaptor();
 
-        log.info("\n");
-        log.info("///////////////////////////////////////////////////////////");
-        log.info("///////////////   Loading parts   /////////////////////////");
-        log.info("///////////////////////////////////////////////////////////\n");
+        logger.info("\n");
+        logger.info("///////////////////////////////////////////////////////////");
+        logger.info("///////////////   Loading parts   /////////////////////////");
+        logger.info("///////////////////////////////////////////////////////////\n");
 
         /**
          * Part objects mapped to the part name.
@@ -350,14 +388,14 @@ public class DNACompiler {
         PartLibrary part_library = ucf_adaptor.createPartLibrary(ucf);
 
         for (Part p : part_library.get_ALL_PARTS().values()) {
-            log.info("Part: " + p.get_type() + " " + p.get_name());
+            logger.info("Part: " + p.get_type() + " " + p.get_name());
         }
 
 
-        log.info("\n");
-        log.info("///////////////////////////////////////////////////////////");
-        log.info("///////////////   Loading Gate Library   //////////////////");
-        log.info("///////////////////////////////////////////////////////////\n");
+        logger.info("\n");
+        logger.info("///////////////////////////////////////////////////////////");
+        logger.info("///////////////   Loading Gate Library   //////////////////");
+        logger.info("///////////////////////////////////////////////////////////\n");
 
 
         /**
@@ -380,14 +418,14 @@ public class DNACompiler {
 
 
         for(Gate g: gate_library.get_GATES_BY_NAME().values()) {
-            log.info("loading gate from UCF gates collection: " + g.Name);
+            logger.info("loading gate from UCF gates collection: " + g.Name);
         }
 
 
-        log.info("\n");
-        log.info("///////////////////////////////////////////////////////////");
-        log.info("///////////////   Loading input and output gates   ////////");
-        log.info("///////////////////////////////////////////////////////////\n");
+        logger.info("\n");
+        logger.info("///////////////////////////////////////////////////////////");
+        logger.info("///////////////   Loading input and output gates   ////////");
+        logger.info("///////////////////////////////////////////////////////////\n");
 
         /**
          *
@@ -406,10 +444,10 @@ public class DNACompiler {
 
 
 
-        log.info("\n");
-        log.info("///////////////////////////////////////////////////////////");
-        log.info("///////////////   Loading Gate Parts   ////////////////////");
-        log.info("///////////////////////////////////////////////////////////\n");
+        logger.info("\n");
+        logger.info("///////////////////////////////////////////////////////////");
+        logger.info("///////////////   Loading Gate Parts   ////////////////////");
+        logger.info("///////////////////////////////////////////////////////////\n");
 
         //associate Part objects with the _downstream_parts and _regulable_promoter data members of Gate.java
         ucf_adaptor.setGateParts(ucf, gate_library, part_library);
@@ -423,10 +461,10 @@ public class DNACompiler {
 
 
 
-        log.info("\n");
-        log.info("///////////////////////////////////////////////////////////");
-        log.info("///////////////   Loading Response Functions   ////////////");
-        log.info("///////////////////////////////////////////////////////////\n");
+        logger.info("\n");
+        logger.info("///////////////////////////////////////////////////////////");
+        logger.info("///////////////   Loading Response Functions   ////////////");
+        logger.info("///////////////////////////////////////////////////////////\n");
 
         ucf_adaptor.setResponseFunctions(ucf, gate_library);
 
@@ -439,14 +477,14 @@ public class DNACompiler {
 
         //printing the response functions
         for (Gate g : gate_library.get_GATES_BY_NAME().values()) {
-            log.info(g.Name + " " + g.get_equation() + " " + g.get_params().toString());
+            logger.info(g.Name + " " + g.get_equation() + " " + g.get_params().toString());
         }
 
 
-        log.info("\n");
-        log.info("///////////////////////////////////////////////////////////");
-        log.info("///////////////   Loading Toxicity Data   /////////////////");
-        log.info("///////////////////////////////////////////////////////////\n");
+        logger.info("\n");
+        logger.info("///////////////////////////////////////////////////////////");
+        logger.info("///////////////   Loading Toxicity Data   /////////////////");
+        logger.info("///////////////////////////////////////////////////////////\n");
 
         /**
          * populate the gate objects with the Part objects for 'downstream_parts' and 'regulable_promoter'.
@@ -458,10 +496,10 @@ public class DNACompiler {
         }
 
 
-        log.info("\n");
-        log.info("///////////////////////////////////////////////////////////");
-        log.info("///////////////   Loading Cytometry Data   ////////////////");
-        log.info("///////////////////////////////////////////////////////////\n");
+        logger.info("\n");
+        logger.info("///////////////////////////////////////////////////////////");
+        logger.info("///////////////   Loading Cytometry Data   ////////////////");
+        logger.info("///////////////////////////////////////////////////////////\n");
 
         ucf_adaptor.setGateCytometry(ucf, gate_library, _options);
 
@@ -475,10 +513,10 @@ public class DNACompiler {
          */
         if(_options.is_tandem_promoter()) {
 
-            log.info("\n");
-            log.info("///////////////////////////////////////////////////////////");
-            log.info("///////////////   Loading Tandem Promoter Data   //////////");
-            log.info("///////////////////////////////////////////////////////////\n");
+            logger.info("\n");
+            logger.info("///////////////////////////////////////////////////////////");
+            logger.info("///////////////   Loading Tandem Promoter Data   //////////");
+            logger.info("///////////////////////////////////////////////////////////\n");
 
             ucf_adaptor.setTandemPromoters(ucf, gate_library, _options);
         }
@@ -494,11 +532,11 @@ public class DNACompiler {
             String input_info = "input:    " + String.format("%-16s", i);
             input_info += "   off_reu=" + Util.sc(gate_library.get_INPUTS_OFF().get(i));
             input_info += "   on_reu=" + Util.sc(gate_library.get_INPUTS_ON().get(i));
-            log.info(input_info);
+            logger.info(input_info);
         }
         for (String i : gate_library.get_OUTPUT_NAMES()) {
             String output_info = "output:   " + String.format("%-16s", i);
-            log.info(output_info);
+            logger.info(output_info);
         }
 
 
@@ -518,11 +556,11 @@ public class DNACompiler {
         }
 
         for (Gate g : gate_library.get_GATES_BY_NAME().values()) {
-            log.info("Gate: " + g.System + " " + g.Type + " " + g.Name + " " + g.Group);
+            logger.info("Gate: " + g.System + " " + g.Type + " " + g.Name + " " + g.Group);
         }
 
         for (GateType gtype : gate_library.get_GATES_BY_GROUP().keySet()) {
-            log.info("GateLibrary groups: " + gtype + " " + gate_library.get_GATES_BY_GROUP().get(gtype).size());
+            logger.info("GateLibrary groups: " + gtype + " " + gate_library.get_GATES_BY_GROUP().get(gtype).size());
         }
 
         for (GateType gtype : gate_library.get_GATES_BY_GROUP().keySet()) {
@@ -539,13 +577,13 @@ public class DNACompiler {
                     group_string_builder += " " + g.Name;
                 }
 
-                log.info(group_string_builder);
+                logger.info(group_string_builder);
             }
         }
 
 
         for(Gate g: _abstract_lc.get_logic_gates()) {
-            System.out.println(g.Type);
+            logger.info(g.Type);
         }
 
 
@@ -553,23 +591,23 @@ public class DNACompiler {
          * are there enough gates of each type (input, output, logic to build the circuit
          */
         if (abstract_lc.get_input_gates().size() > gate_library.get_INPUT_NAMES().length) {
-            log.warn("Number of input gates out of range: " + abstract_lc.get_input_gates().size());
+            logger.info("Number of input gates out of range: " + abstract_lc.get_input_gates().size());
             return;
         }
 
         if (abstract_lc.get_output_gates().size() > gate_library.get_OUTPUT_NAMES().length) {
-            log.warn("Number of output gates out of range: " + abstract_lc.get_output_gates().size());
+            logger.info("Number of output gates out of range: " + abstract_lc.get_output_gates().size());
             return;
         }
 
         if (!LogicCircuitUtil.libraryGatesCoverCircuitGates(abstract_lc, gate_library)) {
-            //log.info("Not enough gates in the library to cover the gates in the circuit.");
+            //logger.info("Not enough gates in the library to cover the gates in the circuit.");
             //return;
-            log.warn("Not enough gates in the library to cover the gates in the circuit.");
+            logger.info("Not enough gates in the library to cover the gates in the circuit.");
             return;
 
         } else {
-            log.info("The gates library can cover the circuit.");
+            logger.info("The gates library can cover the circuit.");
         }
 
 
@@ -646,10 +684,10 @@ public class DNACompiler {
 
 
         if (nonRB_unassigned_lcs.size() == 0) {
-            log.info("\n");
-            log.info("-----------------------------------------------------------");
-            log.info("---------------   Warning: input promoter roadblocking ----");
-            log.info("-----------------------------------------------------------\n");
+            logger.info("\n");
+            logger.info("-----------------------------------------------------------");
+            logger.info("---------------   Warning: input promoter roadblocking ----");
+            logger.info("-----------------------------------------------------------\n");
 
             /*
              * Choose one input assignment... it's roadblocking, but we will continue with the design anyway.
@@ -676,11 +714,11 @@ public class DNACompiler {
         }
 
         else {
-            log.info("\n");
-            log.info("///////////////////////////////////////////////////////////");
-            log.info("///////////////   Assignment algorithm   //////////////////");
-            log.info("///////////////////////////////////////////////////////////\n");
-            log.info("assignment algorithm:  " + _options.get_assignment_algorithm());
+            logger.info("\n");
+            logger.info("///////////////////////////////////////////////////////////");
+            logger.info("///////////////   Assignment algorithm   //////////////////");
+            logger.info("///////////////////////////////////////////////////////////\n");
+            logger.info("assignment algorithm:  " + _options.get_assignment_algorithm());
 
             Date datestart = new Date();
             long starttime = datestart.getTime();
@@ -688,11 +726,12 @@ public class DNACompiler {
 
             BuildCircuits circuit_builder = new BuildCircuits(); //base class
 
-            log.info("=========== Assignment algorithm =============");
+            logger.info("=========== Assignment algorithm =============");
 
             //default
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.breadth_first) {
                 circuit_builder = new BuildCircuitsByBreadthFirstSearch(_options, gate_library, roadblock);
+                circuit_builder.setThreadDependentLoggername(threadDependentLoggername);
             }
             //second recommendation is hill climbing.  Many swaps with accept/reject based on score increase/decrease.
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.hill_climbing) {
@@ -731,7 +770,7 @@ public class DNACompiler {
             }*/
 
 
-            System.out.println(unassigned_lcs.size());
+            logger.info(unassigned_lcs.size());
 
             for (LogicCircuit unassigned_lc : nonRB_unassigned_lcs) {
 
@@ -773,23 +812,23 @@ public class DNACompiler {
              * Assignment complete.
              *
              */
-            log.info("=========== Assigned circuits ================");
-            log.info("assigned lcs: " + assigned_lcs.size() + "");
+            logger.info("=========== Assigned circuits ================");
+            logger.info("assigned lcs: " + assigned_lcs.size() + "");
 
 
             Date datestop = new Date();
             long endtime = datestop.getTime();
             long elapsedtime = endtime - starttime;
-            log.info("Total elapsed time for assignment algorithm: " + elapsedtime + " milliseconds");
+            logger.info("Total elapsed time for assignment algorithm: " + elapsedtime + " milliseconds");
 
             if (assigned_lcs.size() == 0) {
 
                 _result_status = ResultStatus.no_assignments_found;
 
-                log.info("\n");
-                log.info("///////////////////////////////////////////////////////////");
-                log.info("////////   No assignments found. Exiting Cello.   /////////");
-                log.info("///////////////////////////////////////////////////////////\n");
+                logger.info("\n");
+                logger.info("///////////////////////////////////////////////////////////");
+                logger.info("////////   No assignments found. Exiting Cello.   /////////");
+                logger.info("///////////////////////////////////////////////////////////\n");
 
                 return;
             }
@@ -808,7 +847,7 @@ public class DNACompiler {
          */
         sortLogicCircuitsByScore(assigned_lcs);
 
-        log.info("best assignment score: " + String.format("%-5.4f", assigned_lcs.get(0).get_scores().get_score()));
+        logger.info("best assignment score: " + String.format("%-5.4f", assigned_lcs.get(0).get_scores().get_score()));
 
 
         /**
@@ -816,10 +855,10 @@ public class DNACompiler {
          * Generate plasmids.
          * Generate figures.
          */
-        log.info("\n");
-        log.info("///////////////////////////////////////////////////////////");
-        log.info("///////////////   Processing best circuits   //////////////");
-        log.info("///////////////////////////////////////////////////////////\n");
+        logger.info("\n");
+        logger.info("///////////////////////////////////////////////////////////");
+        logger.info("///////////////   Processing best circuits   //////////////");
+        logger.info("///////////////////////////////////////////////////////////\n");
 
 
 
@@ -839,8 +878,8 @@ public class DNACompiler {
             unique_lcs = new ArrayList<>(unique_lcs_map.values());
         }
 
-        log.info("all lcs " + assigned_lcs.size());
-        log.info("unique lcs " + unique_lcs.size());
+        logger.info("all lcs " + assigned_lcs.size());
+        logger.info("unique lcs " + unique_lcs.size());
         sortLogicCircuitsByScore(unique_lcs);
 
 
@@ -906,13 +945,13 @@ public class DNACompiler {
                     asn = asn.replace("_", "-");
                     asn = asn.replace("js", "NOR_js");
                     asn = asn.replace("an0", "NOR_an0");
-                    log.info("Assignment: " + asn);
+                    logger.info("Assignment: " + asn);
 
                     lc.set_assignment_name( _options.get_jobID() + "_A" + String.format("%03d", asn_counter) );
                     asn_counter++;
                     Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_logic_circuit.txt", lc.toString(), false);
 
-                    log.info("=========== Circuit bionetlist ===============");
+                    logger.info("=========== Circuit bionetlist ===============");
                     Plasmid.setGateParts(lc, gate_library, part_library);
                     Netlist.setBioNetlist(lc, false);
                     Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_bionetlist.txt", lc.get_netlist(), false);
@@ -982,23 +1021,23 @@ public class DNACompiler {
 
 
 
-            log.info("=========== Circuit assignment details =======");
-            log.info(lc.toString() + "\n");
+            logger.info("=========== Circuit assignment details =======");
+            logger.info(lc.toString() + "\n");
             Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_logic_circuit.txt", lc.toString(), false);
 
 
             // TODO
-            log.info("=========== Circuit bionetlist ===============");
+            logger.info("=========== Circuit bionetlist ===============");
             Plasmid.setGateParts(lc, gate_library, part_library);
             Netlist.setBioNetlist(lc, false);
-            log.info(lc.get_netlist());
+            logger.info(lc.get_netlist());
             Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_bionetlist.txt", lc.get_netlist(), false);
 
 
 
             if(_options.is_histogram()) {
 
-                log.info("=========== Simulate cytometry distributions");
+                logger.info("=========== Simulate cytometry distributions");
 
                 String file_name_default = _options.get_home() + _options.get_datapath() + "default_histogram.txt";
                 InputOutputGateReader.makeHistogramsforInputREUs(gate_library, file_name_default);
@@ -1017,13 +1056,13 @@ public class DNACompiler {
 
                     g.set_xfer_hist(gate_library.get_GATES_BY_NAME().get(g.Name).get_xfer_hist());
 
-                    log.info("histogram interpolation for " + g.Name + " " + g.get_xfer_hist().get_xfer_interp().size() + " " + g.get_xfer_hist().get_xfer_interp().get(0).length );
+                    logger.info("histogram interpolation for " + g.Name + " " + g.get_xfer_hist().get_xfer_interp().size() + " " + g.get_xfer_hist().get_xfer_interp().get(0).length );
 
                 }
 
                 Evaluate.evaluateCircuitHistogramOverlap(lc, gate_library, _options);
 
-                log.info("distribution score: " + lc.get_scores().get_conv_overlap());
+                logger.info("distribution score: " + lc.get_scores().get_conv_overlap());
             }
 
             //if(_options.get_histogram() && lc.get_scores().get_conv_overlap() < _options.get_histogram()_threshold) {
@@ -1040,19 +1079,19 @@ public class DNACompiler {
 
 
             if (_options.is_figures()) {
-                log.info("\n");
-                log.info("///////////////////////////////////////////////////////////");
-                log.info("////////////////////////   Figures   //////////////////////");
-                log.info("///////////////////////////////////////////////////////////\n");
+                logger.info("\n");
+                logger.info("///////////////////////////////////////////////////////////");
+                logger.info("////////////////////////   Figures   //////////////////////");
+                logger.info("///////////////////////////////////////////////////////////\n");
 
                 generateFigures(lc, gate_library);
             }
 
             if(_options.is_plasmid()) {
-                log.info("\n");
-                log.info("///////////////////////////////////////////////////////////");
-                log.info("///////////////   Plasmid DNA sequences   /////////////////");
-                log.info("///////////////////////////////////////////////////////////\n");
+                logger.info("\n");
+                logger.info("///////////////////////////////////////////////////////////");
+                logger.info("///////////////   Plasmid DNA sequences   /////////////////");
+                logger.info("///////////////////////////////////////////////////////////\n");
 
                 Plasmid.findPartComponentsInOutputGates(lc, gate_library, part_library);
 
@@ -1073,10 +1112,10 @@ public class DNACompiler {
 
                 _result_status = ResultStatus.roadblocking_inputs;
 
-                log.info("\n");
-                log.info("-----------------------------------------------------------");
-                log.info("---------------   Warning: input promoter roadblocking ----");
-                log.info("-----------------------------------------------------------\n");
+                logger.info("\n");
+                logger.info("-----------------------------------------------------------");
+                logger.info("---------------   Warning: input promoter roadblocking ----");
+                logger.info("-----------------------------------------------------------\n");
             }
 
             asn.set_logic_circuit(lc);
@@ -1096,10 +1135,10 @@ public class DNACompiler {
 
 
 
-        log.info("\n");
-        log.info("///////////////////////////////////////////////////////////");
-        log.info("///////////////   Cello finished playing   ////////////////");
-        log.info("///////////////////////////////////////////////////////////\n");
+        logger.info("\n");
+        logger.info("///////////////////////////////////////////////////////////");
+        logger.info("///////////////   Cello finished playing   ////////////////");
+        logger.info("///////////////////////////////////////////////////////////\n");
 
 
         return;
@@ -1135,7 +1174,7 @@ public class DNACompiler {
         if(jobHex.contains("circuit_")) {
             jobHex = get_options().get_jobID().split("circuit_")[1];
         }
-        System.out.println("Job Hex " + jobHex);
+        logger.info("Job Hex " + jobHex);
 
         ArrayList<ArrayList<String>> correct_seqs = Util.fileTokenizer("/Users/peng/Dropbox (MIT)/writing/cellopaper/circuit_DNA_sequences_v2_bd.csv");
         for(ArrayList<String> rows: correct_seqs) {
@@ -1148,7 +1187,7 @@ public class DNACompiler {
 
 
 
-        log.info("=========== Setting gate parts according to assigned gate names");
+        logger.info("=========== Setting gate parts according to assigned gate names");
 
         //Plasmid.setGateParts(lc, gate_library, part_library);
 
@@ -1190,7 +1229,7 @@ public class DNACompiler {
                 output_module_location_name == null || output_module_location_name.isEmpty() ||
                 circuit_module_location_name.equals(output_module_location_name) ) {
 
-            log.info("=========== Eugene: circuit module and output module combined ===========");
+            logger.info("=========== Eugene: circuit module and output module combined ===========");
 
             ArrayList<Gate> logic_and_output_gates = new ArrayList<>();
             logic_and_output_gates.addAll(lc.get_logic_gates());
@@ -1199,34 +1238,34 @@ public class DNACompiler {
 
             circuit_eugene_file_string = eugeneAdaptor.generateEugeneFile(logic_and_output_gates, name_Eug_circuit_rules, part_library, _options);
 
-            log.info("Eugene: combinatorial design of plasmid layouts...\n");
+            logger.info("Eugene: combinatorial design of plasmid layouts...\n");
 
             eugeneAdaptor.callEugene(name_Eug_circuit_rules, lc.get_circuit_module_parts(), part_library, _options);
 
-            log.info("Number of circuit module layouts: " + lc.get_circuit_module_parts().size());
+            logger.info("Number of circuit module layouts: " + lc.get_circuit_module_parts().size());
 
         }
 
         else if(!circuit_module_location_name.isEmpty() && ! output_module_location_name.isEmpty() && !circuit_module_location_name.equals(output_module_location_name)) {
-            log.info("=========== Eugene: circuit module ===========");
+            logger.info("=========== Eugene: circuit module ===========");
 
             circuit_eugene_file_string = eugeneAdaptor.generateEugeneFile(lc.get_logic_gates(), name_Eug_circuit_rules, part_library, _options);
 
-            log.info("Eugene: combinatorial design of plasmid layouts...\n");
+            logger.info("Eugene: combinatorial design of plasmid layouts...\n");
 
             eugeneAdaptor.callEugene(name_Eug_circuit_rules, lc.get_circuit_module_parts(), part_library, _options);
 
-            log.info("Number of circuit module layouts: " + lc.get_circuit_module_parts().size());
+            logger.info("Number of circuit module layouts: " + lc.get_circuit_module_parts().size());
 
 
-            log.info("=========== Eugene: output module ============");
+            logger.info("=========== Eugene: output module ============");
 
             //_options.get_eugene_scars = false;
             String output_eugene_file_string = eugeneAdaptor.generateEugeneFile(lc.get_output_gates(), name_Eug_output_rules, part_library, _options);
 
             eugeneAdaptor.callEugene(name_Eug_output_rules, lc.get_output_module_parts(), part_library, _options);
 
-            log.info("Number of output module layouts: " + lc.get_output_module_parts().size());
+            logger.info("Number of output module layouts: " + lc.get_output_module_parts().size());
         }
 
 
@@ -1242,7 +1281,7 @@ public class DNACompiler {
             for(Part p: module) {
 
 
-//                System.out.println(p.get_name() + ", " + p.get_seq());
+//                logger.info(p.get_name() + ", " + p.get_seq());
 //                if(p.get_type().equalsIgnoreCase("scar")) {
 //                    String seq = correct_seq.substring(fulldna.length(), fulldna.length()+4);
 //                    p.set_seq(seq);
@@ -1250,14 +1289,14 @@ public class DNACompiler {
 //                fulldna += p.get_seq();
 
 //                if(!correct_seq.toUpperCase().startsWith(fulldna.toUpperCase())) {
-//                    log.info("############# Problem with \n" + p.get_name() + " \n" + p.get_seq());
+//                    logger.info("############# Problem with \n" + p.get_name() + " \n" + p.get_seq());
 //                    Integer length_last = p.get_seq().length();
 //                    String expected = correct_seq.substring(fulldna.length()-length_last, fulldna.length());
-//                    log.info(expected);
+//                    logger.info(expected);
 //                    System.exit(-1);
 //                }
 //                else {
-//                    System.out.println("match " + p.get_name());
+//                    logger.info("match " + p.get_name());
 //                }
 
                 part_names += p.get_name() + ", " + p.get_seq() + "\n";
@@ -1300,7 +1339,7 @@ public class DNACompiler {
                 lc.set_sensor_plasmid_parts(lc.get_sensor_module_parts());
             }
             if (! ucf.get_genetic_locations().containsKey("circuit_module_location")) {
-                System.out.println("Setting circuit module parts");
+                logger.info("Setting circuit module parts");
                 lc.set_circuit_plasmid_parts(lc.get_circuit_module_parts());
             }
             if (! ucf.get_genetic_locations().containsKey("output_module_location")) {
@@ -1308,17 +1347,17 @@ public class DNACompiler {
             }
         }
 
-        System.out.println(lc.get_sensor_module_parts().size());
-        System.out.println(lc.get_circuit_module_parts().size());
-        System.out.println(lc.get_output_module_parts().size());
+        logger.info(lc.get_sensor_module_parts().size());
+        logger.info(lc.get_circuit_module_parts().size());
+        logger.info(lc.get_output_module_parts().size());
 
         GeneticLocationWriter.insertModulePartsIntoGeneticLocations(lc, ucf);
 
-//        System.out.println("Circuit module parts");
-//        System.out.println(lc.get_circuit_module_parts().get(0).toString());
+//        logger.info("Circuit module parts");
+//        logger.info(lc.get_circuit_module_parts().get(0).toString());
 //
-//        System.out.println("Circuit plasmid parts");
-//        System.out.println(lc.get_circuit_plasmid_parts().get(0).toString());
+//        logger.info("Circuit plasmid parts");
+//        logger.info(lc.get_circuit_plasmid_parts().get(0).toString());
 
         ArrayList<String> all_plasmid_strings = new ArrayList<>();
 
@@ -1333,7 +1372,7 @@ public class DNACompiler {
         }
 
 
-        log.info("\n=========== SBOL for circuit plasmids ========");
+        logger.info("\n=========== SBOL for circuit plasmids ========");
 
         //currently not writing an SBOL document for the output plasmid if the output module is on a different plasmid than the circuit.
         for(int i=0; i<lc.get_circuit_plasmid_parts().size(); ++i) {
@@ -1357,15 +1396,15 @@ public class DNACompiler {
 
         if(_options.is_figures()) {
             if (_options.is_dnaplotlib()) {
-                log.info("\n");
-                log.info("=========== DNAPlotLib =======================");
-                log.info("rendering genetic diagram image...");
+                logger.info("\n");
+                logger.info("=========== DNAPlotLib =======================");
+                logger.info("rendering genetic diagram image...");
 
                 PlotLibWriter.writeCircuitsForDNAPlotLib(lc.get_circuit_plasmid_parts(), lc.get_index(), _options);
             }
         }
 
-        log.info("");
+        logger.info("");
     }
 
     /**
@@ -1384,27 +1423,27 @@ public class DNACompiler {
         Graphviz graphviz = new Graphviz(_options.get_home(), _options.get_output_directory(), _options.get_jobID());
         ScriptCommands script_commands = new ScriptCommands(_options.get_home(), _options.get_output_directory(), _options.get_jobID());
 
-        log.info("=========== Graphviz wiring diagram ==========");
+        logger.info("=========== Graphviz wiring diagram ==========");
         Colors.setColors();
         graphviz.printGraphvizDotText(lc, name_wiring_grn);
         script_commands.makeDot2Png(name_wiring_grn);
 
         if(_options.is_response_fn()) {
-            log.info("=========== Graphviz Xfer figures ============");
+            logger.info("=========== Graphviz Xfer figures ============");
             gnuplot.printGnuplotXfer(lc, _options);
             graphviz.printGraphvizXferPNG(lc, name_wiring_xfer);
             script_commands.makeCircuitREUFigure(lc.get_assignment_name());
             script_commands.makeDot2Png(name_wiring_xfer);
         }
         if(_options.is_snr()) {
-            log.info("=========== SNR figures =======================");
+            logger.info("=========== SNR figures =======================");
             for(Gate g: lc.get_logic_gates()) {
                 gnuplot.printGnuplotGateSNR(g, lc.get_assignment_name(), _options);
             }
             script_commands.makeCircuitSNRFigure(lc.get_assignment_name());
         }
         if(_options.is_tandem_promoter()) {
-            log.info("=========== Tandem promoter figures =======================");
+            logger.info("=========== Tandem promoter figures =======================");
             gnuplot.makeTandemPromoterHeatmaps(lc, gate_library, _options);
 
 
@@ -1475,8 +1514,8 @@ public class DNACompiler {
                     String file_points_off_path = _options.get_output_directory() + "/" + file_points_off;
                     String file_interp_path = _options.get_output_directory() + "/" + file_interp;
 
-                    System.out.println("////////////////////////////////////////// ");
-                    System.out.println("making " + file_interp);
+                    logger.info("////////////////////////////////////////// ");
+                    logger.info("making " + file_interp);
 
                     itp.writeGridstoFiles(grid, file_interp_path, 5);
 
@@ -1563,7 +1602,7 @@ public class DNACompiler {
                 }
 
                 else {
-                    System.out.println(tp_name + " DOES NOT EXIST ");
+                    logger.info(tp_name + " DOES NOT EXIST ");
                 }
 
 
@@ -1573,10 +1612,10 @@ public class DNACompiler {
 
 
         if (_options.is_truthtable_reu()) {
-            log.info("=========== Truth table figure(s) ============");
+            logger.info("=========== Truth table figure(s) ============");
 
             if (_options.is_histogram()) {
-                log.info("=========== histogram multiplots =============");
+                logger.info("=========== histogram multiplots =============");
 
                 String input_truth = "";
                 for(int i=0; i<lc.get_input_gates().get(0).get_logics().size(); ++i) {
@@ -1603,7 +1642,7 @@ public class DNACompiler {
                 script_commands.makeDot2Png(name_wiring_reu);
             }
             else {
-                log.info("=========== bargraph multiplots ==============");
+                logger.info("=========== bargraph multiplots ==============");
                 gnuplot.makeTruthtableBargraph(lc, "truth");
 
                 for (Gate g : lc.get_logic_gates()) {
@@ -1621,21 +1660,21 @@ public class DNACompiler {
         }
 
         if(_options.is_toxicity() && _options.is_truthtable_tox()) {
-            log.info("============== cell growth plots =============");
+            logger.info("============== cell growth plots =============");
             gnuplot.makeCellGrowthFigure(lc, "toxicity");
         }
 
 
-        log.info("=========== Table of predicted expression levels (REU)");
+        logger.info("=========== Table of predicted expression levels (REU)");
         String reu_table = lc.printREUTable();
         String outfile_reutable = lc.get_assignment_name() + "_reutable.txt";
         Util.fileWriter(_options.get_output_directory() + outfile_reutable, reu_table, false);
-        log.info(reu_table);
+        logger.info(reu_table);
 
         if(_options.is_toxicity()) {
-            log.info("=========== Table of predicted cell growth (relative OD600)");
+            logger.info("=========== Table of predicted cell growth (relative OD600)");
             String tox_table = Toxicity.writeToxicityTable(lc);
-            log.info(tox_table);
+            logger.info(tox_table);
             String outfile = lc.get_assignment_name() + "_toxtable.txt";
             Util.fileWriter(_options.get_output_directory() + outfile, tox_table, false);
         }
@@ -1731,7 +1770,7 @@ public class DNACompiler {
         JSONParser jsonParser = new JSONParser();
         JSONArray jsonArray = (JSONArray) jsonParser.parse(reader);
 
-        System.out.println(jsonArray.size());
+        logger.info(jsonArray.size());
         for(int i=0; i<jsonArray.size(); ++i) {
             Object obj = (Object) jsonArray.get(i);
             motifLibrary.put(obj);
@@ -1765,7 +1804,7 @@ public class DNACompiler {
 
         LogicCircuitUtil.renameGatesWires(abstract_logic_circuit);
 
-        log.info(Netlist.getNetlist(abstract_logic_circuit));
+        logger.info(Netlist.getNetlist(abstract_logic_circuit));
 
         _abstract_lc = abstract_logic_circuit;
 
@@ -1892,7 +1931,7 @@ public class DNACompiler {
 
     @Getter private final Args _options = new Args();
 
-    private Logger log;
+    private Logger logger;
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 }

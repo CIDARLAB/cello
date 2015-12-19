@@ -72,8 +72,8 @@ public class Roadblock {
             }
         }
 
-        log.info("Roadblocking input promoters: " + _input_roadblockers.toString());
-        log.info("Roadblocking logic promoters: " + _logic_roadblockers.toString());
+        System.out.println("Roadblocking input promoters: " + _input_roadblockers.toString());
+        System.out.println("Roadblocking logic promoters: " + _logic_roadblockers.toString());
     }
 
 
