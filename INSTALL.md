@@ -5,7 +5,22 @@
 
 ###### Get the code from Git:
  * https://github.com/CIDARLAB/cello
- * Click "Download ZIP"
+
+###### Make a results directory:
+At the same directory-level as the repository, make a directory with the same name appended with '_results'.
+
+For example, if the repository name is ~/cello/:
+```
+mkdir ~/cello_results/
+```
+
+If the repository is ~/cello_v2/:
+```
+mkdir ~/cello_v2_results/
+```
+
+When running Cello using the web interface, results are stored in this directory.
+
 
 
 ###### Recommended: Homebrew package manager for Unix
@@ -37,9 +52,9 @@ cd ~/cello/resources/library
 bash install_local_jars.sh
 ```
 the install_local_jars.sh script adds these local jars to the maven repository ~/.m2/repository/
- * mvn install:install-file -Dfile=NetSynth-1.0.jar -DgroupId=org.cellocad -DartifactId=netsynth -Dversion=1.0 -Dpackaging=jar
+ * mvn install:install-file -Dfile=NetSynth.jar -DgroupId=org.cellocad -DartifactId=netsynth -Dversion=1.0 -Dpackaging=jar
  * mvn install:install-file -Dfile=eugene-2.0.0-SNAPSHOT-jar-with-dependencies.jar -DgroupId=org -DartifactId=eugene -Dversion=2.0.0 -Dpackaging=jar
- * mvn install:install-file -Dfile=libSBOLj-core2-2.0.0-SNAPSHOT-withDependencies.jar -DgroupId=org.sbolstandard -DartifactId=libSBOLj-core2 -Dversion=2.0.2 -Dpackaging=jar
+
 
 ###### Install other dependencies for automated figure generation
 
@@ -71,6 +86,4 @@ mvn compile
 
 ###### Run Cello (see [RUN.md](RUN.md) )
 
-
-### when running Cello using the web interface, results are stored in a directory called 'cello_results', which must live at the same level as the 'cello' directory containing the source code.  Please make this directory.
 

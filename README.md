@@ -1,6 +1,6 @@
 <img src="src/main/webapp/images/logo-cello-color.png">
 
-The Cello input is a high-level logic specification written in Verilog, a hardware description language.  The code is parsed to generate a truth table, and logic synthesis produces a circuit diagram with the genetically available gate types to implement the truth table.  The gates in the circuit are assigned using experimentally characterized genetic gates.  In assignment, a predicted circuit score guides a Monte Carlo simulated annealing search.  The assignment with the highest score is chosen, and this assignment can be physically implemented in a combinatorial number of different layouts.  The Eugene language is used for rule-based constrained combinatorial design of one or more final DNA sequence(s) for the designed circuit.
+The Cello input is a high-level logic specification written in Verilog, a hardware description language.  The code is parsed to generate a truth table, and logic synthesis produces a circuit diagram with the genetically available gate types to implement the truth table.  The gates in the circuit are assigned using experimentally characterized genetic gates.  In assignment, a predicted circuit score guides a breadth-first search, or a Monte Carlo simulated annealing search.  The assignment with the highest score is chosen, and this assignment can be physically implemented in a combinatorial number of different genetic layouts.  The Eugene language is used for rule-based constrained combinatorial design of one or more final DNA sequence(s) for the designed circuit.
 
 ## Verilog specification.
 
@@ -76,7 +76,7 @@ The AND-Inverter Graph is converted to a NOR-Inverter Graph using DeMorgan's rul
 
 #### Subcircuit substitutions
 
-By specifying a library of subcircuit motifs, subcircuits from the NOR-Inverter Graph can be substituted for smaller but functionally equivalent logic motifs to reduce the number of gates in the circuit.  This step can also allow other gate types to be incorporated, such as AND, NAND, OR.
+By specifying a library of subcircuit motifs, subcircuits from the NOR-Inverter Graph can be substituted for smaller but functionally equivalent logic motifs to reduce the number of gates in the circuit.  This step can also allow other gate types to be incorporated, such as AND, NAND, OR.  An gate type called OUTPUT_OR can also be specified: this motif typically represents tandem promoters driving expression of the output gene, such as a fluorescence reporter or other actuator.
 
 
 
@@ -90,7 +90,7 @@ While Cello can accommodate custom gates libraries through the UCF, the original
 
 <img src="src/main/webapp/docfiles/gate_response_functions.png" width="600px">
 
-For the genetic gates shown above, each has an experimentally determined response function that relates one or more input values to an output value in standardized units (REU = relative expression units).  These response functions are fitted to a Hill equation with 4 parameters: ymax, ymin, K, n.
+For the genetic gates shown above, each has an experimentally determined response function that relates one or more input values to an output value in standardized units (RPU = relative promoter units).  These response functions are fitted to a Hill equation with 4 parameters: ymax, ymin, K, n.
 
 #### Response function matching
 
@@ -134,7 +134,7 @@ The example Eugene code (link below) can be copied/pasted and modified at Eugene
 
 #### Genetic locations
 
-The final DNA sequences that result from Eugene variants are then inserted into the plasmid or genomic locations specified in the UCF.  As a result, the complete DNA sequence required to implement the logic circuit in cells is generated.
+The final DNA sequences that result from Eugene variants are then inserted into the plasmid or genomic locations specified in the UCF.  This specification is a Genbank file and start/end insertion base-pair indexes where the sensor module (e.g. expression of LacI, AraC), circuit module (e.g. TetR homolog logic gates), and output module (e.g. fluorescence reporter driven by a regulable promoter). As a result, the complete DNA sequence required to implement the logic circuit in cells is generated.
 
 
 ## User constraint file [See UCF-guide.md](UCF-guide.md)

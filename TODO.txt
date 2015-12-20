@@ -1,14 +1,18 @@
 ========DONE========
 Organize Imports for all directories
+logger/concurrency
+update README
 
 
 ========TODO========
-logger/concurrency
+clean up pom.xml
 Read through code and comment
 Read through code and cleanup
 
+REU to RPU in the code.
+
 hard-coding of "x"
-update README
+
 update INSTALL
 update RUN
 
@@ -17,6 +21,8 @@ jsonschema for UCF
 
 Cello API
       make it work
+      /ucf/ post
+      /eugene/ post
       CLT
       RAML
       client helper, python
