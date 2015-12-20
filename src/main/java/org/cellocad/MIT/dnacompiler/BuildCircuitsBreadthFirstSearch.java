@@ -23,7 +23,7 @@ import java.util.Arrays;
 /**
  *
  */
-public class BuildCircuitsByBreadthFirstSearch extends BuildCircuits {
+public class BuildCircuitsBreadthFirstSearch extends BuildCircuits {
 
 
     /**
@@ -43,7 +43,7 @@ public class BuildCircuitsByBreadthFirstSearch extends BuildCircuits {
      * @param gate_library
      * @param roadblock
      */
-    public BuildCircuitsByBreadthFirstSearch(Args options, GateLibrary gate_library, Roadblock roadblock) {
+    public BuildCircuitsBreadthFirstSearch(Args options, GateLibrary gate_library, Roadblock roadblock) {
         super(options, gate_library, roadblock);
     }
 
@@ -53,7 +53,7 @@ public class BuildCircuitsByBreadthFirstSearch extends BuildCircuits {
      */
     @Override
     public void buildCircuits() {
-        logger = Logger.getLogger(threadDependentLoggername);
+        logger = Logger.getLogger(getThreadDependentLoggername());
         logger.info("Building circuits by breadth first search");
 
 
@@ -282,6 +282,5 @@ public class BuildCircuitsByBreadthFirstSearch extends BuildCircuits {
     }
 
 
-    private Logger logger;
-
+    private Logger logger  = Logger.getLogger(getClass());
 }

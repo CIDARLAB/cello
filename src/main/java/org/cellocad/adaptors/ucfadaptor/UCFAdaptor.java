@@ -1,5 +1,8 @@
 package org.cellocad.adaptors.ucfadaptor;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.log4j.Logger;
 import org.cellocad.BU.ParseVerilog.Convert;
 import org.cellocad.MIT.dnacompiler.*;
 import org.json.simple.JSONArray;
@@ -308,7 +311,7 @@ public class UCFAdaptor {
         ArrayList<Map> gate_cytometry_json_objects = ucf.get_gate_cytometry();
 
         if(gate_cytometry_json_objects.isEmpty()) {
-            options.set_histogram( false );
+            options.set_histogram(false);
             return;
         }
 
@@ -457,7 +460,6 @@ public class UCFAdaptor {
 
             for (int i = 0; i < module_location.size(); ++i) {
 
-                //JSONObject jsonObject = JSONObject.fromObject(module_location.get(i));
                 JSONObject jsonObject = module_location.get(i);
 
                 if(jsonObject.containsKey("unit_conversion")) {
@@ -482,8 +484,6 @@ public class UCFAdaptor {
             JSONArray module_locations = (JSONArray) genetic_locations.get(module_name);
             JSONObject module_location = (JSONObject) module_locations.get(0); //WARNING: hard-coded!
 
-//            JSONArray bp_range = (JSONArray) module_location.get("bp_range");
-//            Integer bp_start = Integer.valueOf(bp_range.get(0).toString());
             Integer bp_start = Integer.valueOf(module_location.get("bp_start").toString());
             return bp_start;
         }
@@ -500,8 +500,6 @@ public class UCFAdaptor {
             JSONArray module_locations = (JSONArray) genetic_locations.get(module_name);
             JSONObject module_location = (JSONObject) module_locations.get(0); //WARNING: hard-coded!
 
-//            JSONArray bp_range = (JSONArray) module_location.get("bp_range");
-//            Integer bp_end = Integer.valueOf(bp_range.get(1).toString());
             Integer bp_end = Integer.valueOf(module_location.get("bp_end").toString());
             return bp_end;
         }
@@ -608,9 +606,9 @@ public class UCFAdaptor {
     }
 
 
-    //public ArrayList<String> getGenbankLines(String location_name)
-    //public int getStartBP(JSONObject module_location)
-    //public int getEndBP(JSONObject module_location)
+    @Getter
+    @Setter
+    private String threadDependentLoggername;
 
-
+    private Logger logger  = Logger.getLogger(getClass());
 }

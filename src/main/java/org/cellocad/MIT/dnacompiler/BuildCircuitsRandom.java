@@ -10,9 +10,9 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 
 
-public class BuildCircuitsByRandom extends BuildCircuits {
+public class BuildCircuitsRandom extends BuildCircuits {
 
-    public BuildCircuitsByRandom(Args options, GateLibrary gate_library, Roadblock roadblock) {
+    public BuildCircuitsRandom(Args options, GateLibrary gate_library, Roadblock roadblock) {
         super(options, gate_library, roadblock);
     }
 
@@ -35,8 +35,8 @@ public class BuildCircuitsByRandom extends BuildCircuits {
 
     @Override
     public void buildCircuits(){
-        logger = Logger.getLogger(threadDependentLoggername);
-        System.out.println("Enumerating logic circuits using random...");
+        logger = Logger.getLogger(getThreadDependentLoggername());
+        logger.info("Enumerating logic circuits using random...");
 
         double max_score = 0.0;
 
@@ -111,20 +111,20 @@ public class BuildCircuitsByRandom extends BuildCircuits {
 
                 //toxicity
                 if(B_growth < get_options().get_toxicity_threshold()) {
-                    //System.out.println("toxic");
+                    //logger.info("toxic");
                     continue;
                 }
 
                 //roadblocking
                 if(B_rb > 0) {
-                    //System.out.println("roadblock");
+                    //logger.info("roadblock");
                     continue;
                 }
 
                 //noise margin
                 Evaluate.evaluateCircuitNoiseMargin(lc, get_options());
                 if(lc.get_scores().is_noise_margin_contract() == false) {
-                    //System.out.println("noise margin");
+                    //logger.info("noise margin");
                     continue;
                 }
 
@@ -134,13 +134,13 @@ public class BuildCircuitsByRandom extends BuildCircuits {
                     if(get_best_score() > max_score) {
                         //_logic_circuits.add(new LogicCircuit(lc));
                         max_score = get_best_score();
-                        System.out.println("RANDOM " + get_n_total_assignments() + " " + Util.sc(get_best_score()) + " ACCEPT ");
+                        logger.info("RANDOM " + get_n_total_assignments() + " " + Util.sc(get_best_score()) + " ACCEPT ");
                     }
                 }
 
             }
 
-            System.out.println(traj + " best score " + get_best_score());
+            logger.info(traj + " best score " + get_best_score());
             set_best_score( 0.0 );
             max_score = 0.0;
         }
@@ -154,5 +154,5 @@ public class BuildCircuitsByRandom extends BuildCircuits {
     //
     /////////////////////////
 
-    private Logger logger;
+    private Logger logger  = Logger.getLogger(getClass());
 }

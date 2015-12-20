@@ -1,4 +1,7 @@
-package org.cellocad.MIT.dnacompiler;
+package org.cellocad.MIT.misc;
+
+import org.cellocad.MIT.dnacompiler.Gate;
+import org.cellocad.MIT.dnacompiler.MathEval;
 
 import java.util.HashMap;
 

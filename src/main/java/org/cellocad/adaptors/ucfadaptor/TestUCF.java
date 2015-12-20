@@ -17,14 +17,9 @@ public class TestUCF {
          * read all UCF collections
          */
 
-        //UCFReader reads the JSON text file and creates the UCF object.
+
         UCFReader ucf_reader = new UCFReader();
-
-        //UCF.  JSON objects organized by 'collection'.
         UCF ucf = ucf_reader.readAllCollections(_options.get_UCFfilepath());
-
-        //UCFValidator. returns 'false' if something is not valid in the UCF.
-        //(note: some collections are optional)
         UCFValidator ucf_validator = new UCFValidator();
 
 

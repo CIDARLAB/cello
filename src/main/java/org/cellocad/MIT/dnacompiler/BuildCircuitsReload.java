@@ -17,10 +17,10 @@ import java.util.StringTokenizer;
  ***********************************************************************/
 
 
-public class BuildCircuitsByReloading2 extends BuildCircuits {
+public class BuildCircuitsReload extends BuildCircuits {
 
 
-    public BuildCircuitsByReloading2(Args options, GateLibrary gate_library, Roadblock roadblock) {
+    public BuildCircuitsReload(Args options, GateLibrary gate_library, Roadblock roadblock) {
         super(options, gate_library, roadblock);
     }
 
@@ -31,7 +31,8 @@ public class BuildCircuitsByReloading2 extends BuildCircuits {
      ***********************************************************************/
     @Override
     public void buildCircuits(){
-        logger = Logger.getLogger(threadDependentLoggername);
+        logger = Logger.getLogger(getThreadDependentLoggername());
+        logger.info("Reloading logic circuit...");
 
         BuildCircuitsUtil.setGate_name_map();
         HashMap<String, String> gate_name_map = BuildCircuitsUtil._gate_name_map;
@@ -109,7 +110,7 @@ public class BuildCircuitsByReloading2 extends BuildCircuits {
                     g.get_logics().add(Integer.valueOf(a));
                 }
             }
-            System.out.println(g.get_logics().toString());
+            logger.info(g.get_logics().toString());
 
 
 
@@ -153,10 +154,10 @@ public class BuildCircuitsByReloading2 extends BuildCircuits {
             gates.add(g);
 
             if(get_gate_library().get_GATES_BY_NAME().containsKey(g.Name)) {
-                System.out.println("Found " + g.Name);
+                logger.info("Found " + g.Name);
             }
             else {
-                System.out.println("Missing " + g.Name);
+                logger.info("Missing " + g.Name);
             }
         }
 
@@ -172,6 +173,6 @@ public class BuildCircuitsByReloading2 extends BuildCircuits {
     }
 
 
-    private Logger logger;
+    private Logger logger  = Logger.getLogger(getClass());
 
 }

@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
  ***********************************************************************/
 
-public class BuildCircuitsByPreset extends BuildCircuits {
+public class BuildCircuitsPreset extends BuildCircuits {
 
 
-    public BuildCircuitsByPreset(Args options, GateLibrary gate_library, Roadblock roadblock) {
+    public BuildCircuitsPreset(Args options, GateLibrary gate_library, Roadblock roadblock) {
         super(options, gate_library, roadblock);
     }
 
@@ -31,13 +31,13 @@ public class BuildCircuitsByPreset extends BuildCircuits {
      ***********************************************************************/
     @Override
     public void buildCircuits() {
-        logger = Logger.getLogger(threadDependentLoggername);
+        logger = Logger.getLogger(getThreadDependentLoggername());
 
         LogicCircuit lc = get_unassigned_lc();
 
         ArrayList<String> gate_names = Util.fileLines(get_options().get_fin_preset());
         for(String gate_name: gate_names) {
-            System.out.println(gate_name);
+            logger.info(gate_name);
         }
 
         for(int i=0; i<lc.get_logic_gates().size(); ++i) {
@@ -50,11 +50,13 @@ public class BuildCircuitsByPreset extends BuildCircuits {
         for(Gate g: lc.get_Gates()) {
             Evaluate.evaluateGate(g, get_options());
         }
-        System.out.println(lc.printGraph());
+        logger.info(lc.printGraph());
 
         get_logic_circuits().add(lc);
     }
 
-    private Logger logger;
+
+
+    private Logger logger  = Logger.getLogger(getClass());
 
 }

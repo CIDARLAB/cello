@@ -86,7 +86,6 @@ public class InputOutputGateReader {
             gate_library.get_INPUTS_SEQ().put(name, promoter_seq);
 
             input_names.add(name);
-            System.out.println("reading input " + name);
         }
 
 
@@ -122,7 +121,6 @@ public class InputOutputGateReader {
 
             output_names.add(name);
             gate_library.get_OUTPUTS_SEQ().put(name, output_seq);
-            System.out.println("reading output " + name);
         }
 
         for(int i=0; i<output_names.size(); ++i) {
@@ -161,14 +159,11 @@ public class InputOutputGateReader {
             gate_library.get_INPUTS_HIST_ON().put( gate_library.get_INPUT_NAMES()[i], shifted_ON);
 
             //compare the input median value to the histogram median value.  Should be very close but not necessarily identical.
-            System.out.println("median " + gate_library.get_INPUT_NAMES()[i] + " OFF " + HistogramUtil.median(shifted_OFF, hbins));
-            System.out.println("median " + gate_library.get_INPUT_NAMES()[i] + " ON  " + HistogramUtil.median(shifted_ON, hbins));
-
+            //System.out.println("median " + gate_library.get_INPUT_NAMES()[i] + " OFF " + HistogramUtil.median(shifted_OFF, hbins));
+            //System.out.println("median " + gate_library.get_INPUT_NAMES()[i] + " ON  " + HistogramUtil.median(shifted_ON, hbins));
         }
 
     }
 
-    //static cannot do this.getClass
-    private static Logger log = Logger.getLogger( new Object() { }.getClass().getEnclosingClass() );
 }
 

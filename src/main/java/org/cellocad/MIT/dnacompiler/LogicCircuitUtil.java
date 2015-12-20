@@ -58,17 +58,14 @@ public class LogicCircuitUtil{
         }
 
         for(int a[]: indexes_set) {
-            System.out.println("Input order: " + Arrays.toString(a));
 
             LogicCircuit input_lc = new LogicCircuit(lc);
 
             for(int i=0; i<input_lc.get_output_gates().size(); ++i) {
                 input_lc.get_output_gates().get(i).Name = gate_library.get_OUTPUT_NAMES()[i];
-                System.out.println("Getting output name " + i + " " + gate_library.get_OUTPUT_NAMES()[i]);
             }
             for(int i=0; i<input_lc.get_input_gates().size(); ++i) {
                 input_lc.get_input_gates().get(i).Name = gate_library.get_INPUT_NAMES()[a[i]]; //change the name, which will allow REU values to change when calling setInputREU
-                System.out.println("Getting input name " + a[i] + " " + gate_library.get_INPUT_NAMES()[a[i]]);
             }
             setInputREU(input_lc, gate_library);
 
@@ -395,9 +392,6 @@ public class LogicCircuitUtil{
         for(Gate.GateType gtype: assigned_groups.keySet()) {
 
             if(assigned_groups.get(gtype) < lc.get_gate_types().get(gtype).size()) {
-
-                System.out.println("Not enough " + gtype + " gates in the library");
-
                 return false;
             }
 
@@ -471,8 +465,6 @@ public class LogicCircuitUtil{
 
             if(!unique_repressor_assignments.containsKey(asn)) {
                 unique_repressor_assignments.put(asn, lc);
-
-                System.out.println(asn + "  " + Util.sc(lc.get_scores().get_score()));
             }
 
         }
@@ -556,7 +548,4 @@ public class LogicCircuitUtil{
         return true;
     }
 
-
-    //static cannot do this.getClass
-    private static Logger log = Logger.getLogger( new Object() { }.getClass().getEnclosingClass() );
 }

@@ -9,7 +9,6 @@ public class CelloMain {
      *
      * @param args
      */
-
     public static void main(String[] args) {
 
         DNACompiler dnaCompiler = new DNACompiler();

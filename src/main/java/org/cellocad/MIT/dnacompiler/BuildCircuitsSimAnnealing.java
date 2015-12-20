@@ -8,10 +8,10 @@ import org.apache.log4j.Logger;
 import java.util.*;
 
 
-public class BuildCircuitsBySimAnnealing extends BuildCircuits {
+public class BuildCircuitsSimAnnealing extends BuildCircuits {
 
 
-    public BuildCircuitsBySimAnnealing(Args options, GateLibrary gate_library, Roadblock roadblock) {
+    public BuildCircuitsSimAnnealing(Args options, GateLibrary gate_library, Roadblock roadblock) {
         super(options, gate_library, roadblock);
     }
 
@@ -34,7 +34,7 @@ public class BuildCircuitsBySimAnnealing extends BuildCircuits {
 
     @Override
     public void buildCircuits(){
-        logger = Logger.getLogger(threadDependentLoggername);
+        logger = Logger.getLogger(getThreadDependentLoggername());
         System.out.println("Enumerating logic circuits using simulated annealing...");
 
         Random generator = new Random();
@@ -257,7 +257,7 @@ public class BuildCircuitsBySimAnnealing extends BuildCircuits {
                             if(get_roadblock().numberRoadblocking(lc, get_gate_library()) == 0 && Toxicity.mostToxicRow(lc) > get_options().get_toxicity_threshold()) {
                                 get_logic_circuits().add(new LogicCircuit(lc));
                                 max_score = get_best_score();
-                                System.out.println("SIM_ANNEAL " + String.format("%-8s","#"+get_n_total_assignments()) + " score:" + Util.sc(get_best_score()) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + get_roadblock().numberRoadblocking(lc, get_gate_library()));
+                                System.out.println("SIM_ANNEAL " + String.format("%-8s", "#" + get_n_total_assignments()) + " score:" + Util.sc(get_best_score()) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + get_roadblock().numberRoadblocking(lc, get_gate_library()));
                             }
                         }
                     }
@@ -370,6 +370,6 @@ public class BuildCircuitsBySimAnnealing extends BuildCircuits {
     //
     /////////////////////////
 
-    private Logger logger;
+    private Logger logger  = Logger.getLogger(getClass());
 
 }

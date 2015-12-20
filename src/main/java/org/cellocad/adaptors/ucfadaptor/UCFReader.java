@@ -1,5 +1,7 @@
 package org.cellocad.adaptors.ucfadaptor;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.cellocad.MIT.dnacompiler.UCF;
 import org.json.simple.JSONArray;
@@ -92,5 +94,9 @@ public class UCFReader {
         return ucf;
     }
 
-    private Logger log = Logger.getLogger(this.getClass().getPackage().getName());
+    @Getter
+    @Setter
+    private String threadDependentLoggername;
+
+    private Logger logger  = Logger.getLogger(getClass());
 }

@@ -162,7 +162,7 @@ public class GeneticLocationWriter {
         Integer start_bp = ucf_adaptor.getLocationStartBP(ucf, module_name);
         Integer end_bp = ucf_adaptor.getLocationEndBP(ucf, module_name);
 
-        String backbone_seq = Plasmid.extractNucleotideSequenceFromGenbankLines(genbank_lines);
+        String backbone_seq = PlasmidUtil.extractNucleotideSequenceFromGenbankLines(genbank_lines);
 
         //Step 1. Make a sorted list of unique cut sites
         HashSet<Integer> cut_sites_map = new HashSet<Integer>();
@@ -210,9 +210,9 @@ public class GeneticLocationWriter {
 
             //Step 4. Sort parts based on start/end bp number, then renumber all parts in the plasmid.
             //Sorting MUST maintain the intended part order.
-            Plasmid.sortPartsByStartBP(plasmid);
+            PlasmidUtil.sortPartsByStartBP(plasmid);
 
-            Plasmid.renumberPlasmidBases(plasmid, 0);
+            PlasmidUtil.renumberPlasmidBases(plasmid, 0);
 
             //Step 5. Append plasmid to list of plasmids.
             plasmid_list.add(plasmid);
@@ -239,7 +239,7 @@ public class GeneticLocationWriter {
         Integer start_bp_2 = ucf_adaptor.getLocationStartBP(ucf, module_name_2);
         Integer end_bp_2 = ucf_adaptor.getLocationEndBP(ucf, module_name_2);
 
-        String backbone_seq = Plasmid.extractNucleotideSequenceFromGenbankLines(genbank_lines_1);
+        String backbone_seq = PlasmidUtil.extractNucleotideSequenceFromGenbankLines(genbank_lines_1);
 
         //Step 1. Make a sorted list of unique cut sites
         HashSet<Integer> cut_sites_map = new HashSet<Integer>();
@@ -300,9 +300,9 @@ public class GeneticLocationWriter {
 
                 //Step 4. Sort parts based on start/end bp number, then renumber all parts in the plasmid.
                 //Sorting MUST maintain the intended part order.
-                Plasmid.sortPartsByStartBP(plasmid);
+                PlasmidUtil.sortPartsByStartBP(plasmid);
 
-                Plasmid.renumberPlasmidBases(plasmid, 0);
+                PlasmidUtil.renumberPlasmidBases(plasmid, 0);
 
                 //Step 5. Append plasmid to list of plasmids.
                 plasmid_list.add(plasmid);
@@ -338,7 +338,7 @@ public class GeneticLocationWriter {
         Integer start_bp_3 = ucf_adaptor.getLocationStartBP(ucf, module_name_3);
         Integer end_bp_3 = ucf_adaptor.getLocationEndBP(ucf, module_name_3);
         
-        String backbone_seq = Plasmid.extractNucleotideSequenceFromGenbankLines(genbank_lines_1);
+        String backbone_seq = PlasmidUtil.extractNucleotideSequenceFromGenbankLines(genbank_lines_1);
 
         //Step 1. Make a sorted list of unique cut sites
         HashSet<Integer> cut_sites_map = new HashSet<Integer>();
@@ -416,9 +416,9 @@ public class GeneticLocationWriter {
 
                     //Step 4. Sort parts based on start/end bp number, then renumber all parts in the plasmid.
                     //Sorting MUST maintain the intended part order.
-                    Plasmid.sortPartsByStartBP(plasmid);
+                    PlasmidUtil.sortPartsByStartBP(plasmid);
 
-                    Plasmid.renumberPlasmidBases(plasmid, 0);
+                    PlasmidUtil.renumberPlasmidBases(plasmid, 0);
 
 
 

@@ -80,10 +80,6 @@ public class SequentialHelper {
         for(Gate g: lc.get_Gates()) {
             ArrayList<Double> copy_reus = new ArrayList<Double>(g.get_outreus());
             track_reus.get(g.Name).add(copy_reus);
-
-            if(g.Name.equals("H1_HlyIIR")) {
-                //System.out.println(copy_reus.toString());
-            }
         }
     }
 
@@ -460,7 +456,5 @@ public class SequentialHelper {
         }
     }
 
-
-    private static Logger log = Logger.getLogger( new Object() { }.getClass().getEnclosingClass() );
 
 }

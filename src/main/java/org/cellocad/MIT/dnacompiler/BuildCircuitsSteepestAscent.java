@@ -8,9 +8,9 @@ import org.apache.log4j.Logger;
 import java.util.*;
 
 
-public class BuildCircuitsBySteepestAscent extends BuildCircuits {
+public class BuildCircuitsSteepestAscent extends BuildCircuits {
 
-    public BuildCircuitsBySteepestAscent(Args options, GateLibrary gate_library, Roadblock roadblock) {
+    public BuildCircuitsSteepestAscent(Args options, GateLibrary gate_library, Roadblock roadblock) {
         super(options, gate_library, roadblock);
     }
 
@@ -29,8 +29,8 @@ public class BuildCircuitsBySteepestAscent extends BuildCircuits {
 
     @Override
     public void buildCircuits(){
-        logger = Logger.getLogger(threadDependentLoggername);
-        System.out.println("Enumerating logic circuits using steepest ascent...");
+        logger = Logger.getLogger(getThreadDependentLoggername());
+        logger.info("Enumerating logic circuits using steepest ascent...");
 
         Random generator = new Random();
 
@@ -80,7 +80,7 @@ public class BuildCircuitsBySteepestAscent extends BuildCircuits {
                 Evaluate.evaluateGate(g, get_options());
             }
 
-            //System.out.println(lc.printGraph());
+            //logger.info(lc.printGraph());
 
 
             for (int i = 0; i < get_options().get_hill_iterations(); ++i) {
@@ -178,7 +178,7 @@ public class BuildCircuitsBySteepestAscent extends BuildCircuits {
 
             }
 
-            System.out.println("STEEPEST_ASCENT " + String.format("%-8s", "#" + traj) + " score:" + Util.sc(get_best_score()) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + get_roadblock().numberRoadblocking(lc, get_gate_library()));
+            logger.info("STEEPEST_ASCENT " + String.format("%-8s", "#" + traj) + " score:" + Util.sc(get_best_score()) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + get_roadblock().numberRoadblocking(lc, get_gate_library()));
             set_best_score ( 0.0 );
         }
 
@@ -306,14 +306,14 @@ public class BuildCircuitsBySteepestAscent extends BuildCircuits {
 
             if(A_rb > 0) {
                 if(B_rb < A_rb) {
-                    //System.out.println("roadblocking, adding " + B_gate_name);
+                    //logger.info("roadblocking, adding " + B_gate_name);
                     gate_B_choices.put(B_gate_name, B_score);
                 }
             }
 
             else if(A_growth < get_options().get_toxicity_threshold()) {
                 if(B_growth > A_growth) {
-                    //System.out.println("toxic, adding " + B_gate_name);
+                    //logger.info("toxic, adding " + B_gate_name);
                     gate_B_choices.put(B_gate_name, B_growth);
                 }
             }
@@ -322,7 +322,7 @@ public class BuildCircuitsBySteepestAscent extends BuildCircuits {
                 if(B_score > A_score) {
 
                     if(B_growth > get_options().get_toxicity_threshold() && B_rb == 0) {
-                        //System.out.println("regular, adding " + B_gate_name);
+                        //logger.info("regular, adding " + B_gate_name);
                         gate_B_choices.put(B_gate_name, B_score);
                     }
                 }
@@ -363,5 +363,5 @@ public class BuildCircuitsBySteepestAscent extends BuildCircuits {
         Evaluate.evaluateCircuit(B_lc, get_gate_library(), get_options());
     }
 
-    private Logger logger;
+    private Logger logger  = Logger.getLogger(getClass());
 }

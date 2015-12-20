@@ -8,13 +8,13 @@ import org.apache.log4j.Logger;
 import java.util.*;
 
 
-public class BuildCircuitsByHillClimbing extends BuildCircuits {
+public class BuildCircuitsHillClimbing extends BuildCircuits {
 
 
     public long SEED = 42000;
     public Integer COUNTER = 1;
 
-    public BuildCircuitsByHillClimbing(Args options, GateLibrary gate_library, Roadblock roadblock) {
+    public BuildCircuitsHillClimbing(Args options, GateLibrary gate_library, Roadblock roadblock) {
         super(options, gate_library, roadblock);
     }
 
@@ -37,8 +37,8 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
 
     @Override
     public void buildCircuits(){
-        logger = Logger.getLogger(threadDependentLoggername);
-        System.out.println("Enumerating logic circuits using hill climbing...");
+        logger = Logger.getLogger(getThreadDependentLoggername());
+        logger.info("Enumerating logic circuits using hill climbing...");
 
 
         double max_score = 0.0;
@@ -88,8 +88,8 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
                 }
             }
 
-            //System.out.println("Random assignment ");
-            //System.out.println(lc.printAssignment());
+            //logger.info("Random assignment ");
+            //logger.info(lc.printAssignment());
 
 
             Evaluate.evaluateCircuit(lc, get_gate_library(), get_options());
@@ -101,7 +101,7 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
                 Toxicity.evaluateCircuitToxicity(lc, get_gate_library());
             }
 
-            //System.out.println(lc.printGraph());
+            //logger.info(lc.printGraph());
 
 
             //next will be changed.  if rejected, LC next will be reset back to LC curr.
@@ -167,9 +167,9 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
                 double A_score = save_lc.get_scores().get_score();
 
 
-                //System.out.println(_n_total_assignments + " " + B_score + " " + A_score);
+                //logger.info(_n_total_assignments + " " + B_score + " " + A_score);
 
-                /*System.out.println("out:"+ A_gate_name + " in:"+B_gate_name +
+                /*logger.info("out:"+ A_gate_name + " in:"+B_gate_name +
                                 " prev_sc:" + String.format("%-6.2f", A_score)  + " B_sc:" + String.format("%-6.2f", B_score) +
                                 " prev_rb:" + A_rb     + " B_rb:" + B_rb +
                                 " prev_tx:" + String.format("%-5.4f", A_growth) + " B_tx:" + String.format("%-5.4f", B_growth)
@@ -180,12 +180,12 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
 
                 if(get_options().is_check_roadblocking()) {
                     if (B_rb > A_rb) {
-                        //System.out.println("reject added roadblock");
+                        //logger.info("reject added roadblock");
 
                         revert(lc, save_lc);
                         continue;
                     } else if (B_rb < A_rb) {
-                        //System.out.println("accept removed roadblock");
+                        //logger.info("accept removed roadblock");
 
                         continue; //accept, but don't proceed to evaluate based on score
                     }
@@ -201,18 +201,18 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
 
                     if(A_growth < get_options().get_toxicity_threshold()) {
                         if( B_growth > A_growth) {
-                            //System.out.println("accept, curr fails growth threshold, next improved growth.");
+                            //logger.info("accept, curr fails growth threshold, next improved growth.");
                             continue;
                         }
                         else {
-                            //System.out.println("reject, curr fails growth threshold, next did not improve growth.");
+                            //logger.info("reject, curr fails growth threshold, next did not improve growth.");
                             revert(lc, save_lc);
                             continue;
                         }
                     }
                     else {
                         if(B_growth < get_options().get_toxicity_threshold()) {
-                            //System.out.println("reject, next went below growth threshold.");
+                            //logger.info("reject, next went below growth threshold.");
                             revert(lc, save_lc);
                             continue;
                         }
@@ -225,7 +225,7 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
                     /////////////// Noise Margin filter //////////////
                     Evaluate.evaluateCircuitNoiseMargin(lc, get_options());
                     if(lc.get_scores().is_noise_margin_contract() == false) {
-                        //System.out.println("failed nm");
+                        //logger.info("failed nm");
                         //don't revert to avoid getting stuck
                         continue;
                     }
@@ -244,7 +244,7 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
 
                                 if(get_best_score() > max_score) {
                                     max_score = get_best_score();
-                                    System.out.println("HILL_CLIMB " + String.format("%-8s", "#" + get_n_total_assignments()) + " score:" + Util.sc(get_best_score()) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + get_roadblock().numberRoadblocking(lc, get_gate_library()));
+                                    logger.info("HILL_CLIMB " + String.format("%-8s", "#" + get_n_total_assignments()) + " score:" + Util.sc(get_best_score()) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + get_roadblock().numberRoadblocking(lc, get_gate_library()));
                                 }
                             }
                         }
@@ -256,8 +256,8 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
             }
 
 
-            //System.out.println("HILL_CLIMB " + String.format("%-8s", "#" + traj) + " score:" + Util.sc(_best_score) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + _roadblock.numberRoadblocking(lc));
-            //System.out.println(traj + " best score " + _best_score);
+            //logger.info("HILL_CLIMB " + String.format("%-8s", "#" + traj) + " score:" + Util.sc(_best_score) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + _roadblock.numberRoadblocking(lc));
+            //logger.info(traj + " best score " + _best_score);
             set_best_score( 0.0 );
             //max_score = 0.0;
 
@@ -298,7 +298,7 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
 
             //allow RBS variant
             if(g.Group.equals(A_gate.Group)) {
-                //System.out.println("allowing RBS variant " + A_gate.Name + ": " + g.Name);
+                //logger.info("allowing RBS variant " + A_gate.Name + ": " + g.Name);
                 allowed_B_gates.put(g.Name, g);
             }
 
@@ -320,10 +320,10 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
         COUNTER++;
         String B_gate_name = allowed_B_gate_names.get(0);
 
-        /*System.out.println("allowed B: " + allowed_B_gate_names.toString());
-        System.out.println("Current assignment " + lc.printAssignment());
-        System.out.println("A_gate " + A_gate.Name);
-        System.out.println("B_gate " + B_gate_name);
+        /*logger.info("allowed B: " + allowed_B_gate_names.toString());
+        logger.info("Current assignment " + lc.printAssignment());
+        logger.info("A_gate " + A_gate.Name);
+        logger.info("B_gate " + B_gate_name);
         */
 
         return get_gate_library().get_GATES_BY_NAME().get(B_gate_name);
@@ -374,5 +374,5 @@ public class BuildCircuitsByHillClimbing extends BuildCircuits {
     //
     /////////////////////////
 
-    private Logger logger;
+    private Logger logger  = Logger.getLogger(getClass());
 }

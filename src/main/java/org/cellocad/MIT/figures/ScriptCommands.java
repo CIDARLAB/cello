@@ -23,7 +23,6 @@ public class ScriptCommands {
     public void makeCirdnaPlasmidFigure( String name_cirdna_out) { //could move this to Eugene.java
         String cmd = "perl " + _home + "/resources/scripts/make_cirdna_plasmid.pl " + _output_directory + " " + _dateID + " " + name_cirdna_out;
         String command_result = Util.executeCommand(cmd);
-        //Print.message(2, command_result);
     }
 
 
@@ -40,14 +39,12 @@ public class ScriptCommands {
         //process all figures and generate correct file types (PNG, PDF) for webapp
         String cmd = "perl " + _home + "/resources/scripts/make_gnuplot_reu.pl " + _output_directory + " " + prefixA;
         String command_result = Util.executeCommand(cmd);
-        //Print.message(2, command_result);
     }
 
     public void makeCircuitSNRFigure(String prefixA) { //could move this to Eugene.java
         //process all figures and generate correct file types (PNG, PDF) for webapp
         String cmd = "perl " + _home + "/resources/scripts/make_gnuplot_snr.pl " + _output_directory + " " + prefixA;
         String command_result = Util.executeCommand(cmd);
-        //Print.message(2, command_result);
     }
 
     /***********************************************************************
@@ -58,13 +55,11 @@ public class ScriptCommands {
     public void makeDot2Png() {
         String cmd = "perl " + _home + "/resources/scripts/convert_dot2png.pl " + _output_directory + " " + _dateID;
         String command_result = Util.executeCommand(cmd);
-        //Print.message(2, command_result);
     }
 
     public void makeDot2Png(String dotfile) {
         String cmd = "perl " + _home + "/resources/scripts/convert_this_dot2png.pl " + _output_directory + " " + dotfile;
         String command_result = Util.executeCommand(cmd);
-        //Print.message(2, command_result);
     }
 
     /***********************************************************************
@@ -75,12 +70,11 @@ public class ScriptCommands {
     public void makePdf2Png(String pdf_filename) {
         String cmd = "perl " + _home + "/resources/scripts/convert_pdf2png.pl " + _output_directory + " " + pdf_filename;
         String command_result = Util.executeCommand(cmd);
-        //Print.message(2, command_result);
     }
 
 
 
-    public void removeEPS(String directory) {
+    public void removeEPSFiles(String directory) {
 
         File[] files = new File(directory).listFiles();
 

@@ -18,7 +18,7 @@ import java.util.Comparator;
 
  ***********************************************************************/
 
-public class Plasmid {
+public class PlasmidUtil {
 
 
     //@Getter @Setter private static GeneticLocation _sensor_module  = new GeneticLocation();
@@ -71,7 +71,6 @@ public class Plasmid {
 
 
     public static ArrayList<String> writePlasmidFiles(ArrayList<ArrayList<Part>> plasmids, String prefixA, String label, String directory) {
-        System.out.println("\n=========== Writing plasmid files ============");
 
         ArrayList<String> plasmid_strings = new ArrayList<String>();
 
@@ -81,14 +80,13 @@ public class Plasmid {
 
             String fout = prefixA + "_"+label + "_P" + String.format("%03d", i) + ".ape";
 
-            Plasmid.renumberPlasmidBases(plasmid, 0);
+            PlasmidUtil.renumberPlasmidBases(plasmid, 0);
 
 
             String plasmid_string = getApe(fout, plasmid);
             plasmid_strings.add(plasmid_string);
 
             Util.fileWriter(directory + fout, plasmid_string, false);
-            System.out.println("Write file: " + fout);
 
         }
 

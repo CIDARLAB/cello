@@ -34,7 +34,7 @@ public class Roadblock {
      *
      */
     public void set_roadblockers(ArrayList<String> eugene_part_rules, GateLibrary gate_library) {
-
+        logger = Logger.getLogger(threadDependentLoggername);
         _input_roadblockers = new ArrayList<String>();
         //_input_roadblockers.add("pTac");
         //_input_roadblockers.add("pBAD");
@@ -72,8 +72,8 @@ public class Roadblock {
             }
         }
 
-        System.out.println("Roadblocking input promoters: " + _input_roadblockers.toString());
-        System.out.println("Roadblocking logic promoters: " + _logic_roadblockers.toString());
+        logger.info("Roadblocking input promoters: " + _input_roadblockers.toString());
+        logger.info("Roadblocking logic promoters: " + _logic_roadblockers.toString());
     }
 
 
@@ -131,7 +131,6 @@ public class Roadblock {
                     n_child_roadblockers_input++;
                 }
 
-                //if(_logic_roadblockers.contains(w.To.Regulator)) {
 
                 if(gate_library.get_GATES_BY_NAME().containsKey(w.To.Name)) {
 
@@ -147,29 +146,6 @@ public class Roadblock {
                 n_roadblocking++;
             }
         }
-
-
-        /*Integer n_child_roadblockers_input = 0;
-        Integer n_child_roadblockers_logic = 0;
-
-        if(g.Type == GateType.NOR || g.Type == GateType.OUTPUT_OR) {
-
-            for(Gate child: g.getChildren()) {
-
-                if(_input_roadblockers.contains(child.Name)) {
-                    n_child_roadblockers_input++;
-                }
-                if(_logic_roadblockers.contains(child.Group)) {
-                    n_child_roadblockers_logic++;
-                }
-            }
-
-            int total_roadblockers = n_child_roadblockers_input + n_child_roadblockers_logic;
-            //if(total_roadblockers > 1) {
-            if(n_child_roadblockers_logic > 0 && total_roadblockers > 1) {
-                n_roadblocking++;
-            }
-        }*/
 
         return n_roadblocking;
     }
@@ -238,12 +214,6 @@ public class Roadblock {
     }
 
 
-    /////////////////////////
-    //
-    // Getters and Setters
-    //
-    /////////////////////////
-
 
     /////////////////////////
     //
@@ -254,8 +224,8 @@ public class Roadblock {
     @Getter @Setter private ArrayList<String> _logic_roadblockers = new ArrayList<String>();
 
     @Getter @Setter private boolean _roadblocking_option = true;
-    //@Getter @Setter private GateLibrary _gate_library;
 
-    private static Logger log = Logger.getLogger( new Object() { }.getClass().getEnclosingClass() );
+    @Getter @Setter private String threadDependentLoggername;
 
+    private Logger logger  = Logger.getLogger(getClass());
 }

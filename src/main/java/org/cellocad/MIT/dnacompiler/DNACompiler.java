@@ -79,31 +79,15 @@ public class DNACompiler {
      *
      */
 
-//    static Logger logger = LoggerFactory.getLogger(DNACompiler.class);
-
     public void run(String[] args) {
 
-//        System.setProperty("logfile.name", "default.log");
-//        PropertyConfigurator.configure(_options.get_home() + "/src/main/resources/log4j.properties");
-
-
-
-//        MDC.put("logFileName", "log001");
-//
-//        logger.debug("log_bder_test");
-//
-//        //remember remove this
-//        MDC.remove("logFileName");
-
-
-
+        //System.setProperty("logfile.name", "default.log");
+        //PropertyConfigurator.configure(_options.get_home() + "/src/main/resources/log4j.properties");
 
 
         /**
          * read command-line arguments.  Verilog file required, others are optional.
          */
-
-        //_options = new Args();
         _options.parse(args);
 
 
@@ -115,11 +99,9 @@ public class DNACompiler {
         Util.createDirectory(_options.get_output_directory());
 
 
-        String threadDependentLoggername = String.valueOf(UUID.randomUUID());
-//        String threadDependentLoggername = "test001";
+
         String logfile = _options.get_output_directory() + _options.get_jobID() + "_dnacompiler_output.txt";
 
-        logger = Logger.getLogger(threadDependentLoggername);
         FileAppender appender = new FileAppender();
         appender.setFile(logfile);
         appender.setLayout(new PatternLayout("%m%n"));
@@ -127,15 +109,15 @@ public class DNACompiler {
         appender.setThreshold(Level.DEBUG);
         appender.activateOptions();
 
-        ConsoleAppender console = new ConsoleAppender();
-        console.setLayout(new PatternLayout("%m%n"));
-        console.setThreshold(Level.DEBUG);
-        console.activateOptions();
+        // ConsoleAppender is set in log4j.properties
+        //ConsoleAppender console = new ConsoleAppender();
+        //console.setLayout(new PatternLayout("%m%n"));
+        //console.setThreshold(Level.DEBUG);
+        //console.activateOptions();
 
+        logger = Logger.getLogger(threadDependentLoggername);
         logger.addAppender(appender);
-        logger.addAppender(console);
-        logger.info("test_bder_logging");
-
+        //logger.addAppender(console);
 
 
 
@@ -172,21 +154,19 @@ public class DNACompiler {
         logger.info("///////////////////////////////////////////////////////////");
         logger.info("///////////////   UCF Validation   ////////////////////////");
         logger.info("///////////////////////////////////////////////////////////\n");
-        /**
-         * read all UCF collections
-         */
+
+
+        //UCFAdaptor helps generate Gate/Part libraries from the UCF, and get other data from the UCF.
+        ucfAdaptor.setThreadDependentLoggername(threadDependentLoggername);
 
         //UCFReader reads the JSON text file and creates the UCF object.
-        UCFReader ucf_reader = new UCFReader();
+        ucfReader.setThreadDependentLoggername(threadDependentLoggername);
+
+        //UCFValidator. returns 'false' if something is not valid in the UCF. (some collections are optional)
+        ucfValidator.setThreadDependentLoggername(threadDependentLoggername);
 
         //UCF.  JSON objects organized by 'collection'.
-        UCF ucf = ucf_reader.readAllCollections(_options.get_UCFfilepath());
-
-        //UCFValidator. returns 'false' if something is not valid in the UCF.
-        //(note: some collections are optional)
-        UCFValidator ucf_validator = new UCFValidator();
-
-
+        UCF ucf = ucfReader.readAllCollections(_options.get_UCFfilepath());
 
         //optional collections
         // toxicity
@@ -199,7 +179,7 @@ public class DNACompiler {
         //is missing from the UCF.
 
 
-        JSONObject ucf_validation_map = ucf_validator.validateAllUCFCollections(ucf, _options);
+        JSONObject ucf_validation_map = ucfValidator.validateAllUCFCollections(ucf, _options);
         logger.info(gson.toJson(ucf_validation_map));
 
         boolean is_ucf_valid = (boolean) ucf_validation_map.get("is_valid");
@@ -282,6 +262,8 @@ public class DNACompiler {
          */
 
         if(_options.get_circuit_type() == CircuitType.sequential) {
+            
+            
             HashMap<String, List<Integer>> initial_logics = new HashMap<>();
             int nrows = SequentialHelper.loadInitialLogicsFromTruthtable(initial_logics, get_options().get_fin_sequential_waveform());
 
@@ -375,7 +357,6 @@ public class DNACompiler {
          * UCFReader: reads .json text file and creates UCF object.
          * UCFAdaptor: returns java data types from the UCF object.
          */
-        UCFAdaptor ucf_adaptor = new UCFAdaptor();
 
         logger.info("\n");
         logger.info("///////////////////////////////////////////////////////////");
@@ -385,7 +366,7 @@ public class DNACompiler {
         /**
          * Part objects mapped to the part name.
          */
-        PartLibrary part_library = ucf_adaptor.createPartLibrary(ucf);
+        PartLibrary part_library = ucfAdaptor.createPartLibrary(ucf);
 
         for (Part p : part_library.get_ALL_PARTS().values()) {
             logger.info("Part: " + p.get_type() + " " + p.get_name());
@@ -414,7 +395,7 @@ public class DNACompiler {
          * input gates and logic gates were purposefully omitted from the UCF,
          * the idea being that the same gate library can be used to design circuits with different inputs/outputs.
          */
-        GateLibrary gate_library = ucf_adaptor.createGateLibrary(ucf, n_inputs, n_outputs, _options);
+        GateLibrary gate_library = ucfAdaptor.createGateLibrary(ucf, n_inputs, n_outputs, _options);
 
 
         for(Gate g: gate_library.get_GATES_BY_NAME().values()) {
@@ -450,11 +431,11 @@ public class DNACompiler {
         logger.info("///////////////////////////////////////////////////////////\n");
 
         //associate Part objects with the _downstream_parts and _regulable_promoter data members of Gate.java
-        ucf_adaptor.setGateParts(ucf, gate_library, part_library);
+        ucfAdaptor.setGateParts(ucf, gate_library, part_library);
 
 
         //make sure all gates have gate parts defined
-        if(!ucf_validator.allGatesHaveGateParts(gate_library)) {
+        if(!ucfValidator.allGatesHaveGateParts(gate_library)) {
             _result_status = ResultStatus.ucf_invalid;
             return;
         }
@@ -466,11 +447,11 @@ public class DNACompiler {
         logger.info("///////////////   Loading Response Functions   ////////////");
         logger.info("///////////////////////////////////////////////////////////\n");
 
-        ucf_adaptor.setResponseFunctions(ucf, gate_library);
+        ucfAdaptor.setResponseFunctions(ucf, gate_library);
 
 
         //make sure all gates have a response function defined.
-        if(!ucf_validator.allGatesHaveResponseFunctions(gate_library)) {
+        if(!ucfValidator.allGatesHaveResponseFunctions(gate_library)) {
             _result_status = ResultStatus.ucf_invalid;
             return;
         }
@@ -489,7 +470,7 @@ public class DNACompiler {
         /**
          * populate the gate objects with the Part objects for 'downstream_parts' and 'regulable_promoter'.
          */
-        ucf_adaptor.setGateToxicity(ucf, gate_library, _options);
+        ucfAdaptor.setGateToxicity(ucf, gate_library, _options);
 
         if (_options.is_toxicity()) {
             Toxicity.initializeCircuitToxicity(abstract_lc);
@@ -501,7 +482,7 @@ public class DNACompiler {
         logger.info("///////////////   Loading Cytometry Data   ////////////////");
         logger.info("///////////////////////////////////////////////////////////\n");
 
-        ucf_adaptor.setGateCytometry(ucf, gate_library, _options);
+        ucfAdaptor.setGateCytometry(ucf, gate_library, _options);
 
 
 
@@ -518,7 +499,7 @@ public class DNACompiler {
             logger.info("///////////////   Loading Tandem Promoter Data   //////////");
             logger.info("///////////////////////////////////////////////////////////\n");
 
-            ucf_adaptor.setTandemPromoters(ucf, gate_library, _options);
+            ucfAdaptor.setTandemPromoters(ucf, gate_library, _options);
         }
 
 
@@ -645,8 +626,9 @@ public class DNACompiler {
          *
          */
 
-        ArrayList<String> eugene_part_rules = ucf_adaptor.getEugenePartRules(ucf);
+        ArrayList<String> eugene_part_rules = ucfAdaptor.getEugenePartRules(ucf);
         Roadblock roadblock = new Roadblock();
+        roadblock.setThreadDependentLoggername(threadDependentLoggername);
         roadblock.set_roadblockers(eugene_part_rules, gate_library);
 
 
@@ -730,36 +712,36 @@ public class DNACompiler {
 
             //default
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.breadth_first) {
-                circuit_builder = new BuildCircuitsByBreadthFirstSearch(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsBreadthFirstSearch(_options, gate_library, roadblock);
                 circuit_builder.setThreadDependentLoggername(threadDependentLoggername);
             }
             //second recommendation is hill climbing.  Many swaps with accept/reject based on score increase/decrease.
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.hill_climbing) {
-                circuit_builder = new BuildCircuitsByHillClimbing(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsHillClimbing(_options, gate_library, roadblock);
             }
             //similar to hill climbing, but with a cooling schedule
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.sim_annealing) {
-                circuit_builder = new BuildCircuitsBySimAnnealing(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsSimAnnealing(_options, gate_library, roadblock);
             }
             //similar to hill climbing, but explores all options for a single swap and chooses the best swap each time.
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.steepest_ascent) {
-                circuit_builder = new BuildCircuitsBySteepestAscent(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsSteepestAscent(_options, gate_library, roadblock);
             }
             //completely randomizes the gate assignment.  Does this many times.
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.random) {
-                circuit_builder = new BuildCircuitsByRandom(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsRandom(_options, gate_library, roadblock);
             }
             //exhaustive... does not scale.
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.permute) {
-                circuit_builder = new BuildCircuitsByPermutingOneGateType(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsPermuteNOR(_options, gate_library, roadblock);
             }
             //if you want to reload a prior assignment.  Based on x_logic_circuit.txt parsing.
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.reload) {
-                circuit_builder = new BuildCircuitsByReloading2(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsReload(_options, gate_library, roadblock);
             }
             //do not use.
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.preset) {
-                circuit_builder = new BuildCircuitsByPreset(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsPreset(_options, gate_library, roadblock);
             }
 
             //when circuits have one or more feedback loops, it's a sequential circuit rather than combinational.
@@ -952,7 +934,7 @@ public class DNACompiler {
                     Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_logic_circuit.txt", lc.toString(), false);
 
                     logger.info("=========== Circuit bionetlist ===============");
-                    Plasmid.setGateParts(lc, gate_library, part_library);
+                    PlasmidUtil.setGateParts(lc, gate_library, part_library);
                     Netlist.setBioNetlist(lc, false);
                     Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_bionetlist.txt", lc.get_netlist(), false);
 
@@ -1006,7 +988,7 @@ public class DNACompiler {
             lc.set_assignment_name( _options.get_jobID() + "_A" + String.format("%03d", a) );
 
 
-            Double unit_conversion = ucf_adaptor.getUnitConversion(ucf);
+            Double unit_conversion = ucfAdaptor.getUnitConversion(ucf);
             for(Gate g: lc.get_output_gates()) {
                 g.set_unit_conversion(unit_conversion);
             }
@@ -1028,7 +1010,7 @@ public class DNACompiler {
 
             // TODO
             logger.info("=========== Circuit bionetlist ===============");
-            Plasmid.setGateParts(lc, gate_library, part_library);
+            PlasmidUtil.setGateParts(lc, gate_library, part_library);
             Netlist.setBioNetlist(lc, false);
             logger.info(lc.get_netlist());
             Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_bionetlist.txt", lc.get_netlist(), false);
@@ -1093,7 +1075,7 @@ public class DNACompiler {
                 logger.info("///////////////   Plasmid DNA sequences   /////////////////");
                 logger.info("///////////////////////////////////////////////////////////\n");
 
-                Plasmid.findPartComponentsInOutputGates(lc, gate_library, part_library);
+                PlasmidUtil.findPartComponentsInOutputGates(lc, gate_library, part_library);
 
                 generatePlasmids(lc, gate_library, part_library, ucf, asn);
             }
@@ -1101,7 +1083,7 @@ public class DNACompiler {
 
 
             ScriptCommands script_commands = new ScriptCommands(_options.get_home(), _options.get_output_directory(), _options.get_jobID());
-            script_commands.removeEPS(_options.get_output_directory());
+            script_commands.removeEPSFiles(_options.get_output_directory());
             //script_commands.removeGateFiles(_options.get_output_directory());
 
 
@@ -1191,9 +1173,10 @@ public class DNACompiler {
 
         //Plasmid.setGateParts(lc, gate_library, part_library);
 
-        Plasmid.setTxnUnits(lc, gate_library);
+        PlasmidUtil.setTxnUnits(lc, gate_library);
 
         EugeneAdaptor eugeneAdaptor = new EugeneAdaptor();
+        eugeneAdaptor.setThreadDependentLoggername(threadDependentLoggername);
 
 
         ArrayList<String> sensor_module_lines = Util.fileLines(_options.get_fin_sensor_module());
@@ -1211,18 +1194,19 @@ public class DNACompiler {
 
         String circuit_eugene_file_string = "";
 
-        UCFAdaptor ucf_adaptor = new UCFAdaptor();
+        
+        ucfAdaptor.setThreadDependentLoggername(threadDependentLoggername);
 
 
-        ArrayList<String> eugene_part_rules = ucf_adaptor.getEugenePartRules(ucf);
-        ArrayList<String> eugene_gate_rules = ucf_adaptor.getEugeneGateRules(ucf);
+        ArrayList<String> eugene_part_rules = ucfAdaptor.getEugenePartRules(ucf);
+        ArrayList<String> eugene_gate_rules = ucfAdaptor.getEugeneGateRules(ucf);
 
         eugeneAdaptor.set_eugene_part_rules(eugene_part_rules);
         eugeneAdaptor.set_eugene_gate_rules(eugene_gate_rules);
 
 
-        String circuit_module_location_name = ucf_adaptor.getCircuitModuleLocationName(ucf);
-        String output_module_location_name = ucf_adaptor.getOutputModuleLocationName(ucf);
+        String circuit_module_location_name = ucfAdaptor.getCircuitModuleLocationName(ucf);
+        String output_module_location_name = ucfAdaptor.getOutputModuleLocationName(ucf);
 
 
         if(circuit_module_location_name == null || circuit_module_location_name.isEmpty() ||
@@ -1361,14 +1345,15 @@ public class DNACompiler {
 
         ArrayList<String> all_plasmid_strings = new ArrayList<>();
 
+        logger.info("\n=========== Writing plasmid files ============");
         if(lc.get_sensor_plasmid_parts().size() > 0) {
-            all_plasmid_strings.addAll( Plasmid.writePlasmidFiles(lc.get_sensor_plasmid_parts(), lc.get_assignment_name(), "plasmid_sensor", _options.get_output_directory()) );
+            all_plasmid_strings.addAll( PlasmidUtil.writePlasmidFiles(lc.get_sensor_plasmid_parts(), lc.get_assignment_name(), "plasmid_sensor", _options.get_output_directory()) );
         }
         if(lc.get_circuit_plasmid_parts().size() > 0) {
-            all_plasmid_strings.addAll( Plasmid.writePlasmidFiles(lc.get_circuit_plasmid_parts(), lc.get_assignment_name(), "plasmid_circuit", _options.get_output_directory()) );
+            all_plasmid_strings.addAll( PlasmidUtil.writePlasmidFiles(lc.get_circuit_plasmid_parts(), lc.get_assignment_name(), "plasmid_circuit", _options.get_output_directory()) );
         }
         if(lc.get_output_plasmid_parts().size() > 0) {
-            all_plasmid_strings.addAll( Plasmid.writePlasmidFiles(lc.get_output_plasmid_parts(), lc.get_assignment_name(), "plasmid_output", _options.get_output_directory()) );
+            all_plasmid_strings.addAll( PlasmidUtil.writePlasmidFiles(lc.get_output_plasmid_parts(), lc.get_assignment_name(), "plasmid_output", _options.get_output_directory()) );
         }
 
 
@@ -1392,7 +1377,7 @@ public class DNACompiler {
         asn.set_plasmid_files(all_plasmid_strings);
 
 
-        Plasmid.resetParentGates(lc);
+        PlasmidUtil.resetParentGates(lc);
 
         if(_options.is_figures()) {
             if (_options.is_dnaplotlib()) {
@@ -1931,6 +1916,12 @@ public class DNACompiler {
 
     @Getter private final Args _options = new Args();
 
+
+    private UCFAdaptor ucfAdaptor = new UCFAdaptor();
+    private UCFReader ucfReader = new UCFReader();
+    private UCFValidator ucfValidator = new UCFValidator();
+    
+    private String threadDependentLoggername = String.valueOf(UUID.randomUUID());
     private Logger logger;
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 

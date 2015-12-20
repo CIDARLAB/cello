@@ -575,13 +575,7 @@ public class Gnuplot {
                 String file_points_off_path = options.get_output_directory() + "/" + file_points_off;
                 String file_interp_path = options.get_output_directory() + "/" + file_interp;
 
-                System.out.println("////////////////////////////////////////// ");
-                System.out.println("making " + file_interp);
-
                 itp.writeGridstoFiles(grid, file_interp_path, 5);
-
-
-
 
                 String gate1_name = fanin_gate_names.get(0);
                 String gate2_name = fanin_gate_names.get(1);
@@ -661,11 +655,6 @@ public class Gnuplot {
 
                 String command_result = Util.executeCommand(cmd);
             }
-
-            else {
-                System.out.println(tp_name + " DOES NOT EXIST ");
-            }
-
 
         }
     }

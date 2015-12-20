@@ -886,6 +886,4 @@ public class Evaluate {
         }
     }
 
-    //static cannot do this.getClass
-    private static Logger log = Logger.getLogger( new Object() { }.getClass().getEnclosingClass() );
 };

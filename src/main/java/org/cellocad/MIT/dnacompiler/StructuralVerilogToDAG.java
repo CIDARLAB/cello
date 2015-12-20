@@ -14,15 +14,9 @@ public class StructuralVerilogToDAG {
 
     public static LogicCircuit createDAG(String fin_verilog) {
 
-        System.out.println("Structural Verilog to DAG");
-
-        //ArrayList<Gate> gates = new ArrayList<>();
 
         ArrayList<Wire> wires = new ArrayList<>();
-
         LinkedHashMap<String, Gate> gate_map = new LinkedHashMap<>();
-
-
 
         ArrayList<String> input_names = new ArrayList<>();
         ArrayList<String> output_names = new ArrayList<>();
@@ -250,12 +244,6 @@ public class StructuralVerilogToDAG {
         }
 
 
-        /*for(Wire w: wires) {
-            System.out.println(w.Name);
-            System.out.println("wire connecting " + w.To.Name + ":" + w.From.Name + ", name: " + w.Name);
-        }*/
-
-
         ArrayList<Gate> gates = new ArrayList<>(gate_map.values());
 
         for(int i=0; i<gates.size(); ++i) {
@@ -268,7 +256,5 @@ public class StructuralVerilogToDAG {
 
         return lc;
     }
-
-    private static Logger log = Logger.getLogger( new Object() { }.getClass().getEnclosingClass() );
 
 }

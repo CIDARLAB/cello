@@ -475,16 +475,8 @@ public class GateUtil {
         for(double[] sum_zeroed: tt_sum_zeroed) {
             tt_normalized_zeroed.add(HistogramUtil.normalize(sum_zeroed));
         }
-        
-//        for (double[] item : tt_normalized_zeroed){
-//        	for (int i = 0; i < item.length-1; i++){
-//        		System.out.println(item[0]);
-//        	}
-//        }
-//        
+
         return tt_normalized_zeroed;
-
-
     }
 
 
@@ -753,30 +745,6 @@ public class GateUtil {
                     Double log_out = grid[bin1][bin2];
                     Double out = Math.pow(10, log_out);
 
-                    if(g.Type == Gate.GateType.OUTPUT_OR) {
-
-                        //System.out.println("in1: " + in1 + " in2: " + in2);
-                        //System.out.println("additive: " + dtest + "  lookup: " + out + " bin1: " + bin1 + " bin2: " + bin2);
-
-                        /*Double log_c1 = grid[0][0];
-                        Double log_c2 = grid[0][hbins.get_NBINS()-1];
-                        Double log_c3 = grid[hbins.get_NBINS()-1][0];
-                        Double log_c4 = grid[hbins.get_NBINS()-1][hbins.get_NBINS()-1];
-
-                        Double c1 = Math.pow(10, log_c1);
-                        Double c2 = Math.pow(10, log_c2);
-                        Double c3 = Math.pow(10, log_c3);
-                        Double c4 = Math.pow(10, log_c4);
-
-                        System.out.println("c1: " + c1);
-                        System.out.println("c2: " + c2);
-                        System.out.println("c3: " + c3);
-                        System.out.println("c4: " + c4);*/
-                    }
-
-
-
-
                     variable_values.put(v, out);
                 }
                 /**
@@ -810,10 +778,5 @@ public class GateUtil {
         return variable_values;
 
     }
-
-
-
-    //static cannot do this.getClass
-    private static Logger log = Logger.getLogger( new Object() { }.getClass().getEnclosingClass() );
 
 }
