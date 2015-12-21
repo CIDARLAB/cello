@@ -47,6 +47,9 @@ public class InOutController extends BaseController {
 
             File files[] = f.listFiles();
             for (int i = 0; i < files.length; ++i) {
+                if(files[i].isDirectory()) {
+                    continue;
+                }
                 String fileName = files[i].getName();
                 if (fileName.contains(keyword) && fileName.endsWith(extension)) {
                     fileNames.add(fileName);
