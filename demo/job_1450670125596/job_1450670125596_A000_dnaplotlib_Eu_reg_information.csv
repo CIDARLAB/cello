@@ -1,3 +1,0 @@
-from_partname,type,to_partname,arrowhead_length,linestyle,linewidth,color
-SrpR,Repression,pSrpR,3,-,,0.00;0.41;0.22
-AmtR,Repression,pAmtR,3,-,,0.23;0.66;0.88
