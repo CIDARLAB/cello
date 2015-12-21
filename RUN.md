@@ -62,22 +62,22 @@ curl -u "username:password" -X POST http://127.0.0.1:8080/submit --data-urlencod
 
 ###### Get a list of your completed jobs
 ```
-curl -u "bryan:bpass" -X GET http://127.0.0.1:8080/results 
+curl -u "username:password" -X GET http://127.0.0.1:8080/results 
 ```
 
 ###### Get a list of result file names from a job result.
 ```
-curl -u "bryan:bpass" -X GET http://127.0.0.1:8080/results/demo001 
+curl -u "username:password" -X GET http://127.0.0.1:8080/results/demo001 
 ```
 
 ###### Get the contents of a specified file.  For example, the file specifying the top-scoring assignment:
 ```
-curl -u "bryan:bpass" -X GET http://127.0.0.1:8080/results/demo001/demo001_A000_logic_circuit.txt 
+curl -u "username:password" -X GET http://127.0.0.1:8080/results/demo001/demo001_A000_logic_circuit.txt 
 ```
 
 ###### Get the contents of a specified file.  For example, a Genbank plasmid file:
 ```
-curl -u "bryan:bpass" -X GET http://127.0.0.1:8080/results/demo001/demo001_A000_plasmid_circuit_P000.ape
+curl -u "username:password" -X GET http://127.0.0.1:8080/results/demo001/demo001_A000_plasmid_circuit_P000.ape
 ```
 
 
