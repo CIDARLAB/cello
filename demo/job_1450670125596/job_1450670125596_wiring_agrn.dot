@@ -1,0 +1,16 @@
+#GRAPHVIZ_OUTPUT 
+digraph{ 
+rankdir=LR; 
+splines=ortho; 
+out1[shape=none,label="out1\n0001"]; 
+in2[shape=none,label="INPUT in2 0\n0101"]; 
+in1[shape=none,label="INPUT in1 0\n0011"]; 
+g3[shape=box,style=filled,fillcolor=gray100,label="NOT g3 1\n1100"]; 
+g2[shape=box,style=filled,fillcolor=gray100,label="NOT g2 1\n1010"]; 
+g1[shape=box,style=filled,fillcolor=gray100,label="NOR g1 2\n0001"]; 
+g1->out1; 
+g2->g1; 
+g3->g1; 
+in2->g2; 
+in1->g3; 
+} 

@@ -156,7 +156,6 @@ public class MainController extends BaseController {
         }
         String username = auth.getUsername(basic);
 
-
         DAGW GW = NetSynth.runNetSynthCode(verilog_text, new ArrayList<NetSynthSwitch>(), new JSONArray());
 
         org.cellocad.MIT.dnacompiler.LogicCircuit abstract_logic_circuit = new LogicCircuit(GW.Gates, GW.Wires);

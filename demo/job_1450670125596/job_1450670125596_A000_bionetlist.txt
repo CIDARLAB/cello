@@ -1,0 +1,6 @@
+pTet            0101
+pBAD            0011
+P3_PhlF         pSrpR     pAmtR     
+A1_AmtR         pTet      
+S3_SrpR         pBAD      
+YFP             pPhlF     

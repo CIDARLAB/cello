@@ -1,0 +1,9 @@
+parameter,value
+linewidth,1
+y_scale,1
+fig_x,8.5
+fig_y,1
+show_title,N
+backbone_pad_left,3
+backbone_pad_right,3
+axis_y,45

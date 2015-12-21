@@ -3,9 +3,7 @@
 Note: Maven is used for software project management and should be installed on your computer.  See INSTALL.md.
 
 
-
-
-## 1. Using the web application in a web browser
+## 1. Web application.
 
 Cello can be used without downloading/installing anything!  All you need is a web browser:
 
@@ -19,56 +17,116 @@ Cello can be used without downloading/installing anything!  All you need is a we
 
 
 
-## 2. Using the code on your computer
+## 2. Using the API.
 
-compile
+The Cello API can also be used to run Cello.  The Cello instance deployed at the www.cellocad.org can be used, but you can also launch an instance of the application on your localhost to test the API.
 
+
+#### Running Cello locally (localhost = http://127.0.0.1:8080)
+
+First, compile the code:
 ```
 cd ~/cello/
 mvn compile
 ```
 
-## Starting an instance of the web application on your computer
-
+Next, launch the web application
 ```
 cd ~/cello/
 mvn spring-boot:run
 ```
-You'll notice messages indicating that the Spring logging system is not found.  A log4j logging system is being used, so the Spring logging is excluded (see pom.xml).
 
-In a web browser, go to: http://localhost:8080/index.html
+* In a web browser, go to: http://127.0.0.1:8080
+
+* Go to http://127.0.0.1:8080 and Sign Up by choosing a username and password.
+
+* In the repository, go to the ~/cello/demo/ directory
 
 
-Putting the process in the background allows you to logout without terminating the process.
+#### 2a. Curl requests
+
+###### Simple curl test
 ```
-ctrl-z
-bg
-exit
-```
-Then, to find the process ID on port 8080 upon logging back in, this command can be used:
-(note: lsof will have to be installed)
-```
-sudo lsof -i :8080
+curl -u "username:password" http://127.0.0.1:8080
 ```
 
-
-## Source code / command line
-
-The CelloMain Java class can be run from any working directory:
-
-First, use a text editor to write/save a Verilog file with a .v extension.  This is the only required input.
-
-Command line options are specified using a dash to indicate the option name, followed by a space, followed by the value you'd like to specify for that option.
-
+###### Get a netlist
 ```
-mvn -f ~/cello/pom.xml -PCelloMain -Dexec.args="-verilog /path/to/verilog.v -figures false -plasmid false -dateID myTest"
+curl -u "username:password" http://127.0.0.1:8080/netsynth -X POST --data-urlencode "verilog_text@demo_verilog.v"
 ```
 
-To specify your own inputs, outputs, and UCF, this command line can be used:
+###### Design a circuit
+```
+curl -u "username:password" -X POST http://127.0.0.1:8080/submit --data-urlencode "id=demo001" --data-urlencode "verilog_text@demo_verilog.v" --data-urlencode "input_promoter_data@demo_inputs.txt" --data-urlencode "output_gene_data@demo_outputs.txt"
+```
 
+###### Get a list of your completed jobs
 ```
-mvn -f ~/cello/pom.xml -PCelloMain -Dexec.args="-verilog /path/to/verilog.v -input_promoters /path/to/inputs.txt -output_genes /path/to/outputs.txt -UCF /path/to/myUCF.json"
+curl -u "bryan:bpass" -X GET http://127.0.0.1:8080/results 
 ```
+
+###### Get a list of result file names from a job result.
+```
+curl -u "bryan:bpass" -X GET http://127.0.0.1:8080/results/demo001 
+```
+
+###### Get the contents of a specified file.  For example, the file specifying the top-scoring assignment:
+```
+curl -u "bryan:bpass" -X GET http://127.0.0.1:8080/results/demo001/demo001_A000_logic_circuit.txt 
+```
+
+###### Get the contents of a specified file.  For example, a Genbank plasmid file:
+```
+curl -u "bryan:bpass" -X GET http://127.0.0.1:8080/results/demo001/demo001_A000_plasmid_circuit_P000.ape
+```
+
+
+#### 2b. Cello command-line interface.
+
+The command-line interface is written as a python-based tool, which allows API calls via concise shell commands.  These commands are functionally equivalent to the curl commands but may prove more user-friendly.
+
+Go to ~/cello/tools/pycello/
+
+Please follow the install/run instructions found in the pycello directory.
+
+
+## 3. Executing compile source code
+
+The CelloMain Java class can be run from any working directory.  However, the same demo files can be used for your convenience.
+```
+cd ~/cello/demo/
+```
+
+A verilog file is the minimum requirement to run Cello.  The default input promoters (pTac, pTet, pBAD), the default gate library, and the default output gene (YFP) will be used to construct a genetic circuit that implements the specified logic function.
+```
+mvn -f ~/cello/pom.xml -DskipTests=true -PCelloMain -Dexec.args="-verilog demo_verilog.v"
+```
+
+To specify your own input promoter data and output genes:
+```
+mvn -f ~/cello/pom.xml -DskipTests=true -PCelloMain -Dexec.args="-verilog demo_verilog.v -input_promoters demo_inputs.txt -output_genes demo_outputs.txt"
+```
+
+To specify your own gate library (User Constraint File, UCF):
+```
+mvn -f ~/cello/pom.xml -DskipTests=true -PCelloMain -Dexec.args="-verilog demo_verilog.v -input_promoters demo_inputs.txt -output_genes demo_outputs.txt -UCF /path/to/myUCF.json"
+```
+
+
+To write your own UCF, a UCF writer directory can be copied and modified.
+
+See: ~/cello/src/main/java/org/cellocad/adaptors/ucfwriters
+
+The main class is:
+ConstraintFileWriter.java
+
+A class exists to write each collection in the UCF.  These can be modified to write your own custom UCF.  Note that some of the gate library data is read from a CSV in the existing examples (data includes: part names, sequences, and response function parameters).  
+
+See: ~/cello/resources/csv_gate_libraries/
+
+You can make your own gate library by modifying the CSV, then modifying the classes in the ucf writer directory to read the customized CSV.
+
+
 
 [input promoters example file](resources/data/inputs/Inputs.txt)
 
@@ -76,16 +134,3 @@ mvn -f ~/cello/pom.xml -PCelloMain -Dexec.args="-verilog /path/to/verilog.v -inp
 
 [UCF-guide.md](UCF-guide.md)
 
-
-## Miscellaneous
-
-Other Java classes with "public static void main(String[] args)" functions can be run from any working directory:
-
-```
-mvn -f ~/cello/pom.xml exec:java -Dexec.mainClass="org.cellocad.MIT.misc.ScarMap" -Dexec.args="notA_nor3_tus.csv"
-```
-
-You can also batch a large set of designs using the Wrapper class.  You will likely have to modify the code in Wrapper.java to suit your needs.
-```
-mvn -f ~/cello/pom.xml -PWrapper -Dexec.args="list_of_verilog_files.txt"
-```

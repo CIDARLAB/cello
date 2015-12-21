@@ -1,0 +1,16 @@
+#GRAPHVIZ_OUTPUT 
+digraph{ 
+rankdir=LR; 
+splines=ortho; 
+YFP[shape=none,label="YFP\n  328.65\n0001"]; 
+pTet[shape=none,label="INPUT pTet 0\n 3384.62\n0101"]; 
+pBAD[shape=none,label="INPUT pBAD 0\n  304.88\n0011"]; 
+P3_PhlF[shape=box,style=filled,fillcolor=gray100,label="NOR P3_PhlF 2\n  328.65\n0001"]; 
+A1_AmtR[shape=box,style=filled,fillcolor=gray100,label="NOT A1_AmtR 1\n   58.41\n1010"]; 
+S3_SrpR[shape=box,style=filled,fillcolor=gray100,label="NOT S3_SrpR 1\n  515.15\n1100"]; 
+P3_PhlF->YFP; 
+A1_AmtR->P3_PhlF; 
+S3_SrpR->P3_PhlF; 
+pTet->A1_AmtR; 
+pBAD->S3_SrpR; 
+} 

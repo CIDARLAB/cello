@@ -1,0 +1,16 @@
+#GRAPHVIZ_OUTPUT 
+digraph{ 
+rankdir=LR; 
+splines=ortho; 
+YFP[shape=none,label="YFP"]; 
+pTet[shape=none,label="pTet"]; 
+pBAD[shape=none,label="pBAD"]; 
+P3_PhlF[fixedsize=true,height=1.0,width=1.0,label="",shape=none,image="job_1450670125596_A000_xfer_model_P3_PhlF.png"]; 
+A1_AmtR[fixedsize=true,height=1.0,width=1.0,label="",shape=none,image="job_1450670125596_A000_xfer_model_A1_AmtR.png"]; 
+S3_SrpR[fixedsize=true,height=1.0,width=1.0,label="",shape=none,image="job_1450670125596_A000_xfer_model_S3_SrpR.png"]; 
+P3_PhlF ->YFP ; 
+A1_AmtR ->P3_PhlF ; 
+S3_SrpR ->P3_PhlF ; 
+pTet ->A1_AmtR ; 
+pBAD ->S3_SrpR ; 
+} 
