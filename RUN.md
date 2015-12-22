@@ -36,7 +36,7 @@ cd ~/cello/
 mvn spring-boot:run
 ```
 
-* In a web browser, go to: http://127.0.0.1:8080
+* In a web browser, go to: http://127.0.0.1:8080/index.html
 
 * Go to http://127.0.0.1:8080 and Sign Up by choosing a username and password.
 

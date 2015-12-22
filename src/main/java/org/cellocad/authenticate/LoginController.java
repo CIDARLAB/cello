@@ -1,7 +1,9 @@
 package org.cellocad.authenticate;
 
+import org.apache.log4j.Logger;
 import org.cellocad.api.MainController;
 import org.json.simple.JSONObject;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletConfig;
@@ -24,31 +26,13 @@ public class LoginController extends HttpServlet {
     private static final long serialVersionUID = -2579220291590687064L;
 
     private static final String USER_DB_NAME = "CELLO";
-    private static org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger("AuthenticationServlet");
+    private static Logger LOGGER = Logger.getLogger("AuthenticationServlet");
 
     // a reference to an instance
     // of the CIDAR authenticator
-    public Authenticator auth;
+    public Authenticator auth = new Authenticator(USER_DB_NAME);;
 
-    @Override
-    public void init(ServletConfig config)
-            throws ServletException {
 
-        super.init(config);
-
-        this.auth = new Authenticator(USER_DB_NAME);
-
-        // set a system property such that Simple Logger will include timestamp
-        System.setProperty("org.slf4j.simpleLogger.showDateTime", "true");
-        // set a system property such that Simple Logger will include timestamp in the given format
-        System.setProperty("org.slf4j.simpleLogger.dateTimeFormat", "dd-MM-yy HH:mm:ss");
-
-        // set minimum log level for SLF4J Simple Logger at warn
-        System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "warn");
-
-        LOGGER.warn("[AuthenticationServlet] loaded!");
-
-    }
 
     /**
      * Handles the HTTP
@@ -81,7 +65,6 @@ public class LoginController extends HttpServlet {
             if ("signup".equals(command)) {
 
                 try {
-
                     this.auth.register(username, password, false);
 
                     MainController main_controller = new MainController();

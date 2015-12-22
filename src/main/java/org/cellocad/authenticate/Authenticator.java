@@ -161,9 +161,8 @@ public class Authenticator {
          * then, we store username and password into 
          * out database
          */
-        
-        this.persist(
-                new UserInformation(user, salt, encrypted_password));
+        UserInformation userInfo = new UserInformation(user, salt, encrypted_password);
+        this.persist(userInfo);
     }
 
     /**

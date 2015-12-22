@@ -42,6 +42,7 @@
                     <li><a id="results_link" href="">Results</a></li>
                     <li><a id="options_link" href="">Options</a></li>
                     <li><a href="download.html">Documentation</a></li>
+                    <li><a href="Cello-1.html">API</a></li>
                 </ul>
             </div>
             <div id="loginArea">
@@ -74,7 +75,7 @@
 
 <div id="new_input_div" class="dialog" title="add new input promoter" style="display: none">
     <form id="new_input_form" action="JavaScript:addNewInput()">
-        <input required type="text" placeholder="name" id="add_input_name" pattern="[_a-zA-Z0-9]+" title="alphanumeric, underscore only">
+        <input required type="text" placeholder="name" id="add_input_name" pattern="[a-zA-Z][_a-zA-Z0-9]+" title="alphanumeric, underscore only">
         <br>
         <input required type="number" min=0.001 max=100 step="any" placeholder="low REU" id="add_input_lowREU">
         <br>

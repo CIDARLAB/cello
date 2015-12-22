@@ -32,7 +32,6 @@ public class SBOLCircuitWriterIWBDA {
         _sequence_ontology_map.put("output", SequenceOntology.CDS);
 
         _document = new org.sbolstandard.core2.SBOLDocument();
-
         _document.setDefaultURIprefix("http://cellocad.org");
 
         _circuit_name = prefix;
