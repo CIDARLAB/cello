@@ -13,7 +13,7 @@ my $svg = substr($dot, 0, -4) . ".svg";
 
 system("dot -Teps $dot > $eps");
 system("ps2pdf -dPDFSETTINGS=/prepress -dEPSCrop -r300  $eps");
-system("gs -dQUIET -dNOPAUSE -dBATCH -sDEVICE=pngalpha -sOutputFile=$png -r300 $pdf");
+system("gs -dQUIET -dNOPAUSE -dBATCH -sDEVICE=pngalpha -sOutputFile=$png -r150 $pdf");
 system("dot -Tpng $dot > $png");
 
 #system("dot -Tsvg $dot > $svg");

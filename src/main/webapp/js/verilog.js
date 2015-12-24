@@ -220,17 +220,18 @@ function submitCello() {
             output_gene_data: user_output_table,
             user_options: options_string
         },
+        dataType: "json",
         success: function(response) { //response text is based on DNACompiler.get_result_status()
             var message = response['message'];
 
             status = "finished"; // stops the runtimeLoop.
-            if(response.indexOf('SUCCESS') != -1) {
+            if(message.indexOf('SUCCESS') != -1) {
                 var rhtml = "<div class='alert alert-success'>"+ message + "</div>";
                 $('#dialog_pre').html(rhtml);
                 $('#dialog').dialog({title:"Run finished"});
                 $('#dialog').dialog('open');
             }
-            else if(response.indexOf('WARNING') != -1) {
+            else if(message.indexOf('WARNING') != -1) {
                 var rhtml = "<div class='alert alert-warning'>"+ message + "</div>";
                 $('#dialog_pre').html(rhtml);
                 $('#dialog').dialog({title:"Run finished"});

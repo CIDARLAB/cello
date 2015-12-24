@@ -36,7 +36,7 @@
                     <li><a id="verilog_link" href="">Verilog</a></li>
                     <li><a id="results_link" href="">Results</a></li>
                     <li><a id="options_link" href="">Options</a></li>
-                    <li class="active"><a href="download.html">Documentation</a></li>
+                    <li class="active"><a href="download.html">Docs</a></li>
                 </ul>
             </div>
             <div id="loginArea">
@@ -60,22 +60,67 @@
 
 <div class="container-fluid center">
 
-    <div class="col-sm-6 col-md-6 col-lg-6 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
+    <!--<div class="col-sm-2 col-md-2 col-lg-2">-->
+        <!--<div class="text-center">-->
+            <!--<img src="images/logo-cello-text.png" style="width: 100%; margin-bottom: 30px; margin-top: 15px">-->
+        <!--</div>-->
+        <!--<div class="text-center">-->
+            <!--<img src="images/logo-cello-notext-color.png" style="width: 100%">-->
+        <!--</div>-->
+    <!--</div>-->
 
-        <div class="well text-center">
-            <img src="images/logo-cello-color.png" style="width: 75%">
+    <div style="width: 150px" class="affix">
+        <div class="text-center" style="display: inline-block">
+            <img src="images/logo-cello-text.png" style="width: 100%; margin-bottom: 30px; margin-top: 15px">
+        </div>
+        <div class="text-center" style="display: inline-block">
+            <img src="images/logo-cello-notext-color.png" style="width: 100%">
+        </div>
+    </div>
 
-            <h1>
-                <small>
-                    Download the software:
-                </small>
-            </h1>
+
+    <div style="margin-left: 175px">
+
+        <div class="well">
             <h3>
                 <small>
-                    (repository is currently private)
+                    links to code, instructions, API, and examples
                 </small>
             </h3>
-            <a class="btn btn-warning btn-lg" type="button" target="_blank" href="https://github.com/CIDARLAB/cello-lite">Cello GitHub repository</a>
+            <table id='doc_links_table' class="table table-condensed">
+                <tr>
+                    <td width="20%"><input value="link" readonly></td>
+                    <td width="80%"><input value="description" readonly></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="Cello-1.html">API</a></td>
+                    <td width="80%"><h4><small>Endpoints, requests, and responses of Cello API.  Submit jobs and retreive results without downloading/installing.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="">CLI</a></td>
+                    <td width="80%"><h4><small>A command-line interface facilitates use of the Cello API.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello">GitHub repo</a></td>
+                    <td width="80%"><h4><small>Clone the repository to get the source code.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/README.md">Readme</a></td>
+                    <td width="80%"><h4><small>(GitHub md) Overview of genetic circuit design using Cello.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/INSTALL.md">Install</a></td>
+                    <td width="80%"><h4><small>(GitHub md) How to compile.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/RUN.md">Run/demo</a></td>
+                    <td width="80%"><h4><small>(GitHub md) How to run.  Includes web app, API, CLI, and Java instructions/examples.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/UCF-guide.md">UCF guide</a></td>
+                    <td width="80%"><h4><small>(GitHub md) Explains each collection in the UCF.</small></h4></td>
+                </tr>
+            </table>
 
         </div>
     </div>
@@ -101,7 +146,7 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="controller/SessionController.js"></script>
+<script type="text/javascript" src="js/session_controller.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 
 
@@ -120,6 +165,12 @@
 </footer>
 
 <style type="text/css">
+    .doc-btn {
+        width: 100px;
+        background: none;
+        border: 1px solid orange;
+        color: darkorange;
+    }
 </style>
 
 

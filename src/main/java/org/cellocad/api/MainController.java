@@ -36,7 +36,7 @@ public class MainController extends BaseController {
 
     @RequestMapping(value="/submit",method= RequestMethod.POST, produces = "application/json")
     public @ResponseBody
-    String dnaCompiler(
+    JSONObject dnaCompiler(
             @RequestHeader("Authorization") String basic,
             @RequestParam Map<String, String> params
     ) {
@@ -114,7 +114,7 @@ public class MainController extends BaseController {
         String message = "WARNING: Unknown result status.";
         
         if(dnaCompiler.get_result_status() == DNACompiler.ResultStatus.success) {
-             message = "SUCCESS.  Loading results page.";
+             message = "SUCCESS: Loading results page.";
         }
 
         else if(dnaCompiler.get_result_status() == DNACompiler.ResultStatus.wiring_diagram_invalid) {
@@ -134,12 +134,12 @@ public class MainController extends BaseController {
         }
 
         else if(dnaCompiler.get_result_status() == DNACompiler.ResultStatus.roadblocking_inputs) {
-             message = "WARNING: roadblocking inputs.  Loading results page.";
+             message = "WARNING: roadblocking inputs. Loading results page.";
         }
 
         JSONObject response = new JSONObject();
         response.put("message", message);
-        return response.toJSONString();
+        return response;
     }
 
 
