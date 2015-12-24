@@ -28,7 +28,7 @@ public class ConstraintFileWriter {
         all_json_objects.addAll(new collection_writer_genetic_locations().getObjects());
 
         String rootPath = collection_writer.getRootPath();
-        prettyPrintJSONArray(all_json_objects, rootPath + "/resources/UCF/Eco1C1G1T1b.UCF.json", false);
+        prettyPrintJSONArray(all_json_objects, rootPath + "/resources/UCF/Eco1C1G1T1.UCF.json", false);
 
     }
 

@@ -22,6 +22,7 @@ public class UCF {
     @Getter @Setter private JSONObject _header = new JSONObject();
     @Getter @Setter private JSONObject _measurement_std = new JSONObject();
     @Getter @Setter private JSONObject _logic_constraints = new JSONObject();
+    @Getter @Setter private JSONArray _motif_library = new JSONArray();
     @Getter @Setter private JSONArray _gates = new JSONArray();
     @Getter @Setter private JSONArray _gate_parts = new JSONArray();
     @Getter @Setter private JSONArray _parts = new JSONArray();

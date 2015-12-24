@@ -46,6 +46,9 @@ public class UCFReader {
                         else if (map.get("collection").equals("logic_constraints")) {
                             ucf.set_logic_constraints( obj );
                         }
+                        else if (map.get("collection").equals("motif_library")) {
+                            ucf.get_motif_library().add( obj );
+                        }
                         else if (map.get("collection").equals("response_functions")) {
                             ucf.get_response_functions().add( obj );
                         }

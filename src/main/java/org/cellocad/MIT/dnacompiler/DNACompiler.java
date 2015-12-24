@@ -22,6 +22,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
+import org.json.JSONException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -1696,7 +1697,7 @@ public class DNACompiler {
         }
 
         if(_options.get_UCFfilepath() == "") {
-            _options.set_UCFfilepath( _options.get_home() + "/resources/UCF/Eco1C1G1T1b.UCF.json" );
+            _options.set_UCFfilepath( _options.get_home() + "/resources/UCF/Eco1C1G1T1.UCF.json" );
         }
 
         if(_options.get_output_directory().equals("")) {
@@ -1751,15 +1752,16 @@ public class DNACompiler {
         List<NetSynthSwitch> switches = new ArrayList<>();
         org.json.JSONArray motifLibrary = new org.json.JSONArray();
 
-        FileReader reader = new FileReader(_options.get_home() + "/resources/netsynthResources/netlist_in3out1_OUTPUT_OR.json");
-        JSONParser jsonParser = new JSONParser();
-        JSONArray jsonArray = (JSONArray) jsonParser.parse(reader);
-
-        logger.info(jsonArray.size());
-        for(int i=0; i<jsonArray.size(); ++i) {
-            Object obj = (Object) jsonArray.get(i);
-            motifLibrary.put(obj);
+        //convert org.simple.json to org.json
+        for(int i=0; i<ucf.get_motif_library().size(); ++i) {
+            String objString = ucf.get_motif_library().get(i).toString();
+            try {
+                motifLibrary.put(new org.json.JSONObject(objString));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+
 
         GW = org.cellocad.BU.netsynth.NetSynth.runNetSynth(
                 verilog_filepath,
