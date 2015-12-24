@@ -4,6 +4,7 @@ package org.cellocad.adaptors.sboladaptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.cellocad.MIT.dnacompiler.*;
+import org.cellocad.MIT.dnacompiler.Gate.GateType;
 import org.cellocad.adaptors.ucfadaptor.UCFAdaptor;
 import org.cellocad.adaptors.ucfadaptor.UCFReader;
 import org.json.simple.JSONArray;
@@ -18,6 +19,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+
+// TODO Needs to be generalized for other gate types
+
 public class SBOLGateWriter {
 
 
@@ -30,10 +34,12 @@ public class SBOLGateWriter {
         _filepath = options.get_home();
 
         sequence_ontology_map.put("ribozyme", org.sbolstandard.core.util.SequenceOntology.INSULATOR);
-        sequence_ontology_map.put("rbs", org.sbolstandard.core.util.SequenceOntology.FIVE_PRIME_UTR);
-        sequence_ontology_map.put("cds", org.sbolstandard.core.util.SequenceOntology.CDS);
-        sequence_ontology_map.put("terminator", org.sbolstandard.core.util.SequenceOntology.TERMINATOR);
-        sequence_ontology_map.put("promoter", org.sbolstandard.core.util.SequenceOntology.PROMOTER);
+        sequence_ontology_map.put("rbs", URI.create("http://identifiers.org/so/SO:0000139"));
+        sequence_ontology_map.put("cds", URI.create("http://identifiers.org/so/SO:0000316"));
+        sequence_ontology_map.put("terminator", URI.create("http://identifiers.org/so/SO:0000141"));
+        sequence_ontology_map.put("promoter", URI.create("http://identifiers.org/so/SO:0000167"));
+        sequence_ontology_map.put("output", URI.create("http://www.biopax.org/release/biopax-level3.owl#DnaRegion"));
+
 
 
         UCFReader ucf_reader = new UCFReader();
@@ -85,7 +91,9 @@ public class SBOLGateWriter {
 
         setPromoterCDSFunctionalComponents();
 
-        setPromoterCDSInteraction();
+        //setPromoterCDSInteraction();
+
+        setMoleculeComponentDefinitionsInteractions(g);
 
 
 
@@ -148,6 +156,165 @@ public class SBOLGateWriter {
 
         _gate_module_definition.createAnnotation(new QName(prURI, "response_function", prPrefix), response_fn_string);
 
+    }
+
+
+    public static void setMoleculeComponentDefinitionsInteractions(Gate g) {
+
+
+        // interaction types
+
+        Set<URI> geneticProductionTypes = new HashSet<URI>();
+        geneticProductionTypes.add(URI.create("http://identifiers.org/biomodels.sbo/SBO:0000589"));
+
+        Set<URI> inhibitionTypeURIs = new HashSet<URI>();
+        inhibitionTypeURIs.add(URI.create("http://identifiers.org/biomodels.sbo/SBO:0000169"));
+
+
+        //component definition types
+
+        Set<URI> proteinTypeURIs = new HashSet<URI>();
+        proteinTypeURIs.add(URI.create("http://www.biopax.org/release/biopax-level3.owl#Protein"));
+
+
+        //component definitions
+
+        String protein_name = g.Regulator + "_protein";
+        ComponentDefinition protein = _document.createComponentDefinition(protein_name, proteinTypeURIs);
+
+
+        //functional components
+
+        FunctionalComponent promoter_fc = _promoterFC;
+
+        FunctionalComponent cds_fc = _cdsFC;
+
+        FunctionalComponent protein_fc = _gate_module_definition.createFunctionalComponent(
+                protein.getDisplayId(),
+                AccessType.PUBLIC,
+                protein.getIdentity(),
+                DirectionType.NONE
+        );
+
+
+        // interaction ID's
+
+        String productionInteractionDisplayID = _cdsComponentDefinition.getDisplayId() + "_produces_" + protein.getDisplayId();
+
+        String repressionInteractionDisplayID = protein.getDisplayId() + "_represses_" + _promoterComponentDefinition.getDisplayId();
+
+
+        // interaction
+
+        Interaction productionInteraction = _gate_module_definition.createInteraction(productionInteractionDisplayID, geneticProductionTypes);
+
+        Interaction repressionInteraction = _gate_module_definition.createInteraction(repressionInteractionDisplayID, inhibitionTypeURIs);
+
+
+        // participation
+
+        String promoterParticipationID = _promoterComponentDefinition.getDisplayId() + "_participation";
+        String cdsParticipationID = _cdsComponentDefinition.getDisplayId() + "_participation";
+        String proteinParticipationID = protein.getDisplayId() + "_participation";
+
+        //production interaction between CDS and Regulator
+        Participation production_cds = productionInteraction.createParticipation(cdsParticipationID, cds_fc.getDisplayId());
+        Participation production_regulator = productionInteraction.createParticipation(proteinParticipationID, protein_fc.getDisplayId());
+
+        //repression interaction between Regulator and Promoter
+        Participation repression_regulator = repressionInteraction.createParticipation(proteinParticipationID, protein_fc.getDisplayId());
+        Participation repression_promoter = repressionInteraction.createParticipation(promoterParticipationID, promoter_fc.getDisplayId());
+
+
+        // participation roles
+
+        //inhibitor
+        URI inhibitorRole = URI.create("http://identifiers.org/biomodels.sbo/SBO:0000020");
+        repression_regulator.addRole(inhibitorRole);
+
+
+
+
+        if(! g.Inducer.isEmpty()) {
+
+            String regulation_type = "";
+            if(g.Type == GateType.NOT || g.Type == GateType.NOR) {
+                regulation_type = "repression";
+            }
+            if(g.Type == GateType.AND) {
+                regulation_type = "activation";
+            }
+
+
+            //component definition type
+            Set<URI> smallMoleculeTypeURIs = new HashSet<URI>();
+            smallMoleculeTypeURIs.add(URI.create("http://www.biopax.org/release/biopax-level3.owl#SmallMolecule"));
+
+            //component definition type
+            Set<URI> complexTypeURIs = new HashSet<URI>();
+            complexTypeURIs.add(URI.create("http://www.biopax.org/release/biopax-level3.owl#Complex"));
+
+
+
+            //non-covalent complex
+            //Set<URI> noncovalentRoles = new HashSet<URI>();
+            //noncovalentRoles.add(URI.create("http://identifiers.org/biomodels.sbo/SBO:0000253"));
+
+            //interaction type
+            //Set<URI> noncovalentBinding = new HashSet<URI>();
+            //noncovalentBinding.add(URI.create("http://identifiers.org/biomodels.sbo/SBO:0000177"));
+
+
+
+            String inducer_name = g.Inducer;
+            ComponentDefinition inducer = _document.createComponentDefinition(inducer_name, smallMoleculeTypeURIs);
+
+            String complex_name = inducer_name + "_" + g.Regulator + "_Complex";
+            ComponentDefinition complex = _document.createComponentDefinition(complex_name, complexTypeURIs);
+
+
+
+            FunctionalComponent inducer_fc = _gate_module_definition.createFunctionalComponent(
+                    inducer.getDisplayId(),
+                    AccessType.PUBLIC,
+                    inducer.getIdentity(),
+                    DirectionType.NONE
+            );
+
+            FunctionalComponent complex_fc = _gate_module_definition.createFunctionalComponent(
+                    complex.getDisplayId(),
+                    AccessType.PUBLIC,
+                    complex.getIdentity(),
+                    DirectionType.NONE
+            );
+
+
+            String complexInteractionDisplayID = protein.getDisplayId() + "_binds_" + inducer.getDisplayId();
+
+
+            Interaction noncovalentInteraction = _gate_module_definition.createInteraction(complexInteractionDisplayID, complexTypeURIs);
+
+
+
+            String inducerParticipationID = inducer.getDisplayId() + "_participation";
+            String complexParticipationID = complex.getDisplayId() + "_participation";
+
+            //non-covalent interaction between Regulator and Small Molecule
+            Participation complex_regulator = noncovalentInteraction.createParticipation(proteinParticipationID, protein_fc.getDisplayId());
+            Participation complex_inducer = noncovalentInteraction.createParticipation(inducerParticipationID, inducer_fc.getDisplayId());
+            Participation complex_complex = noncovalentInteraction.createParticipation(complexParticipationID, complex_fc.getDisplayId());
+
+
+            //ligand
+            URI ligandRole = URI.create("http://identifiers.org/biomodels.sbo/SBO:0000280");
+
+            //complex
+            URI complexRole = URI.create("http://identifiers.org/biomodels.sbo/SBO:0000253");
+
+            complex_inducer.addRole(ligandRole);
+            complex_regulator.addRole(ligandRole);
+            complex_complex.addRole(complexRole);
+        }
     }
 
 
@@ -321,40 +488,7 @@ public class SBOLGateWriter {
 
     }
 
-    /*public static void setCassetteFunctionalComponent() {
 
-        URI cassetteFCURI = URI.create(_gate_module_definition.getIdentity().toString() + "/" + _cassetteComponentDefinition.getDisplayId());
-
-        FunctionalComponent cassetteFunctionalComponent = new FunctionalComponent(
-                cassetteFCURI,
-                ComponentInstance.AccessType.PUBLIC,
-                _cassetteComponentDefinition.getIdentity(),
-                FunctionalComponent.DirectionType.NONE
-        );
-        cassetteFunctionalComponent.setDisplayId(_cassetteComponentDefinition.getDisplayId());
-
-        _cassetteFC = cassetteFunctionalComponent;
-
-        _gate_module_definition.addFunctionalComponent(_cassetteFC);
-
-    }
-
-
-    public static void setGateModel() {
-
-        //URI identity,URI source, URI language, URI framework, Set<URI> roles
-
-        //URI identityURI
-        //URI sourceURI
-        //URI languageURI
-        //URI frameworkURI
-        //Set<URI> roleURIs
-
-        //ResponseFunction m = new ResponseFunction()
-    }
-
-
-*/
 
 
 

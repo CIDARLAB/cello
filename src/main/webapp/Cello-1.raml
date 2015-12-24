@@ -4,7 +4,8 @@ baseUri: www.cellocad.org
 securitySchemes:
   - basic:
       type: Basic Authentication
-      
+
+
 /in_out:
   get:
     securedBy: [basic]
@@ -187,4 +188,57 @@ securitySchemes:
     /{filename}:
         get:
           description: Get file contents (text or png-bytes).  
+          
+/ucf:
+  get:
+    securedBy: [basic]
+    description: Get a list of UCF's owned by the authenticated user.  UCF file names should end in the .UCF.json extension.  This list does not include the default UCF, Eco1C1G1T1.UCF.json.
+    responses:
+      200:
+        description: 
+        body:
+           application/json:
+            example: |
+              {
+                "files" : ['Eco2C2G2T2.UCF.json']
+              }
+  /{filename}:
+    get:
+      securedBy: [basic]
+      description: Get the JSON for the specified UCF. This can be many Mb's of data.
+      responses:
+        200:
+          description: 
+          body:
+             application/json:
 
+    post:
+      securedBy: [basic]
+      description: Upload a new UCF.  The UCF JSON is in the request body, and the file name that will be created is the endpoint terminal.
+      queryParameters:
+        filetext:
+          description: Contents to be written to file.
+          type: string
+          required: true
+      responses:
+        200:
+          description: 
+          body:
+            application/json:
+              example: |
+                {
+                  "message" : "wrote file Eco2C2G2T2.UCF.json"
+                }
+                
+    delete:
+      securedBy: [basic]
+      description: Delete a UCF from the user's account.
+      responses:
+        200:
+          description: 
+          body:
+             application/json:
+               example: |
+                {
+                  "message" : "deleted file Eco2C2G2T2.UCF.json"
+                }

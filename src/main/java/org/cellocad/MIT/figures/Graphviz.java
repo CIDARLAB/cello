@@ -220,7 +220,6 @@ public class Graphviz {
 
             String child = w.To.Name;
             String parent = w.From.Name;
-            System.out.println("Setting " + w.Index + " " + child + "->" + parent);
 
             gvText += child + "->" + parent + "; \n";
         }

@@ -14,7 +14,7 @@ import org.cellocad.MIT.dnacompiler.Gate.GateType;
 import org.cellocad.MIT.figures.*;
 import org.cellocad.MIT.tandem_promoter.InterpolateTandemPromoter;
 import org.cellocad.adaptors.eugeneadaptor.EugeneAdaptor;
-import org.cellocad.adaptors.sboladaptor.SBOLCircuitWriterIWBDA;
+import org.cellocad.adaptors.sboladaptor.SBOLCircuitWriter;
 import org.cellocad.adaptors.ucfadaptor.UCFAdaptor;
 import org.cellocad.adaptors.ucfadaptor.UCFReader;
 import org.cellocad.adaptors.ucfadaptor.UCFValidator;
@@ -23,13 +23,10 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 import org.json.JSONException;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -1364,7 +1361,7 @@ public class DNACompiler {
         for(int i=0; i<lc.get_circuit_plasmid_parts().size(); ++i) {
             ArrayList<Part> plasmid = lc.get_circuit_plasmid_parts().get(i);
 
-            SBOLCircuitWriterIWBDA sbol_circuit_writer = new SBOLCircuitWriterIWBDA();
+            SBOLCircuitWriter sbol_circuit_writer = new SBOLCircuitWriter();
 
             sbol_circuit_writer.setCircuitName(lc.get_assignment_name());
             String sbol_filename = lc.get_assignment_name() + "_sbol_circuit" + "_P" + String.format("%03d", i) + ".sbol";

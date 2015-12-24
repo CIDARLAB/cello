@@ -14,14 +14,56 @@ import org.springframework.web.bind.annotation.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 
 @RestController
 public class UCFController extends BaseController {
 
 
-    @RequestMapping(value="/ucf/{filename:.+}", method = RequestMethod.GET)
+    @RequestMapping(value="/ucf",method= RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    String getUCF(
+    JSONObject getUCFFiles(
+            @RequestHeader("Authorization") String basic
+    ) {
+
+        if(!auth.login(basic)) {
+            throw new CelloUnauthorizedException("invalid username/password");
+        }
+        String username = auth.getUsername(basic);
+
+        String keyword = "UCF";
+        String extension = "json";
+
+        String filePath = _resultPath + "/" + username;
+        File f = new File(filePath);
+
+        if (f.exists()) {
+            ArrayList<String> fileNames = new ArrayList<>();
+
+            File files[] = f.listFiles();
+            for (int i = 0; i < files.length; ++i) {
+                if(files[i].isDirectory()) {
+                    continue;
+                }
+                String fileName = files[i].getName();
+                if (fileName.contains(keyword) && fileName.endsWith(extension)) {
+                    fileNames.add(fileName);
+                }
+            }
+            String[] fileArray = fileNames.toArray(new String[fileNames.size()]);
+            JSONObject response = new JSONObject();
+            response.put("files", fileArray);
+            return response;
+        } else {
+            return null;
+        }
+    }
+
+
+    @RequestMapping(value="/ucf/{filename:.+}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    JSONObject getUCF(
             @RequestHeader("Authorization") String basic,
             @PathVariable("filename") String filename,
             @RequestParam String owner
@@ -34,19 +76,25 @@ public class UCFController extends BaseController {
         if(owner.equals("default")) {
             username = "default";
         }
+        else if(!username.equals(owner)) {
+            return null;
+        }
 
         String filePath = _resultPath + "/" + username + "/" + filename;
 
         FileReader reader = new FileReader(filePath);
         JSONParser jsonParser = new JSONParser();
         JSONArray jsonArray = (JSONArray) jsonParser.parse(reader);
-        return jsonArray.toJSONString();
+
+        JSONObject response = new JSONObject();
+        response.put("ucf", jsonArray);
+        return response;
     }
 
 
-    @RequestMapping(value="/ucf/{filename:.+}", method = RequestMethod.POST)
+    @RequestMapping(value="/ucf/{filename:.+}", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
-    String postUCF(
+    JSONObject postUCF(
             @RequestHeader("Authorization") String basic,
             @PathVariable("filename") String filename,
             @RequestParam String filetext
@@ -60,15 +108,15 @@ public class UCFController extends BaseController {
         String filePath = _resultPath + "/" + username + "/" + filename;
         Util.fileWriter(filePath, filetext, false);
 
-        JSONObject toReturn = new JSONObject();
-        toReturn.put("message", "wrote file " + filename);
-        return toReturn.toJSONString();
+        JSONObject response = new JSONObject();
+        response.put("message", "wrote file " + filename);
+        return response;
     }
 
 
-    @RequestMapping(value="/ucf/{filename:.+}/validate",method= RequestMethod.GET)
+    @RequestMapping(value="/ucf/{filename:.+}/validate",method= RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    String validateUploadedUCF(
+    JSONObject validateUploadedUCF(
             @RequestHeader("Authorization") String basic,
             @PathVariable String filename
     ) throws IOException {
@@ -107,7 +155,7 @@ public class UCFController extends BaseController {
             }
         }
 
-        return toReturn.toJSONString();
+        return toReturn;
     }
 
 

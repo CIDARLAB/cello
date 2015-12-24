@@ -180,7 +180,7 @@ function findUCFs() {
     }
 
     $.ajax({
-        url: "in_out",
+        url: "ucf",
         type: "GET",
         headers: {
             "Authorization": "Basic " + btoa(sessionStorage.username + ":" + sessionStorage.password)
@@ -189,8 +189,9 @@ function findUCFs() {
             keyword: "UCF",
             extension: "json"
         },
+        dataType: "json",
         success: function (response) {
-            var filenames = response;
+            var filenames = response['files'];
             for(var i=0; i<filenames.length; ++i) {
                 filenames[i] = filenames[i].replace(/(\r\n|\n|\r)/gm,"");
                 if(filenames[i]) {
@@ -270,7 +271,7 @@ function chooseUCF() {
             owner: owner
         },
         success: function (response) {
-            var jsonString = JSON.stringify(response);
+            var jsonString = JSON.stringify(response['ucf']);
             jsonUCF = JSON.parse(jsonString);
             showCollection();
         }
@@ -281,7 +282,7 @@ function chooseUCF() {
 function showCollection() {
 
     console.log(jsonUCF.length);
-//    jsonUCF = JSON.parse(jsonUCF);
+
     var objects = [];
 
     for (var i = 0; i < jsonUCF.length; ++i) {
@@ -321,8 +322,9 @@ function processUploadUCF(that) {
                 data:  {
                     filetext:  ucf_text
                 },
-
+                dataType: "json",
                 success: function (response) {
+                    var message = response['message'];
                     findUCFs();
                     validateUCF(filename);
                 }
