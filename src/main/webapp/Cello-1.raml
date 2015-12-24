@@ -242,3 +242,16 @@ securitySchemes:
                 {
                   "message" : "deleted file Eco2C2G2T2.UCF.json"
                 }
+    /validate:
+      get:
+        securedBy: [basic]
+        description: Determine if an uploaded UCF is valid.
+        responses:
+          200:
+            description: status is either "VALID" or "INVALID"
+            body:
+               application/json:
+                example: |
+                  {
+                    "status":"VALID"
+                  }
