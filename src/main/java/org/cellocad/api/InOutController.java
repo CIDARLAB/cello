@@ -17,9 +17,9 @@ import java.util.Map;
 public class InOutController extends BaseController {
 
 
-    @RequestMapping(value="/in_out",method= RequestMethod.GET)
+    @RequestMapping(value="/in_out",method= RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    String[] getResultFiles(
+    JSONObject getResultFiles(
             @RequestHeader("Authorization") String basic,
             @RequestParam Map<String, String> params
     ) {
@@ -56,25 +56,15 @@ public class InOutController extends BaseController {
                 }
             }
             String[] fileArray = fileNames.toArray(new String[fileNames.size()]);
-            return fileArray;
+            JSONObject response = new JSONObject();
+            response.put("files", fileArray);
+            return response;
         } else {
             return null;
         }
-
-//        if (f.exists()) {
-//            DirectoryScanner scanner = new DirectoryScanner();
-//            scanner.setIncludes(new String[]{"*" + keyword + "*" + extension});
-//            scanner.setBasedir(filePath);
-//            scanner.setCaseSensitive(false);
-//            scanner.scan();
-//            String[] files = scanner.getIncludedFiles();
-//            return files;
-//        } else {
-//            return null;
-//        }
     }
 
-    @RequestMapping(value="/in_out/{filename:.+}", method = RequestMethod.GET)
+    @RequestMapping(value="/in_out/{filename:.+}", method = RequestMethod.GET, produces = "text/plain")
     public @ResponseBody
     String getResultFile(
             @RequestHeader("Authorization") String basic,
@@ -94,6 +84,9 @@ public class InOutController extends BaseController {
             e.printStackTrace();
         }
 
+        JSONObject response = new JSONObject();
+        response.put("file_contents", fileContents);
+
         return fileContents;
     }
     private static String readFile(String path, Charset encoding) throws IOException
@@ -104,9 +97,9 @@ public class InOutController extends BaseController {
 
 
 
-    @RequestMapping(value="/in_out/{filename:.+}",method= RequestMethod.POST)
+    @RequestMapping(value="/in_out/{filename:.+}",method= RequestMethod.POST, produces = "application/json")
     public @ResponseBody
-    String writeFile(
+    JSONObject writeFile(
             @RequestHeader("Authorization") String basic,
             @PathVariable("filename") String filename,
             @RequestParam String filetext
@@ -120,15 +113,15 @@ public class InOutController extends BaseController {
         String filePath = _resultPath + "/" + username + "/" + filename;
         Util.fileWriter(filePath, filetext, false);
 
-        JSONObject toReturn = new JSONObject();
-        toReturn.put("message", "wrote file " + filename);
-        return toReturn.toJSONString();
+        JSONObject response = new JSONObject();
+        response.put("message", "wrote file " + filename);
+        return response;
     }
 
 
-    @RequestMapping(value="/in_out/{filename:.+}",method= RequestMethod.DELETE)
+    @RequestMapping(value="/in_out/{filename:.+}",method= RequestMethod.DELETE, produces = "application/json")
     public @ResponseBody
-    String deleteFile(
+    JSONObject deleteFile(
             @RequestHeader("Authorization") String basic,
             @PathVariable("filename") String filename
     ) {
@@ -145,9 +138,9 @@ public class InOutController extends BaseController {
 
         if(f.exists()) {
             Util.deleteFile(new File(filepath));
-            JSONObject toReturn = new JSONObject();
-            toReturn.put("message", "deleted file " + filename);
-            return toReturn.toJSONString();
+            JSONObject response = new JSONObject();
+            response.put("message", "deleted file " + filename);
+            return response;
         }
         else {
             throw new CelloNotFoundException("file " + filename + " does not exist.");

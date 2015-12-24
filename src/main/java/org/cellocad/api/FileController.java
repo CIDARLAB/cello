@@ -3,6 +3,7 @@ package org.cellocad.api;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.tools.ant.DirectoryScanner;
 import org.cellocad.MIT.dnacompiler.Util;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +26,9 @@ import java.util.Map;
 @RestController
 public class FileController extends BaseController {
 
-
-    private final Logger logger = LoggerFactory.getLogger(FileController.class);
-
-
-    @RequestMapping(value="/results",method= RequestMethod.GET)
+    @RequestMapping(value="/results",method= RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    String[] getDirectoryList(
+    JSONObject getDirectoryList(
             @RequestHeader("Authorization") String basic
     ) throws IOException {
 
@@ -47,13 +44,17 @@ public class FileController extends BaseController {
         scanner.scan();
 
         String[] directory_names = scanner.getIncludedDirectories();
-        return directory_names;
+//        return directory_names;
+
+        JSONObject response = new JSONObject();
+        response.put("folders", directory_names);
+        return response;
     }
 
 
-    @RequestMapping(value="/results/{jobid}",method= RequestMethod.GET)
+    @RequestMapping(value="/results/{jobid}",method= RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    String[] getResultFiles(
+    JSONObject getResultFiles(
             @RequestHeader("Authorization") String basic,
             @PathVariable("jobid") String jobid,
             @RequestParam Map<String, String> params
@@ -85,15 +86,18 @@ public class FileController extends BaseController {
             scanner.setCaseSensitive(false);
             scanner.scan();
             String[] files = scanner.getIncludedFiles();
-            return files;
+            //return files;
+            JSONObject response = new JSONObject();
+            response.put("files", files);
+            return response;
         } else {
             return null;
         }
     }
 
-    @RequestMapping(value="/results/{jobid}",method= RequestMethod.DELETE)
+    @RequestMapping(value="/results/{jobid}",method= RequestMethod.DELETE, produces = "application/json")
     public @ResponseBody
-    String deleteDirectory(
+    JSONObject deleteDirectory(
             @RequestHeader("Authorization") String basic,
             @PathVariable("jobid") String jobid
     ) throws IOException {
@@ -109,7 +113,9 @@ public class FileController extends BaseController {
         Util.deleteFilesInDirectory(new File(directory));
         Util.deleteEmptyDirectory(new File(directory));
 
-        return "deleted " + directory;
+        JSONObject response = new JSONObject();
+        response.put("message", "deleted " + directory);
+        return response;
     }
 
 

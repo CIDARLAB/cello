@@ -1770,6 +1770,17 @@ public class DNACompiler {
 
         abstract_logic_circuit = new LogicCircuit(GW.Gates, GW.Wires);
 
+        //Prashant needs to fix bug with extra output wire.
+        LogicCircuit lc = abstract_logic_circuit;
+        for(int i=0; i<lc.get_Wires().size(); ++i) {
+            Wire w = lc.get_Wires().get(i);
+            if(w.To.Index == w.From.Index) {
+                lc.get_Wires().remove(i);
+                i--;
+            }
+        }
+
+
         for(Gate g: abstract_logic_circuit.get_Gates()) {
             if(g.Outgoing != null) {
                 g.Outgoing_wire_index = g.Outgoing.Index;

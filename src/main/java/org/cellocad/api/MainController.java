@@ -34,7 +34,7 @@ public class MainController extends BaseController {
     }
 
 
-    @RequestMapping(value="/submit",method= RequestMethod.POST)
+    @RequestMapping(value="/submit",method= RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     String dnaCompiler(
             @RequestHeader("Authorization") String basic,
@@ -136,8 +136,10 @@ public class MainController extends BaseController {
         else if(dnaCompiler.get_result_status() == DNACompiler.ResultStatus.roadblocking_inputs) {
              message = "WARNING: roadblocking inputs.  Loading results page.";
         }
-        
-        return message;
+
+        JSONObject response = new JSONObject();
+        response.put("message", message);
+        return response.toJSONString();
     }
 
 

@@ -42,7 +42,6 @@ if (typeof String.prototype.endsWith != 'function') {
 function set_filepaths() {
 
     var all_result_files = res.all_result_files;
-//    console.log(all_result_files);
 
     var prefix = res.jobID + "_";
 
@@ -65,7 +64,6 @@ function set_filepaths() {
 
         for(var j=0; j<all_result_files.length; ++j) {
             var file = all_result_files[j];
-            //console.log(file);
 
             if(file.indexOf(prefix+"A"+nA) != -1) {
 
@@ -149,10 +147,10 @@ function set_all_result_files() {
             keyword: "",
             extension: ""
         },
+        dataType: "json",
         success: function(response) {
-            var filenames = response;
+            var filenames = response['files'];
             res.all_result_files = filenames;
-//            console.log(filenames);
             set_nA_list();
             return true;
         },
@@ -227,10 +225,9 @@ function set_result_pulldown() {
         },
         data: {
         },
+        dataType: "json",
         success: function(response) {
-            var dirnames = response;
-
-            console.log(dirnames);
+            var dirnames = response['folders'];
 
             for(var i=0; i<dirnames.length; ++i) {
                 if(dirnames[i] != '') {
@@ -282,6 +279,7 @@ $( "#delete_result" ).click(function() {
             },
             data: {
             },
+            dataType: "json",
             success: function(response) {
                 location.reload();
             }

@@ -83,7 +83,9 @@ function addNewInput() {
         data: {
             filetext:  input_data
         },
+        dataType: "json",
         success: function (response) {
+            var message = response['message'];
             var input_obj = {};
             input_obj.prom_name = prom_name;
             input_obj.lowreu  = low_REU;
@@ -136,7 +138,9 @@ function addNewOutput() {
         data: {
             filetext:  output_data
         },
+        dataType: "json",
         success: function (response) {
+            var message = response['message'];
             var output_obj = {};
             output_obj.gene_name = $('#add_output_name').val();
             output_obj.dnaseq    = $('#add_output_sequence').val();
@@ -183,7 +187,9 @@ function deleteInputFile() { //called on button click 'delete'
         },
         data: {
         },
+        dataType: "json",
         success: function (response) {
+            var message = response['message'];
 
             getInputFiles();
             resetInputList();
@@ -218,7 +224,9 @@ function deleteOutputFile() { //called on button click 'delete'
         },
         data: {
         },
+        dataType: "json",
         success: function (response) {
+            var message = response['message'];
 
             getOutputFiles();
             resetOutputList();
@@ -379,12 +387,14 @@ function getInputFiles() {
             keyword: "input_",
             extension: "txt"
         },
+        dataType: "json",
         success: function(response) {
+            var filenames = response['files'];
 
             vio.inputs_list = [];
             var list_of_requests = [];
 
-            var filenames = response;
+            //var filenames = response;
             for(var i=0; i<filenames.length; ++i) {
                 if(filenames[i]) { //false if empty string
                     var filename = filenames[i];
@@ -397,14 +407,19 @@ function getInputFiles() {
                             },
                             data: {
                             },
+                            dataType: "text",
                             success: function(response) {
-                                var input_attr = response.split(" ");
+                                var file_contents = response;
+                                var input_attr = file_contents.split(" ");
                                 var input_obj = {};
                                 input_obj.prom_name    = String (input_attr[0]);
                                 input_obj.lowreu  = Number (input_attr[1]);
                                 input_obj.highreu = Number (input_attr[2]);
                                 input_obj.dnaseq  = String (input_attr[3]).replace(/(\r\n|\n|\r)/gm,"");
                                 vio.inputs_list.push(input_obj);
+                            },
+                            error: function(response) {
+                                console.log('error');
                             }
                         })
                     );
@@ -416,7 +431,7 @@ function getInputFiles() {
                 loadInputs();
             });
         },
-        error: function() {
+        error: function(response) {
         }
     });
 }
@@ -433,12 +448,14 @@ function getOutputFiles() {
             keyword: "output_",
             extension: "txt"
         },
+        dataType: "json",
         success: function(response) {
+            var filenames = response['files'];
 
             vio.outputs_list = [];
             var list_of_requests = [];
 
-            var filenames = response;
+            //var filenames = response;
             for(var i=0; i<filenames.length; ++i) {
                 if(filenames[i]) { //false if empty string
                     var filename = filenames[i];
@@ -451,8 +468,10 @@ function getOutputFiles() {
                             },
                             data: {
                             },
+                            dataType: "text",
                             success: function(response) {
-                                var output_attr = response.split(" ");
+                                var file_contents = response;
+                                var output_attr = file_contents.split(" ");
                                 var output_obj = {};
                                 output_obj.gene_name = String (output_attr[0]);
                                 output_obj.dnaseq = String (output_attr[1]).replace(/(\r\n|\n|\r)/gm,"");

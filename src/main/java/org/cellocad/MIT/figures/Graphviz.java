@@ -60,22 +60,9 @@ public class Graphviz {
         for(int i=0; i<lc.get_Wires().size(); ++i) {
             Wire w = lc.get_Wires().get(i);
 
-            String child = "";
-            String parent = "";
+            String child = w.To.Name;
+            String parent = w.From.Name;
 
-            if(w.To.Type == Gate.GateType.INPUT) {
-                child = w.To.Name;
-            }
-            else {
-                child = w.To.Name;
-            }
-            if(w.From.Type == Gate.GateType.OUTPUT || w.From.Type == Gate.GateType.OUTPUT_OR) {
-                parent = w.From.Name;
-            }
-            else {
-                parent = w.From.Name;
-            }
-            //gvText += child + " ->" + parent + " [arrowhead=none]; \n";
             gvText += child + " ->" + parent + " ; \n";
         }
 
@@ -122,17 +109,8 @@ public class Graphviz {
         for(int i=0; i<lc.get_Wires().size(); ++i) {
             Wire w = lc.get_Wires().get(i);
 
-            String child = "";
-            String parent = "";
-
-            if(w.To.Type == Gate.GateType.INPUT) {
-                child = w.To.Name;
-            }
-            else {
-                child = w.To.Name;
-            }
-
-            parent = w.From.Name;
+            String child = w.To.Name;
+            String parent = w.From.Name;
 
             gvText += child + " ->" + parent + " ; \n";
         }
@@ -240,21 +218,10 @@ public class Graphviz {
         for(int i=0; i<lc.get_Wires().size(); ++i) {
             Wire w = lc.get_Wires().get(i);
 
-            String child = "";
-            String parent = "";
+            String child = w.To.Name;
+            String parent = w.From.Name;
+            System.out.println("Setting " + w.Index + " " + child + "->" + parent);
 
-            if(w.To.Type == Gate.GateType.INPUT) {
-                child = w.To.Name;
-            }
-            else {
-                child = w.To.Name;
-            }
-            if(w.From.Type == Gate.GateType.OUTPUT || w.From.Type == Gate.GateType.OUTPUT_OR) {
-                parent = w.From.Name;
-            }
-            else {
-                parent = w.From.Name;
-            }
             gvText += child + "->" + parent + "; \n";
         }
 

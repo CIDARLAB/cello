@@ -221,21 +221,23 @@ function submitCello() {
             user_options: options_string
         },
         success: function(response) { //response text is based on DNACompiler.get_result_status()
+            var message = response['message'];
+
             status = "finished"; // stops the runtimeLoop.
             if(response.indexOf('SUCCESS') != -1) {
-                var rhtml = "<div class='alert alert-success'>"+ response + "</div>";
+                var rhtml = "<div class='alert alert-success'>"+ message + "</div>";
                 $('#dialog_pre').html(rhtml);
                 $('#dialog').dialog({title:"Run finished"});
                 $('#dialog').dialog('open');
             }
             else if(response.indexOf('WARNING') != -1) {
-                var rhtml = "<div class='alert alert-warning'>"+ response + "</div>";
+                var rhtml = "<div class='alert alert-warning'>"+ message + "</div>";
                 $('#dialog_pre').html(rhtml);
                 $('#dialog').dialog({title:"Run finished"});
                 $('#dialog').dialog('open');
             }
             else {
-                var rhtml = "<div class='alert alert-danger'>"+ response + "</div>";
+                var rhtml = "<div class='alert alert-danger'>"+ message + "</div>";
                 $('#dialog_pre').html(rhtml);
                 $('#dialog').dialog({title:"Run finished"});
                 $('#dialog').dialog('open');
@@ -271,8 +273,10 @@ function setPreviousDesignNames() {
         headers: {
             "Authorization": "Basic " + btoa(sessionStorage.username + ":" + sessionStorage.password)
         },
+        data:{},
+        dataType: "json",
         success: function(response) {
-            previous_designs = response;
+            previous_designs = response['folders'];
         }
     });
 }
