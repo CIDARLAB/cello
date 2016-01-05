@@ -21,17 +21,17 @@ import java.util.Map;
 @RestController
 public class MainController extends BaseController {
 
-    @RequestMapping(value="",method= RequestMethod.GET)
-    public @ResponseBody
-    String dnaCompiler(
-            @RequestHeader("Authorization") String basic
-    ) {
-        if(!auth.login(basic)) {
-            throw new CelloUnauthorizedException("invalid username/password");
-        }
-        String username = auth.getUsername(basic);
-        return "Welcome, " + username;
-    }
+//    @RequestMapping(value="",method= RequestMethod.GET)
+//    public @ResponseBody
+//    String dnaCompiler(
+//            @RequestHeader("Authorization") String basic
+//    ) {
+//        if(!auth.login(basic)) {
+//            throw new CelloUnauthorizedException("invalid username/password");
+//        }
+//        String username = auth.getUsername(basic);
+//        return "Welcome, " + username;
+//    }
 
 
     @RequestMapping(value="/submit",method= RequestMethod.POST, produces = "application/json")
