@@ -1329,9 +1329,6 @@ public class DNACompiler {
             }
         }
 
-        logger.info(lc.get_sensor_module_parts().size());
-        logger.info(lc.get_circuit_module_parts().size());
-        logger.info(lc.get_output_module_parts().size());
 
         GeneticLocationWriter.insertModulePartsIntoGeneticLocations(lc, ucf);
 

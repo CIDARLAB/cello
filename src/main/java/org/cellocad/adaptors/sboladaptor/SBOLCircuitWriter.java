@@ -34,7 +34,7 @@ public class SBOLCircuitWriter {
         _document = new org.sbolstandard.core2.SBOLDocument();
         _document.setDefaultURIprefix("http://cellocad.org");
 
-        _circuit_name = prefix;
+        _circuit_name = prefix.replace("-", "_");
 
 
         /////////////////////////////////////////////

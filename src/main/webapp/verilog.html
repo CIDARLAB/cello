@@ -138,7 +138,7 @@
         <textarea id="verilogArea"></textarea>
 
         <div align="center" style="margin-top: 10px">
-            <input type="text" id="design_name" required style="display: none"  placeholder="design name" pattern="[A-Za-z][A-Za-z0-9_]+" title="starts with letter, contains only alphanumeric and underscore characters">
+            <input type="text" id="design_name" required style="display: none"  placeholder="design name" pattern="[A-Za-z][A-Za-z0-9_-]+" title="starts with letter, contains only alphanumeric, dash, underscore characters">
             <br><br>
             <button class="btn btn-lg btn-white" style="display: block" id="validate"  type="button" onclick="getNetlist()">Validate Verilog</button>
             <button class="btn btn-lg btn-success" style="display: none" id="submit">Run</button>

@@ -154,7 +154,7 @@ public class Args {
 
             if(args[i].equals("-jobID")) {
                 _jobID = args[i+1];
-                String jobid_regex = "[a-zA-Z][0-9a-zA-Z_]+";
+                String jobid_regex = "[a-zA-Z][0-9a-zA-Z_-]+";
                 if(!_jobID.matches(jobid_regex)) {
                     //SBOL displayID's cannot start with a number.
                     throw new IllegalArgumentException("jobID must start with a letter, adhering to this regex: " + jobid_regex);
