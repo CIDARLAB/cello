@@ -26,7 +26,7 @@ import java.util.Map;
 @RestController
 public class FileController extends BaseController {
 
-    @RequestMapping(value="/results",method= RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value="/results", method= RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     JSONObject getDirectoryList(
             @RequestHeader("Authorization") String basic
@@ -133,7 +133,7 @@ public class FileController extends BaseController {
         }
         String username = auth.getUsername(basic);
 
-        if(filename.endsWith(".png")) {
+        if(filename.endsWith(".png") || filename.endsWith(".pdf")) {
             String filePath = _resultPath + "/" + username + "/" + jobid + "/" + filename;
             try {
                 //Convert binary image file to byte array to base64 encoded string

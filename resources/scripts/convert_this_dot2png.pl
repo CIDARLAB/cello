@@ -17,4 +17,4 @@ my $svg = substr($dot, 0, -4) . ".svg";
 #system("dot -Tpng $dot > $png");
 
 system("dot -Tsvg $dot > $svg");
-system("convert -density 300 -transparent white $svg $png");
+system("convert -density 200 -transparent white $svg $png");
