@@ -81,10 +81,7 @@ public class UCFController extends BaseController {
         String filePath = "";
 
         if(owner.equals("default")) {
-            System.out.println("owner is default");
-            System.out.println("src Path " + _srcPath);
             filePath = _srcPath + "/resources/UCF/" + filename;
-            System.out.println("UCF filepath " + filePath);
         }
         else if(!username.equals(owner)) {
             throw new CelloUnauthorizedException("owner is not the authenticated user.");

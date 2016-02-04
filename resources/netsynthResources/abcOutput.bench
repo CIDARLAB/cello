@@ -1,6 +1,0 @@
-# Benchmark "blif_file" written by ABC on Thu Feb  4 13:29:31 2016
-INPUT(in1)
-INPUT(in2)
-OUTPUT(out1)
-n3          = AND(in1, in2)
-out1        = NOT(n3)
