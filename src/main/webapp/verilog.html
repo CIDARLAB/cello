@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
     <!-- Other CSS -->
     <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
     <link href="css/neat.css" rel="stylesheet" type="text/css">
@@ -39,9 +41,8 @@
             <div>
                 <ul class="nav navbar-nav">
                     <li class="active"><a id="verilog_link" href="">Verilog</a></li>
-                    <li><a id="results_link" href="">Results</a></li>
                     <li><a id="options_link" href="">Options</a></li>
-                    <li><a href="download.html">Docs</a></li>
+                    <li><a id="results_link" href="">Results</a></li>
                 </ul>
             </div>
             <div id="loginArea">
@@ -61,15 +62,16 @@
 <div class="container-fluid">
 
 
-
-<div id="verilog_dialog" class="dialog" title="Verilog and validation" style="display: none">
-
-</div>
-
 <div id="dialog" class="dialog" title="message to user" style="display: none">
     <pre id="dialog_pre"></pre>
 </div>
 
+    <!--<div class="list-group">-->
+        <!--<a class="list-group-item" href="#"><i class="fa fa-save fa-fw"></i>&nbsp; Home</a>-->
+        <!--<a class="list-group-item" href="#"><i class="fa fa-delete fa-fw"></i>&nbsp; Library</a>-->
+        <!--<a class="list-group-item" href="#"><i class="fa fa-trash fa-fw"></i>&nbsp; Applications</a>-->
+        <!--<a class="list-group-item" href="#"><i class="fa fa-cog fa-fw"></i>&nbsp; Settings</a>-->
+    <!--</div>-->
 
 
 <div id="new_input_div" class="dialog" title="add new input promoter" style="display: none">
@@ -124,14 +126,13 @@
 
         <select id="method" class="span3" onchange="setVerilogMethod()" style="margin-left: 20px; display: inline-block">
         <option value="choose">choose</option>
+        <option value="demo">full demo</option>
         <option value="case">case</option>
         <option value="assign">assign</option>
         <option value="structural">structural</option>
         <option value="upload">upload file</option>
-    </select>
 
-        <button id='info_verilog' class="btn btn-default" type="button">info</button>
-        <button id='instructions' class="btn btn-default" type="button">instructions</button>
+    </select>
 
         <input type="file" id="upload_verilog"  onchange="processUploadFile(this)" style="display: none">
 
@@ -151,27 +152,26 @@
 
     <div id="input_output_div" class="well col-xs-12 col-sm-12 col-md-7 col-lg-7 dynamic_height_div">
 
-        <h4>Input promoters</h4>
+        <h4>Inputs</h4>
         <select id="input_pulldown" onchange="setInputFromList()">
         </select>
 
         <button class="btn btn-default" type="button" onclick="inputFormDialog()">Add new</button>
         <button class="btn btn-default" type="button" onclick="deleteInputDialog()">Delete</button>
         <button class="btn btn-default" type="button" onclick="resetInputList()">clear</button>
-        <button class="btn btn-default" type="button" id='info_inputs'>info</button>
 
         <table id='inputs_table' class="table table-bordered table-condensed">
             <tr>
-                <td width="10%" ><input value="index" readonly></td>
-                <td width="20%" ><input value="name" readonly></td>
-                <td width="15%" ><input value="low REU" readonly></td>
-                <td width="15%" ><input value="high REU" readonly></td>
-                <td width="40%"><input value="DNA sequence (promoter)" readonly></td>
+                <td width="10%"><input value="index" readonly></td>
+                <td width="20%"><input value="name" readonly></td>
+                <td width="15%"><input value="low REU" readonly></td>
+                <td width="15%"><input value="high REU" readonly></td>
+                <td width="40%"><input value="DNA sequence" readonly></td>
             </tr>
         </table>
 
 
-        <h4>Output genes</h4>
+        <h4>Outputs</h4>
         <select id="output_pulldown" onchange="setOutputFromList()">
         </select>
 
@@ -179,14 +179,13 @@
         <button class="btn btn-default" type="button" onclick="outputFormDialog()">Add new</button>
         <button class="btn btn-default" type="button" onclick="deleteOutputDialog()">Delete</button>
         <button class="btn btn-default" type="button" onclick="resetOutputList()">clear</button>
-        <button class="btn btn-default" type="button" id='info_outputs'>info</button>
 
         <table id='outputs_table' class="table table-bordered table-condensed">
             <tbody>
             <tr>
                 <td width="10%"><input readonly value="index"></td>
                 <td width="20%"><input readonly value="name" ></td>
-                <td width="70%"><input readonly value="DNA sequence (recommended: ribozyme rbs cds terminator)"></td>
+                <td width="70%"><input readonly value="DNA sequence"></td>
             </tr>
             </tbody>
         </table>
@@ -239,7 +238,5 @@
 </html>
 
 <style type="text/css">
-
-
 
 </style>

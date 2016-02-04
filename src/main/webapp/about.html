@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" href="images/cello_small.png">
+
+    <!--CSS style sheets-->
+    <link href="css/tabcontent.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">-->
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-57223580-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</head>
+
+
+<!--<nav id="main-navbar"  class="navbar navbar-default navbar-fixed-top">-->
+    <!--<div class="container-fluid">-->
+        <!--<div>-->
+            <!--<div>-->
+                <!--<a class="navbar-brand" href="index.html">Cello</a>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<ul class="nav navbar-nav">-->
+                    <!--<li><a id="verilog_link" href="">Verilog</a></li>-->
+                    <!--<li><a id="results_link" href="">Results</a></li>-->
+                    <!--<li><a id="options_link" href="">Options</a></li>-->
+                    <!--<li class="active"><a href="about.html">Docs</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div id="loginArea">-->
+                <!--<div class="navbar-form pull-right">-->
+                    <!--<input id="login_username" type="text" class="span2" placeholder="Login">-->
+                    <!--<input id="login_password" type="password" class="span2" placeholder="Password">-->
+                    <!--<input id="btnLogin" type="submit" value="Login" class="btn btn-warning">-->
+                    <!--<div id="loginError"></div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</nav>-->
+
+<body oncontextmenu="return false;">
+
+<div class="container-fluid" style="margin-bottom: 20px">
+
+</div>
+
+
+<div class="container-fluid center">
+
+    <div style="width: 150px" class="affix">
+        <div class="text-center" style="display: inline-block">
+            <img src="images/logo-cello-text.png" style="width: 100%; margin-bottom: 30px; margin-top: 15px">
+        </div>
+        <div class="text-center" style="display: inline-block">
+            <img src="images/logo-cello-notext-color.png" style="width: 100%">
+        </div>
+    </div>
+
+
+    <div style="margin-left: 175px">
+
+        <div class="well">
+            <!--<h3><small>links to code, instructions, API, and examples</small></h3>-->
+
+            <table id='doc_links_table' class="table table-condensed">
+                <tr>
+                    <td width="20%"><input value="link" readonly></td>
+                    <td width="80%"><input value="description" readonly></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="Cello-1.html">API</a></td>
+                    <td width="80%"><h4><small>Endpoints, requests, and responses of Cello API.  Submit jobs and retreive results without downloading/installing.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="">CLI</a></td>
+                    <td width="80%"><h4><small>A command-line interface facilitates use of the Cello API.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello">GitHub repo</a></td>
+                    <td width="80%"><h4><small>Clone the repository to get the source code.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/README.md">Readme</a></td>
+                    <td width="80%"><h4><small>(GitHub md) Overview of genetic circuit design using Cello.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/INSTALL.md">Install</a></td>
+                    <td width="80%"><h4><small>(GitHub md) How to compile.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/RUN.md">Run/demo</a></td>
+                    <td width="80%"><h4><small>(GitHub md) How to run.  Includes web app, API, CLI, and Java instructions/examples.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="suppinfo.html">Supp Info</a></td>
+                    <td width="80%"><h4><small>Supporting Information PDF.</small></h4></td>
+                </tr>
+                <!--<tr>-->
+                    <!--<td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/UCF-guide.md">UCF guide</a></td>-->
+                    <!--<td width="80%"><h4><small>(GitHub md) Explains each collection in the UCF.</small></h4></td>-->
+                <!--</tr>-->
+            </table>
+
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+        <hr/>
+        <h4><small>Cello is a trademark of <a id='nona_link' href='http://www.nonasoftware.org'>Nona Research Foundation, Inc.</a></small></h4>
+        <img class="footer_img" src="images/NonaFoundation.png">
+        <img class="footer_img" src="images/mit.png">
+        <img class="footer_img" src="images/cidar.png">
+        <a href="http://aws.amazon.com/what-is-cloud-computing"><img src="http://awsmedia.s3.amazonaws.com/AWS_Logo_PoweredBy_127px.png" alt="Powered by AWS Cloud Computing"></a>
+        <hr/>
+    </div>
+</div>
+
+
+
+</body>
+
+
+<!--JavaScript libraries-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="js/session_controller.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
+
+
+<script type="text/javascript">
+
+    isRegistered();
+
+    $(document).ready(function () {
+        $(".popup").hide();
+        $(".openpop").click(function (e) {
+            e.preventDefault();
+            $("iframe").attr("src", $(this).attr('href'));
+            $(".links").fadeOut('slow');
+            $(".popup").fadeIn('slow');
+        });
+
+        $(".close").click(function () {
+            $(this).parent().fadeOut("slow");
+            $(".links").fadeIn("slow");
+        });
+    });
+
+</script>
+
+
+<footer>
+    <div class="container" align="center">
+    </div>
+</footer>
+
+<style type="text/css">
+    .doc-btn {
+        width: 100px;
+        background: none;
+        border: 1px solid orange;
+        color: darkorange;
+    }
+</style>
+
+
+</html>

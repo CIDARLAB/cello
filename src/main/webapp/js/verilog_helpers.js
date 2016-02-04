@@ -1,5 +1,61 @@
 
 function setVerilogMethod() {
+    var verilog_method = $('#method').val();
+
+    if(verilog_method == "demo") {
+
+        resetInputList();
+        resetOutputList();
+
+        vio.inputs = [];
+        vio.outputs = [];
+
+        var input_obj1 = {};
+        input_obj1.prom_name = "pTac";
+        input_obj1.lowreu = 0.0034;
+        input_obj1.highreu = 2.8;
+        input_obj1.dnaseq = "AACGATCGTTGGCTGTGTTGACAATTAATCATCGGCTCGTATAATGTGTGGAATTGTGAGCGCTCACAATT";
+
+        var input_obj2 = {};
+        input_obj2.prom_name = "pTet";
+        input_obj2.lowreu = 0.0013;
+        input_obj2.highreu = 4.4;
+        input_obj2.dnaseq = "TACTCCACCGTTGGCTTTTTTCCCTATCAGTGATAGAGATTGACATCCCTATCAGTGATAGAGATAATGAGCAC";
+
+        vio.inputs.push(input_obj1);
+        vio.inputs.push(input_obj2);
+
+        var output_obj1 = {}
+        output_obj1.gene_name = "YFP";
+        output_obj1.dnaseq = "CTGAAGCTGTCACCGGATGTGCTTTCCGGTCTGATGAGTCCGTGAGGACGAAACAGCCTCTACAAATAATTTTGTTTAATACTAGAGAAAGAGGGGAAATACTAGATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAGTTCAGCGTGTCCGGCGAGGGCGAGGGCGATGCCACCTACGGCAAGCTGACCCTGAAGTTCATCTGCACCACAGGCAAGCTGCCCGTGCCCTGGCCCACCCTCGTGACCACCTTCGGCTACGGCCTGCAATGCTTCGCCCGCTACCCCGACCACATGAAGCTGCACGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGACGGCAACATCCTGGGGCACAAGCTGGAGTACAACTACAACAGCCACAACGTCTATATCATGGCCGACAAGCAGAAGAACGGCATCAAGGTGAACTTCAAGATCCGCCACAACATCGAGGACGGCAGCGTGCAGCTCGCCGACCACTACCAGCAGAACACCCCAATCGGCGACGGCCCCGTGCTGCTGCCCGACAACCACTACCTTAGCTACCAGTCCGCCCTGAGCAAAGACCCCAACGAGAAGCGCGATCACATGGTCCTGCTGGAGTTCGTGACCGCCGCCGGGATCACTCTCGGCATGGACGAGCTGTACAAGTAACTCGGTACCAAATTCCAGAAAAGAGGCCTCCCGAAAGGGGGGCCTTTTTTCGTTTTGGTCC";
+
+        vio.outputs.push(output_obj1);
+
+        loadInputs();
+        loadOutputs();
+
+
+        var verilog_demo_text = "" +
+        "module A(output out1,  input in1, in2);\n" +
+        " always@(in1,in2)\n" +
+        "  begin\n" +
+        "   case({in1,in2})\n" +
+        "    2'b00: {out1} = 1'b0;\n" +
+        "    2'b01: {out1} = 1'b0;\n" +
+        "    2'b10: {out1} = 1'b0;\n" +
+        "    2'b11: {out1} = 1'b1;\n" +
+        "   endcase\n" +
+        "  end\n" +
+        "endmodule\n";
+
+        editor.getDoc().setValue(verilog_demo_text);
+
+        $('#method').val('choose');
+
+        return;
+    }
+
+
     if(vio.inputs.length == null || vio.inputs.length == 0) {
         $('#method').val('choose');
         $('#dialog_pre').html('<div class="alert alert-warning"> Inputs not yet specified </div>');
@@ -15,7 +71,7 @@ function setVerilogMethod() {
         return;
     }
 
-    var verilog_method = $('#method').val();
+
 
     if(verilog_method == "truth") {
         editor.getDoc().setValue(getVerilogCase());
@@ -219,85 +275,3 @@ function getVerilogCase() {
 
     return v;
 }
-
-
-
-$('#info_verilog').click(function() {
-    var rhtml = "<p>"+
-        "Verilog is a hardware description language used in electronic design.  A program "+
-        "starts with a module definition, which has a module name, and input/output names. "+
-        "Note that the order of the promoters specified above corresponds to the order "+
-        "of input names specified in the module definition."+
-        "</p>"+
-
-        "<table class='table table-bordered' style='table-layout: fixed'>"+
-        "<tr>"+
-        "<td width='20%'>Case</td>"+
-        "<td width='80%'>Useful format to specify a truth table. "+
-        "Each input combination is a unique case, "+
-        "and a desired output can be defined for each input combination.</td>"+
-        "</tr>"+
-        "<tr>"+
-        "<td width='20%'>Assign</td>"+
-        "<td width='80%'>Operators AND (&), OR (|), NOT (~), and parentheses for order of operations"+
-        "can be used to specify any logic function.  Internal wires can carry intermediate values"+
-        "to build more complex assign statements.</td>"+
-        "</tr>"+
-        "<tr>"+
-        "<td width='20%'>Structural</td>"+
-        "<td width='80%'>Can be used to specify the wiring diagram through a netlist, "+
-        "a list of connected gates.</td>"+
-        "</tr>"+
-        "</table>"+
-
-        "<p>"+
-        "The Verilog code must be validated before a design run.  A netlist (list of connected gates) " +
-        "for a NOR-Inverter Graph will appear if the Verilog is valid.  Note that " +
-        "this does not necessarily reflect the final circuit diagram, because gate types and logic motifs " +
-        "specified in the UCF will be applied during logic synthesis. "+
-        "</p>";
-    $('#dialog_pre').html(rhtml);
-    $('#dialog').dialog({title: "Verilog language"});
-    $('#dialog').dialog('open');
-});
-
-
-$('#info_inputs').click(function() {
-    var rhtml = "<p>" +
-        "Cello designs transcriptional logic circuits that relate input promoter states " +
-        "to the expression of one or more output genes.  This table lists the promoters that " +
-        "will act as circuit inputs, where ON/OFF promoter activities are specified in relative expression units (REU). " +
-        "The sequence of each promoter is also specified because Cello will output the full DNA sequence " +
-        "of the circuit, which includes the promoters specified here.  Note that the order of promoters "
-    "corresponds to the order of inputs specified in the Verilog module definition. " +
-    "</p>";
-    $('#dialog_pre').html(rhtml);
-    $('#dialog').dialog({title: "Input promoters"});
-    $('#dialog').dialog('open');
-});
-
-$('#info_outputs').click(function() {
-    var rhtml = "<p>" +
-        "The output gene does not affect the circuit designed by Cello.  However, to allow Cello to "+
-        "generate the full DNA sequence for the circuit, the DNA sequence of the output gene(s) can be "+
-        "specified in this table.  Typical output sequences should concatenate a "+
-        "ribozyme, RBS, CDS, and terminator sequence. Note that the order of output genes "+
-        "corresponds to the order of outputs specified in the Verilog module definition."+
-        "</p>";
-    $('#dialog_pre').html(rhtml);
-    $('#dialog').dialog({title: "Output genes"});
-    $('#dialog').dialog('open');
-});
-
-$('#instructions').click(function() {
-    var rhtml = "";
-    rhtml += "<div class='alert alert-success'> Step 1: Define/choose input promoters and output genes. </div>";
-    rhtml += "<div class='alert alert-success'> Step 2: Choose a Verilog method, and edit the code to specify the desired logic function.  This logic function will relate the input promoter states to output gene expression (ON/OFF).  </div>";
-    rhtml += "<div class='alert alert-success'> Step 3: Click 'Validate Verilog'. </div>";
-    rhtml += "<div class='alert alert-success'> Step 4: Choose a design name and click 'Run'. </div>";
-    rhtml += "<div class='alert alert-info'> Note: The default gate library is specified in a user constraint file (UCF), which can be viewed in the Options tab.  A custom gate library can be uploaded in the Options tab. </div>";
-    $('#dialog_pre').html(rhtml);
-    $('#dialog').dialog({title: "Instructions"});
-    $('#dialog').dialog('open');
-});
-

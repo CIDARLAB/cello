@@ -12,6 +12,7 @@ public class BaseController {
     private static final String USER_DB_NAME = "CELLO";
     public Authenticator auth = new Authenticator(USER_DB_NAME);
     public final String _resultPath;
+    public final String _srcPath;
 
     public BaseController() {
 
@@ -38,6 +39,7 @@ public class BaseController {
         String projectName = split_rootPath[split_rootPath.length-1];
 
         _resultPath = rootPath + "/" + projectName + "_results";
+        _srcPath = rootPath + "/" + projectName;
     }
 
 

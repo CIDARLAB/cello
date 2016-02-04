@@ -289,3 +289,13 @@ input:read-only {
     margin-right: 20px;
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {-moz-appearance: textfield;}
+
+form input {
+    margin-bottom: 1em;
+}

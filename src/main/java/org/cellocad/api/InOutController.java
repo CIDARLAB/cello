@@ -97,9 +97,9 @@ public class InOutController extends BaseController {
 
 
 
-    @RequestMapping(value="/in_out/{filename:.+}",method= RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value="/in_out/{filename:.+}",method= RequestMethod.POST)
     public @ResponseBody
-    JSONObject writeFile(
+    String writeFile(
             @RequestHeader("Authorization") String basic,
             @PathVariable("filename") String filename,
             @RequestParam String filetext
@@ -115,13 +115,13 @@ public class InOutController extends BaseController {
 
         JSONObject response = new JSONObject();
         response.put("message", "wrote file " + filename);
-        return response;
+        return response.toJSONString();
     }
 
 
-    @RequestMapping(value="/in_out/{filename:.+}",method= RequestMethod.DELETE, produces = "application/json")
+    @RequestMapping(value="/in_out/{filename:.+}",method= RequestMethod.DELETE)
     public @ResponseBody
-    JSONObject deleteFile(
+    String deleteFile(
             @RequestHeader("Authorization") String basic,
             @PathVariable("filename") String filename
     ) {
@@ -140,7 +140,7 @@ public class InOutController extends BaseController {
             Util.deleteFile(new File(filepath));
             JSONObject response = new JSONObject();
             response.put("message", "deleted file " + filename);
-            return response;
+            return response.toJSONString();
         }
         else {
             throw new CelloNotFoundException("file " + filename + " does not exist.");

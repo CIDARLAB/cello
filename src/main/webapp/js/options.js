@@ -21,7 +21,8 @@ $( document ).ready( function() {
 var default_ucfs = ["Eco1C1G1T1.UCF.json"];
 var user_ucfs = [];
 var jsonUCF = null;
-var resultRoot = ""
+var resultRoot = "";
+//var srcRoot = "";
 
 function loadOptionsPageData() {
     if (opt.nA == null || opt.nA == undefined) {
@@ -51,9 +52,12 @@ function getResultRoot() {
         },
         success: function (response) {
             resultRoot = response;
+            srcRoot = resultRoot.split("_results")[0];
+            console.log("srcRoot " + srcRoot);
         }
     });
 }
+
 
 function deleteUCF() {
 
@@ -102,9 +106,15 @@ function getUCFPath() {
     var ucf_path = "";
     var className = $('#ucf_pulldown').find('option:selected').attr("class");
 
+
+
     if(className == "default_ucf") {
         ucf_path = resultRoot + "/default/" + $('#ucf_pulldown').val();
+//        ucf_path = srcRoot + "/resources/UCF/" + $('#ucf_pulldown').val();
     }
+
+
+
     else if(className == "user_ucf") {
         ucf_path = resultRoot + "/" + sessionStorage.username + "/" + $('#ucf_pulldown').val();
     }
@@ -170,8 +180,12 @@ function findUCFs() {
     var x = document.getElementById("ucf_pulldown");
     removeOptions(x);
 
+    //Default UCF's
     for(var i in default_ucfs) {
         var ucf_name = default_ucfs[i];
+
+        console.log("default ucf name " + ucf_name);
+
         var ucf = document.createElement("option");
         ucf.text = ucf_name;
         ucf.value = ucf_name;
@@ -179,6 +193,7 @@ function findUCFs() {
         x.add(ucf);
     }
 
+    // User custom UCF's only
     $.ajax({
         url: "ucf",
         type: "GET",
@@ -261,6 +276,7 @@ function chooseUCF() {
         owner = sessionStorage.username;
     }
 
+
     $.ajax({
         url: "ucf/" + filename,
         type: "GET",
@@ -281,7 +297,6 @@ function chooseUCF() {
 
 function showCollection() {
 
-    console.log(jsonUCF.length);
 
     var objects = [];
 

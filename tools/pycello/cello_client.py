@@ -10,6 +10,7 @@ import io
 class CtxObject(object):
     def __init__(self):
         self.url_root = "http://127.0.0.1:8080"
+        #self.url_root = "http://www.cellocad.org"
         self.username = os.environ['CELLOUSER']
         self.password = os.environ['CELLOPASS']
         self.auth = HTTPBasicAuth(self.username, self.password)

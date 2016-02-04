@@ -69,18 +69,31 @@ public class UCFController extends BaseController {
             @RequestParam String owner
     ) throws IOException, ParseException {
 
+
+        System.out.println("=================== GET UCF " + filename);
+
         if(!auth.login(basic)) {
             throw new CelloUnauthorizedException("invalid username/password");
         }
         String username = auth.getUsername(basic);
+
+
+        String filePath = "";
+
         if(owner.equals("default")) {
-            username = "default";
+            System.out.println("owner is default");
+            System.out.println("src Path " + _srcPath);
+            filePath = _srcPath + "/resources/UCF/" + filename;
+            System.out.println("UCF filepath " + filePath);
         }
         else if(!username.equals(owner)) {
-            return null;
+            throw new CelloUnauthorizedException("owner is not the authenticated user.");
+        }
+        else {
+            filePath = _resultPath + "/" + username + "/" + filename;
+            System.out.println("UCF filepath " + filePath);
         }
 
-        String filePath = _resultPath + "/" + username + "/" + filename;
 
         FileReader reader = new FileReader(filePath);
         JSONParser jsonParser = new JSONParser();

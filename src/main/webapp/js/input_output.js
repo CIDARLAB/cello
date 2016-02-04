@@ -12,7 +12,9 @@ function inputFormDialog() {
     });
 
     //open a dialog box that allows the user to enter promoter name, low REU, high REU, and DNA sequence.
+    $("#new_input_div").dialog( 'option', 'width', 300 );
     $("#new_input_div").dialog( 'open' );
+
 }
 
 /**
@@ -26,6 +28,7 @@ function outputFormDialog() {
     });
 
     //open a dialog box that allows the user to enter the gene name, and DNA sequence.
+    $("#new_output_div").dialog( 'option', 'width', 300 );
     $("#new_output_div").dialog( 'open' );
 }
 
@@ -74,6 +77,7 @@ function addNewInput() {
     //the pulldown menu of input promoters.
 
     var filename = "input_" + prom_name.trim() + ".txt"; //naming convention
+
     $.ajax({
         url: "in_out/" + filename,
         type: "POST",
@@ -95,7 +99,8 @@ function addNewInput() {
             addInputsToMenu(); //update the pulldown menu with the new entry
             $('#new_input_div').dialog('close');
         },
-        error: function() {
+        error: function(response) {
+            console.log(response);
         }
     });
 }
@@ -159,6 +164,7 @@ function addNewOutput() {
  * fires on button click (verilog.html)
  */
 function deleteInputDialog() {
+    $("#delete_input").dialog( 'option', 'width', 300 );
     $('#delete_input').dialog( 'open' );
 }
 
@@ -166,6 +172,7 @@ function deleteInputDialog() {
  * fires on button click (verilog.html)
  */
 function deleteOutputDialog() {
+    $("#delete_output").dialog( 'option', 'width', 300 );
     $('#delete_output').dialog( 'open' );
 }
 
@@ -573,6 +580,17 @@ function resetOutputList() {
 
 function addInput() {
     var n = $('#inputs_table tr').length;
+
+//    $('#inputs_table').append("<tr>" +
+//        "<td width='5%'><a href='#'><i id='input_save"+n+"' class='fa fa-save fw'></i></a></td>" +
+//        "<td width='5%'><a href='#'><i id='input_trash"+n+"' class='fa fa-trash fw'></i></a></td>" +
+//        "<td width='10%'><input id='input_index"  +n+"' type='text' value='"+n+"' readonly></td>" +
+//        "<td width='10%'><input id='input_name"   +n+"' type='text' required></td>" +
+//        "<td width='12%'><input id='input_lowreu" +n+"' min='0.001' max='100' type='number' step='any' required></td>" +
+//        "<td width='12%'><input id='input_highreu"+n+"' min='0.001' max='100' type='number' step='any' required></td>" +
+//        "<td width='30%'><input id='input_dnaseq" +n+"' type='text' required></td>"+
+//        "</tr>");
+
     $('#inputs_table').append("<tr>" +
         "<td width='10%'><input id='input_index"  +n+"' type='text' value='"+n+"' readonly></td>" +
         "<td width='20%'><input id='input_name"   +n+"' type='text' required></td>" +
@@ -633,45 +651,6 @@ function get_v_outputs() {
 }
 
 
-/**
- * Returns a string for the 4-column table of input promoter data (name, lowREU, highREU, sequence)
- *
- * @returns {string}
- */
-/*function getInputData() {
-    var indata = "";
-    $('#inputs_table tr').each(function(){
-        $(this).find('td').each(function(){
-            var data = $(this).find('input').val();
-            if(data && !$(this).find('input').is('[readonly]')) {
-                indata += data + " ";
-            }
-
-        });
-        indata += "\n";
-    })
-    return indata;
-}*/
-
-/**
- * Returns a string for the 2-column table of output gene data (name, sequence)
- *
- * @returns {string}
- */
-/*function getOutputData() {
-    var outdata = "";
-    $('#outputs_table tr').each(function(){
-        $(this).find('td').each(function(){
-            var data = $(this).find('input').val();
-            if(data && !$(this).find('input').is('[readonly]')) {
-                outdata += data + " ";
-            }
-
-        })
-        outdata += "\n";
-    });
-    return outdata;
-}*/
 
 function makeInputTableText(inputs) {
     var table_text = "";

@@ -1,1 +1,1 @@
-/Users/peng/cello/resources/netsynthResources/abc.mac -c "read /Users/peng/cello/resources/netsynthResources/Blif_File.blif; strash;  rewrite; refactor; balance; write /Users/peng/cello/resources/netsynthResources/abcOutput.bench; quit"
+/Users/peng/cello_final/resources/netsynthResources/abc.mac -c "read /Users/peng/cello_final/resources/netsynthResources/Blif_File.blif; strash;  rewrite; refactor; balance; write /Users/peng/cello_final/resources/netsynthResources/abcOutput.bench; quit"

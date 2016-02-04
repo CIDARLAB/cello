@@ -9,3 +9,5 @@ derby.log
 *.iml
 /exports/
 /bin/
+*egg-info
+*pyc
