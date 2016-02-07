@@ -60,6 +60,41 @@ curl -u "username:password" http://127.0.0.1:8080/netsynth -X POST --data-urlenc
 curl -u "username:password" -X POST http://127.0.0.1:8080/submit --data-urlencode "id=demo001" --data-urlencode "verilog_text@demo_verilog.v" --data-urlencode "input_promoter_data@demo_inputs.txt" --data-urlencode "output_gene_data@demo_outputs.txt"
 ```
 
+
+###### Working with custom UCFs
+###### There is a python helper (tools/pycello/ucf_writer.py) that reads a CSV and generates a UCF.
+###### See also: ~/cello/resources/csv_gate_libraries/
+```
+python ucf_writer.py  ../../resources/csv_gate_libraries/gates_Eco1C1G1T1.csv ../../resources/csv_gate_libraries/scars.csv > myName.UCF.json
+```
+
+post the UCF
+```
+curl -u "username:password" -X POST http://127.0.0.1:8080/ucf/test.UCF.json --data-urlencode "filetext@myName.UCF.json"
+```
+
+validate the UCF
+```
+curl -u "username:password" -X GET http://127.0.0.1:8080/ucf/myName.UCF.json/validate
+```
+
+delete the UCF, if invalid
+```
+curl -u "username:password" -X DELETE http://127.0.0.1:8080/ucf/myName.UCF.json
+```
+
+Run Cello with the new UCF that you created.
+```
+curl -u "username:password" -X POST http://127.0.0.1:8080/submit --data-urlencode "id=demo001" --data-urlencode "verilog_text@demo_verilog.v" --data-urlencode "input_promoter_data@demo_inputs.txt" --data-urlencode "output_gene_data@demo_outputs.txt" --data-urlencode "options=-UCF myName.UCF.json"
+```
+
+Note that extra options can be passed using the options request parameter:
+```
+--data-urlencode "options=-UCF myName.UCF.json -plasmid false -eugene false -assignment_algorithm hill_climbing"
+```
+
+
+
 ###### Get a list of your completed jobs
 ```
 curl -u "username:password" -X GET http://127.0.0.1:8080/results 
@@ -79,6 +114,27 @@ curl -u "username:password" -X GET http://127.0.0.1:8080/results/demo001/demo001
 ```
 curl -u "username:password" -X GET http://127.0.0.1:8080/results/demo001/demo001_A000_plasmid_circuit_P000.ape
 ```
+
+
+
+###### Create a new input promoter
+name must start with 'input_' and end with '.txt'
+```
+curl -u "bryan:bpass" -X POST http://127.0.0.1:8080/in_out/input_pA.txt --data-urlencode "filetext=pA 0.01 10.0 ATG"
+```
+
+###### Create a new output gene
+name must start with 'output_' and end with '.txt'
+```
+curl -u "bryan:bpass" -X POST http://127.0.0.1:8080/in_out/output_Gene1.txt --data-urlencode "filetext=Gene1 ATGCCC"
+```
+
+
+###### Delete an input promoter or output gene
+```
+curl -u "bryan:bpass" -X DELETE http://127.0.0.1:8080/in_out/output_Gene1.txt"
+```
+
 
 
 #### 2b. Cello command-line interface.
@@ -112,19 +168,6 @@ To specify your own gate library (User Constraint File, UCF):
 mvn -f ~/cello/pom.xml -DskipTests=true -PCelloMain -Dexec.args="-verilog demo_verilog.v -input_promoters demo_inputs.txt -output_genes demo_outputs.txt -UCF /path/to/myUCF.json"
 ```
 
-
-To write your own UCF, a UCF writer directory can be copied and modified.
-
-See: ~/cello/src/main/java/org/cellocad/adaptors/ucfwriters
-
-The main class is:
-ConstraintFileWriter.java
-
-A class exists to write each collection in the UCF.  These can be modified to write your own custom UCF.  Note that some of the gate library data is read from a CSV in the existing examples (data includes: part names, sequences, and response function parameters).  
-
-See: ~/cello/resources/csv_gate_libraries/
-
-You can make your own gate library by modifying the CSV, then modifying the classes in the ucf writer directory to read the customized CSV.
 
 
 

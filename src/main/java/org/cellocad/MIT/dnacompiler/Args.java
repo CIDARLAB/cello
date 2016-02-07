@@ -178,12 +178,10 @@ public class Args {
                     if(!f.exists() || f.isDirectory()) {
                         throw new IllegalArgumentException("_UCFfilepath file path does not exist.");
                     }
-
                     else {
                         _UCFfilepath = webUCFPath;
                     }
                 }
-
             }
 
             if(args[i].equals("-synthesis")) {

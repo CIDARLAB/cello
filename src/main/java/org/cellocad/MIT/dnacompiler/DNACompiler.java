@@ -204,7 +204,7 @@ public class DNACompiler {
         //options is passed in order to turn off the toxicity, histogram, plasmid options if that data
         //is missing from the UCF.
 
-        
+
 
         /**
          * abstract_lc:     Boolean circuit.  Also called wiring diagram.

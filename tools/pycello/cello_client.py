@@ -35,39 +35,34 @@ def cli(ctx):
 
 
 @cli.command()
-@click.pass_context
-def get_jobs(ctx):
-    endpoint = ctx.obj.url_root + "/results"
-    r = requests.get(endpoint, auth=ctx.obj.auth)
-    result(r)
-
-
-@cli.command()
-@click.option('--jobid', type=click.STRING, required=True, help='job name.')
+@click.option('--jobid', type=click.STRING, help='job name.')
 @click.option('--keyword', type=click.STRING, help='file name contains substring.')
 @click.option('--extension', type=click.STRING, help='file name ends with substring.')
+@click.option('--filename', type=click.STRING, help='file name.')
 @click.pass_context
-def get_file_names(ctx, jobid, keyword, extension):
+def get_results(ctx, jobid, keyword, extension, filename):
 
-    params = {}
-    if keyword:
-        params['keyword'] = keyword
-    if extension:
-        params['extension'] = extension
+    if jobid == None:
+        endpoint = ctx.obj.url_root + "/results"
+        r = requests.get(endpoint, auth=ctx.obj.auth)
+        result(r)
 
-    endpoint = ctx.obj.url_root + "/results/" + jobid
-    r = requests.get(endpoint, params=params, auth=ctx.obj.auth)
-    result(r)
+    elif jobid != None and filename == None:
+        params = {}
+        if keyword:
+            params['keyword'] = keyword
+        if extension:
+            params['extension'] = extension
 
+        endpoint = ctx.obj.url_root + "/results/" + jobid
+        r = requests.get(endpoint, params=params, auth=ctx.obj.auth)
+        result(r)
 
-@cli.command()
-@click.option('--jobid', type=click.STRING, required=True, help='job name.')
-@click.option('--filename', type=click.STRING, required=True, help='file name.')
-@click.pass_context
-def get_file_contents(ctx, jobid, filename):
-    endpoint = ctx.obj.url_root + "/results/" + jobid + "/" + filename
-    r = requests.get(endpoint, auth=ctx.obj.auth)
-    result(r)
+    elif jobid != None and filename != None:
+        endpoint = ctx.obj.url_root + "/results/" + jobid + "/" + filename
+        r = requests.get(endpoint, auth=ctx.obj.auth)
+        result(r)
+
 
 
 @cli.command()
@@ -116,7 +111,7 @@ def get_outputs(ctx, name):
 @click.option('--high', type=click.FLOAT, required=True, help='high REU.')
 @click.option('--dnaseq', type=click.STRING, required=True, help='dna sequence.')
 @click.pass_context
-def add_input(ctx, name, low, high, dnaseq):
+def post_input(ctx, name, low, high, dnaseq):
     filename = "input_" + name + ".txt"
     input_string = name + " " + str(low) + " " + str(high) + " " + dnaseq + "\n"
     params = {}
@@ -130,7 +125,7 @@ def add_input(ctx, name, low, high, dnaseq):
 @click.option('--name', type=click.STRING, required=True, help='output name.')
 @click.option('--dnaseq', type=click.STRING, required=True, help='dna sequence.')
 @click.pass_context
-def add_output(ctx, name, dnaseq):
+def post_output(ctx, name, dnaseq):
     filename = "output_" + name + ".txt"
     output_string = name + " " + dnaseq + "\n"
     params = {}
@@ -197,7 +192,7 @@ def submit(ctx, jobid, verilog, inputs, outputs, options):
     params['input_promoter_data'] = inputs_text
     params['output_gene_data'] = outputs_text
     params['verilog_text'] = verilog_text
-    params['user_options'] = options
+    params['options'] = options
 
     r = requests.post(endpoint, params=params, auth=ctx.obj.auth)
     result(r)

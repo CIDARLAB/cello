@@ -50,7 +50,7 @@ public class MainController extends BaseController {
         String inputs  = params.get("input_promoter_data");
         String outputs = params.get("output_gene_data");
         String verilog_text = params.get("verilog_text");
-        String user_options = params.get("user_options");
+        String options = params.get("options");
 
 
         String user_directory = _resultPath + "/" + username + "/";
@@ -79,7 +79,7 @@ public class MainController extends BaseController {
         out.put("input_promoter_data", inputs);
         out.put("output_gene_data", outputs);
         out.put("verilog_text", verilog_text);
-        out.put("user_options", user_options);
+        out.put("options", options);
 
 
         String verilog_filename = output_directory + id + "_verilog.v";
@@ -90,7 +90,7 @@ public class MainController extends BaseController {
         Util.fileWriter(inputs_filename,  inputs, false);
         Util.fileWriter(outputs_filename, outputs, false);
 
-        String options =
+        String all_options =
                 " -username " + username +
                         " -verilog " + verilog_filename +
                         " -jobID " + id +
@@ -99,10 +99,10 @@ public class MainController extends BaseController {
                         " -output_genes " + outputs_filename +
                         " -figures " + "true" +
                         " -plasmid " + "true" +
-                        " " + user_options;
+                        " " + options;
 
 
-        ArrayList<String> optList = Util.lineTokenizer(options);
+        ArrayList<String> optList = Util.lineTokenizer(all_options);
         String[] optArr = new String[optList.size()];
         optArr = optList.toArray(optArr);
 

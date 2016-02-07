@@ -1,7 +1,6 @@
-# Benchmark "blif_file" written by ABC on Sun Feb  7 10:30:06 2016
+# Benchmark "blif_file" written by ABC on Sun Feb  7 10:57:43 2016
 INPUT(in1)
 INPUT(in2)
-INPUT(in3)
-OUTPUT(out)
-n4          = AND(in1, in2)
-out         = AND(in3, n4)
+OUTPUT(out1)
+n3          = AND(in1, in2)
+out1        = NOT(n3)

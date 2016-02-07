@@ -282,22 +282,22 @@ if __name__ == '__main__':
         print 'Step 2: post UCF'
         print 'cello post_ucf --name myName.UCF.json --filepath myName.UCF.json'
         print 'or'
-        print 'curl -u "username:password" -X POST http://127.0.0.1:8080/ucf/test.UCF.json --data-urlencode "filetext@test.UCF.json"'
+        print 'curl -u "username:password" -X POST http://127.0.0.1:8080/ucf/test.UCF.json --data-urlencode "filetext@myName.UCF.json"'
 
         print '\n\n'
         print 'Step 3: validate UCF'
         print 'cello validate_ucf --name myName.UCF.json'
         print 'or'
-        print 'curl -u "username:password" -X GET http://127.0.0.1:8080/ucf/test.UCF.json/validate'
+        print 'curl -u "username:password" -X GET http://127.0.0.1:8080/ucf/myName.UCF.json/validate'
 
         print '\n\n'
         print 'Optional: delete UCF (invalid UCFs should be deleted)'
         print 'cello delete_ucf --name myName.UCF.json'
         print 'or'
-        print 'curl -u "username:password" -X GET http://127.0.0.1:8080/ucf/test.UCF.json/validate'
+        print 'curl -u "username:password" -X GET http://127.0.0.1:8080/ucf/myName.UCF.json/validate'
 
         print '\n\n'
-        print 'cello submit --jobid j3 --verilog resources/0xFE.v --inputs resources/Inputs.txt --outputs resources/Outputs.txt --options "-UCF test.UCF.json -plasmid false -eugene false"'
+        print 'cello submit --jobid j3 --verilog resources/0xFE.v --inputs resources/Inputs.txt --outputs resources/Outputs.txt --options "-UCF myName.UCF.json -plasmid false -eugene false"'
 
         print '\n\n'
         sys.exit()
