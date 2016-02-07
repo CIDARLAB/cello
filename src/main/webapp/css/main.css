@@ -279,6 +279,9 @@ input:read-only {
 #download_zip {
     color: gray;
 }
+#design_name {
+    width: 150px;
+}
 .well {
     overflow: auto;
 }

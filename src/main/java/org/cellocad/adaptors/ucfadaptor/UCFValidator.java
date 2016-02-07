@@ -129,6 +129,9 @@ public class UCFValidator {
             return false;
         }
 
+
+        logger.info("header is valid");
+
         return true;
     }
 
@@ -148,6 +151,8 @@ public class UCFValidator {
         if(fieldIsMissing(map, required_fields)) {
             return false;
         }
+
+        logger.info("measurement_std is valid");
 
         return true;
     }
@@ -181,6 +186,8 @@ public class UCFValidator {
         }catch(Exception e) {
             return false;
         }
+
+        logger.info("logic_constraints are valid");
 
         return true;
     }
@@ -216,6 +223,8 @@ public class UCFValidator {
             }
 
         }
+
+        logger.info("gates are valid");
 
         return true;
     }
@@ -304,6 +313,8 @@ public class UCFValidator {
             }
         }
 
+        logger.info("response_functions are valid");
+
         return true;
     }
 
@@ -327,6 +338,8 @@ public class UCFValidator {
                 return false;
             }
         }
+
+        logger.info("parts are valid");
 
         return true;
     }
@@ -365,6 +378,9 @@ public class UCFValidator {
                 }
             }
         }
+
+
+        logger.info("gate_parts are valid");
 
         return true;
     }

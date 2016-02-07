@@ -11,6 +11,7 @@ import org.json.simple.parser.JSONParser;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -31,7 +32,13 @@ public class UCFReader {
                 JSONArray jsonArray = (JSONArray) jsonParser.parse(reader);
 
                 for(int i=0; i<jsonArray.size(); ++i) {
-                    Map map = (Map) jsonArray.get(i);
+
+                    Map map = new HashMap();
+                    try {
+                        map = (Map) jsonArray.get(i);
+                    } catch (Exception e) {
+
+                    }
 
                     JSONObject obj = (JSONObject) jsonArray.get(i);
 
@@ -78,8 +85,8 @@ public class UCFReader {
                         }
                     }
                     else {
-                        System.out.println("unknown json object in UCF");
-                        System.exit(-1);
+                        logger.info("unknown json object in UCF");
+                        return null;
                     }
                 }
 

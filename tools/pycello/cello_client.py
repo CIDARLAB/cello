@@ -33,13 +33,6 @@ def cli(ctx):
     ctx.obj = CtxObject()
 
 
-@cli.command()
-@click.pass_context
-def post_test(ctx):
-    endpoint = ctx.obj.url_root + "/test/testget"
-    r = requests.get(endpoint, auth=ctx.obj.auth)
-    result(r)
-
 
 @cli.command()
 @click.pass_context
@@ -204,7 +197,7 @@ def submit(ctx, jobid, verilog, inputs, outputs, options):
     params['input_promoter_data'] = inputs_text
     params['output_gene_data'] = outputs_text
     params['verilog_text'] = verilog_text
-    params['user_options'] = ""
+    params['user_options'] = options
 
     r = requests.post(endpoint, params=params, auth=ctx.obj.auth)
     result(r)
@@ -307,8 +300,53 @@ def read_genbank(ctx, jobid, filename, seq):
             print gb_feature.location, gb_feature.type, gb_feature.qualifiers['label']
 
 
+@cli.command()
+@click.option('--name', type=click.STRING, required=True, help='UCF name')
+@click.option('--filepath', type=click.Path(exists=True), required=True, help='UCF file.')
+@click.pass_context
+def post_ucf(ctx, name, filepath):
+
+    if not name.endswith(".UCF.json"):
+        click.echo("UCF file name must end with the extension .UCF.json")
+        return
+
+    filetext = open(filepath, 'r').read()
+    filejson = json.loads(filetext)
+
+    params = {}
+    params['filetext'] = json.dumps(filejson)
+
+    endpoint = ctx.obj.url_root + "/ucf/" + name
+    r = requests.post(endpoint, data=params, auth=ctx.obj.auth)
+    result(r)
 
 
+@cli.command()
+@click.option('--name', type=click.STRING, required=True, help='UCF name')
+@click.pass_context
+def validate_ucf(ctx, name):
+
+    if not name.endswith(".UCF.json"):
+        click.echo("UCF file name must end with the extension .UCF.json")
+        return
+
+    endpoint = ctx.obj.url_root + "/ucf/" + name + "/validate"
+    r = requests.get(endpoint, auth=ctx.obj.auth)
+    result(r)
+
+
+@cli.command()
+@click.option('--name', type=click.STRING, required=True, help='UCF name')
+@click.pass_context
+def delete_ucf(ctx, name):
+
+    if not name.endswith(".UCF.json"):
+        click.echo("UCF file name must end with the extension .UCF.json")
+        return
+
+    endpoint = ctx.obj.url_root + "/ucf/" + name
+    r = requests.delete(endpoint, auth=ctx.obj.auth)
+    result(r)
 
 
 if __name__ == '__main__':

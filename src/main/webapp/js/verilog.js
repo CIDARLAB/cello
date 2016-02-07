@@ -63,12 +63,13 @@ editor.on("change", function(cm, change) {
 //hide the 'submit' button, show the 'validate' button.  This prevents the user from submitting a
 //if the Verilog code has not yet been validated.
 function requireValidation() {
-    $('#validate').show();
-    $('#submit').hide();
-    $('#running').hide();
-    $('#design_name').hide();
-    $('#design_name_label').hide();
-    $('#netlist').html("");
+// // This code was used when a Validate Verilog button had to be clicked before the Run button could be clicked.
+//    $('#validate').show();
+//    $('#submit').hide();
+//    $('#running').hide();
+//    $('#design_name').hide();
+//    $('#design_name_label').hide();
+//    $('#netlist').html("");
 }
 
 
@@ -81,7 +82,9 @@ function getNetlist() {
 
     var v = editor.getDoc().getValue();
 
-    $.ajax({
+    console.log('get netlist');
+
+    return $.ajax({
         url: "netsynth", //see org.cellocad.springcontrollers.MainController
         type: "POST",
         headers: {
@@ -91,17 +94,20 @@ function getNetlist() {
             verilog_text: String(v)
         },
         success: function(response) {
-            //show the 'submit' button if the Verilog was valid.
-            $('#validate').hide();
-            $('#submit').show();
-            $('#design_name').show();
-            $('#design_name_label').show();
+//            console.log('valid netlist');
 
-            //show the netlist.  This is not necessarily the final netlist, it's just the NOR-Inverter Graph.
-            //the netlist might change upon subgraph swapping.
-            $('#dialog_pre').html(response);
-            $('#dialog').dialog({title:"NOR-Inverter Graph"});
-            $('#dialog').dialog( 'open' );
+// // This code was used when a Validate Verilog button had to be clicked before the Run button could be clicked.
+//            //show the 'submit' button if the Verilog was valid.
+//            $('#validate').hide();
+//            $('#submit').show();
+//            $('#design_name').show();
+//            $('#design_name_label').show();
+//
+//            //show the netlist.  This is not necessarily the final netlist, it's just the NOR-Inverter Graph.
+//            //the netlist might change upon subgraph swapping.
+//            $('#dialog_pre').html(response);
+//            $('#dialog').dialog({title:"NOR-Inverter Graph"});
+//            $('#dialog').dialog( 'open' );
         },
         error: function() {
             $('#dialog_pre').html("The Verilog code did not produce a valid netlist.");
@@ -123,7 +129,26 @@ function getNetlist() {
 // (see Args.java for how options are parsed).
 // (see DNACompiler.java, which executes each step in the Cello design workflow).
 
+
+function failCallback(result) {
+    console.log('Failed result callback');
+}
+
 function submitCello() {
+
+    $.when(
+        getNetlist()
+    ).then(
+        function (result) {
+            console.log('submit cello');
+
+            runDnaCompiler();
+        },
+        failCallback
+    );
+}
+
+function runDnaCompiler() {
 
     //1. set teh design name (no whitespace)
     var design_name = $('#design_name').val().replace(/ /g,"_");

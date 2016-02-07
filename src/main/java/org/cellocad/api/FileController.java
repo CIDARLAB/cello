@@ -114,7 +114,7 @@ public class FileController extends BaseController {
         Util.deleteEmptyDirectory(new File(directory));
 
         JSONObject response = new JSONObject();
-        response.put("message", "deleted " + directory);
+        response.put("message", "deleted " + jobid);
         return response;
     }
 

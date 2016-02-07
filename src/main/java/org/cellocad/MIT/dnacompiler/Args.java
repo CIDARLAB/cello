@@ -6,6 +6,7 @@ package org.cellocad.MIT.dnacompiler;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class Args {
 
     //paths
+    @Getter @Setter private String _username = ""; // to search results directory of user for custom UCF
     @Getter @Setter private String _jobID = ""; // unique identifier for a job
     @Getter @Setter private String _home = "";  // absolute path to project root directory
     @Getter @Setter private String _datapath = "/resources/data/"; // subpath to data files (from root directory)
@@ -97,6 +99,8 @@ public class Args {
 
 
     public Args() {
+        //logger = Logger.getLogger(getThreadDependentLoggername());
+
         String _filepath = Args.class.getClassLoader().getResource(".").getPath();
 
         if (_filepath.contains("/target/")) {
@@ -163,9 +167,23 @@ public class Args {
             if(args[i].equals("-UCF")) {
                 _UCFfilepath = args[i+1];
                 File f = new File(_UCFfilepath);
+
                 if(!f.exists() || f.isDirectory()) {
-                    throw new IllegalArgumentException("_UCFfilepath file path does not exist.");
+                    String resultPath = _home + "_results";
+                    String userPath = resultPath + "/" + _username;
+                    String webUCFPath = userPath + "/" + _UCFfilepath;
+
+                    f = new File(webUCFPath);
+
+                    if(!f.exists() || f.isDirectory()) {
+                        throw new IllegalArgumentException("_UCFfilepath file path does not exist.");
+                    }
+
+                    else {
+                        _UCFfilepath = webUCFPath;
+                    }
                 }
+
             }
 
             if(args[i].equals("-synthesis")) {
@@ -372,4 +390,7 @@ public class Args {
             }
         }
     }
+
+//    @Getter @Setter private String threadDependentLoggername;
+//    private Logger logger  = Logger.getLogger(getClass());
 }

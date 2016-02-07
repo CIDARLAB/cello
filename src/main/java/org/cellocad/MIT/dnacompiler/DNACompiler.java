@@ -46,6 +46,14 @@ import java.util.UUID;
 //@Slf4j
 public class DNACompiler {
 
+
+    public DNACompiler() {
+
+    }
+    public DNACompiler(String username) {
+        _username = username;
+    }
+
     /*
      * These enum values are used to report a job/result status to the front-end web application.
      * If the job does not succeed, it is helpful to know why.
@@ -57,6 +65,7 @@ public class DNACompiler {
         no_assignments_found,
         roadblocking_inputs,
         ucf_invalid,
+        abstract_only,
     }
 
     public enum CircuitType{
@@ -86,6 +95,8 @@ public class DNACompiler {
         /**
          * read command-line arguments.  Verilog file required, others are optional.
          */
+//        _options.setThreadDependentLoggername(threadDependentLoggername);
+        _options.set_username(_username);
         _options.parse(args);
 
 
@@ -165,16 +176,11 @@ public class DNACompiler {
 
         //UCF.  JSON objects organized by 'collection'.
         UCF ucf = ucfReader.readAllCollections(_options.get_UCFfilepath());
-
-        //optional collections
-        // toxicity
-        // cytometry
-        // eugene rules
-        // motif_library
-        // genetic locations
-
-        //options is passed in order to turn off the toxicity, histogram, plasmid options if that data
-        //is missing from the UCF.
+        if(ucf == null) {
+            _result_status = ResultStatus.ucf_invalid;
+            logger.info("invalid UCF");
+            return;
+        }
 
 
         JSONObject ucf_validation_map = ucfValidator.validateAllUCFCollections(ucf, _options);
@@ -187,6 +193,18 @@ public class DNACompiler {
             logger.info("invalid UCF");
             return;
         }
+
+        //optional collections
+        // toxicity
+        // cytometry
+        // eugene rules
+        // motif_library
+        // genetic locations
+
+        //options is passed in order to turn off the toxicity, histogram, plasmid options if that data
+        //is missing from the UCF.
+
+        
 
         /**
          * abstract_lc:     Boolean circuit.  Also called wiring diagram.
@@ -334,6 +352,7 @@ public class DNACompiler {
          * If you only want to see the Boolean wiring diagram, we are done.
          */
         if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.abstract_only) {
+            _result_status = ResultStatus.abstract_only;
             return;
         }
 
@@ -1914,6 +1933,7 @@ public class DNACompiler {
     //
     /////////////////////////
 
+    private String _username = "";
 
     @Getter @Setter private ArrayList<Assignment> _assignments = new ArrayList<>();
 
@@ -1931,6 +1951,7 @@ public class DNACompiler {
     private String threadDependentLoggername = String.valueOf(UUID.randomUUID());
     private Logger logger;
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
 
 }
 

@@ -352,6 +352,7 @@ function addInputsToMenu() {
     custom.value = "choose";
     x.add(custom);
 
+
     for(var i in vio.inputs_list) {
         var input_obj = vio.inputs_list[i];
         var name = input_obj.prom_name;
@@ -360,6 +361,17 @@ function addInputsToMenu() {
         custom.value = name;
         x.add(custom);
     }
+
+    var create_input = document.createElement("option");
+    create_input.text  = "(new)";
+    create_input.value = "(new)";
+    x.add(create_input);
+
+    var delete_input = document.createElement("option");
+    delete_input.text  = "(delete)";
+    delete_input.value = "(delete)";
+    x.add(delete_input);
+
 }
 
 function addOutputsToMenu() {
@@ -380,6 +392,16 @@ function addOutputsToMenu() {
         custom.value = name;
         x.add(custom);
     }
+
+    var create_output = document.createElement("option");
+    create_output.text  = "(new)";
+    create_output.value = "(new)";
+    x.add(create_output);
+
+    var delete_output = document.createElement("option");
+    delete_output.text  = "(delete)";
+    delete_output.value = "(delete)";
+    x.add(delete_output);
 }
 
 function getInputFiles() {
@@ -504,6 +526,20 @@ function setInputFromList() {
 
     var x = document.getElementById("input_pulldown");
 
+    if(x.value == "(new)") {
+        x.value = "choose";
+        x.text  = "choose";
+        inputFormDialog();
+        return;
+    }
+    if(x.value == "(delete)") {
+        x.value = "choose";
+        x.text  = "choose";
+        deleteInputDialog();
+        return;
+    }
+
+
     addInput();
     for(var i in vio.inputs_list) {
         var input_obj = vio.inputs_list[i];
@@ -526,6 +562,19 @@ function setInputFromList() {
 function setOutputFromList() {
 
     var x = document.getElementById("output_pulldown");
+
+    if(x.value == "(new)") {
+        x.value = "choose";
+        x.text  = "choose";
+        outputFormDialog();
+        return;
+    }
+    if(x.value == "(delete)") {
+        x.value = "choose";
+        x.text  = "choose";
+        deleteOutputDialog();
+        return;
+    }
 
     addOutput();
     for(var i in vio.outputs_list) {

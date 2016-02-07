@@ -107,7 +107,7 @@ public class MainController extends BaseController {
         optArr = optList.toArray(optArr);
 
 
-        DNACompiler dnaCompiler = new DNACompiler();
+        DNACompiler dnaCompiler = new DNACompiler(username);
         dnaCompiler.run(optArr);
 
 
@@ -135,6 +135,10 @@ public class MainController extends BaseController {
 
         else if(dnaCompiler.get_result_status() == DNACompiler.ResultStatus.roadblocking_inputs) {
              message = "WARNING: roadblocking inputs. Loading results page.";
+        }
+
+        else if(dnaCompiler.get_result_status() == DNACompiler.ResultStatus.abstract_only) {
+            message = "SUCCESS: abstract only.";
         }
 
         JSONObject response = new JSONObject();

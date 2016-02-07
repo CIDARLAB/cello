@@ -70,8 +70,6 @@ public class UCFController extends BaseController {
     ) throws IOException, ParseException {
 
 
-        System.out.println("=================== GET UCF " + filename);
-
         if(!auth.login(basic)) {
             throw new CelloUnauthorizedException("invalid username/password");
         }
@@ -88,7 +86,6 @@ public class UCFController extends BaseController {
         }
         else {
             filePath = _resultPath + "/" + username + "/" + filename;
-            System.out.println("UCF filepath " + filePath);
         }
 
 
@@ -102,13 +99,13 @@ public class UCFController extends BaseController {
     }
 
 
-    @RequestMapping(value="/ucf/{filename:.+}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value="/ucf/{filename:.+}",method= RequestMethod.POST)
     public @ResponseBody
-    JSONObject postUCF(
+    String postUCF(
             @RequestHeader("Authorization") String basic,
             @PathVariable("filename") String filename,
             @RequestParam String filetext
-    ) throws IOException, ParseException {
+    ) {
 
         if(!auth.login(basic)) {
             throw new CelloUnauthorizedException("invalid username/password");
@@ -120,7 +117,7 @@ public class UCFController extends BaseController {
 
         JSONObject response = new JSONObject();
         response.put("message", "wrote file " + filename);
-        return response;
+        return response.toJSONString();
     }
 
 
@@ -151,7 +148,7 @@ public class UCFController extends BaseController {
         if(is_ucf_valid) {
             try {
                 toReturn.put("status", "VALID");
-                toReturn.put("filepath", filePath);
+                toReturn.put("filepath", filename);
             }catch(Exception e) {
                 e.printStackTrace();
             }
@@ -159,7 +156,7 @@ public class UCFController extends BaseController {
         else {
             try {
                 toReturn.put("status", "INVALID");
-                toReturn.put("filepath", filePath);
+                toReturn.put("filepath", filename);
             }catch(Exception e) {
                 e.printStackTrace();
             }
@@ -185,7 +182,7 @@ public class UCFController extends BaseController {
         Util.deleteFile(new File(filepath));
 
         JSONObject toReturn = new JSONObject();
-        toReturn.put("message", "deleted file " + filepath);
+        toReturn.put("message", "deleted file " + filename);
         return toReturn.toJSONString();
     }
 

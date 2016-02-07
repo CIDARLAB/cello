@@ -126,7 +126,7 @@
 
         <select id="method" class="span3" onchange="setVerilogMethod()" style="margin-left: 20px; display: inline-block">
         <option value="choose">choose</option>
-        <option value="demo">full demo</option>
+        <option value="demo">Full Demo</option>
         <option value="case">case</option>
         <option value="assign">assign</option>
         <option value="structural">structural</option>
@@ -139,10 +139,9 @@
         <textarea id="verilogArea"></textarea>
 
         <div align="center" style="margin-top: 10px">
-            <input type="text" id="design_name" required style="display: none"  placeholder="design name" pattern="[A-Za-z][A-Za-z0-9_-]+" title="starts with letter, contains only alphanumeric, dash, underscore characters">
-            <br><br>
-            <button class="btn btn-lg btn-white" style="display: block" id="validate"  type="button" onclick="getNetlist()">Validate Verilog</button>
-            <button class="btn btn-lg btn-success" style="display: none" id="submit">Run</button>
+            <input type="text" id="design_name" required style="display: block"  placeholder="design name" pattern="[A-Za-z][A-Za-z0-9_-]+" title="starts with letter, contains only alphanumeric, dash, underscore characters">
+            <!--<button class="btn btn-lg btn-white" style="display: block" id="validate"  type="button" onclick="getNetlist()">Validate Verilog</button>-->
+            <button class="btn btn-lg btn-success" style="display: block" id="submit">Run</button>
             <button class="btn btn-lg" style="display: none" id="running"   type="button">Running...</button>
         </div>
 
@@ -156,8 +155,6 @@
         <select id="input_pulldown" onchange="setInputFromList()">
         </select>
 
-        <button class="btn btn-default" type="button" onclick="inputFormDialog()">Add new</button>
-        <button class="btn btn-default" type="button" onclick="deleteInputDialog()">Delete</button>
         <button class="btn btn-default" type="button" onclick="resetInputList()">clear</button>
 
         <table id='inputs_table' class="table table-bordered table-condensed">
@@ -175,9 +172,6 @@
         <select id="output_pulldown" onchange="setOutputFromList()">
         </select>
 
-
-        <button class="btn btn-default" type="button" onclick="outputFormDialog()">Add new</button>
-        <button class="btn btn-default" type="button" onclick="deleteOutputDialog()">Delete</button>
         <button class="btn btn-default" type="button" onclick="resetOutputList()">clear</button>
 
         <table id='outputs_table' class="table table-bordered table-condensed">
