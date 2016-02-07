@@ -120,19 +120,19 @@ curl -u "username:password" -X GET http://127.0.0.1:8080/results/demo001/demo001
 ###### Create a new input promoter
 name must start with 'input_' and end with '.txt'
 ```
-curl -u "bryan:bpass" -X POST http://127.0.0.1:8080/in_out/input_pA.txt --data-urlencode "filetext=pA 0.01 10.0 ATG"
+curl -u "username:password" -X POST http://127.0.0.1:8080/in_out/input_pA.txt --data-urlencode "filetext=pA 0.01 10.0 ATG"
 ```
 
 ###### Create a new output gene
 name must start with 'output_' and end with '.txt'
 ```
-curl -u "bryan:bpass" -X POST http://127.0.0.1:8080/in_out/output_Gene1.txt --data-urlencode "filetext=Gene1 ATGCCC"
+curl -u "username:password" -X POST http://127.0.0.1:8080/in_out/output_Gene1.txt --data-urlencode "filetext=Gene1 ATGCCC"
 ```
 
 
 ###### Delete an input promoter or output gene
 ```
-curl -u "bryan:bpass" -X DELETE http://127.0.0.1:8080/in_out/output_Gene1.txt"
+curl -u "username:password" -X DELETE http://127.0.0.1:8080/in_out/output_Gene1.txt"
 ```
 
 
