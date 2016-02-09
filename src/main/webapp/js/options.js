@@ -10,7 +10,6 @@ if(sessionStorage.options_page) {
     opt.nA = options_page.nA;
     opt.nP = options_page.nP;
     opt.ucf_name = options_page.ucf_name;
-    opt.ucf_fullpath = options_page.ucf_fullpath;
     opt.options_string = options_page.options_string;
 }
 
@@ -22,7 +21,7 @@ var default_ucfs = ["Eco1C1G1T1.UCF.json"];
 var user_ucfs = [];
 var jsonUCF = null;
 var resultRoot = "";
-//var srcRoot = "";
+
 
 function loadOptionsPageData() {
     if (opt.nA == null || opt.nA == undefined) {
@@ -38,7 +37,6 @@ function loadOptionsPageData() {
     getResultRoot();
     loadSettings();
     findUCFs();
-    //findSBOLGates();
 }
 
 function getResultRoot() {
@@ -52,8 +50,6 @@ function getResultRoot() {
         },
         success: function (response) {
             resultRoot = response;
-            srcRoot = resultRoot.split("_results")[0];
-            console.log("srcRoot " + srcRoot);
         }
     });
 }
@@ -94,32 +90,6 @@ function deleteUCF() {
         $('#dialog').dialog( 'open' );
     }
 
-}
-
-/*function getSBOLGatePath() {
-    var sbol_path = cello_source_path + "/resources/sbol2_xml/gates/" + $('#sbol_pulldown').val();
-    return sbol_path;
-}*/
-
-function getUCFPath() {
-
-    var ucf_path = "";
-    var className = $('#ucf_pulldown').find('option:selected').attr("class");
-
-
-
-    if(className == "default_ucf") {
-        ucf_path = resultRoot + "/default/" + $('#ucf_pulldown').val();
-//        ucf_path = srcRoot + "/resources/UCF/" + $('#ucf_pulldown').val();
-    }
-
-
-
-    else if(className == "user_ucf") {
-        ucf_path = resultRoot + "/" + sessionStorage.username + "/" + $('#ucf_pulldown').val();
-    }
-
-    return ucf_path;
 }
 
 
@@ -184,8 +154,6 @@ function findUCFs() {
     for(var i in default_ucfs) {
         var ucf_name = default_ucfs[i];
 
-        console.log("default ucf name " + ucf_name);
-
         var ucf = document.createElement("option");
         ucf.text = ucf_name;
         ucf.value = ucf_name;
@@ -219,7 +187,6 @@ function findUCFs() {
                     user_ucfs.push(filenames[i]);
                 }
             }
-            //opt.ucf_name = "Eco1C1G1T1.UCF.json";
 
             if(!opt.ucf_name) {
                 opt.ucf_name = default_ucfs[0];
@@ -258,11 +225,6 @@ $('#collection_pulldown').on('change', function() {
     chooseUCF();
 });
 
-/*$('#sbol_pulldown').on('change', function() {
-    //chooseUCF();
-    //showSBOLInCollection();
-});*/
-
 
 function chooseUCF() {
 
@@ -296,7 +258,6 @@ function chooseUCF() {
 
 
 function showCollection() {
-
 
     var objects = [];
 
@@ -419,7 +380,7 @@ function saveOptions()
     var text_options = "";
     text_options += " -nA "  + opt.nA;
     text_options += " -nP "  + opt.nP;
-    text_options += " -UCF " + opt.ucf_fullpath;
+    text_options += " -UCF " + opt.ucf_name;
 
     if($('#nP').val() < Number($('#nP').attr('min'))) {
         $('#nP').val(opt.nP);
@@ -436,8 +397,10 @@ function saveOptions()
 
     opt.nA = $('#nA').val();
     opt.nP = $('#nP').val();
-    opt.ucf_fullpath = getUCFPath();
+    opt.ucf_name = $('#ucf_pulldown').val();
     opt.options_string = text_options;
+
+    console.log(text_options);
 }
 
 

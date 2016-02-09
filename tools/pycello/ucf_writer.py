@@ -282,7 +282,7 @@ if __name__ == '__main__':
         print 'Step 2: post UCF'
         print 'cello post_ucf --name myName.UCF.json --filepath myName.UCF.json'
         print 'or'
-        print 'curl -u "username:password" -X POST http://127.0.0.1:8080/ucf/test.UCF.json --data-urlencode "filetext@myName.UCF.json"'
+        print 'curl -u "username:password" -X POST http://127.0.0.1:8080/ucf/myName.UCF.json --data-urlencode "filetext@myName.UCF.json"'
 
         print '\n\n'
         print 'Step 3: validate UCF'

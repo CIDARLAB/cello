@@ -8,10 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -44,7 +41,6 @@ public class FileController extends BaseController {
         scanner.scan();
 
         String[] directory_names = scanner.getIncludedDirectories();
-//        return directory_names;
 
         JSONObject response = new JSONObject();
         response.put("folders", directory_names);
@@ -91,9 +87,11 @@ public class FileController extends BaseController {
             response.put("files", files);
             return response;
         } else {
-            return null;
+            throw new CelloNotFoundException("files not found.");
         }
     }
+
+
 
     @RequestMapping(value="/results/{jobid}",method= RequestMethod.DELETE, produces = "application/json")
     public @ResponseBody
@@ -108,6 +106,11 @@ public class FileController extends BaseController {
         String username = auth.getUsername(basic);
 
         String directory = _resultPath + "/" + username + "/" + jobid;
+
+        File f = new File(directory);
+        if(!f.exists()) {
+            throw new CelloNotFoundException("directory " + jobid + " not found.");
+        }
 
         //trying to do this safely, in other words, not deleting subdirectories or recursive delete
         Util.deleteFilesInDirectory(new File(directory));
@@ -133,8 +136,12 @@ public class FileController extends BaseController {
         }
         String username = auth.getUsername(basic);
 
+
+
         if(filename.endsWith(".png") || filename.endsWith(".pdf")) {
             String filePath = _resultPath + "/" + username + "/" + jobid + "/" + filename;
+
+
             try {
                 //Convert binary image file to byte array to base64 encoded string
                 FileInputStream mFileInputStream = new FileInputStream(filePath);
@@ -150,10 +157,8 @@ public class FileController extends BaseController {
                 bos.close();
                 return imgstr;
             } catch (java.io.IOException e) {
-                e.printStackTrace();
+                throw new CelloNotFoundException("file " + filename + " not found.");
             }
-
-            return null;
         }
         else {
 
@@ -162,7 +167,7 @@ public class FileController extends BaseController {
             try {
                 fileContents = readFile(filePath, Charset.defaultCharset());
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new CelloNotFoundException("file " + filename + " not found.");
             }
 
             return fileContents;

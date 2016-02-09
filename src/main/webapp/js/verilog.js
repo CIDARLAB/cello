@@ -211,10 +211,10 @@ function runDnaCompiler() {
 
     var options_string = "";
 
-    /*if(sessionStorage.options_page) {
+    if(sessionStorage.options_page) {
         var options_page = JSON.parse(sessionStorage.options_page);
         options_string = options_page.options_string;
-    }*/
+    }
 
     // runtimeLoop() will stop when the status != 'running'
     status = "running";
@@ -243,7 +243,7 @@ function runDnaCompiler() {
             verilog_text: String(v),
             input_promoter_data:  user_input_table,
             output_gene_data: user_output_table,
-            user_options: options_string
+            options: options_string
         },
         dataType: "json",
         success: function(response) { //response text is based on DNACompiler.get_result_status()

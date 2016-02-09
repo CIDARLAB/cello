@@ -165,22 +165,44 @@ public class Args {
                 }
             }
             if(args[i].equals("-UCF")) {
-                _UCFfilepath = args[i+1];
-                File f = new File(_UCFfilepath);
+                boolean fileFound = false;
 
-                if(!f.exists() || f.isDirectory()) {
+                // Check exact path
+                _UCFfilepath = args[i+1];
+
+                File f = new File(_UCFfilepath);
+                if(f.exists()) {
+                    fileFound = true;
+                }
+
+                // Check user's results directory
+                if(! fileFound) {
                     String resultPath = _home + "_results";
                     String userPath = resultPath + "/" + _username;
                     String webUCFPath = userPath + "/" + _UCFfilepath;
 
                     f = new File(webUCFPath);
 
-                    if(!f.exists() || f.isDirectory()) {
-                        throw new IllegalArgumentException("_UCFfilepath file path does not exist.");
-                    }
-                    else {
+                    if(f.exists()) {
                         _UCFfilepath = webUCFPath;
+                        fileFound = true;
                     }
+                }
+
+                // Check resources/UCF directory
+                if (!fileFound) {
+                    String ucfPath = _home + "/resources/UCF/" + _UCFfilepath;
+
+                    f = new File(ucfPath);
+
+                    if(f.exists()) {
+                        _UCFfilepath = ucfPath;
+                        fileFound = true;
+                    }
+                }
+
+                if(! fileFound) {
+                    throw new IllegalArgumentException("_UCFfilepath file path does not exist.");
                 }
             }
 

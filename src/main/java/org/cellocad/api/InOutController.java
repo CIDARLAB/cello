@@ -17,14 +17,15 @@ import java.util.Map;
 public class InOutController extends BaseController {
 
 
-    @RequestMapping(value="/in_out",method= RequestMethod.GET, produces = "application/json")
-    public @ResponseBody
+    @RequestMapping(value = "/in_out", method = RequestMethod.GET, produces = "application/json")
+    public
+    @ResponseBody
     JSONObject getResultFiles(
             @RequestHeader("Authorization") String basic,
             @RequestParam Map<String, String> params
     ) {
 
-        if(!auth.login(basic)) {
+        if (!auth.login(basic)) {
             throw new CelloUnauthorizedException("invalid username/password");
         }
         String username = auth.getUsername(basic);
@@ -32,10 +33,10 @@ public class InOutController extends BaseController {
         String keyword = "";
         String extension = "";
 
-        if(params.containsKey("keyword")) {
+        if (params.containsKey("keyword")) {
             keyword = params.get("keyword");
         }
-        if(params.containsKey("extension")) {
+        if (params.containsKey("extension")) {
             extension = params.get("extension");
         }
 
@@ -47,7 +48,7 @@ public class InOutController extends BaseController {
 
             File files[] = f.listFiles();
             for (int i = 0; i < files.length; ++i) {
-                if(files[i].isDirectory()) {
+                if (files[i].isDirectory()) {
                     continue;
                 }
                 String fileName = files[i].getName();
@@ -64,14 +65,15 @@ public class InOutController extends BaseController {
         }
     }
 
-    @RequestMapping(value="/in_out/{filename:.+}", method = RequestMethod.GET, produces = "text/plain")
-    public @ResponseBody
+    @RequestMapping(value = "/in_out/{filename:.+}", method = RequestMethod.GET, produces = "text/plain")
+    public
+    @ResponseBody
     String getResultFile(
             @RequestHeader("Authorization") String basic,
             @PathVariable("filename") String filename
     ) {
 
-        if(!auth.login(basic)) {
+        if (!auth.login(basic)) {
             throw new CelloUnauthorizedException("invalid username/password");
         }
         String username = auth.getUsername(basic);
@@ -84,28 +86,25 @@ public class InOutController extends BaseController {
             e.printStackTrace();
         }
 
-        JSONObject response = new JSONObject();
-        response.put("file_contents", fileContents);
-
         return fileContents;
     }
-    private static String readFile(String path, Charset encoding) throws IOException
-    {
+
+    private static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return new String(encoded, encoding);
     }
 
 
-
-    @RequestMapping(value="/in_out/{filename:.+}",method= RequestMethod.POST)
-    public @ResponseBody
+    @RequestMapping(value = "/in_out/{filename:.+}", method = RequestMethod.POST)
+    public
+    @ResponseBody
     String writeFile(
             @RequestHeader("Authorization") String basic,
             @PathVariable("filename") String filename,
             @RequestParam String filetext
     ) {
 
-        if(!auth.login(basic)) {
+        if (!auth.login(basic)) {
             throw new CelloUnauthorizedException("invalid username/password");
         }
         String username = auth.getUsername(basic);
@@ -119,14 +118,15 @@ public class InOutController extends BaseController {
     }
 
 
-    @RequestMapping(value="/in_out/{filename:.+}",method= RequestMethod.DELETE)
-    public @ResponseBody
+    @RequestMapping(value = "/in_out/{filename:.+}", method = RequestMethod.DELETE)
+    public
+    @ResponseBody
     String deleteFile(
             @RequestHeader("Authorization") String basic,
             @PathVariable("filename") String filename
     ) {
 
-        if(!auth.login(basic)) {
+        if (!auth.login(basic)) {
             throw new CelloUnauthorizedException("invalid username/password");
         }
         String username = auth.getUsername(basic);
@@ -134,18 +134,15 @@ public class InOutController extends BaseController {
         String filepath = _resultPath + "/" + username + "/" + filename;
         File f = new File(filepath);
 
+        if (!f.exists()) {
+            throw new CelloNotFoundException("file " + filename + " not found");
+        }
 
 
-        if(f.exists()) {
-            Util.deleteFile(new File(filepath));
-            JSONObject response = new JSONObject();
-            response.put("message", "deleted file " + filename);
-            return response.toJSONString();
-        }
-        else {
-            throw new CelloNotFoundException("file " + filename + " does not exist.");
-        }
+        Util.deleteFile(new File(filepath));
+        JSONObject response = new JSONObject();
+        response.put("message", "deleted file " + filename);
+        return response.toJSONString();
     }
-
-
 }
+
