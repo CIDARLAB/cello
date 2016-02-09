@@ -3,7 +3,7 @@ package org.cellocad.adaptors.ucfadaptor;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.log4j.Logger;
-import org.cellocad.BU.ParseVerilog.Convert;
+import org.cellocad.BU.parseVerilog.Convert;
 import org.cellocad.MIT.dnacompiler.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

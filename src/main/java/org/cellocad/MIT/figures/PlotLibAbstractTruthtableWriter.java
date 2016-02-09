@@ -3,7 +3,7 @@ package org.cellocad.MIT.figures;
  * Created by Bryan Der on 3/26/14.
  */
 
-import org.cellocad.BU.ParseVerilog.Convert;
+import org.cellocad.BU.parseVerilog.Convert;
 import org.cellocad.MIT.dnacompiler.*;
 import org.cellocad.MIT.dnacompiler.Gate.GateType;
 

@@ -1,7 +1,7 @@
 package org.cellocad.api;
 
 import org.apache.commons.io.FileUtils;
-import org.cellocad.BU.DAG.DAGW;
+import org.cellocad.BU.dom.DAGW;
 import org.cellocad.BU.netsynth.NetSynth;
 import org.cellocad.BU.netsynth.NetSynthSwitch;
 import org.cellocad.MIT.dnacompiler.*;

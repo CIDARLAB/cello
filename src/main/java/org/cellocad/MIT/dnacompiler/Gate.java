@@ -5,7 +5,7 @@ package org.cellocad.MIT.dnacompiler;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.cellocad.BU.netsynth.DWire;
+import org.cellocad.BU.dom.DWire;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import java.util.ArrayList;

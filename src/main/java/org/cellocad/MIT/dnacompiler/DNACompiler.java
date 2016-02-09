@@ -1754,7 +1754,7 @@ public class DNACompiler {
 
 
         //get Abstract Circuit with options
-        org.cellocad.BU.DAG.DAGW GW = new org.cellocad.BU.DAG.DAGW();
+        org.cellocad.BU.dom.DAGW GW = new org.cellocad.BU.dom.DAGW();
 
         String verilog_string = "";
         ArrayList<String> verilog_lines = Util.fileLines(verilog_filepath);
