@@ -168,7 +168,7 @@ def eugene_rules(roadblock_promoters):
     return eugene_rules
 
 
-def writeUCF(table, header_map, additional_parts_csv):
+def writeUCF(table, header_map):
 
 
     # description only, values not parsed
@@ -227,19 +227,6 @@ def writeUCF(table, header_map, additional_parts_csv):
 
     parts = parts_from_csv(table, header_map)
 
-    if additional_parts_csv is not None:
-        with open(additional_parts_csv) as partsfile:
-            partsreader = csv.reader(partsfile, delimiter=',')
-            headers = next(partsreader, None)
-            for row in partsreader:
-                part = {}
-                part["collection"] = "parts"
-                part["type"] = row[1]
-                part["name"] = row[2]
-                part["dnasequence"] = row[3]
-                parts.append(part)
-
-
 
     roadblock_promoters = []
     roadblock_promoters.append("pTac")    
@@ -276,7 +263,7 @@ if __name__ == '__main__':
 
         print ''
         print 'Step 1: write UCF'
-        print 'python ucf_writer.py  ../../resources/csv_gate_libraries/gates_Eco1C1G1T1.csv ../../resources/csv_gate_libraries/scars.csv > myName.UCF.json'
+        print 'python ucf_writer.py  ../../resources/csv_gate_libraries/gates_Eco1C1G1T1.csv > myName.UCF.json'
         
         print '\n\n'
         print 'Step 2: post UCF'
@@ -305,10 +292,6 @@ if __name__ == '__main__':
 
     csvpath = sys.argv[1]
 
-    if len(sys.argv) == 3:
-        additional_parts_csv = sys.argv[2]
-    else:
-        additional_parts_csv = None
         
 
     with open(csvpath) as csvfile:
@@ -331,7 +314,7 @@ if __name__ == '__main__':
             table.append(row)
 
 
-        writeUCF(table, header_map, additional_parts_csv)
+        writeUCF(table, header_map)
 
     
 
