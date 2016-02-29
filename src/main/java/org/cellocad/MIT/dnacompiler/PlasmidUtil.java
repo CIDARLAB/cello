@@ -20,12 +20,6 @@ import java.util.Comparator;
 
 public class PlasmidUtil {
 
-
-    //@Getter @Setter private static GeneticLocation _sensor_module  = new GeneticLocation();
-    //@Getter @Setter private static GeneticLocation _circuit_module = new GeneticLocation();
-    //@Getter @Setter private static GeneticLocation _output_module  = new GeneticLocation();
-
-
     /**
      * Printing a plasmid = printing all parts (name, type, direction, start, end)
      */

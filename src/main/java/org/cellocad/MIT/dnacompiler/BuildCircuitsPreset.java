@@ -24,11 +24,7 @@ public class BuildCircuitsPreset extends BuildCircuits {
     }
 
 
-    /***********************************************************************
 
-     Synopsis    [ ]
-
-     ***********************************************************************/
     @Override
     public void buildCircuits() {
         logger = Logger.getLogger(getThreadDependentLoggername());

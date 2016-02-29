@@ -14,26 +14,8 @@ import java.util.HashMap;
 
 /**
  * Netlist is a text representation of a wiring diagram
- *
- *
  */
 public class Netlist{
-
-    /**
-     * Example:
-     input_pBAD
-     input_pTet
-     input_pTac
-     output_YFP      pPhlF
-     NOR_js2-AmtR    pTac
-     NOR_an2-QacR    pSrpR
-     NOR_an2-LitR    pTet
-     NOR_js2-BM3R1   pBAD
-     NOR_an0-SrpR    pBM3R1    pLitR
-     NOR_js2-PhlF    pQacR     pAmtR
-     *
-     *
-     */
 
 
     public static void setBioNetlist(LogicCircuit lc, boolean add_index) {

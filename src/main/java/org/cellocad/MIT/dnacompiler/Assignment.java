@@ -10,14 +10,8 @@ import org.codehaus.jackson.node.ObjectNode;
 
 import java.util.ArrayList;
 
-//import net.sf.json.JSONObject;
 
-/**
- * The Assignment class is used for the Cello API:
- *
- * Cello input: verilog file, UCF, options
- * Cello output: list of Assignment objects
- */
+@Deprecated
 public class Assignment {
 
     //LogicCircuit object

@@ -27,9 +27,6 @@ public class LoginController extends HttpServlet {
 
     private static final String USER_DB_NAME = "CELLO";
     private static Logger LOGGER = Logger.getLogger("AuthenticationServlet");
-
-    // a reference to an instance
-    // of the CIDAR authenticator
     public Authenticator auth = new Authenticator(USER_DB_NAME);;
 
 
@@ -48,8 +45,6 @@ public class LoginController extends HttpServlet {
 
 
         JSONObject jsonResponse = new JSONObject();
-
-//        System.out.println("CREDENTIALS " + credentials.toString());
 
         try {
 
@@ -84,8 +79,7 @@ public class LoginController extends HttpServlet {
              */
             else if ("login".equals(command)) {
 
-                // first, we check if the user exists and
-                // if the passwords match up
+                // check if the user exists and if the passwords match
                 boolean bLogin = this.auth.login(username, password);
 
                 if(!bLogin) {

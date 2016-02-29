@@ -58,6 +58,9 @@ the install_local_jars.sh script adds these local jars to the maven repository ~
 
 ###### Install other dependencies for automated figure generation
 
+If Eugene is used (it's optional), then Java 1.7 is required.  It will not work with 1.8.
+
+
 Linux
 ```
 sudo yum install gnuplot

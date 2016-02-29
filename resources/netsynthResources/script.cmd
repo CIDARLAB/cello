@@ -1,0 +1,1 @@
+D:\cidar\NetlistSynthesizer\resources\netsynthResources\abc -c "read D:\cidar\NetlistSynthesizer\resources\netsynthResources\Blif_File.blif; strash;  rewrite; refactor; balance; write D:\cidar\NetlistSynthesizer\resources\netsynthResources\abcOutput.bench; quit"

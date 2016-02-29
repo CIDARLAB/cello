@@ -52,11 +52,6 @@ public class ScriptCommands {
      Synopsis    [  ]
 
      ***********************************************************************/
-    public void makeDot2Png() {
-        String cmd = "perl " + _home + "/resources/scripts/convert_dot2png.pl " + _output_directory + " " + _dateID;
-        String command_result = Util.executeCommand(cmd);
-    }
-
     public void makeDot2Png(String dotfile) {
         String cmd = "perl " + _home + "/resources/scripts/convert_this_dot2png.pl " + _output_directory + " " + dotfile;
         String command_result = Util.executeCommand(cmd);

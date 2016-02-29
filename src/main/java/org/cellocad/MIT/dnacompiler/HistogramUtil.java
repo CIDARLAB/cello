@@ -30,28 +30,18 @@ public class HistogramUtil {
 
 
         for (int r = 0; r < reus.size(); ++r) {
-
             double reu = Double.valueOf(reus.get(r));
-
             double logreu = Math.log10(reu);
-
             total_logreu += logreu;
-
         }
 
 
         double avg_logreu = total_logreu / reus.size();
 
         for (int r = 0; r < reus.size(); ++r) {
-
             double reu = Double.valueOf(reus.get(r));
-
             double logreu = Math.log10(reu) - avg_logreu + log_mean; //histogram centered at input value
-
             histogram.add(logreu);
-
-            //Print.message(2, "bin center " + log_mean + ", histogram value " + logreu);
-
         }
 
         return histogram;
@@ -237,8 +227,6 @@ public class HistogramUtil {
     public static void getTransferFunctionHistogramTitrations(String gate_name, GateLibrary gate_library, HistogramBins hbins, String filepath) {
         //Print.message(2, "getting transfer function histogram titrations for " + gate_name);
 
-        Random rand = new Random();
-
         Gate g = gate_library.get_GATES_BY_NAME().get(gate_name);
 
         HistogramXfer xfer_hist = g.get_xfer_hist();
@@ -274,14 +262,6 @@ public class HistogramUtil {
         }
         xfer_hist.set_xfer_binned( xfer_binned );
 
-        /*for (int i = 0; i < 12; ++i) { //make sure each titration sums to 1.000
-            double sum = 0.0;
-            for(int ii=0; ii<get_NBINS(); ++ii) {
-                sum += xfer_normal.get(i)[ii];
-            }
-            Print.message(2, "titr sum " + sum);
-        }
-        */
     }
 
 
@@ -295,26 +275,22 @@ public class HistogramUtil {
     public static double[] calcHistogram(ArrayList<Double> data, double min, double max, int numBins, boolean logreu) {
 
         final double[] result = new double[numBins];
-
         final double binSize = (max - min)/numBins;
 
         for (double d : data) {
 
-            if(logreu)
+            if(logreu) {
                 d = Math.log10(d);
+            }
 
             int bin = (int) ((d - min) / binSize);
 
             if (bin < 0) { /* this data is smaller than min */ }
-
             else if (bin >= numBins) { /* this data point is bigger than max */ }
-
             else {
                 result[bin] += 1.0;
             }
-
         }
-
         return result;
     }
 
@@ -325,23 +301,17 @@ public class HistogramUtil {
     public static double[] normalize(double[] data) {
 
         double[] norm = new double[ data.length ];
-
         double total_sum = 0.0;
 
         for(int i=0; i<data.length; ++i) {
-
             total_sum += data[i];
-
         }
 
         for(int i=0; i<data.length; ++i) {
-
             norm[i] = data[i]/total_sum;
-
         }
 
         return norm;
-
     }
 
 
@@ -366,27 +336,19 @@ public class HistogramUtil {
         double total_sum = 0.0;
 
         for(int i=0; i<data.length; ++i) {
-
             total_sum += data[i];
-
         }
 
         double halfway = total_sum / 2;
-
         double current = 0.0;
 
         int bin = 0;
-
         for(int i=0; i<data.length; ++i) {
-
             current += data[i];
-
             if(current >= halfway) {
                 break;
             }
-
             ++bin;
-
         }
 
         return Math.pow(10, hbins.get_LOG_BIN_CENTERS()[bin]);
@@ -406,22 +368,15 @@ public class HistogramUtil {
         }
 
         double halfway = total_sum / 2;
-
-
         double current = 0.0;
 
         int bin = 0;
-
         for(int i=0; i<data.length; ++i) {
-
             current += data[i];
-
             if(current >= halfway) {
                 break;
             }
-
             ++bin;
-
         }
 
         return bin;
@@ -457,19 +412,12 @@ public class HistogramUtil {
         final double binSize = (hbins.get_LOGMAX() - hbins.get_LOGMIN())/hbins.get_NBINS();
 
         for (double d : data) {
-
-            //d = Math.log10(d);
-
             int bin = (int) ((d - hbins.get_LOGMIN()) / binSize);
-
             if (bin < 0) { /* this data is smaller than min */ }
-
             else if (bin >= hbins.get_NBINS()) { /* this data point is bigger than max */ }
-
             else {
                 result[bin] += 1.0;
             }
-
         }
 
         return result;
@@ -487,19 +435,14 @@ public class HistogramUtil {
     public static double[] normalizeHistogramToNewMedian(double[] histogram, Double new_median, HistogramBins hbins) {
 
         int bin_median = HistogramUtil.bin_median(histogram);
-
         int shift = bin_median - HistogramUtil.bin_of_logreu(Math.log10(new_median), hbins);
-
         double[] shifted_histogram = new double[hbins.get_NBINS()];
 
         for(int bin=0; bin<hbins.get_NBINS(); ++bin) {
-
             int shifted_bin = bin - shift;
-
             if(shifted_bin > 0 && shifted_bin < hbins.get_NBINS()) {
                 shifted_histogram[shifted_bin] = histogram[bin];
             }
-
         }
 
         HistogramUtil.normalize(shifted_histogram);

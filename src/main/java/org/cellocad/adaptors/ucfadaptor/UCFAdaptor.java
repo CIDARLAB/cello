@@ -599,10 +599,6 @@ public class UCFAdaptor {
             gate_library.get_TANDEM_PROMOTERS().put(tp_name, grid);
         }
 
-        //set data in GateLibrary
-
-
-
     }
 
 

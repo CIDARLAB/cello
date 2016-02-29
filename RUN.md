@@ -146,7 +146,12 @@ Go to ~/cello/tools/pycello/
 Please follow the install/run instructions found in the pycello directory.
 
 
+
+
 ## 3. Executing compile source code
+
+(Note: if Eugene is used but no rules are specified in the UCF, long runtimes may result due to combinatorics of enumerating variants)
+
 
 The CelloMain Java class can be run from any working directory.  However, the same demo files can be used for your convenience.
 ```

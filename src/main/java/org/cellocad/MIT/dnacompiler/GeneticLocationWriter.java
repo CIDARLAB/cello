@@ -378,7 +378,6 @@ public class GeneticLocationWriter {
             }
         }
 
-        int counter = 0;
 
         for(ArrayList<Part> module1: module_parts_1) {
 
@@ -409,17 +408,12 @@ public class GeneticLocationWriter {
                         plasmid.add(new Part(p));
                     }
 
-                    /*counter++;
-                    for(Part p: plasmid) {
-                        System.out.println("counter " + counter + " " + p.get_name() + " " + p.get_start() + " " + p.get_end());
-                    }*/
 
                     //Step 4. Sort parts based on start/end bp number, then renumber all parts in the plasmid.
                     //Sorting MUST maintain the intended part order.
                     PlasmidUtil.sortPartsByStartBP(plasmid);
 
                     PlasmidUtil.renumberPlasmidBases(plasmid, 0);
-
 
 
                     //Step 5. Append plasmid to list of plasmids.

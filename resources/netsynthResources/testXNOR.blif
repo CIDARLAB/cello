@@ -1,7 +1,0 @@
-.model blif_file
-.inputs A B
-.outputs F
-.names A B F
-00 1
-11 1
-.end

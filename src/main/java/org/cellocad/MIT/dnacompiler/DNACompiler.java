@@ -927,62 +927,21 @@ public class DNACompiler {
 
             }
 
-            int asn_counter = 0;
+            int counter = 0;
             for(LogicCircuit lc: unique_lcs) {
-                String asn = "";
-                for(Gate g: lc.get_logic_gates()) {
-                    asn += g.Name + " ";
-                }
-                Double score = lc.get_scores().get_score();
-                if(score > 1.0) {
-                    asn += Util.sc(score);
 
-                    asn = asn.replace("_", "-");
-                    asn = asn.replace("js", "NOR_js");
-                    asn = asn.replace("an0", "NOR_an0");
-                    logger.info("Assignment: " + asn);
+                lc.set_assignment_name( _options.get_jobID() + "_A" + String.format("%03d", counter) );
+                counter++;
+                Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_logic_circuit.txt", lc.toString(), false);
 
-                    lc.set_assignment_name( _options.get_jobID() + "_A" + String.format("%03d", asn_counter) );
-                    asn_counter++;
-                    Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_logic_circuit.txt", lc.toString(), false);
-
-                    logger.info("=========== Circuit bionetlist ===============");
-                    PlasmidUtil.setGateParts(lc, gate_library, part_library);
-                    Netlist.setBioNetlist(lc, false);
-                    Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_bionetlist.txt", lc.get_netlist(), false);
-
-                }
+                logger.info("=========== Circuit bionetlist ===============");
+                PlasmidUtil.setGateParts(lc, gate_library, part_library);
+                Netlist.setBioNetlist(lc, false);
+                Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_bionetlist.txt", lc.get_netlist(), false);
             }
 
-            System.exit(-1);
+            return;
         }
-
-
-
-
-        /*for(LogicCircuit lc: unique_lcs) {
-
-            //boolean has_all_tp_data = LogicCircuitUtil.dataFoundForAllTandemPromoters(gate_library, lc);
-
-            boolean maximize_tp_reg_score_ratio = true;
-
-            if(maximize_tp_reg_score_ratio) {
-                Double tp_score = lc.get_scores().get_score();
-                lc.get_scores().set_tp_onoff_ratio(tp_score);
-
-                _options.set_tandem_promoter(false);
-
-                Evaluate.evaluateCircuit(lc, gate_library, _options);
-
-                Double reg_score = lc.get_scores().get_score();
-                lc.get_scores().set_reg_onoff_ratio(reg_score);
-
-                _options.set_tandem_promoter(true);
-
-                Double ratio_score = tp_score / reg_score;
-                lc.get_scores().set_onoff_ratio(ratio_score);
-            }
-        }*/
 
 
 
@@ -992,12 +951,8 @@ public class DNACompiler {
 
         for(int a=0; a<_options.get_nA(); ++a) {
 
-            Assignment asn = new Assignment();
-
             LogicCircuit lc = new LogicCircuit(unique_lcs.get(a));
-
             lc.set_index(a);
-
             lc.set_assignment_name( _options.get_jobID() + "_A" + String.format("%03d", a) );
 
 
@@ -1090,7 +1045,7 @@ public class DNACompiler {
 
                 PlasmidUtil.findPartComponentsInOutputGates(lc, gate_library, part_library);
 
-                generatePlasmids(lc, gate_library, part_library, ucf, asn);
+                generatePlasmids(lc, gate_library, part_library, ucf);
             }
 
 
@@ -1112,16 +1067,6 @@ public class DNACompiler {
                 logger.info("---------------   Warning: input promoter roadblocking ----");
                 logger.info("-----------------------------------------------------------\n");
             }
-
-            asn.set_logic_circuit(lc);
-            asn.set_logic_circuit_node(lcToNode(lc));
-            //asn.set_sbol_file(sbol_document);
-
-            if(_options.is_write_circuit_json()) {
-                Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_logic_circuit.json", asn.get_logic_circuit_node().toString(), false);
-            }
-
-            _assignments.add(asn);
         }
 
         if(_result_status != ResultStatus.roadblocking_inputs) {
@@ -1153,7 +1098,7 @@ public class DNACompiler {
      * @param gate_library
      * @param part_library
      */
-    public void generatePlasmids(LogicCircuit lc, GateLibrary gate_library, PartLibrary part_library, UCF ucf, Assignment asn) {
+    public void generatePlasmids(LogicCircuit lc, GateLibrary gate_library, PartLibrary part_library, UCF ucf) {
 
         String name_Eug_circuit_rules =  lc.get_assignment_name() + "_Eugene_circuit_module_rules.eug";
         String name_Eug_circuit_parts =  lc.get_assignment_name() + "_Eugene_circuit_module_part_list.txt";
@@ -1249,8 +1194,6 @@ public class DNACompiler {
 
 
         int p_counter = 0;
-        String fulldna = "";
-        String part_names = "";
 
         for(ArrayList<Part> module: lc.get_circuit_module_parts()) {
 
@@ -1258,7 +1201,6 @@ public class DNACompiler {
             ArrayList<String> parts_list = new ArrayList<String>();
             ArrayList<String> gates_list = new ArrayList<String>();
             for(Part p: module) {
-                part_names += p.get_name() + ", " + p.get_seq() + "\n";
                 parts_list.add(p.get_direction() + p.get_name());
                 if(p.get_type().equals("cds")) {
                     gates_list.add(p.get_direction() + "gate_" + p.get_name());
@@ -1339,10 +1281,6 @@ public class DNACompiler {
 
             String sbol_document = sbol_circuit_writer.writeSBOLCircuit(sbol_filename, lc, plasmid, sbol_plasmid_name, _options);
         }
-
-
-        asn.set_eugene_file(circuit_eugene_file_string);
-        asn.set_plasmid_files(all_plasmid_strings);
 
 
         PlasmidUtil.resetParentGates(lc);

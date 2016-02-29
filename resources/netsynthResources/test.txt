@@ -1,5 +1,0 @@
-# Equations for "abctest" written by ABC on Fri Jan  2 17:30:38 2015
-INORDER = a b c;
-OUTORDER = out;
-out = (!c)*(a+b);
-

@@ -1,9 +1,0 @@
-# Benchmark "newAssignVerilog" written by ABC on Tue Mar 10 10:10:07 2015
-INPUT(a)
-INPUT(b)
-INPUT(c)
-OUTPUT(out1)
-n4          = AND(a, b)
-n5          = NOT(n4)
-n6          = AND(c, n5)
-out1        = NOT(n6)

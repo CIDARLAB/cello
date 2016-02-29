@@ -33,7 +33,20 @@ public class DownloadController extends BaseController {
             username = "default";
         }
 
-        String filePath = _resultPath + "/" + username + "/" + filename;
+//        String filePath = _resultPath + "/" + username + "/" + filename;
+
+        String filePath = "";
+
+        if(owner.equals("default")) {
+            filePath = _srcPath + "/resources/UCF/" + filename;
+        }
+        else if(!username.equals(owner)) {
+            throw new CelloUnauthorizedException("owner is not the authenticated user.");
+        }
+        else {
+            filePath = _resultPath + "/" + username + "/" + filename;
+        }
+
 
         File file = new File(filePath);
         if(!file.exists()){

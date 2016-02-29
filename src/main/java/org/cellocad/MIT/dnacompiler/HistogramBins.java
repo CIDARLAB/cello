@@ -15,8 +15,8 @@ public class HistogramBins {
 
     public void init() {
 
-        _LOGMAX =  3.0;  //REU = 10^2.5
-        _LOGMIN = -3.0;  //REU = 10^-3.5
+        _LOGMAX =  3.0;  //REU = 10^3
+        _LOGMIN = -3.0;  //REU = 10^-3
         _NBINS = 250;
 
         //set the bin values based on the max, min, and number of bins.

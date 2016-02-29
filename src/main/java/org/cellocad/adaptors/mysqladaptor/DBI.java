@@ -6,7 +6,7 @@ package org.cellocad.adaptors.mysqladaptor;
 import java.sql.*;
 
 /**
- * Get data from MySQL database
+ * Not used: MySQL replaced by UCF json format.
  *
  */
 public class DBI {
@@ -69,7 +69,7 @@ public class DBI {
     // Private member data
     //
     /////////////////////////
-    private static final String URL="jdbc:mysql://127.0.0.1:3306/celloFlat_final20";
+    private static final String URL="jdbc:mysql://127.0.0.1:3306/cellodb";
 
     private Connection _con;
     private Statement _pst;

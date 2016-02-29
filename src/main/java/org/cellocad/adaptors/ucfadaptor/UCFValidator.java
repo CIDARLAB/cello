@@ -637,7 +637,6 @@ public class UCFValidator {
                 if (!obj.containsKey("location_name")) {
                     return false;
                 }
-//                if (!obj.containsKey("bp_range")) {
                 if (!obj.containsKey("bp_start") || !obj.containsKey("bp_end")){
                     return false;
                 }
@@ -654,7 +653,6 @@ public class UCFValidator {
                 if (!obj.containsKey("location_name")) {
                     return false;
                 }
-//                if (!obj.containsKey("bp_range")) {
                 if (!obj.containsKey("bp_start") || !obj.containsKey("bp_end")){
                 	return false;
                 }
@@ -671,7 +669,6 @@ public class UCFValidator {
                 if (!obj.containsKey("location_name")) {
                     return false;
                 }
-//                if (!obj.containsKey("bp_range")) {
                 if (!obj.containsKey("bp_start") || !obj.containsKey("bp_end")){
                 	return false;
                 }

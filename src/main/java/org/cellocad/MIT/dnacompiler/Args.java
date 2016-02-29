@@ -21,7 +21,7 @@ public class Args {
     @Getter @Setter private String _username = ""; // to search results directory of user for custom UCF
     @Getter @Setter private String _jobID = ""; // unique identifier for a job
     @Getter @Setter private String _home = "";  // absolute path to project root directory
-    @Getter @Setter private String _datapath = "/resources/data/"; // subpath to data files (from root directory)
+    @Getter @Setter private String _datapath = "/resources/data/"; // subpath to data files (relative to _home)
     @Getter @Setter private String _UCFfilepath = ""; //filepath for the UCF .json file
     @Getter @Setter private DNACompiler.CircuitType _circuit_type = DNACompiler.CircuitType.combinational;
 
@@ -74,7 +74,7 @@ public class Args {
     @Getter @Setter ArrayList<String> _exclude_groups = new ArrayList<>();
 
     @Getter @Setter private BuildCircuits.AssignmentAlgorithm _assignment_algorithm = BuildCircuits.AssignmentAlgorithm.breadth_first; //
-    @Getter @Setter private int _timelimit = 10;                   // seconds.
+    @Getter @Setter private int _timelimit = 10; // seconds.
     @Getter @Setter private boolean _unique_repressor_assignments = true; // only output unique repressor assignments
     @Getter @Setter private boolean _unique_rbs_assignments = false; // rbs variants count as unique assignments
     @Getter @Setter private boolean _output_all_assignments = false; // output all 'unique' assignments
@@ -99,7 +99,6 @@ public class Args {
 
 
     public Args() {
-        //logger = Logger.getLogger(getThreadDependentLoggername());
 
         String _filepath = Args.class.getClassLoader().getResource(".").getPath();
 
@@ -129,9 +128,7 @@ public class Args {
         this._home = sourcePath;
     }
 
-    /**
-     *  store command line arguments as variables
-     */
+
     public void parse(String args[]) {
 
         for (int i=0; i < args.length; i++) {
@@ -411,6 +408,4 @@ public class Args {
         }
     }
 
-//    @Getter @Setter private String threadDependentLoggername;
-//    private Logger logger  = Logger.getLogger(getClass());
 }

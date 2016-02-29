@@ -14,9 +14,9 @@ public class ReloadCircuitsTest {
 
 
     /**
-     * This will reload and simulate >60 circuits, which will take ~15 minutes.
+     * This will reload and simulate >60 circuits
      */
-    @Test
+    //@Test
     public void reloadCircuits() {
 
         System.out.println("reloadCircuits :: ");
