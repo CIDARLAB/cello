@@ -255,7 +255,7 @@ public class Args {
                 _fin_reload = args[i+1];
                 File f = new File(_fin_reload);
                 if(!f.exists() || f.isDirectory()) {
-                    throw new IllegalArgumentException("_fin_reload file path does not exist.");
+                    throw new IllegalArgumentException("_fin_reload file path does not exist: " + _fin_reload);
                 }
             }
             if(args[i].equals("-preset")) {

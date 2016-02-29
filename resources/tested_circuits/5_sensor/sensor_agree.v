@@ -1,0 +1,17 @@
+module A(output out1,  input in1, in2, in3);
+  reg r_out;
+  assign out = r_out;
+  always@(in1,in2,in3)
+    begin
+      case({in1,in2,in3})
+        3'b000: {out1} = 1'b1;
+        3'b001: {out1} = 1'b0;
+        3'b010: {out1} = 1'b0;
+        3'b011: {out1} = 1'b0;
+        3'b100: {out1} = 1'b0;
+        3'b101: {out1} = 1'b0;
+        3'b110: {out1} = 1'b0;
+        3'b111: {out1} = 1'b1;
+      endcase
+    end
+endmodule

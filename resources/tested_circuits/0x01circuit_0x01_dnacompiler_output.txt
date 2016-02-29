@@ -1,0 +1,545 @@
+
+
+///////////////////////////////////////////////////////////
+///////////////   Welcome to Cello   //////////////////////
+///////////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////////////////
+///////////////   Options   ///////////////////////////////
+///////////////////////////////////////////////////////////
+
+{
+  "_username": "",
+  "_jobID": "circuit_0x01",
+  "_home": "/Users/peng/cello",
+  "_datapath": "/resources/data/",
+  "_UCFfilepath": "/Users/peng/cello/resources/UCF/Eco1C1G1T1.UCF.json",
+  "_circuit_type": "combinational",
+  "_output_directory": "resources/tested_circuits/0x01",
+  "_synthesis": "defaultmode",
+  "_NOTequalsNOR1": true,
+  "_permute_inputs": false,
+  "_dontcare_rows": [],
+  "_fin_verilog": "/Users/peng/cello/resources/tested_circuits/0x01/0x01.v",
+  "_fin_input_promoters": "/Users/peng/cello/resources/data/inputs/Inputs.txt",
+  "_fin_output_genes": "/Users/peng/cello/resources/data/outputs/Outputs.txt",
+  "_fin_reload": "/Users/peng/cello/resources/tested_circuits/0x01/0x01_A000_logic_circuit.txt",
+  "_fin_preset": "",
+  "_fin_sensor_module": "/Users/peng/cello/resources/data/inputs/sensor_module.txt",
+  "_fin_sequential_waveform": "",
+  "_toxicity": true,
+  "_noise_margin": true,
+  "_check_roadblocking": true,
+  "_tandem_promoter": false,
+  "_gate_onoff_threshold": 10.0,
+  "_snr": false,
+  "_histogram": false,
+  "_histogram_threshold": 0.5,
+  "_toxicity_threshold": 0.75,
+  "_pareto_frontier": false,
+  "_hill_iterations": 100,
+  "_hill_trajectories": 10,
+  "_hill_climb_seed": false,
+  "_exclude_groups": [],
+  "_assignment_algorithm": "reload",
+  "_timelimit": 10,
+  "_unique_repressor_assignments": true,
+  "_unique_rbs_assignments": false,
+  "_output_all_assignments": false,
+  "_assign_C_pBAD": false,
+  "_eugene": true,
+  "_eugene_scars": true,
+  "_eugene_dnaseq": true,
+  "_plasmid": true,
+  "_nA": 1,
+  "_nP": 5,
+  "_figures": false,
+  "_dnaplotlib": true,
+  "_truthtable_reu": true,
+  "_truthtable_tox": false,
+  "_response_fn": true,
+  "_write_circuit_json": false
+}
+
+
+///////////////////////////////////////////////////////////
+///////////////   UCF Validation   ////////////////////////
+///////////////////////////////////////////////////////////
+
+{
+  "gate_parts": true,
+  "response_functions": true,
+  "eugene_rules": true,
+  "tandem_promoters": false,
+  "genetic_locations": true,
+  "logic_constraints": true,
+  "gates": true,
+  "measurement_std": true,
+  "gate_cytometry": true,
+  "gate_toxicity": true,
+  "is_valid": true,
+  "parts": true,
+  "header": true
+}
+
+
+///////////////////////////////////////////////////////////
+///////////////   Logic synthesis, Wiring diagram   ///////
+///////////////////////////////////////////////////////////
+
+  out: OUTPUT(w1);
+   g1: NOR(w1, w3, w2);
+   g2: NOT(w2, w4);
+   g3: NOT(w3, in3);
+   g4: NOR(w4, w6, w5);
+   g5: NOT(w5, in2);
+   g6: NOT(w6, in1);
+  in1: INPUT(in1);
+  in2: INPUT(in2);
+  in3: INPUT(in3);
+
+Circuit has 2 NOR gates.
+Circuit has 3 INPUT gates.
+Circuit has 4 NOT gates.
+Circuit has 1 OUTPUT gates.
+N logic gates: 6
+
+----- Logic Circuit #0 -----
+OUTPUT      00000001          out               0  (1)         
+NOR         00000001          g1                1  (3,2)       
+NOT         11111100          g2                2  (4)         
+NOT         10101010          g3                3  (9)         
+NOR         00000011          g4                4  (6,5)       
+NOT         11001100          g5                5  (8)         
+NOT         11110000          g6                6  (7)         
+INPUT       00001111          in1               7              
+INPUT       00110011          in2               8              
+INPUT       01010101          in3               9              
+
+
+
+
+///////////////////////////////////////////////////////////
+///////////////   Loading parts   /////////////////////////
+///////////////////////////////////////////////////////////
+
+Part: promoter pAmeR
+Part: ribozyme RiboJ53
+Part: rbs Q1
+Part: ribozyme RiboJ54
+Part: rbs Q2
+Part: ribozyme RiboJ10
+Part: ribozyme RiboJ51
+Part: cds SrpR
+Part: scar Q_scar
+Part: rbs I1
+Part: ribozyme RiboJ57
+Part: rbs E1
+Part: rbs A1
+Part: scar X_scar
+Part: promoter pBM3R1
+Part: scar R_scar
+Part: scar E_scar
+Part: cds LitR
+Part: rbs R1
+Part: ribozyme RiboJ64
+Part: ribozyme SarJ
+Part: promoter pBetI
+Part: cds BM3R1
+Part: terminator ECK120033736
+Part: terminator L3S3P11
+Part: rbs N1
+Part: terminator ECK120033737
+Part: ribozyme RiboJ60
+Part: rbs F1
+Part: promoter pLmrA
+Part: rbs B1
+Part: rbs B2
+Part: rbs B3
+Part: promoter pPhlF
+Part: promoter pPsrA
+Part: cds AmtR
+Part: terminator ECK120019600
+Part: promoter pIcaRA
+Part: scar C_scar
+Part: scar F_scar
+Part: ribozyme ElvJ
+Part: cds HlyIIR
+Part: terminator ECK120010876
+Part: rbs S1
+Part: ribozyme PlmJ
+Part: promoter pQacR
+Part: rbs S2
+Part: terminator L3S2P55
+Part: terminator L3S2P11
+Part: promoter pSrpR
+Part: rbs S3
+Part: rbs S4
+Part: terminator ECK120029600
+Part: terminator ECK120016170
+Part: cds AmeR
+Part: ribozyme ScmJ
+Part: terminator ECK120015440
+Part: scar B_scar
+Part: scar O_scar
+Part: promoter pAmtR
+Part: cds LmrA
+Part: cds PsrA
+Part: cds PhlF
+Part: scar U_scar
+Part: cds QacR
+Part: rbs P1
+Part: scar G_scar
+Part: rbs P2
+Part: rbs P3
+Part: terminator ECK120010818
+Part: scar A_scar
+Part: scar P_scar
+Part: cds IcaRA
+Part: rbs L1
+Part: promoter pLitR
+Part: terminator L3S2P24
+Part: scar D_scar
+Part: cds BetI
+Part: scar Y_scar
+Part: rbs H1
+Part: terminator L3S3P31
+Part: promoter pHlyIIR
+Part: ribozyme BydvJ
+Part: scar V_scar
+
+
+///////////////////////////////////////////////////////////
+///////////////   Loading Gate Library   //////////////////
+///////////////////////////////////////////////////////////
+
+loading gate from UCF gates collection: A1_AmtR
+loading gate from UCF gates collection: B1_BM3R1
+loading gate from UCF gates collection: B2_BM3R1
+loading gate from UCF gates collection: B3_BM3R1
+loading gate from UCF gates collection: E1_BetI
+loading gate from UCF gates collection: F1_AmeR
+loading gate from UCF gates collection: H1_HlyIIR
+loading gate from UCF gates collection: I1_IcaRA
+loading gate from UCF gates collection: L1_LitR
+loading gate from UCF gates collection: N1_LmrA
+loading gate from UCF gates collection: P1_PhlF
+loading gate from UCF gates collection: P2_PhlF
+loading gate from UCF gates collection: P3_PhlF
+loading gate from UCF gates collection: Q1_QacR
+loading gate from UCF gates collection: Q2_QacR
+loading gate from UCF gates collection: R1_PsrA
+loading gate from UCF gates collection: S1_SrpR
+loading gate from UCF gates collection: S2_SrpR
+loading gate from UCF gates collection: S3_SrpR
+loading gate from UCF gates collection: S4_SrpR
+
+
+///////////////////////////////////////////////////////////
+///////////////   Loading input and output gates   ////////
+///////////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////////////////
+///////////////   Loading Gate Parts   ////////////////////
+///////////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////////////////
+///////////////   Loading Response Functions   ////////////
+///////////////////////////////////////////////////////////
+
+A1_AmtR ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.06, ymax=3.8, K=0.07, n=1.6}
+B1_BM3R1 ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.004, ymax=0.5, K=0.04, n=3.4}
+B2_BM3R1 ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.005, ymax=0.5, K=0.15, n=2.9}
+B3_BM3R1 ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.01, ymax=0.8, K=0.26, n=3.4}
+E1_BetI ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.07, ymax=3.8, K=0.41, n=2.4}
+F1_AmeR ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.2, ymax=3.8, K=0.09, n=1.4}
+H1_HlyIIR ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.07, ymax=2.5, K=0.19, n=2.6}
+I1_IcaRA ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.08, ymax=2.2, K=0.1, n=1.4}
+L1_LitR ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.07, ymax=4.3, K=0.05, n=1.7}
+N1_LmrA ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.2, ymax=2.2, K=0.18, n=2.1}
+P1_PhlF ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.01, ymax=3.9, K=0.03, n=4.0}
+P2_PhlF ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.02, ymax=4.1, K=0.13, n=3.9}
+P3_PhlF ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.02, ymax=6.8, K=0.23, n=4.2}
+Q1_QacR ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.01, ymax=2.4, K=0.05, n=2.7}
+Q2_QacR ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.03, ymax=2.8, K=0.21, n=2.4}
+R1_PsrA ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.2, ymax=5.9, K=0.19, n=1.8}
+S1_SrpR ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.003, ymax=1.3, K=0.01, n=2.9}
+S2_SrpR ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.003, ymax=2.1, K=0.04, n=2.6}
+S3_SrpR ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.004, ymax=2.1, K=0.06, n=2.8}
+S4_SrpR ymin+(ymax-ymin)/(1.0+(x/K)^n) {ymin=0.007, ymax=2.1, K=0.1, n=2.8}
+
+
+///////////////////////////////////////////////////////////
+///////////////   Loading Toxicity Data   /////////////////
+///////////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////////////////
+///////////////   Loading Cytometry Data   ////////////////
+///////////////////////////////////////////////////////////
+
+input:    pBAD               off_reu=0.0082   on_reu=2.5000
+input:    pTet               off_reu=0.0013   on_reu=4.4000
+input:    pTac               off_reu=0.0034   on_reu=2.8000
+output:   YFP             
+output:   RFP             
+output:   BFP             
+output:   GFP             
+Gate: TetR NOR A1_AmtR AmtR
+Gate: TetR NOR B1_BM3R1 BM3R1
+Gate: TetR NOR B2_BM3R1 BM3R1
+Gate: TetR NOR B3_BM3R1 BM3R1
+Gate: TetR NOR E1_BetI BetI
+Gate: TetR NOR F1_AmeR AmeR
+Gate: TetR NOR H1_HlyIIR HlyIIR
+Gate: TetR NOR I1_IcaRA IcaRA
+Gate: TetR NOR L1_LitR LitR
+Gate: TetR NOR N1_LmrA LmrA
+Gate: TetR NOR P1_PhlF PhlF
+Gate: TetR NOR P2_PhlF PhlF
+Gate: TetR NOR P3_PhlF PhlF
+Gate: TetR NOR Q1_QacR QacR
+Gate: TetR NOR Q2_QacR QacR
+Gate: TetR NOR R1_PsrA PsrA
+Gate: TetR NOR S1_SrpR SrpR
+Gate: TetR NOR S2_SrpR SrpR
+Gate: TetR NOR S3_SrpR SrpR
+Gate: TetR NOR S4_SrpR SrpR
+GateLibrary groups: NOR 12
+GateLibrary groups: NOT 12
+NOR: group name: AmtR A1_AmtR
+NOR: group name: BM3R1 B1_BM3R1 B2_BM3R1 B3_BM3R1
+NOR: group name: BetI E1_BetI
+NOR: group name: AmeR F1_AmeR
+NOR: group name: HlyIIR H1_HlyIIR
+NOR: group name: IcaRA I1_IcaRA
+NOR: group name: LitR L1_LitR
+NOR: group name: LmrA N1_LmrA
+NOR: group name: PhlF P1_PhlF P2_PhlF P3_PhlF
+NOR: group name: QacR Q1_QacR Q2_QacR
+NOR: group name: PsrA R1_PsrA
+NOR: group name: SrpR S1_SrpR S2_SrpR S3_SrpR S4_SrpR
+NOT: group name: AmtR A1_AmtR
+NOT: group name: BM3R1 B1_BM3R1 B2_BM3R1 B3_BM3R1
+NOT: group name: BetI E1_BetI
+NOT: group name: AmeR F1_AmeR
+NOT: group name: HlyIIR H1_HlyIIR
+NOT: group name: IcaRA I1_IcaRA
+NOT: group name: LitR L1_LitR
+NOT: group name: LmrA N1_LmrA
+NOT: group name: PhlF P1_PhlF P2_PhlF P3_PhlF
+NOT: group name: QacR Q1_QacR Q2_QacR
+NOT: group name: PsrA R1_PsrA
+NOT: group name: SrpR S1_SrpR S2_SrpR S3_SrpR S4_SrpR
+NOR
+NOT
+NOR
+NOT
+NOT
+NOT
+The gates library can cover the circuit.
+Roadblocking input promoters: [pTac, pBAD]
+Roadblocking logic promoters: [pPhlF, pSrpR, pBM3R1, pQacR]
+
+
+///////////////////////////////////////////////////////////
+///////////////   Assignment algorithm   //////////////////
+///////////////////////////////////////////////////////////
+
+assignment algorithm:  reload
+=========== Assignment algorithm =============
+1
+Reloading logic circuit...
+[0, 0, 0, 0, 0, 0, 0, 1]
+[0, 0, 0, 0, 0, 0, 0, 1]
+[1, 1, 1, 0, 1, 1, 1, 0]
+[0, 0, 0, 1, 0, 0, 0, 1]
+[1, 1, 1, 1, 0, 0, 0, 0]
+[1, 0, 1, 0, 1, 0, 1, 0]
+[1, 1, 0, 0, 1, 1, 0, 0]
+[0, 0, 0, 0, 1, 1, 1, 1]
+[0, 0, 1, 1, 0, 0, 1, 1]
+[0, 1, 0, 1, 0, 1, 0, 1]
+Missing YFP
+Found B2_BM3R1
+Found H1_HlyIIR
+Found E1_BetI
+Found S1_SrpR
+Found A1_AmtR
+Found P2_PhlF
+Missing pBAD
+Missing pTac
+Missing pTet
+=========== Assigned circuits ================
+assigned lcs: 1
+Total elapsed time for assignment algorithm: 28 milliseconds
+best assignment score: 57.6550
+
+
+///////////////////////////////////////////////////////////
+///////////////   Processing best circuits   //////////////
+///////////////////////////////////////////////////////////
+
+all lcs 1
+unique lcs 1
+=========== Circuit assignment details =======
+
+----- Logic Circuit #0 -----
+OUTPUT      00000001          YFP               0  (1)          57.65  tox:0.72
+NOT         11001100          P2_PhlF           6  (7)         204.74  tox:1.00
+NOT         10101010          A1_AmtR           5  (8)          58.41  tox:0.77
+NOT         11110000          S1_SrpR           3  (9)         277.69  tox:0.95
+NOR         00010001          E1_BetI           4  (5,6)        42.43  tox:1.00
+NOT         11101110          H1_HlyIIR         2  (4)          31.15  tox:1.00
+NOR         00000001          B2_BM3R1          1  (2,3)        57.65  tox:0.98
+INPUT       00001111          pBAD              9              304.88
+INPUT       00110011          pTac              7              823.53
+INPUT       01010101          pTet              8              3384.62
+
+Circuit_score = 57.65499    Cell_growth = 0.71738 
+
+YFP  Gate=57.65499
+     OUTPUT        [ 0 0 0 ]: 0                  0.005:  0.002    multiplied_tox: 1.00
+     OUTPUT        [ 0 0 1 ]: 0                  0.005:  0.002    multiplied_tox: 0.77
+     OUTPUT        [ 0 1 0 ]: 0                  0.005:  0.002    multiplied_tox: 1.00
+     OUTPUT        [ 0 1 1 ]: 0                  0.008:  0.003    multiplied_tox: 0.77
+     OUTPUT        [ 1 0 0 ]: 0                  0.005:  0.002    multiplied_tox: 0.95
+     OUTPUT        [ 1 0 1 ]: 0                  0.005:  0.002    multiplied_tox: 0.73
+     OUTPUT        [ 1 1 0 ]: 0                  0.005:  0.002    multiplied_tox: 0.95
+     OUTPUT        [ 1 1 1 ]: 1                  0.443:  0.177    multiplied_tox: 0.72
+
+P2_PhlF  Gate=204.73606
+        NOT    1   [ 0 0 0 ]: 1                  0.003:  4.100    individual_tox: 1.00
+        NOT    1   [ 0 0 1 ]: 1                  0.003:  4.100    individual_tox: 1.00
+        NOT    1   [ 0 1 0 ]: 0                  2.800:  0.020    individual_tox: 1.00
+        NOT    1   [ 0 1 1 ]: 0                  2.800:  0.020    individual_tox: 1.00
+        NOT    1   [ 1 0 0 ]: 1                  0.003:  4.100    individual_tox: 1.00
+        NOT    1   [ 1 0 1 ]: 1                  0.003:  4.100    individual_tox: 1.00
+        NOT    1   [ 1 1 0 ]: 0                  2.800:  0.020    individual_tox: 1.00
+        NOT    1   [ 1 1 1 ]: 0                  2.800:  0.020    individual_tox: 1.00
+
+A1_AmtR  Gate=58.40557
+        NOT    1   [ 0 0 0 ]: 1                  0.001:  3.794    individual_tox: 1.00
+        NOT    1   [ 0 0 1 ]: 0                  4.400:  0.065    individual_tox: 0.77
+        NOT    1   [ 0 1 0 ]: 1                  0.001:  3.794    individual_tox: 1.00
+        NOT    1   [ 0 1 1 ]: 0                  4.400:  0.065    individual_tox: 0.77
+        NOT    1   [ 1 0 0 ]: 1                  0.001:  3.794    individual_tox: 1.00
+        NOT    1   [ 1 0 1 ]: 0                  4.400:  0.065    individual_tox: 0.77
+        NOT    1   [ 1 1 0 ]: 1                  0.001:  3.794    individual_tox: 1.00
+        NOT    1   [ 1 1 1 ]: 0                  4.400:  0.065    individual_tox: 0.77
+
+S1_SrpR  Gate=277.69429
+        NOT    1   [ 0 0 0 ]: 1                  0.008:  0.833    individual_tox: 1.00
+        NOT    1   [ 0 0 1 ]: 1                  0.008:  0.833    individual_tox: 1.00
+        NOT    1   [ 0 1 0 ]: 1                  0.008:  0.833    individual_tox: 1.00
+        NOT    1   [ 0 1 1 ]: 1                  0.008:  0.833    individual_tox: 1.00
+        NOT    1   [ 1 0 0 ]: 0                  2.500:  0.003    individual_tox: 0.95
+        NOT    1   [ 1 0 1 ]: 0                  2.500:  0.003    individual_tox: 0.95
+        NOT    1   [ 1 1 0 ]: 0                  2.500:  0.003    individual_tox: 0.95
+        NOT    1   [ 1 1 1 ]: 0                  2.500:  0.003    individual_tox: 0.95
+
+E1_BetI  Gate=42.43398
+        NOR    2   [ 0 0 0 ]: 0          3.794   4.100:  0.073    individual_tox: 1.00
+        NOR    2   [ 0 0 1 ]: 0          0.065   4.100:  0.084    individual_tox: 1.00
+        NOR    2   [ 0 1 0 ]: 0          3.794   0.020:  0.088    individual_tox: 1.00
+        NOR    2   [ 0 1 1 ]: 1          0.065   0.020:  3.717    individual_tox: 1.00
+        NOR    2   [ 1 0 0 ]: 0          3.794   4.100:  0.073    individual_tox: 1.00
+        NOR    2   [ 1 0 1 ]: 0          0.065   4.100:  0.084    individual_tox: 1.00
+        NOR    2   [ 1 1 0 ]: 0          3.794   0.020:  0.088    individual_tox: 1.00
+        NOR    2   [ 1 1 1 ]: 1          0.065   0.020:  3.717    individual_tox: 1.00
+
+H1_HlyIIR  Gate=31.15080
+        NOT    3   [ 0 0 0 ]: 1                  0.073:  2.313    individual_tox: 1.00
+        NOT    3   [ 0 0 1 ]: 1                  0.084:  2.238    individual_tox: 1.00
+        NOT    3   [ 0 1 0 ]: 1                  0.088:  2.214    individual_tox: 1.00
+        NOT    3   [ 0 1 1 ]: 0                  3.717:  0.071    individual_tox: 1.00
+        NOT    3   [ 1 0 0 ]: 1                  0.073:  2.313    individual_tox: 1.00
+        NOT    3   [ 1 0 1 ]: 1                  0.084:  2.238    individual_tox: 1.00
+        NOT    3   [ 1 1 0 ]: 1                  0.088:  2.214    individual_tox: 1.00
+        NOT    3   [ 1 1 1 ]: 0                  3.717:  0.071    individual_tox: 1.00
+
+B2_BM3R1  Gate=57.65499
+        NOR    4   [ 0 0 0 ]: 0          2.313   0.833:  0.005    individual_tox: 1.00
+        NOR    4   [ 0 0 1 ]: 0          2.238   0.833:  0.005    individual_tox: 1.00
+        NOR    4   [ 0 1 0 ]: 0          2.214   0.833:  0.005    individual_tox: 1.00
+        NOR    4   [ 0 1 1 ]: 0          0.071   0.833:  0.008    individual_tox: 1.00
+        NOR    4   [ 1 0 0 ]: 0          2.313   0.003:  0.005    individual_tox: 1.00
+        NOR    4   [ 1 0 1 ]: 0          2.238   0.003:  0.005    individual_tox: 1.00
+        NOR    4   [ 1 1 0 ]: 0          2.214   0.003:  0.005    individual_tox: 1.00
+        NOR    4   [ 1 1 1 ]: 1          0.071   0.003:  0.443    individual_tox: 0.98
+
+pBAD  Gate=304.87805
+      INPUT        [ 0 0 0 ]: 0                       :  0.008
+      INPUT        [ 0 0 1 ]: 0                       :  0.008
+      INPUT        [ 0 1 0 ]: 0                       :  0.008
+      INPUT        [ 0 1 1 ]: 0                       :  0.008
+      INPUT        [ 1 0 0 ]: 1                       :  2.500
+      INPUT        [ 1 0 1 ]: 1                       :  2.500
+      INPUT        [ 1 1 0 ]: 1                       :  2.500
+      INPUT        [ 1 1 1 ]: 1                       :  2.500
+
+pTac  Gate=823.52941
+      INPUT        [ 0 0 0 ]: 0                       :  0.003
+      INPUT        [ 0 0 1 ]: 0                       :  0.003
+      INPUT        [ 0 1 0 ]: 1                       :  2.800
+      INPUT        [ 0 1 1 ]: 1                       :  2.800
+      INPUT        [ 1 0 0 ]: 0                       :  0.003
+      INPUT        [ 1 0 1 ]: 0                       :  0.003
+      INPUT        [ 1 1 0 ]: 1                       :  2.800
+      INPUT        [ 1 1 1 ]: 1                       :  2.800
+
+pTet  Gate=3384.61538
+      INPUT        [ 0 0 0 ]: 0                       :  0.001
+      INPUT        [ 0 0 1 ]: 1                       :  4.400
+      INPUT        [ 0 1 0 ]: 0                       :  0.001
+      INPUT        [ 0 1 1 ]: 1                       :  4.400
+      INPUT        [ 1 0 0 ]: 0                       :  0.001
+      INPUT        [ 1 0 1 ]: 1                       :  4.400
+      INPUT        [ 1 1 0 ]: 0                       :  0.001
+      INPUT        [ 1 1 1 ]: 1                       :  4.400
+
+
+
+=========== Circuit bionetlist ===============
+pTet            01010101
+pTac            00110011
+pBAD            00001111
+B2_BM3R1        pSrpR     pHlyIIR   
+H1_HlyIIR       pBetI     
+E1_BetI         pPhlF     pAmtR     
+S1_SrpR         pBAD      
+A1_AmtR         pTet      
+P2_PhlF         pTac      
+YFP             pBM3R1    
+
+
+
+///////////////////////////////////////////////////////////
+///////////////   Plasmid DNA sequences   /////////////////
+///////////////////////////////////////////////////////////
+
+=========== Setting gate parts according to assigned gate names
+=========== Eugene: circuit module ===========
+Eugene: combinatorial design of plasmid layouts...
+
+Number of circuit module layouts: 0
+=========== Eugene: output module ============
+Number of output module layouts: 0
+
+=========== Writing plasmid files ============
+
+=========== SBOL for circuit plasmids ========
+
+
+
+///////////////////////////////////////////////////////////
+///////////////   Cello finished playing   ////////////////
+///////////////////////////////////////////////////////////
+
