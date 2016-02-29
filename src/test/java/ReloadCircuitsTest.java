@@ -12,6 +12,10 @@ import java.util.Arrays;
  */
 public class ReloadCircuitsTest {
 
+
+    /**
+     * This will reload and simulate >60 circuits, which will take ~15 minutes.
+     */
     @Test
     public void reloadCircuits() {
 
@@ -55,12 +59,8 @@ public class ReloadCircuitsTest {
             String[] optArr = new String[optList.size()];
             optArr = optList.toArray(optArr);
 
-            System.out.println(Arrays.toString(optArr));
-
             DNACompiler dnaCompiler = new DNACompiler();
             dnaCompiler.run(optArr);
-            break;
-
         }
 
 

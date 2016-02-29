@@ -5,6 +5,7 @@
 /target/
 /.idea/*
 /resources/derbydb2/*
+/resources/tested_circuits/*/circuit_*
 derby.log
 *.iml
 /exports/
