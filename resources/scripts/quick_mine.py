@@ -21,9 +21,6 @@
 #    All rights reserved.
 #    OSI Non-Profit Open Software License ("Non-Profit OSL") 3.0 license.
 
-import sys
-import getopt
-import csv
 from argparse import ArgumentParser
 import os.path
 import os

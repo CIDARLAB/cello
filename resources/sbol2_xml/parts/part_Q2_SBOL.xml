@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:prov="http://www.w3.org/ns/prov#" xmlns:sbol="http://sbols.org/v2#">
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sbol="http://sbols.org/v2#">
   <sbol:ComponentDefinition rdf:about="http://cellocad.org/Q2">
     <sbol:persistentIdentity rdf:resource="http://cellocad.org/Q2"/>
     <sbol:displayId>Q2</sbol:displayId>

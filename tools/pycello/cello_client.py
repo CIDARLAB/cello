@@ -1,11 +1,10 @@
 import requests
 import json
-import sys
 import os
 import click
 from requests.auth import HTTPBasicAuth
 from Bio import SeqIO
-import io
+
 
 class CtxObject(object):
     def __init__(self):

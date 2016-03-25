@@ -7,8 +7,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Getter;
 import lombok.Setter;
-
-import org.apache.log4j.*;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
 import org.cellocad.BU.netsynth.NetSynthSwitch;
 import org.cellocad.MIT.dnacompiler.Gate.GateType;
 import org.cellocad.MIT.figures.*;
@@ -30,7 +32,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.*;
-import java.util.UUID;
 
 
 //@Slf4j

@@ -4,11 +4,12 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.tools.ant.DirectoryScanner;
 import org.cellocad.MIT.dnacompiler.Util;
 import org.json.simple.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;

@@ -23,8 +23,6 @@
 import matplotlib
 matplotlib.use('Agg')
 
-import sys
-import getopt
 import csv
 import dnaplotlib as dpl
 import matplotlib.pyplot as plt

@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:sbol="http://sbols.org/v2#" xmlns:prov="http://www.w3.org/ns/prov#">
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sbol="http://sbols.org/v2#">
   <sbol:ModuleDefinition rdf:about="http://cellocad.org/temp_1435346081927_A000_circuit_function">
     <sbol:persistentIdentity rdf:resource="http://cellocad.org/temp_1435346081927_A000_circuit_function"/>
     <sbol:displayId>temp_1435346081927_A000_circuit_function</sbol:displayId>

@@ -1,7 +1,5 @@
 package org.cellocad.MIT.dnacompiler;
 
-import org.apache.log4j.Logger;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.StringTokenizer;

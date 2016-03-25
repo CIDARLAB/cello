@@ -3,7 +3,6 @@ package org.cellocad.MIT.dnacompiler;
  * Created by Bryan Der on 3/26/14.
  */
 
-import org.apache.log4j.Logger;
 import org.cellocad.MIT.dnacompiler.Gate.GateType;
 
 import java.util.*;

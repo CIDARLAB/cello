@@ -1,11 +1,9 @@
 import org.apache.tools.ant.DirectoryScanner;
 import org.cellocad.MIT.dnacompiler.DNACompiler;
 import org.cellocad.MIT.dnacompiler.Util;
-import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by Bryan Der on 2/28/16.

@@ -3,10 +3,8 @@ package org.cellocad.authenticate;
 import org.apache.log4j.Logger;
 import org.cellocad.api.MainController;
 import org.json.simple.JSONObject;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

@@ -1,8 +1,6 @@
 package org.cellocad.MIT.dnacompiler;
 
 
-import lombok.Getter;
-import lombok.Setter;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
