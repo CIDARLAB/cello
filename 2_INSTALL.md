@@ -69,6 +69,7 @@ sudo yum install gnuplot
 sudo yum install ghostscript
 sudo yum install ImageMagick
 sudo yum install python-matplotlib
+sudo yum install graphviz
 ```
 
 Mac
@@ -91,4 +92,32 @@ mvn compile
 
 ###### Run Cello (see [3_RUN.md](3_RUN.md) )
 
+
+
+###### Summary of all steps for installing Cello on a fresh Amazon EC2 instance:
+
+```
+sudo yum groupinstall "Development tools"
+sudo yum install git
+sudo yum install gnuplot
+sudo yum install ghostscript
+sudo yum install graphviz
+sudo yum install python-matplotlib
+sudo yum install ImageMagick
+sudo yum install /lib/libgcc_s.so.1
+
+sudo yum install wget
+sudo wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
+sudo yum install -y apache-maven
+
+sudo yum search java | grep 'java-'
+sudo yum install java-1.7.0-openjdk.x86_64
+
+cd ~/cello/resources/library
+bash install_local_jars.sh
+cd ~/cello/
+mvn clean compile
+mvn spring-boot:run &
+sudo lsof -i:8080 (find the process running on port 8080)
+```
 

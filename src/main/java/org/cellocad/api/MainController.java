@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.cellocad.BU.dom.DAGW;
 import org.cellocad.BU.netsynth.NetSynth;
 import org.cellocad.BU.netsynth.NetSynthSwitch;
+import org.cellocad.BU.netsynth.Utilities;
 import org.cellocad.MIT.dnacompiler.*;
 import org.json.JSONArray;
 import org.json.simple.JSONObject;
@@ -174,7 +175,10 @@ public class MainController extends BaseController {
         }
         String username = auth.getUsername(basic);
 
-        DAGW GW = NetSynth.runNetSynthCode(verilog_text, new ArrayList<NetSynthSwitch>(), new JSONArray());
+        NetSynth netsynth = new NetSynth(username + "netSynthAPIcall");
+        DAGW GW = netsynth.runNetSynthCode(verilog_text, new ArrayList<NetSynthSwitch>(), new JSONArray());
+        netsynth.cleanDirectory();
+
 
         org.cellocad.MIT.dnacompiler.LogicCircuit abstract_logic_circuit = new LogicCircuit(GW.Gates, GW.Wires);
         LogicCircuitUtil.renameGatesWires(abstract_logic_circuit);

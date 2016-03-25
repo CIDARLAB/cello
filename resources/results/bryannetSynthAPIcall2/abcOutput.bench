@@ -1,4 +1,4 @@
-# Benchmark "blif_file" written by ABC on Fri Mar 25 11:27:32 2016
+# Benchmark "blif_file" written by ABC on Fri Mar 25 14:33:42 2016
 INPUT(in1)
 INPUT(in2)
 OUTPUT(out1)

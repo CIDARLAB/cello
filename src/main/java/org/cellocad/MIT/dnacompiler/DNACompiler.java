@@ -11,7 +11,9 @@ import org.apache.log4j.FileAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
+import org.cellocad.BU.netsynth.NetSynth;
 import org.cellocad.BU.netsynth.NetSynthSwitch;
+import org.cellocad.BU.netsynth.Utilities;
 import org.cellocad.MIT.dnacompiler.Gate.GateType;
 import org.cellocad.MIT.figures.*;
 import org.cellocad.MIT.tandem_promoter.InterpolateTandemPromoter;
@@ -1668,12 +1670,16 @@ public class DNACompiler {
             }
         }
 
+        NetSynth netsynth = new NetSynth("netSynth", Utilities.getNetSynthResourcesFilepath() ,_options.get_output_directory());
 
-        GW = org.cellocad.BU.netsynth.NetSynth.runNetSynth(
+
+        GW = netsynth.runNetSynth(
                 verilog_filepath,
                 new ArrayList<NetSynthSwitch>(),
                 motifLibrary
         );
+
+        netsynth.cleanDirectory();
 
 
         abstract_logic_circuit = new LogicCircuit(GW.Gates, GW.Wires);
