@@ -5,6 +5,7 @@ import org.cidarlab.eugene.dom.imp.container.EugeneArray;
 import org.cidarlab.eugene.dom.imp.container.EugeneCollection;
 import org.cidarlab.eugene.exception.EugeneException;
 import org.cidarlab.eugene.util.DeviceUtils;
+import org.junit.Test;
 
 import java.io.File;
 
@@ -12,12 +13,12 @@ import java.io.File;
 public class EugeneMajorityCircuit {
 
     private String home = System.getProperty("user.dir");
-    private String name_Eug_file1 = home +"/src/test/resources/majority_1_default.eug";
-    private String name_Eug_file2 = home +"/src/test/resources/majority_2_revorder.eug";
-    private String name_Eug_file3 = home +"/src/test/resources/majority_3_NOT_NOR_groups.eug";
-    private String name_Eug_file4 = home +"/src/test/resources/majority_4_subcircuits.eug";
-    private String name_Eug_file5 = home +"/src/test/resources/majority_5_scrambled.eug";
-    private String name_Eug_file6 = home +"/src/test/resources/majority_6_alternating.eug";
+    private String name_Eug_file1 = home +"/resources/eugene/majority_1_default.eug";
+    private String name_Eug_file2 = home +"/resources/eugene/majority_2_revorder.eug";
+    private String name_Eug_file3 = home +"/resources/eugene/majority_3_NOT_NOR_groups.eug";
+    private String name_Eug_file4 = home +"/resources/eugene/majority_4_subcircuits.eug";
+    private String name_Eug_file5 = home +"/resources/eugene/majority_5_scrambled.eug";
+    private String name_Eug_file6 = home +"/resources/eugene/majority_6_alternating.eug";
 
 
     //@Test

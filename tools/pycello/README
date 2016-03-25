@@ -1,0 +1,36 @@
+Install:
+
+```
+$ pip install --editable .
+```
+
+
+Test installation:
+
++ If successful, the installation creates a shell command called 'cello'.  
+
+```
+$ cello
+```
+
+This should show a list of available commands.
+
+If the installation failed, try running the python script instead of using the shell command:
+
+```
+$ python cello_client.py
+```
+
+
+Test command:
+
+The 'cello' shell command can be followed by any sub-command in the main menu, such as 'submit'.  Any sub-command can be followed by --help to show a help menu.
+
+```
+$ cello submit --help
+```
+or
+```
+$ python cello_client.py submit --help
+```
+

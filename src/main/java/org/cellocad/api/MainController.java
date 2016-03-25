@@ -33,6 +33,18 @@ public class MainController extends BaseController {
 //        return "Welcome, " + username;
 //    }
 
+    @RequestMapping(value="/ping", method= RequestMethod.GET)
+    public @ResponseBody
+    String testPingPong(
+            @RequestHeader("Authorization") String basic
+    ) throws IOException {
+
+        if(!auth.login(basic)) {
+            throw new CelloUnauthorizedException("invalid username/password");
+        }
+        return "pong";
+    }
+
 
     @RequestMapping(value="/submit",method= RequestMethod.POST, produces = "application/json")
     public @ResponseBody

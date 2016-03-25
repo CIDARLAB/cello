@@ -161,6 +161,8 @@ def eugene_rules(roadblock_promoters):
     eugene_rules["eugene_part_rules"] = []
     eugene_rules["eugene_gate_rules"] = []
 
+    eugene_rules["eugene_gate_rules"].append("ALL_FORWARD")
+
     for promoter_name in roadblock_promoters:
         eugene_rules["eugene_part_rules"].append("STARTSWITH " + promoter_name)
         

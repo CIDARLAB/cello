@@ -345,9 +345,10 @@ def delete_ucf(ctx, name):
 
 
 if __name__ == '__main__':
+    cli()
     # post_job(sys.argv[1])
     # test_hello()
     # post_netsynth()
     # post_test()
-    print "main"
+    # print "main"
 
