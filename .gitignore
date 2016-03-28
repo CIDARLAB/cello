@@ -12,3 +12,4 @@ derby.log
 /bin/
 *egg-info
 *pyc
+/resources/results/*
