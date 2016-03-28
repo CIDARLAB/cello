@@ -724,13 +724,13 @@ public class DNACompiler {
 
             logger.info("=========== Assignment algorithm =============");
 
-            //default
-            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.breadth_first) {
-                circuit_builder = new BuildCircuitsBreadthFirstSearch(_options, gate_library, roadblock);
-            }
-            //second recommendation is hill climbing.  Many swaps with accept/reject based on score increase/decrease.
+            //default hill climbing.  Many swaps with accept/reject based on score increase/decrease.
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.hill_climbing) {
                 circuit_builder = new BuildCircuitsHillClimbing(_options, gate_library, roadblock);
+            }
+            //second recommendation is BFS? Sim annealing might be better.
+            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.breadth_first) {
+                circuit_builder = new BuildCircuitsBreadthFirstSearch(_options, gate_library, roadblock);
             }
             //similar to hill climbing, but with a cooling schedule
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.sim_annealing) {
