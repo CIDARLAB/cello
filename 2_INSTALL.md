@@ -105,6 +105,7 @@ sudo yum install graphviz
 sudo yum install python-matplotlib
 sudo yum install ImageMagick
 sudo yum install /lib/libgcc_s.so.1
+sudo yum install ld-linux.so.2
 
 sudo yum install wget
 sudo wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
