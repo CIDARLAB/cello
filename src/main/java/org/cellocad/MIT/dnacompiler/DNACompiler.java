@@ -723,18 +723,18 @@ public class DNACompiler {
             BuildCircuits circuit_builder = new BuildCircuits(); //base class
 
             logger.info("=========== Assignment algorithm =============");
-
-            //default hill climbing.  Many swaps with accept/reject based on score increase/decrease.
+            
+            //default: simulated annealing. similar to hill climbing, but with a cooling schedule
+            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.sim_annealing) {
+                circuit_builder = new BuildCircuitsSimAnnealing(_options, gate_library, roadblock);
+            }
+            //hill climbing.  Many swaps with accept/reject based on score increase/decrease.
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.hill_climbing) {
                 circuit_builder = new BuildCircuitsHillClimbing(_options, gate_library, roadblock);
             }
-            //second recommendation is BFS? Sim annealing might be better.
+            //Breadth First Search algorithm. Performs an exhaustive search.
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.breadth_first) {
                 circuit_builder = new BuildCircuitsBreadthFirstSearch(_options, gate_library, roadblock);
-            }
-            //similar to hill climbing, but with a cooling schedule
-            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.sim_annealing) {
-                circuit_builder = new BuildCircuitsSimAnnealing(_options, gate_library, roadblock);
             }
             //similar to hill climbing, but explores all options for a single swap and chooses the best swap each time.
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.steepest_ascent) {
