@@ -11,6 +11,10 @@
     opacity: 0.75;
     filter: Alpha(Opacity=75);
     background: black;
+
+    /*opacity: 1.00;*/
+    /*filter: Alpha(Opacity=100);*/
+    /*background: black;*/
     /*must be background, not background-color, otherwise a stripe appears*/
 }
 

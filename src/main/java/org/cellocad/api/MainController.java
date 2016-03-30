@@ -125,33 +125,41 @@ public class MainController extends BaseController {
 
 
         String message = "WARNING: Unknown result status.";
-        
+
         if(dnaCompiler.get_result_status() == DNACompiler.ResultStatus.success) {
-             message = "SUCCESS: Loading results page.";
+            message = "SUCCESS: job '" + id + "' finished";
         }
 
         else if(dnaCompiler.get_result_status() == DNACompiler.ResultStatus.wiring_diagram_invalid) {
-             message = "Wiring diagram invalid.";
+            message = "Wiring diagram invalid.";
         }
 
         else if(dnaCompiler.get_result_status() == DNACompiler.ResultStatus.ucf_invalid) {
-             message = "UCF invalid.";
+            message = "UCF invalid.";
         }
 
         else if(dnaCompiler.get_result_status() == DNACompiler.ResultStatus.not_enough_gates_in_library) {
-             message = "Not enough gates in library.";
+            message = "Not enough gates in library.";
         }
 
         else if(dnaCompiler.get_result_status() == DNACompiler.ResultStatus.no_assignments_found) {
-             message = "No assignments found.";
+            message = "No assignments found.";
         }
 
         else if(dnaCompiler.get_result_status() == DNACompiler.ResultStatus.roadblocking_inputs) {
-             message = "WARNING: roadblocking inputs. Loading results page.";
+            message = "WARNING: roadblocking inputs: job '" + id + "' finished";
         }
 
         else if(dnaCompiler.get_result_status() == DNACompiler.ResultStatus.abstract_only) {
             message = "SUCCESS: abstract only.";
+        }
+
+        else if(dnaCompiler.get_result_status() == DNACompiler.ResultStatus.arguments_invalid) {
+            message = "Arguments invalid.";
+        }
+
+        else if(dnaCompiler.get_result_status() == DNACompiler.ResultStatus.breadth_first_not_allowed) {
+            message = "Breadth-first search not allowed due to memory usage.";
         }
 
         JSONObject response = new JSONObject();

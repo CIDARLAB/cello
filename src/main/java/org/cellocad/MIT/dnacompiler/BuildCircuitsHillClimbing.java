@@ -257,7 +257,7 @@ public class BuildCircuitsHillClimbing extends BuildCircuits {
 
 
 
-            logger.info("Trajectory " + (traj+1) + " of " + get_options().get_hill_iterations());
+            logger.info("Trajectory " + (traj+1) + " of " + get_options().get_hill_trajectories());
             set_best_score( 0.0 );
             max_score = 0.0;
 

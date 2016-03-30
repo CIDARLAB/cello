@@ -247,7 +247,11 @@ function runDnaCompiler() {
         },
         dataType: "json",
         success: function(response) { //response text is based on DNACompiler.get_result_status()
-            var message = response['message'];
+            var message = "Job did not finish, email cellohelp@gmail.com with bug reports";
+
+            if ('message' in response) {
+                message = response['message'];
+            }
 
             status = "finished"; // stops the runtimeLoop.
             if(message.indexOf('SUCCESS') != -1) {
@@ -277,7 +281,7 @@ function runDnaCompiler() {
         },
         error: function(response) { //response text is based on DNACompiler.get_result_status()
             status = "error"; // stops the runtimeLoop.
-            var rhtml = "<div class='alert alert-danger'>"+ response + "</div>";
+            var rhtml = "<div class='alert alert-danger'>"+ "Job did not finish, email cellohelp@gmail.com with bug reports" + "</div>";
             $('#dialog_pre').html(rhtml);
             $('#dialog').dialog({title:"Run finished"});
             $('#dialog').dialog('open');

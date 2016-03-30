@@ -122,23 +122,26 @@
         -->
         <hr/>
 
-        <h3><small>Other options</small></h3>
-        <form id="options_form">
-            <table id='other_options' class="table table-bordered table-condensed">
-                <tr>
-                    <td width="75%">Assignment variants per design</td>
-                    <td width="25%"><input id="nA" required type="number" max="10" min="1" value="1"></td>
-                </tr>
-                <tr>
-                    <td width="75%">Plasmid layout variants per assignment</td>
-                    <td width="25%"><input id="nP" required type="number" max="20" min="1" value="5"></td>
-                </tr>
-            </table>
+
+        <div style="display: none"> <!-- decided to not include these options in the webapp -->
+            <h3><small>Other options</small></h3>
+            <form id="options_form">
+                <table id='other_options' class="table table-bordered table-condensed">
+                    <tr>
+                        <td width="75%">Assignment variants per design</td>
+                        <td width="25%"><input id="nA" required type="number" max="10" min="1" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td width="75%">Plasmid layout variants per assignment</td>
+                        <td width="25%"><input id="nP" required type="number" max="20" min="1" value="5"></td>
+                    </tr>
+                </table>
 
 
-            <button class="btn btn-default" type="submit" id="save_options">Save</button>
-            <div style="display: none" id="saved_message"><p style="color: green">Saved.</p></div>
-        </form>
+                <button class="btn btn-default" type="submit" id="save_options">Save</button>
+                <div style="display: none" id="saved_message"><p style="color: green">Saved.</p></div>
+            </form>
+        </div>
     </div>
 
     <div class="well col-sm-12 col-md-8 col-lg-8 dynamic_height_div">

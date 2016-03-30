@@ -13,3 +13,4 @@ derby.log
 *egg-info
 *pyc
 /resources/results/*
+/demo/job_*

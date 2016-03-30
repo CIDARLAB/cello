@@ -76,6 +76,12 @@ curl -u "username:password" http://127.0.0.1:8080/netsynth -X POST --data-urlenc
 curl -u "username:password" -X POST http://127.0.0.1:8080/submit --data-urlencode "id=demo001" --data-urlencode "verilog_text@demo_verilog.v" --data-urlencode "input_promoter_data@demo_inputs.txt" --data-urlencode "output_gene_data@demo_outputs.txt"
 ```
 
+###### Design a circuit with custom options (see Args.java)
+```
+curl -u "username:password" -X POST http://127.0.0.1:8080/submit --data-urlencode "id=demo001" --data-urlencode "verilog_text@demo_verilog.v" --data-urlencode "input_promoter_data@demo_inputs.txt" --data-urlencode "output_gene_data@demo_outputs.txt" --data-urlencode "options=-assignment_algorithm hill_climbing -toxicity false"
+```
+
+
 ###### Working with custom UCFs
 
 (warning: if posting a UCF with cytometry data, an error may result if the file is too large.  Please contact cellocadbeta@gmail.com.)

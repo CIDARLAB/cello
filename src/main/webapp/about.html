@@ -80,6 +80,26 @@
                     <td width="80%"><h4><small>Email questions, bug reports to cellohelp@gmail.com</small></h4></td>
                 </tr>
                 <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="suppinfo.html">Supp Info</a></td>
+                    <td width="80%"><h4><small>Supporting Information PDF.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="suppinfo.html">Help Page</a></td>
+                    <td width="80%"><h4><small>Information and instructions for using the cellocad.org web application.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" id="show_video">Video</a></td>
+                    <td width="80%"><h4><small>A video tutorial for using the cellocad.org web application.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="CelloAPI.html">API</a></td>
+                    <td width="80%"><h4><small>Endpoints, requests, and responses of Cello API.  Submit jobs and retreive results without downloading/installing.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/tools/pycello/cello_client.py">CLI</a></td>
+                    <td width="80%"><h4><small>A command-line interface facilitates use of the Cello API.</small></h4></td>
+                </tr>
+                <tr>
                     <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello">GitHub repo</a></td>
                     <td width="80%"><h4><small>Clone the repository to get the source code.</small></h4></td>
                 </tr>
@@ -92,29 +112,21 @@
                     <td width="80%"><h4><small>(GitHub md) How to install and compile.</small></h4></td>
                 </tr>
                 <tr>
-                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/3_RUN.md">Run/demo</a></td>
-                    <td width="80%"><h4><small>(GitHub md) How to run.  Includes web app, API, CLI, and Java instructions/examples.</small></h4></td>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/3_RUN.md">Run</a></td>
+                    <td width="80%"><h4><small>(GitHub md) How to run, with demo files.  Includes web app, API, CLI, and Java instructions.</small></h4></td>
                 </tr>
-                <tr>
-                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="CelloAPI.html">API</a></td>
-                    <td width="80%"><h4><small>Endpoints, requests, and responses of Cello API.  Submit jobs and retreive results without downloading/installing.</small></h4></td>
-                </tr>
-                <tr>
-                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/tools/pycello/cello_client.py">CLI</a></td>
-                    <td width="80%"><h4><small>A command-line interface facilitates use of the Cello API.</small></h4></td>
-                </tr>
-                <!--<tr>-->
-                    <!--<td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="suppinfo.html">Supp Info</a></td>-->
-                    <!--<td width="80%"><h4><small>Supporting Information PDF.</small></h4></td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/UCF-guide.md">UCF guide</a></td>-->
-                    <!--<td width="80%"><h4><small>(GitHub md) Explains each collection in the UCF.</small></h4></td>-->
-                <!--</tr>-->
-            </table>
 
+            </table>
         </div>
+
     </div>
+
+    <div id="video_popup" class="dialog" title="video tutorial" style="display: none">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/fUGumUAtKQI" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+
+
 
     <div class="col-sm-12 col-md-12 col-lg-12 text-center">
         <h4><small>Please cite:  A.A.K. Nielsen et al., Science 352, aac7341 (2016). DOI: 10.1126/science.aac7341</small></h4>
@@ -137,9 +149,10 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
 
 <script type="text/javascript" src="js/session_controller.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
@@ -163,6 +176,10 @@
             $(this).parent().fadeOut("slow");
             $(".links").fadeIn("slow");
         });
+    });
+
+    $('#show_video').click(function() {
+        $('#video_popup').dialog('open');
     });
 
 </script>

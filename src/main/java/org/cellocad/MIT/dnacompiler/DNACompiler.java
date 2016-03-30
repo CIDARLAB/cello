@@ -55,6 +55,8 @@ public class DNACompiler {
         no_assignments_found,
         roadblocking_inputs,
         ucf_invalid,
+        arguments_invalid,
+        breadth_first_not_allowed,
         abstract_only,
     }
 
@@ -88,6 +90,7 @@ public class DNACompiler {
 //        _options.setThreadDependentLoggername(threadDependentLoggername);
         _options.set_username(_username);
         _options.parse(args);
+
 
 
         /**
@@ -149,6 +152,12 @@ public class DNACompiler {
         logger.info("///////////////////////////////////////////////////////////\n");
         logger.info(objToJSONString(_options));
 
+        if(_options.get_assignment_algorithm() == null) {
+            logger.info("Assignment algorithm invalid");
+            _result_status = ResultStatus.arguments_invalid;
+            return;
+        }
+
         logger.info("\n");
         logger.info("///////////////////////////////////////////////////////////");
         logger.info("///////////////   UCF Validation   ////////////////////////");
@@ -171,6 +180,7 @@ public class DNACompiler {
             logger.info("invalid UCF");
             return;
         }
+
 
 
         JSONObject ucf_validation_map = ucfValidator.validateAllUCFCollections(ucf, _options);
@@ -722,32 +732,41 @@ public class DNACompiler {
                 circuit_builder = new BuildCircuitsSimAnnealing(_options, gate_library, roadblock);
             }
             //hill climbing.  Many swaps with accept/reject based on score increase/decrease.
-            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.hill_climbing) {
+            else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.hill_climbing) {
                 circuit_builder = new BuildCircuitsHillClimbing(_options, gate_library, roadblock);
             }
             //Breadth First Search algorithm. Performs an exhaustive search.
-            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.breadth_first) {
+            else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.breadth_first) {
                 circuit_builder = new BuildCircuitsBreadthFirstSearch(_options, gate_library, roadblock);
+
+                /**
+                 * Breadth-first is memory intensive and is not used in the publicly available tool on cellocad.org.
+                 */
+                _result_status = ResultStatus.breadth_first_not_allowed;
+                return;
             }
             //similar to hill climbing, but explores all options for a single swap and chooses the best swap each time.
-            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.steepest_ascent) {
+            else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.steepest_ascent) {
                 circuit_builder = new BuildCircuitsSteepestAscent(_options, gate_library, roadblock);
             }
             //completely randomizes the gate assignment.  Does this many times.
-            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.random) {
+            else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.random) {
                 circuit_builder = new BuildCircuitsRandom(_options, gate_library, roadblock);
             }
             //exhaustive... does not scale.
-            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.permute) {
+            else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.permute) {
                 circuit_builder = new BuildCircuitsPermuteNOR(_options, gate_library, roadblock);
             }
             //if you want to reload a prior assignment.  Based on x_logic_circuit.txt parsing.
-            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.reload) {
+            else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.reload) {
                 circuit_builder = new BuildCircuitsReload(_options, gate_library, roadblock);
             }
             //do not use.
-            if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.preset) {
+            else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.preset) {
                 circuit_builder = new BuildCircuitsPreset(_options, gate_library, roadblock);
+            }
+            else {
+
             }
 
             circuit_builder.setThreadDependentLoggername(threadDependentLoggername);
