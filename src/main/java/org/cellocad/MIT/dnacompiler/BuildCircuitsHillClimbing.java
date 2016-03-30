@@ -244,7 +244,7 @@ public class BuildCircuitsHillClimbing extends BuildCircuits {
 
                                 if(get_best_score() > max_score) {
                                     max_score = get_best_score();
-                                    logger.info("HILL_CLIMB " + String.format("%-8s", "#" + get_n_total_assignments()) + " score:" + Util.sc(get_best_score()) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + get_roadblock().numberRoadblocking(lc, get_gate_library()));
+                                    logger.info("  iteration " + String.format("%4s", i) + ": score = " + String.format("%6.2f", get_best_score()));
                                 }
                             }
                         }
@@ -256,13 +256,12 @@ public class BuildCircuitsHillClimbing extends BuildCircuits {
             }
 
 
-            //logger.info("HILL_CLIMB " + String.format("%-8s", "#" + traj) + " score:" + Util.sc(_best_score) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + _roadblock.numberRoadblocking(lc));
-            //logger.info(traj + " best score " + _best_score);
+
+            logger.info("Trajectory " + (traj+1) + " of " + get_options().get_hill_iterations());
             set_best_score( 0.0 );
-            //max_score = 0.0;
+            max_score = 0.0;
 
         }
-
     }
 
 

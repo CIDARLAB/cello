@@ -66,14 +66,14 @@ public class Args {
     @Getter @Setter private boolean _pareto_frontier = false; // pareto-optimal circuits trade-off circuit score and growth score
 
     //search
-    @Getter @Setter private int _hill_iterations = 100; // hill climbing assignment algorithm, number of swaps
-    @Getter @Setter private int _hill_trajectories = 10; // not used if timelimit is used instead.
+    @Getter @Setter private int _hill_trajectories = 50; // hill climbing and sim annealing, number of trajectories
+    @Getter @Setter private int _hill_iterations = 500; // hill climbing and sim annealing, number of iterations per trajectory
     @Getter @Setter private boolean _hill_climb_seed = false; // to use (or not to use) seeding for random number reproducibility
 
     @Getter @Setter ArrayList<String> _exclude_groups = new ArrayList<>();
 
     @Getter @Setter private BuildCircuits.AssignmentAlgorithm _assignment_algorithm = BuildCircuits.AssignmentAlgorithm.sim_annealing; //
-    @Getter @Setter private int _timelimit = 10; // seconds.
+//    @Getter @Setter private int _timelimit = 10; // seconds.
     @Getter @Setter private boolean _unique_repressor_assignments = true; // only output unique repressor assignments
     @Getter @Setter private boolean _unique_rbs_assignments = false; // rbs variants count as unique assignments
     @Getter @Setter private boolean _output_all_assignments = false; // output all 'unique' assignments
@@ -281,9 +281,9 @@ public class Args {
                 String assignment_algorithm = args[i+1];
                 _assignment_algorithm = BuildCircuits.getAssignmentAlgorithm(assignment_algorithm);
             }
-            if(args[i].equals("-timelimit")) {
-                _timelimit = Integer.parseInt(args[i+1]);
-            }
+//            if(args[i].equals("-timelimit")) {
+//                _timelimit = Integer.parseInt(args[i+1]);
+//            }
             if(args[i].equals("-hill_iterations")) {
                 _hill_iterations = Integer.parseInt(args[i+1]);
             }

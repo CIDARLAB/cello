@@ -25,31 +25,31 @@
 </head>
 
 
-<!--<nav id="main-navbar"  class="navbar navbar-default navbar-fixed-top">-->
-    <!--<div class="container-fluid">-->
-        <!--<div>-->
-            <!--<div>-->
-                <!--<a class="navbar-brand" href="index.html">Cello</a>-->
-            <!--</div>-->
-            <!--<div>-->
-                <!--<ul class="nav navbar-nav">-->
-                    <!--<li><a id="verilog_link" href="">Verilog</a></li>-->
-                    <!--<li><a id="results_link" href="">Results</a></li>-->
-                    <!--<li><a id="options_link" href="">Options</a></li>-->
-                    <!--<li class="active"><a href="about.html">Docs</a></li>-->
-                <!--</ul>-->
-            <!--</div>-->
-            <!--<div id="loginArea">-->
-                <!--<div class="navbar-form pull-right">-->
-                    <!--<input id="login_username" type="text" class="span2" placeholder="Login">-->
-                    <!--<input id="login_password" type="password" class="span2" placeholder="Password">-->
-                    <!--<input id="btnLogin" type="submit" value="Login" class="btn btn-warning">-->
-                    <!--<div id="loginError"></div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</nav>-->
+<nav id="main-navbar"  class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div>
+            <div>
+                <a class="navbar-brand" href="index.html">Cello</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li><a id="verilog_link" href="">Verilog</a></li>
+                    <li><a id="options_link" href="">Options</a></li>
+                    <li><a id="results_link" href="">Results</a></li>
+                    <li class="active"><a id="about_link" href="">About</a></li>
+                </ul>
+            </div>
+            <div id="loginArea">
+                <div class="navbar-form pull-right">
+                    <input id="login_username" type="text" class="span2" placeholder="Login">
+                    <input id="login_password" type="password" class="span2" placeholder="Password">
+                    <input id="btnLogin" type="submit" value="Login" class="btn btn-warning">
+                    <div id="loginError"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
 
 <body oncontextmenu="return false;">
 
@@ -77,15 +77,11 @@
             <table id='doc_links_table' class="table table-condensed">
                 <tr>
                     <td width="20%"><a class="btn btn-warning doc-btn" type="button" href="index.html">Home page</a></td>
-                    <td width="80%"><h4><small></small></h4></td>
+                    <td width="80%"><h4><small>Email questions, bug reports to cellohelp@gmail.com</small></h4></td>
                 </tr>
                 <tr>
                     <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello">GitHub repo</a></td>
                     <td width="80%"><h4><small>Clone the repository to get the source code.</small></h4></td>
-                </tr>
-                <tr>
-                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/tools/pycello/cello_client.py">CLI</a></td>
-                    <td width="80%"><h4><small>A command-line interface facilitates use of the Cello API.</small></h4></td>
                 </tr>
                 <tr>
                     <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/1_README.md">Readme</a></td>
@@ -93,24 +89,24 @@
                 </tr>
                 <tr>
                     <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/2_INSTALL.md">Install</a></td>
-                    <td width="80%"><h4><small>(GitHub md) How to compile.</small></h4></td>
+                    <td width="80%"><h4><small>(GitHub md) How to install and compile.</small></h4></td>
                 </tr>
                 <tr>
                     <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/3_RUN.md">Run/demo</a></td>
                     <td width="80%"><h4><small>(GitHub md) How to run.  Includes web app, API, CLI, and Java instructions/examples.</small></h4></td>
                 </tr>
                 <tr>
-                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="suppinfo.html">Supp Info</a></td>
-                    <td width="80%"><h4><small>Supporting Information PDF.</small></h4></td>
-                </tr>
-                <tr>
                     <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="CelloAPI.html">API</a></td>
                     <td width="80%"><h4><small>Endpoints, requests, and responses of Cello API.  Submit jobs and retreive results without downloading/installing.</small></h4></td>
                 </tr>
                 <tr>
-                    <td width="20%"><a class="btn btn-warning doc-btn" type="button">Contact</a></td>
-                    <td width="80%"><h4><small>Email questions/bug reports to cellocadbeta@gmail.com</small></h4></td>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/tools/pycello/cello_client.py">CLI</a></td>
+                    <td width="80%"><h4><small>A command-line interface facilitates use of the Cello API.</small></h4></td>
                 </tr>
+                <!--<tr>-->
+                    <!--<td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="suppinfo.html">Supp Info</a></td>-->
+                    <!--<td width="80%"><h4><small>Supporting Information PDF.</small></h4></td>-->
+                <!--</tr>-->
                 <!--<tr>-->
                     <!--<td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="https://github.com/CIDARLAB/cello/blob/master/UCF-guide.md">UCF guide</a></td>-->
                     <!--<td width="80%"><h4><small>(GitHub md) Explains each collection in the UCF.</small></h4></td>-->
@@ -121,6 +117,7 @@
     </div>
 
     <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+        <h4><small>Please cite:  A.A.K. Nielsen et al., Science 352, aac7341 (2016). DOI: 10.1126/science.aac7341</small></h4>
         <hr/>
         <h4><small>Cello is a trademark of <a id='nona_link' href='http://www.nonasoftware.org'>Nona Research Foundation, Inc.</a></small></h4>
         <img class="footer_img" src="images/NonaFoundation.png">

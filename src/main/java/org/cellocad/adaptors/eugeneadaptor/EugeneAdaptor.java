@@ -279,16 +279,24 @@ public class EugeneAdaptor {
 		HashMap<String, ArrayList<Part>> txn_units = new HashMap<>();
 
 		for (Gate g : gates) {
+
+            if(g.Regulator == null || g.Regulator.isEmpty()) {
+                g.Regulator = g.Name;
+            }
+
 			for (int i = 0; i < g.get_txn_units().size(); ++i) {
 
+                String key = "";
 				if (!txn_units.containsKey(g.Regulator)) {
-					txn_units.put(g.Regulator, g.get_txn_units().get(i));
+                    key = g.Regulator;
+
 				} else {
-					txn_units.put(g.Regulator + "_" + (i + 1), g
-							.get_txn_units().get(i));
+                    key = g.Regulator + "_" + (i + 1);
 				}
+                txn_units.put(key, g.get_txn_units().get(i));
 			}
 		}
+
 
 		for (ArrayList<Part> txn_unit : txn_units.values()) {
 

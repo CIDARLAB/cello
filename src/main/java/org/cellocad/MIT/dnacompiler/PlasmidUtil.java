@@ -276,20 +276,12 @@ public class PlasmidUtil {
                             largest_match = part_seq.length();
                             output_parts.add(p);
 
-                            System.out.println("previous " + output_seq);
-
-
                             String new_seq = output_seq.substring( part_seq.length(), output_seq.length() );
                             output_seq = new_seq;
-
-
-                            System.out.println("removing " + part_seq);
-                            System.out.println("remaining " + output_seq);
 
                             if(output_seq.length() == 0) {
                                 found_this  = false;
                             }
-                            //output_seq = "";
 
                         }
                     }
@@ -303,9 +295,9 @@ public class PlasmidUtil {
             }
 
 
-            for(Part p: output_parts) {
-                System.out.println("found this output part: " + p.toString());
-            }
+//            for(Part p: output_parts) {
+//                System.out.println("found this output part: " + p.toString());
+//            }
 
 
             if(output_parts.isEmpty()) {

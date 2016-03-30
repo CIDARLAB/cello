@@ -21,7 +21,12 @@ $('#options_link').on('click', function() {
         return false; // prevents current page from reloading so that the new page can be loaded
     }
 });
-
+$('#about_link').on('click', function() {
+    if(isRegistered()) {
+        window.location.replace('about.html');
+        return false; // prevents current page from reloading so that the new page can be loaded
+    }
+});
 
 
 //force the X close button to show up in dialog box.

@@ -1,8 +1,8 @@
 
 ----- Logic Circuit #20 -----
 OUTPUT_OR   00111011          output_YFP        0  (5,1)       0.8371  tox:1.00
-NOR         00001010          NOR_js2-PhlF      1  (2,4)       0.7817  tox:1.00
-NOT         11110000          NOR_an1-AmtR      2  (3)         0.9130  tox:1.00
+NOR         00001010          P3_PhlF      1  (2,4)       0.7817  tox:1.00
+NOT         11110000          A1_AmtR      2  (3)         0.9130  tox:1.00
 INPUT       00001111          input_pBAD        3              0.9923
 INPUT       00110011          input_pTet        5              0.9940
 INPUT       01010101          input_pTac        4              0.9773
@@ -19,7 +19,7 @@ output_YFP  Gate=0.83712
   OUTPUT_OR        [ 1 1 0 ]: 1         15.849  24.660: 40.551    multiplied_tox: 1.00
   OUTPUT_OR        [ 1 1 1 ]: 1         15.849   0.088: 16.749    multiplied_tox: 1.00
 
-NOR_js2-PhlF  Gate=0.78175
+P3_PhlF  Gate=0.78175
         NOR    2   [ 0 0 0 ]: 0         13.428   0.093:  0.083    individual_tox: 1.00
         NOR    2   [ 0 0 1 ]: 0         13.428  10.186:  0.083    individual_tox: 1.00
         NOR    2   [ 0 1 0 ]: 0         13.428   0.093:  0.083    individual_tox: 1.00
@@ -29,7 +29,7 @@ NOR_js2-PhlF  Gate=0.78175
         NOR    2   [ 1 1 0 ]: 1          0.413   0.093: 24.660    individual_tox: 1.00
         NOR    2   [ 1 1 1 ]: 0          0.413  10.186:  0.088    individual_tox: 1.00
 
-NOR_an1-AmtR  Gate=0.91304
+A1_AmtR  Gate=0.91304
         NOT    1   [ 0 0 0 ]: 1                  0.010: 13.428    individual_tox: 1.00
         NOT    1   [ 0 0 1 ]: 1                  0.010: 13.428    individual_tox: 1.00
         NOT    1   [ 0 1 0 ]: 1                  0.010: 13.428    individual_tox: 1.00

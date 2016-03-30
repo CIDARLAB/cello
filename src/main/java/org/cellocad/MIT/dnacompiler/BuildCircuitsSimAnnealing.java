@@ -18,17 +18,12 @@ public class BuildCircuitsSimAnnealing extends BuildCircuits {
     private boolean currentlyAssignedGroup(LogicCircuit lc, String group_name) {
 
         for(Gate g: lc.get_logic_gates()) {
-
             if(g.Group.equals(group_name)) {
-
                 return true;
-
             }
-
         }
 
         return false;
-
     }
 
 
@@ -257,22 +252,23 @@ public class BuildCircuitsSimAnnealing extends BuildCircuits {
                             if(get_roadblock().numberRoadblocking(lc, get_gate_library()) == 0 && Toxicity.mostToxicRow(lc) > get_options().get_toxicity_threshold()) {
                                 get_logic_circuits().add(new LogicCircuit(lc));
                                 max_score = get_best_score();
-                                System.out.println("SIM_ANNEAL " + String.format("%-8s", "#" + get_n_total_assignments()) + " score:" + Util.sc(get_best_score()) + " tox:" + Util.sc(Toxicity.mostToxicRow(lc)) + " nm:" + Util.sc(lc.get_scores().get_noise_margin()) + " rb:" + get_roadblock().numberRoadblocking(lc, get_gate_library()));
+                                logger.info("  iteration " + String.format("%4s", i) + ": score = " + String.format("%6.2f", get_best_score()));
                             }
                         }
                     }
 
                 }
                 else {
-                    //System.out.println(Util.sc(rand) + " greater than " + Util.sc(probability));
+//                    if(probability > 0.0001) {
+//                        System.out.println(Util.sc(rand) + " greater than " + Util.sc(probability));
+//                    }
 
                     revert(lc, save_lc);
                 }
             }
 
-
-            System.out.println(traj + " best score " + get_best_score());
-            set_best_score( 0.0 );
+            logger.info("Trajectory " + (traj+1) + " of " + get_options().get_hill_iterations());
+            set_best_score(0.0);
             max_score = 0.0;
 
         }

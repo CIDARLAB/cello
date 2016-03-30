@@ -7,10 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
+import org.apache.log4j.*;
 import org.cellocad.BU.netsynth.NetSynth;
 import org.cellocad.BU.netsynth.NetSynthSwitch;
 import org.cellocad.BU.netsynth.Utilities;
@@ -111,15 +108,11 @@ public class DNACompiler {
         appender.setThreshold(Level.DEBUG);
         appender.activateOptions();
 
-//        System.out.println(threadDependentLoggername);
-//        System.out.println(logfile);
-//        System.exit(-1);
-
         // ConsoleAppender is set in log4j.properties
-        //ConsoleAppender console = new ConsoleAppender();
-        //console.setLayout(new PatternLayout("%m%n"));
-        //console.setThreshold(Level.DEBUG);
-        //console.activateOptions();
+        ConsoleAppender console = new ConsoleAppender();
+        console.setLayout(new PatternLayout("%m%n"));
+        console.setThreshold(Level.DEBUG);
+        console.activateOptions();
 
         logger = Logger.getLogger(threadDependentLoggername);
         logger.addAppender(appender);
@@ -950,13 +943,16 @@ public class DNACompiler {
 
 
         sortLogicCircuitsByScore(unique_lcs);
-
+        _logic_circuits = new ArrayList<>();
 
         for(int a=0; a<_options.get_nA(); ++a) {
+
+
 
             LogicCircuit lc = new LogicCircuit(unique_lcs.get(a));
             lc.set_index(a);
             lc.set_assignment_name( _options.get_jobID() + "_A" + String.format("%03d", a) );
+            _logic_circuits.add(lc);
 
 
             Double unit_conversion = ucfAdaptor.getUnitConversion(ucf);
@@ -1137,7 +1133,6 @@ public class DNACompiler {
 
         String circuit_eugene_file_string = "";
 
-        
         ucfAdaptor.setThreadDependentLoggername(threadDependentLoggername);
 
 
@@ -1284,7 +1279,6 @@ public class DNACompiler {
 
             String sbol_document = sbol_circuit_writer.writeSBOLCircuit(sbol_filename, lc, plasmid, sbol_plasmid_name, _options);
         }
-
 
         PlasmidUtil.resetParentGates(lc);
 
@@ -1660,6 +1654,7 @@ public class DNACompiler {
         List<NetSynthSwitch> switches = new ArrayList<>();
         org.json.JSONArray motifLibrary = new org.json.JSONArray();
 
+
         //convert org.simple.json to org.json
         for(int i=0; i<ucf.get_motif_library().size(); ++i) {
             String objString = ucf.get_motif_library().get(i).toString();
@@ -1837,6 +1832,7 @@ public class DNACompiler {
     @Getter @Setter private ArrayList<Assignment> _assignments = new ArrayList<>();
 
     @Getter @Setter private LogicCircuit _abstract_lc = new LogicCircuit();
+    @Getter @Setter private ArrayList<LogicCircuit> _logic_circuits = new ArrayList<>();
 
     @Getter @Setter private ResultStatus _result_status;
 

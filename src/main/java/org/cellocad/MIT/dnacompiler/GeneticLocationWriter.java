@@ -173,7 +173,7 @@ public class GeneticLocationWriter {
         ArrayList<Integer> cut_sites = new ArrayList<Integer>(cut_sites_map);
         java.util.Collections.sort(cut_sites);
 
-        System.out.println(cut_sites.toString());
+//        System.out.println(cut_sites.toString());
 
         //Step 2. Divide the backbone into segments based on the cuts.  Excise gaps when appropriate.
         ArrayList<Part> backbone_parts = new ArrayList<Part>();
@@ -252,7 +252,7 @@ public class GeneticLocationWriter {
         ArrayList<Integer> cut_sites = new ArrayList<Integer>(cut_sites_map);
         java.util.Collections.sort(cut_sites);
 
-        System.out.println(cut_sites.toString());
+//        System.out.println(cut_sites.toString());
 
         //Step 2. Divide the backbone into segments based on the cuts.  Excise gaps when appropriate.
         ArrayList<Part> backbone_parts = new ArrayList<Part>();
@@ -353,7 +353,7 @@ public class GeneticLocationWriter {
         ArrayList<Integer> cut_sites = new ArrayList<Integer>(cut_sites_map);
         java.util.Collections.sort(cut_sites);
 
-        System.out.println(cut_sites.toString());
+//        System.out.println(cut_sites.toString());
 
         //Step 2. Divide the backbone into segments based on the cuts.  Excise gaps when appropriate.
         ArrayList<Part> backbone_parts = new ArrayList<Part>();

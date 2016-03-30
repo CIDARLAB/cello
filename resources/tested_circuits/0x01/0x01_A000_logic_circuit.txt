@@ -1,12 +1,12 @@
 
 ----- Logic Circuit #41070 -----
 OUTPUT      00000001          output_YFP        0  (1)         0.6256  tox:0.81
-NOR         00000001          NOR_an1-BM3R1     1  (3,2)       0.6257  tox:0.98
-NOT         11101110          NOR_js2-HlyIIR    2  (4)         0.5879  tox:1.00
-NOR         00010001          NOR_js2-BetI      4  (6,5)       0.6919  tox:1.00
-NOT         11110000          NOR_an1-SrpR      3  (9)         0.9481  tox:1.00
-NOT         10101010          NOR_js2-AmtR      5  (8)         0.8874  tox:0.84
-NOT         11001100          NOR_an1-PhlF      6  (7)         0.8782  tox:0.97
+NOR         00000001          B2_BM3R1     1  (3,2)       0.6257  tox:0.98
+NOT         11101110          H1_HlyIIR    2  (4)         0.5879  tox:1.00
+NOR         00010001          E1_BetI      4  (6,5)       0.6919  tox:1.00
+NOT         11110000          S1_SrpR      3  (9)         0.9481  tox:1.00
+NOT         10101010          A1_AmtR      5  (8)         0.8874  tox:0.84
+NOT         11001100          P2_PhlF      6  (7)         0.8782  tox:0.97
 INPUT       00001111          input_pBAD        9              0.9923
 INPUT       00110011          input_pTac        7              0.9773
 INPUT       01010101          input_pTet        8              0.9940
@@ -23,7 +23,7 @@ output_YFP  Gate=0.62565
      OUTPUT        [ 1 1 0 ]: 0                  0.023:  0.023    multiplied_tox: 1.00
      OUTPUT        [ 1 1 1 ]: 1                  1.738:  1.738    multiplied_tox: 0.82
 
-NOR_an1-BM3R1  Gate=0.62569
+B2_BM3R1  Gate=0.62569
         NOR    4   [ 0 0 0 ]: 0          5.546   9.120:  0.020    individual_tox: 1.00
         NOR    4   [ 0 0 1 ]: 0          5.546   8.630:  0.021    individual_tox: 1.00
         NOR    4   [ 0 1 0 ]: 0          5.546   8.166:  0.021    individual_tox: 1.00
@@ -33,7 +33,7 @@ NOR_an1-BM3R1  Gate=0.62569
         NOR    4   [ 1 1 0 ]: 0          0.011   8.166:  0.023    individual_tox: 1.00
         NOR    4   [ 1 1 1 ]: 1          0.011   0.331:  1.738    individual_tox: 0.98
 
-NOR_js2-HlyIIR  Gate=0.58787
+H1_HlyIIR  Gate=0.58787
         NOT    3   [ 0 0 0 ]: 1                  0.350:  9.120    individual_tox: 1.00
         NOT    3   [ 0 0 1 ]: 1                  0.413:  8.630    individual_tox: 1.00
         NOT    3   [ 0 1 0 ]: 1                  0.461:  8.166    individual_tox: 1.00
@@ -43,7 +43,7 @@ NOR_js2-HlyIIR  Gate=0.58787
         NOT    3   [ 1 1 0 ]: 1                  0.461:  8.166    individual_tox: 1.00
         NOT    3   [ 1 1 1 ]: 0                 14.997:  0.331    individual_tox: 1.00
 
-NOR_js2-BetI  Gate=0.69190
+E1_BetI  Gate=0.69190
         NOR    2   [ 0 0 0 ]: 0         17.701  14.997:  0.350    individual_tox: 1.00
         NOR    2   [ 0 0 1 ]: 0         17.701   0.296:  0.413    individual_tox: 1.00
         NOR    2   [ 0 1 0 ]: 0          0.079  14.997:  0.461    individual_tox: 1.00
@@ -53,7 +53,7 @@ NOR_js2-BetI  Gate=0.69190
         NOR    2   [ 1 1 0 ]: 0          0.079  14.997:  0.461    individual_tox: 1.00
         NOR    2   [ 1 1 1 ]: 1          0.079   0.296: 14.997    individual_tox: 1.00
 
-NOR_an1-SrpR  Gate=0.94814
+S1_SrpR  Gate=0.94814
         NOT    1   [ 0 0 0 ]: 1                  0.010:  5.546    individual_tox: 1.00
         NOT    1   [ 0 0 1 ]: 1                  0.010:  5.546    individual_tox: 1.00
         NOT    1   [ 0 1 0 ]: 1                  0.010:  5.546    individual_tox: 1.00
@@ -63,7 +63,7 @@ NOR_an1-SrpR  Gate=0.94814
         NOT    1   [ 1 1 0 ]: 0                  7.727:  0.011    individual_tox: 1.00
         NOT    1   [ 1 1 1 ]: 0                  7.727:  0.011    individual_tox: 1.00
 
-NOR_js2-AmtR  Gate=0.88739
+A1_AmtR  Gate=0.88739
         NOT    1   [ 0 0 0 ]: 1                  0.074: 14.997    individual_tox: 1.00
         NOT    1   [ 0 0 1 ]: 0                 15.849:  0.296    individual_tox: 0.84
         NOT    1   [ 0 1 0 ]: 1                  0.074: 14.997    individual_tox: 1.00
@@ -73,7 +73,7 @@ NOR_js2-AmtR  Gate=0.88739
         NOT    1   [ 1 1 0 ]: 1                  0.074: 14.997    individual_tox: 1.00
         NOT    1   [ 1 1 1 ]: 0                 15.849:  0.296    individual_tox: 0.84
 
-NOR_an1-PhlF  Gate=0.87820
+P2_PhlF  Gate=0.87820
         NOT    1   [ 0 0 0 ]: 1                  0.093: 17.701    individual_tox: 0.97
         NOT    1   [ 0 0 1 ]: 1                  0.093: 17.701    individual_tox: 0.97
         NOT    1   [ 0 1 0 ]: 0                 10.186:  0.079    individual_tox: 1.00

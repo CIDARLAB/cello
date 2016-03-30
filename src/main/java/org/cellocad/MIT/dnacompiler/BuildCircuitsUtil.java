@@ -232,68 +232,6 @@ public class BuildCircuitsUtil {
         _gate_name_map.put("NOR_js2-SrpR", "S2_SrpR");
     }
 
-//    private String revert_names(String out) {
-//        String s = out;
-//        s = s.replace("pTet", "PTet");
-//        s = s.replace("pTac", "PTac");
-//        s = s.replace("pBAD", "PBAD");
-//        s = s.replace("F1_AmeR",        "F0");
-//        s = s.replace("A1_AmtR",        "Aj2");
-//        s = s.replace("A1_AmtR",        "A1");
-//        s = s.replace("E1_BetI",        "Ej2");
-//        s = s.replace("B1_BM3R1",       "B0");
-//        s = s.replace("B2_BM3R1",       "B1");
-//        s = s.replace("B3_BM3R1",       "Bj2");
-//        s = s.replace("H1_HlyIIR",      "Hj2");
-//        s = s.replace("I1_IcaRA",       "I1");
-//        s = s.replace("L1_LitR",        "Lj2");
-//        s = s.replace("N1_LmrA",        "N0");
-//        s = s.replace("P1_PhlF",        "P0");
-//        s = s.replace("P2_PhlF",        "P1");
-//        s = s.replace("P3_PhlF",        "Pj2");
-//        s = s.replace("R1_PsrA",        "R0");
-//        s = s.replace("Q1_QacR",        "Q2");
-//        s = s.replace("Q2_QacR",        "Q0");
-//        s = s.replace("S1_SrpR",        "S1");
-//        s = s.replace("S2_SrpR",        "S2");
-//        s = s.replace("S3_SrpR",        "S3");
-//        s = s.replace("S4_SrpR",        "S0");
-//        return s;
-//    }
-//
-//    private void setInputMap() {
-//        _input_map = new HashMap<>();
-//        _input_map.put("PTac", "pTac");
-//        _input_map.put("PTet", "pTet");
-//        _input_map.put("PBAD", "pBAD");
-//    }
-//
-//    private void setRBSMap()
-//    {
-//        _rbs_map = new HashMap<>();
-//        _rbs_map.put("F0",  "F1_AmeR");
-//        _rbs_map.put("Aj2", "A1_AmtR");
-//        _rbs_map.put("A1",  "A1_AmtR");
-//        _rbs_map.put("Ej2", "E1_BetI");
-//        _rbs_map.put("B0",  "B1_BM3R1");
-//        _rbs_map.put("B1",  "B2_BM3R1");
-//        _rbs_map.put("Bj2", "B3_BM3R1");
-//        _rbs_map.put("Hj2", "H1_HlyIIR");
-//        _rbs_map.put("I1",  "I1_IcaRA");
-//        _rbs_map.put("Lj2", "L1_LitR");
-//        _rbs_map.put("N0",  "N1_LmrA");
-//        _rbs_map.put("P0",  "P1_PhlF");
-//        _rbs_map.put("P1",  "P2_PhlF");
-//        _rbs_map.put("Pj2", "P3_PhlF");
-//        _rbs_map.put("R0",  "R1_PsrA");
-//        _rbs_map.put("Q2",  "Q1_QacR");
-//        _rbs_map.put("Q0",  "Q2_QacR");
-//        _rbs_map.put("S1",  "S1_SrpR");
-//        _rbs_map.put("S2",  "S2_SrpR");
-//        _rbs_map.put("S3",  "S3_SrpR");
-//        _rbs_map.put("S0",  "S4_SrpR");
-//    }
-
 
 
     public static HashMap<String, String> _gate_name_map = new HashMap();
