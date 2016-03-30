@@ -150,7 +150,7 @@ public class DNACompiler {
         logger.info("///////////////////////////////////////////////////////////");
         logger.info("///////////////   Options   ///////////////////////////////");
         logger.info("///////////////////////////////////////////////////////////\n");
-        logger.info(objToJSONString(_options));
+//        logger.info(objToJSONString(_options));
 
         if(_options.get_assignment_algorithm() == null) {
             logger.info("Assignment algorithm invalid");

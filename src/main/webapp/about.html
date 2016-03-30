@@ -76,20 +76,16 @@
 
             <table id='doc_links_table' class="table table-condensed">
                 <tr>
-                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" href="index.html">Home page</a></td>
-                    <td width="80%"><h4><small>Email questions, bug reports to cellohelp@gmail.com</small></h4></td>
-                </tr>
-                <tr>
-                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="suppinfo.html">Supp Info</a></td>
-                    <td width="80%"><h4><small>Supporting Information PDF.</small></h4></td>
-                </tr>
-                <tr>
                     <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="suppinfo.html">Help Page</a></td>
                     <td width="80%"><h4><small>Information and instructions for using the cellocad.org web application.</small></h4></td>
                 </tr>
                 <tr>
                     <td width="20%"><a class="btn btn-warning doc-btn" type="button" id="show_video">Video</a></td>
                     <td width="80%"><h4><small>A video tutorial for using the cellocad.org web application.</small></h4></td>
+                </tr>
+                <tr>
+                    <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="suppinfo.html">Supp Info</a></td>
+                    <td width="80%"><h4><small>Supporting Information PDF.</small></h4></td>
                 </tr>
                 <tr>
                     <td width="20%"><a class="btn btn-warning doc-btn" type="button" target="_blank" href="CelloAPI.html">API</a></td>
@@ -122,14 +118,16 @@
     </div>
 
     <div id="video_popup" class="dialog" title="video tutorial" style="display: none">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/fUGumUAtKQI" frameborder="0" allowfullscreen></iframe>
+        <iframe width="840" height="472" src="https://www.youtube.com/embed/SLn_SkL7vkQ" frameborder="0" allowfullscreen></iframe>
     </div>
+
 
 
 
 
     <div class="col-sm-12 col-md-12 col-lg-12 text-center">
         <h4><small>Please cite:  A.A.K. Nielsen et al., Science 352, aac7341 (2016). DOI: 10.1126/science.aac7341</small></h4>
+        <h4><small>Please email questions and bug reports to cellohelp@gmail.com</small></h4>
         <hr/>
         <h4><small>Cello is a trademark of <a id='nona_link' href='http://www.nonasoftware.org'>Nona Research Foundation, Inc.</a></small></h4>
         <img class="footer_img" src="images/NonaFoundation.png">
@@ -179,6 +177,7 @@
     });
 
     $('#show_video').click(function() {
+        $('#video_popup').dialog({width:880}, {height:550});
         $('#video_popup').dialog('open');
     });
 
