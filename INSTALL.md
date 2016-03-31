@@ -90,7 +90,7 @@ cd ~/cello/
 mvn compile
 ```
 
-###### Run Cello (see [3_RUN.md](3_RUN.md) )
+###### Run Cello (see [RUN.md](RUN.md) )
 
 
 

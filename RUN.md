@@ -1,6 +1,6 @@
 # How to run Cello
 
-Note: Maven is used for software project management and should be installed on your computer.  See [2_INSTALL.md](2_INSTALL.md).
+Note: Maven is used for software project management and should be installed on your computer.  See [INSTALL.md](INSTALL.md).
 
 
 ## 1. Web application at http://cellocad.org.
@@ -24,7 +24,7 @@ Cello can be used without downloading/installing anything!  All you need is a we
 
 #### Running Cello locally (localhost = http://127.0.0.1:8080)
 
-First, follow the installation instructions in [2_INSTALL.md](2_INSTALL.md).
+First, follow the installation instructions in [INSTALL.md](INSTALL.md).
 (Note that other dependencies are required for figure generation, and Java 1.7 will be required to run Eugene within Cello).
 
 
