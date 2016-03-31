@@ -84,7 +84,7 @@ curl -u "username:password" -X POST http://127.0.0.1:8080/submit --data-urlencod
 
 ###### Working with custom UCFs
 
-(warning: if posting a UCF with cytometry data, an error may result if the file is too large.  Please contact cellocadbeta@gmail.com.)
+(warning: if posting a UCF with cytometry data, an error may result if the file is too large.  Please contact cellohelp@gmail.com.)
 
 ###### There is a python helper (tools/pycello/ucf_writer.py) that reads a CSV and generates a UCF.
 ###### See also: ~/cello/resources/csv_gate_libraries/

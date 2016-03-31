@@ -2,7 +2,7 @@
 
 ###### Note that Cello can be used with no downloads/installations required at www.cellocad.org.
 
-If you experience bugs or the site is down, please contact cellocadbeta@gmail.com.
+If you experience bugs or the site is down, please contact cellohelp@gmail.com.
 
 
 ###### Get the code from Git:
