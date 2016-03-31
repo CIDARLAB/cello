@@ -14,3 +14,4 @@ derby.log
 *pyc
 /resources/results/*
 /demo/job_*
+**/.DS_Store
