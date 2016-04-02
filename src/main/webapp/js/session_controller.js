@@ -20,7 +20,13 @@ $(document).ready(function() {
 
 // SIGNUP Button
     $('#btnSignUp').click(function() {
-
+        
+        
+        if($('#signup_password').val() !== $('#reenter_signup_password').val()){
+            $('#signupError').html('<div class="alert alert-danger"> Passwords don\'t match. </div>');
+            
+        }else{
+        
         var jsonRequest = {
             "command": "signup",
             "username": $('#signup_username').val(),
@@ -41,7 +47,7 @@ $(document).ready(function() {
                 //alert('SUCCESSFUL SIGNUP !\n' + JSON.stringify(response));
             }
         });
-
+        }
     });
 
 // LOGIN button
