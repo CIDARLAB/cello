@@ -72,7 +72,7 @@ The first step uses ABC (Mischenko and Brayton, Berkeley) to convert a truth tab
 
 #### NOR-Inverter Graph
 
-The AND-Inverter Graph is converted to a NOR-Inverter Graph using DeMorgan's rule: A and B  equals  (not A) and (not B).
+The AND-Inverter Graph is converted to a NOR-Inverter Graph using DeMorgan's rule: A and B  equals  (not A) (nor) (not B).
 
 #### Subcircuit substitutions
 
