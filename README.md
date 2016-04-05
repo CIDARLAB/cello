@@ -136,5 +136,13 @@ The example Eugene code (link below) can be copied/pasted and modified at Eugene
 
 The final DNA sequences that result from Eugene variants are then inserted into the plasmid or genomic locations specified in the UCF.  This specification is a Genbank file and start/end insertion base-pair indexes where the sensor module (e.g. expression of LacI, AraC), circuit module (e.g. TetR homolog logic gates), and output module (e.g. fluorescence reporter driven by a regulable promoter). As a result, the complete DNA sequence required to implement the logic circuit in cells is generated.
 
+Contributing to this project
+----------------------------
 
+Anyone and everyone is welcome to contribute. Please take a moment to
+review the [guidelines for contributing](CONTRIBUTING.md).
+
+* [Bug reports](CONTRIBUTING.md#bugs)
+* [Feature requests](CONTRIBUTING.md#features)
+* [Pull requests](CONTRIBUTING.md#pull-requests)
 
