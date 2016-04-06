@@ -152,3 +152,6 @@ review the [guidelines for contributing](CONTRIBUTING.md).
 * [Feature requests](CONTRIBUTING.md#features)
 * [Pull requests](CONTRIBUTING.md#pull-requests)
 
+Contact Us
+----------------------------
+If you would like to receive updates from the Cello team regarding bug fixes, patches, feature updates or if you would like to contact the Cello team, please check the links in [CONTACT.md](CONTACT.md)
