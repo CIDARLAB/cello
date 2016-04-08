@@ -306,3 +306,7 @@ input[type=number] {-moz-appearance: textfield;}
 form input {
     margin-bottom: 1em;
 }
+
+#signupError {
+    margin-top: 10px;
+}
