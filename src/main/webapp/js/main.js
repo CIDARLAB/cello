@@ -6,26 +6,27 @@
 $('#verilog_link').on('click', function() {
     if(isRegistered()) {
         window.location.replace('verilog.html');
-        return false; // prevents current page from reloading so that the new page can be loaded
     }
+
+    return false; // prevents page reload
 });
 $('#results_link').on('click', function() {
     if(isRegistered()) {
         window.location.replace('result.html');
-        return false; // prevents current page from reloading so that the new page can be loaded
     }
+
+    return false; // prevents page reload
 });
 $('#options_link').on('click', function() {
     if(isRegistered()) {
         window.location.replace('options.html');
-        return false; // prevents current page from reloading so that the new page can be loaded
     }
+
+    return false; // prevents page reload
 });
 $('#about_link').on('click', function() {
-    if(isRegistered()) {
-        window.location.replace('about.html');
-        return false; // prevents current page from reloading so that the new page can be loaded
-    }
+    window.location.replace('about.html');
+    return false; // prevents current page from reloading so that the new page can be loaded
 });
 
 
