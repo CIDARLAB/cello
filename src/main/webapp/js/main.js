@@ -22,10 +22,8 @@ $('#options_link').on('click', function() {
     }
 });
 $('#about_link').on('click', function() {
-    if(isRegistered()) {
-        window.location.replace('about.html');
-        return false; // prevents current page from reloading so that the new page can be loaded
-    }
+    window.location.replace('about.html');
+    return false; // prevents current page from reloading so that the new page can be loaded
 });
 
 
