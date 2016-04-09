@@ -20,13 +20,13 @@ $(document).ready(function() {
 
 // SIGNUP Button
     $('#btnSignUp').click(function() {
-        
-        
+
+
         if($('#signup_password').val() !== $('#reenter_signup_password').val()){
             $('#signupError').html('<div class="alert alert-danger"> Passwords don\'t match. </div>');
-            
+
         }else{
-        
+
         var jsonRequest = {
             "command": "signup",
             "username": $('#signup_username').val(),
@@ -39,12 +39,15 @@ $(document).ready(function() {
             if (response['status'] === 'exception') {
                 $('#signupError').html('<div class="alert alert-danger">' + response['result'] + '</div>');
             } else {
-                $('#signupError').html('<div class="alert alert-success"> Success! </div>');
+                $('#signupError').html('<div class="alert alert-success"> Sign Up successful! </div>');
 
                 sessionStorage.registered = "true";
                 sessionStorage.username = $('#signup_username').val();
 
                 //alert('SUCCESSFUL SIGNUP !\n' + JSON.stringify(response));
+                window.setTimeout(function () {
+                    window.location.href = "about.html";
+                }, 1000);
             }
         });
         }
@@ -74,7 +77,7 @@ $(document).ready(function() {
                     sessionStorage.username = $('#login_username').val();
                     sessionStorage.password = $('#login_password').val();
 
-                    window.location.replace('verilog.html');
+                    window.location.replace('about.html');
                 }
             }
         });
