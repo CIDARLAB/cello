@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-my @files = qx{ls reus*.txt};
+my @files = qx{ls rpus*.txt};
 foreach my $file (@files) {
     chomp($file);
 

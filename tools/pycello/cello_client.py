@@ -107,8 +107,8 @@ def get_outputs(ctx, name):
 
 @cli.command()
 @click.option('--name', type=click.STRING, required=True, help='promoter name.')
-@click.option('--low', type=click.FLOAT, required=True, help='low REU.')
-@click.option('--high', type=click.FLOAT, required=True, help='high REU.')
+@click.option('--low', type=click.FLOAT, required=True, help='low RPU.')
+@click.option('--high', type=click.FLOAT, required=True, help='high RPU.')
 @click.option('--dnaseq', type=click.STRING, required=True, help='dna sequence.')
 @click.pass_context
 def post_input(ctx, name, low, high, dnaseq):
@@ -270,8 +270,8 @@ def show_circuit_info(ctx, jobid, assignment):
 @click.option('--jobid', type=click.STRING, required=True, help='job id/name.')
 @click.option('--assignment', type=click.STRING, help='e.g. A000')
 @click.pass_context
-def show_reu_table(ctx, jobid, assignment):
-    ctx.invoke(show_files_contents, jobid=jobid, assignment=assignment, extension='reutable.txt')
+def show_rpu_table(ctx, jobid, assignment):
+    ctx.invoke(show_files_contents, jobid=jobid, assignment=assignment, extension='rputable.txt')
 
 
 @cli.command()

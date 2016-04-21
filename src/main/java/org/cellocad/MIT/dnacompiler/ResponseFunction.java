@@ -7,14 +7,14 @@ import java.util.HashMap;
 
 /**
  *
- * Compute out_reu from in_reu given the 4 transfer function parameters
+ * Compute out_rpu from in_rpu given the 4 transfer function parameters
  *
  */
 public class ResponseFunction {
 
     /**
      *
-     * Given an equation, parameter values, and variable values, compute output REU
+     * Given an equation, parameter values, and variable values, compute output RPU
      *
      * 'variables' maps a variable name (e.g. "x") to a summed value if there are tandem promoters
      *
@@ -37,11 +37,11 @@ public class ResponseFunction {
 
         //math.setVariable("x", input);
 
-        //double outputREU = math.evaluate("ymin+(ymax-ymin)/(1.0+(x/K)^n)"); //hill function
+        //double outputRPU = math.evaluate("ymin+(ymax-ymin)/(1.0+(x/K)^n)"); //hill function
 
-        double outputREU = math.evaluate(equation);
+        double outputRPU = math.evaluate(equation);
 
-        return outputREU;
+        return outputRPU;
     }
 
 

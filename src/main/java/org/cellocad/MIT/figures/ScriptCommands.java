@@ -32,12 +32,12 @@ public class ScriptCommands {
      Synopsis    [  ]
 
      Shows the wiring diagram with transfer function images as nodes.
-     Black dots show the noise margin points for each, and gray dashed lines show the REU values for each gate.
+     Black dots show the noise margin points for each, and gray dashed lines show the RPU values for each gate.
 
      ***********************************************************************/
-    public void makeCircuitREUFigure(String prefixA) { //could move this to Eugene.java
+    public void makeCircuitRPUFigure(String prefixA) { //could move this to Eugene.java
         //process all figures and generate correct file types (PNG, PDF) for webapp
-        String cmd = "perl " + _home + "/resources/scripts/make_gnuplot_reu.pl " + _output_directory + " " + prefixA;
+        String cmd = "perl " + _home + "/resources/scripts/make_gnuplot_rpu.pl " + _output_directory + " " + prefixA;
         String command_result = Util.executeCommand(cmd);
     }
 

@@ -430,7 +430,7 @@ public class DNACompiler {
          * read text files for input promoters and output genes, populate gate_library with data.
          *
          * Inputs:  pTac, pTet, pBAD, etc.
-         *      includes promoter name, REU OFF, REU ON, and DNA sequence
+         *      includes promoter name, RPU OFF, RPU ON, and DNA sequence
          *
          * Outputs: YFP, etc.
          *      includes output gene name, and the concatenated DNA sequence of the output cassette (typically ribozyme, rbs, cds, terminator concatenated)
@@ -528,8 +528,8 @@ public class DNACompiler {
          */
         for (String i : gate_library.get_INPUT_NAMES()) {
             String input_info = "input:    " + String.format("%-16s", i);
-            input_info += "   off_reu=" + Util.sc(gate_library.get_INPUTS_OFF().get(i));
-            input_info += "   on_reu=" + Util.sc(gate_library.get_INPUTS_ON().get(i));
+            input_info += "   off_rpu=" + Util.sc(gate_library.get_INPUTS_OFF().get(i));
+            input_info += "   on_rpu=" + Util.sc(gate_library.get_INPUTS_ON().get(i));
             logger.info(input_info);
         }
         for (String i : gate_library.get_OUTPUT_NAMES()) {
@@ -916,10 +916,10 @@ public class DNACompiler {
                 }
 
                 String file_name_default = _options.get_home() + _options.get_datapath() + "default_histogram.txt";
-                InputOutputGateReader.makeHistogramsforInputREUs(gate_library, file_name_default);
+                InputOutputGateReader.makeHistogramsforInputRPUs(gate_library, file_name_default);
 
                 for(LogicCircuit lc: unique_lcs) {
-                    LogicCircuitUtil.setInputREU(lc, gate_library);
+                    LogicCircuitUtil.setInputRPU(lc, gate_library);
 
                     for (Gate g : lc.get_Gates()) {
                         g.get_histogram_bins().init();
@@ -1008,9 +1008,9 @@ public class DNACompiler {
                 logger.info("=========== Simulate cytometry distributions");
 
                 String file_name_default = _options.get_home() + _options.get_datapath() + "default_histogram.txt";
-                InputOutputGateReader.makeHistogramsforInputREUs(gate_library, file_name_default);
+                InputOutputGateReader.makeHistogramsforInputRPUs(gate_library, file_name_default);
 
-                LogicCircuitUtil.setInputREU(lc, gate_library);
+                LogicCircuitUtil.setInputRPU(lc, gate_library);
 
 
                 for(Gate g: lc.get_Gates()) {
@@ -1323,7 +1323,7 @@ public class DNACompiler {
 
         Integer a = lc.get_index();
         String name_wiring_xfer =  lc.get_assignment_name() + "_wiring_xfer.dot";
-        String name_wiring_reu  =  lc.get_assignment_name() + "_wiring_reu.dot";
+        String name_wiring_rpu  =  lc.get_assignment_name() + "_wiring_rpu.dot";
         String name_wiring_grn  =  lc.get_assignment_name() + "_wiring_grn.dot";
 
         Gnuplot gnuplot = new Gnuplot(_options.get_home(), _options.get_output_directory(), _options.get_jobID());
@@ -1339,7 +1339,7 @@ public class DNACompiler {
             logger.info("=========== Graphviz Xfer figures ============");
             gnuplot.printGnuplotXfer(lc, _options);
             graphviz.printGraphvizXferPNG(lc, name_wiring_xfer);
-            script_commands.makeCircuitREUFigure(lc.get_assignment_name());
+            script_commands.makeCircuitRPUFigure(lc.get_assignment_name());
             script_commands.makeDot2Png(name_wiring_xfer);
         }
         if(_options.is_snr()) {
@@ -1449,7 +1449,7 @@ public class DNACompiler {
                                 in1 = Math.pow(10, hbins.get_LOGMAX());
                             }
                         } else {
-                            in1 = child1.get_inreus().get(v).get(row);
+                            in1 = child1.get_inrpus().get(v).get(row);
                         }
 
 
@@ -1460,7 +1460,7 @@ public class DNACompiler {
                                 in2 = Math.pow(10, hbins.get_LOGMAX());
                             }
                         } else {
-                            in2 = child2.get_inreus().get(v).get(row);
+                            in2 = child2.get_inrpus().get(v).get(row);
                         }
 
 
@@ -1474,8 +1474,8 @@ public class DNACompiler {
                             throw new IllegalStateException("Problem with tandem promoter lookup");
                         }
 
-                        Integer bin1 = HistogramUtil.bin_of_logreu(Math.log10(in1), hbins);
-                        Integer bin2 = HistogramUtil.bin_of_logreu(Math.log10(in2), hbins);
+                        Integer bin1 = HistogramUtil.bin_of_logrpu(Math.log10(in1), hbins);
+                        Integer bin2 = HistogramUtil.bin_of_logrpu(Math.log10(in2), hbins);
 
                         int logic = g.get_logics().get(row);
 
@@ -1518,7 +1518,7 @@ public class DNACompiler {
         }
 
 
-        if (_options.is_truthtable_reu()) {
+        if (_options.is_truthtable_rpu()) {
             logger.info("=========== Truth table figure(s) ============");
 
             if (_options.is_histogram()) {
@@ -1545,8 +1545,8 @@ public class DNACompiler {
                 for (Gate g : lc.get_output_gates()) {
                     gnuplot.makeHistogramMultiplotGate(g, lc.get_assignment_name(), "gate", input_truth);
                 }
-                graphviz.printGraphvizDistrPNG(lc, name_wiring_reu);
-                script_commands.makeDot2Png(name_wiring_reu);
+                graphviz.printGraphvizDistrPNG(lc, name_wiring_rpu);
+                script_commands.makeDot2Png(name_wiring_rpu);
             }
             else {
                 logger.info("=========== bargraph multiplots ==============");
@@ -1561,8 +1561,8 @@ public class DNACompiler {
                 for (Gate g : lc.get_output_gates()) {
                     gnuplot.makeTruthtableBargraph(g, lc.get_assignment_name(), "gate");
                 }
-                graphviz.printGraphvizDistrPNG(lc, name_wiring_reu);
-                script_commands.makeDot2Png(name_wiring_reu);
+                graphviz.printGraphvizDistrPNG(lc, name_wiring_rpu);
+                script_commands.makeDot2Png(name_wiring_rpu);
             }
         }
 
@@ -1572,11 +1572,11 @@ public class DNACompiler {
         }
 
 
-        logger.info("=========== Table of predicted expression levels (REU)");
-        String reu_table = lc.printREUTable();
-        String outfile_reutable = lc.get_assignment_name() + "_reutable.txt";
-        Util.fileWriter(_options.get_output_directory() + outfile_reutable, reu_table, false);
-        logger.info(reu_table);
+        logger.info("=========== Table of predicted expression levels (RPU)");
+        String rpu_table = lc.printRPUTable();
+        String outfile_rputable = lc.get_assignment_name() + "_rputable.txt";
+        Util.fileWriter(_options.get_output_directory() + outfile_rputable, rpu_table, false);
+        logger.info(rpu_table);
 
         if(_options.is_toxicity()) {
             logger.info("=========== Table of predicted cell growth (relative OD600)");

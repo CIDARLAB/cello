@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Read data from files.
  *
  * Input promoters:
- * promoter name, OFF REU, ON REU, promoter DNA sequence.
+ * promoter name, OFF RPU, ON RPU, promoter DNA sequence.
  *
  * Output gene cassette(s):
  * output name, cassette DNA sequence (concatenation of ribozyme, rbs, cds, terminator would be typical).
@@ -75,12 +75,12 @@ public class InputOutputGateReader {
             }
 
             String name =         inputs_list.get(i).get(0);
-            Double off_reu =      Double.valueOf(inputs_list.get(i).get(1));
-            Double on_reu =       Double.valueOf(inputs_list.get(i).get(2));
+            Double off_rpu =      Double.valueOf(inputs_list.get(i).get(1));
+            Double on_rpu =       Double.valueOf(inputs_list.get(i).get(2));
             String promoter_seq = inputs_list.get(i).get(3);
 
-            gate_library.get_INPUTS_OFF().put(name, off_reu);
-            gate_library.get_INPUTS_ON().put(name, on_reu);
+            gate_library.get_INPUTS_OFF().put(name, off_rpu);
+            gate_library.get_INPUTS_ON().put(name, on_rpu);
             gate_library.get_INPUTS_SEQ().put(name, promoter_seq);
 
             input_names.add(name);
@@ -130,9 +130,9 @@ public class InputOutputGateReader {
 
     /**
      * Actual experimental histograms are not able to be specified for inputs, so we just get a
-     * default histogram for the input REU geometric mean values.
+     * default histogram for the input RPU geometric mean values.
      */
-    public static void makeHistogramsforInputREUs(GateLibrary gate_library, String file_name_default) {
+    public static void makeHistogramsforInputRPUs(GateLibrary gate_library, String file_name_default) {
 
 
         HistogramBins hbins = new HistogramBins();

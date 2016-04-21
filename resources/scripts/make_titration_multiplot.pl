@@ -55,7 +55,7 @@ foreach my $dir(@dirs) {
     print GP "set style fill solid 0.75 #fillstyle\n";
     print GP "set multiplot layout 12,1 rowsfirst\n";
 
-    my @titrs = qx{ls reus_*_??.txt};
+    my @titrs = qx{ls rpus_*_??.txt};
     foreach my $titr(@titrs) {
 	chomp($titr);
 	print GP "plot \"$titr\" u (hist(log10(\$1),width)):(1.0) smooth freq w boxes lc rgb \"$color\" notitle\n";

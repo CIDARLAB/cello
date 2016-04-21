@@ -58,7 +58,7 @@ function set_filepaths() {
         //var nA = "A" + (pad + n).slice(-pad.length);
 
         var nA_files = {};
-        nA_files.output_reus   = [];
+        nA_files.output_rpus   = [];
         nA_files.plasmids      = [];
         nA_files.sbol          = [];
 
@@ -71,14 +71,14 @@ function set_filepaths() {
                 if(file.endsWith("_wiring_grn.png")) {
                     nA_files.wiring_grn = file;
                 }
-                if(file.endsWith("_wiring_reu.png")) {
-                    nA_files.wiring_reu = file;
+                if(file.endsWith("_wiring_rpu.png")) {
+                    nA_files.wiring_rpu = file;
                 }
                 if(file.endsWith("_wiring_xfer.png")) {
                     nA_files.wiring_xfer = file;
                 }
-                if(file.endsWith("_reutable.txt")) {
-                    nA_files.reutable = file;
+                if(file.endsWith("_rputable.txt")) {
+                    nA_files.rputable = file;
                 }
                 if(file.endsWith("_toxtable.txt")) {
                     nA_files.toxtable = file;
@@ -98,7 +98,7 @@ function set_filepaths() {
 
                 //list of files
                 if(file.endsWith("_truth.png")) {
-                    nA_files.output_reus.push( file );
+                    nA_files.output_rpus.push( file );
                 }
                 if(file.endsWith(".ape")) {
                     nA_files.plasmids.push( file );
@@ -395,16 +395,16 @@ function showResults() {
     showFile(res.files.dnac_log,     "div1b", "file1b");
     showFile(nA_files.wiring_grn,    "div2a", "file2a");
     showFile(nA_files.wiring_xfer,   "div2c", "file2c");
-    showFile(nA_files.reutable,      "div2d", "file2d");
+    showFile(nA_files.rputable,      "div2d", "file2d");
     showFile(nA_files.toxtable,      "div2e", "file2e");
     showFile(nA_files.logic_circuit, "div2f", "file2f");
     showFile(nA_files.bionetlist,    "div2g", "file2g");
-    showFile(nA_files.wiring_reu,    "div3a", "file3a");
+    showFile(nA_files.wiring_rpu,    "div3a", "file3a");
     showFile(nA_files.eugene,        "div4a", "file4a");
     showFile(nA_files.dnaplotlib,    "div4b", "file4b");
 
     //file lists
-    showImgSet(nA_files.output_reus, "div3b", "img3set");
+    showImgSet(nA_files.output_rpus, "div3b", "img3set");
     showPlasmidFiles(nA_files.plasmids, 'plasmid_list');
     showSBOLFiles(nA_files.sbol, 'sbol_list');
 
@@ -419,7 +419,7 @@ function showResults() {
 }
 
 function showImgSet(filenames, div_id, element_id) {
-    //output REU files
+    //output RPU files
     $('#'+element_id).html("");
 
     for(var i=0; i<filenames.length; ++i) {
@@ -427,9 +427,9 @@ function showImgSet(filenames, div_id, element_id) {
         if(filename.length > 0) {
             $('#'+element_id).append("" +
                     "<p style='text-align: left'>"+filename+"</p>" +
-                    "<img id='outreu"+i+"' style='width:50%'>"
+                    "<img id='outrpu"+i+"' style='width:50%'>"
             );
-            ajaxPNG(filename, div_id, 'outreu'+i);
+            ajaxPNG(filename, div_id, 'outrpu'+i);
             $('#'+div_id).show();
         }
         else {

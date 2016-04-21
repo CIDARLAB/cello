@@ -91,7 +91,7 @@ public class Args {
     //figures
     @Getter @Setter private boolean _figures = true; // make figures (PNG, PDF)
     @Getter @Setter private boolean _dnaplotlib = true; // make dnaplotlib figure
-    @Getter @Setter private boolean _truthtable_reu = true; // make truthtable figures
+    @Getter @Setter private boolean _truthtable_rpu = true; // make truthtable figures
     @Getter @Setter private boolean _truthtable_tox = false; // make toxicity bargraph figures
     @Getter @Setter private boolean _response_fn = true; // make response function figures
     @Getter @Setter private boolean _write_circuit_json = false; // LogicCircuit to JSON (~10 Mb in size)
@@ -325,9 +325,9 @@ public class Args {
                 if(args[i+1].equals("true")) {_pareto_frontier = true;}
                 if(args[i+1].equals("false")){_pareto_frontier = false;}
             }
-            if(args[i].equals("-truthtable_reu")) {
-                if(args[i+1].equals("true")) {_truthtable_reu = true;}
-                if(args[i+1].equals("false")){_truthtable_reu = false;}
+            if(args[i].equals("-truthtable_rpu")) {
+                if(args[i+1].equals("true")) {_truthtable_rpu = true;}
+                if(args[i+1].equals("false")){_truthtable_rpu = false;}
             }
             if(args[i].equals("-truthtable_tox")) {
                 if(args[i+1].equals("true")) {_truthtable_tox = true;}

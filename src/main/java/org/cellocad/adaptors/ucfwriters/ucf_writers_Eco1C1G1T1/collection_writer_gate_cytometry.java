@@ -14,19 +14,19 @@ public class collection_writer_gate_cytometry extends collection_writer {
 
         ArrayList<Map> objects = new ArrayList<>();
 
-        ArrayList<Double> REU_TITR = new ArrayList<Double>();
-        REU_TITR.add(0.004843);
-        REU_TITR.add(0.007426);
-        REU_TITR.add(0.012530);
-        REU_TITR.add(0.034109);
-        REU_TITR.add(0.062700);
-        REU_TITR.add(0.099936);
-        REU_TITR.add(0.144093);
-        REU_TITR.add(0.247036);
-        REU_TITR.add(0.418091);
-        REU_TITR.add(0.739476);
-        REU_TITR.add(1.012582);
-        REU_TITR.add(2.078460);
+        ArrayList<Double> RPU_TITR = new ArrayList<Double>();
+        RPU_TITR.add(0.004843);
+        RPU_TITR.add(0.007426);
+        RPU_TITR.add(0.012530);
+        RPU_TITR.add(0.034109);
+        RPU_TITR.add(0.062700);
+        RPU_TITR.add(0.099936);
+        RPU_TITR.add(0.144093);
+        RPU_TITR.add(0.247036);
+        RPU_TITR.add(0.418091);
+        RPU_TITR.add(0.739476);
+        RPU_TITR.add(1.012582);
+        RPU_TITR.add(2.078460);
 
         HistogramBins hbins = new HistogramBins();
         hbins.init();
@@ -58,24 +58,24 @@ public class collection_writer_gate_cytometry extends collection_writer {
 
             ArrayList<LinkedHashMap> titrations = new ArrayList<LinkedHashMap>();
 
-            for(int i=0; i<REU_TITR.size(); ++i) {
-                Double inREU = REU_TITR.get(i);
+            for(int i=0; i<RPU_TITR.size(); ++i) {
+                Double inRPU = RPU_TITR.get(i);
 
-                ArrayList<Double> out_reu_bins = new ArrayList<Double>();
-                ArrayList<Double> out_reu_counts = new ArrayList<Double>();
+                ArrayList<Double> out_rpu_bins = new ArrayList<Double>();
+                ArrayList<Double> out_rpu_counts = new ArrayList<Double>();
 
                 for(int j=0; j<hbins.get_NBINS(); ++j) {
                     double[] normalized = HistogramUtil.normalize(g.get_xfer_hist().get_xfer_binned().get(i));
-                    out_reu_bins.add(Math.pow(10, hbins.get_LOG_BIN_CENTERS()[j]));
-                    out_reu_counts.add(normalized[j]);
+                    out_rpu_bins.add(Math.pow(10, hbins.get_LOG_BIN_CENTERS()[j]));
+                    out_rpu_counts.add(normalized[j]);
                 }
 
 
                 LinkedHashMap titration = new LinkedHashMap();
                 titration.put("maps_to_variable", "x");
-                titration.put("input", inREU);
-                titration.put("output_bins", out_reu_bins);
-                titration.put("output_counts", out_reu_counts);
+                titration.put("input", inRPU);
+                titration.put("output_bins", out_rpu_bins);
+                titration.put("output_counts", out_rpu_counts);
                 titrations.add(titration);
             }
 

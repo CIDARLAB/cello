@@ -15,7 +15,7 @@ public class GateUtil {
     /**
      * If the output module is on a different plasmid
      * (with a different copy number or different affect on cell growth),
-     * the REU units of the circuit might need to be converted.
+     * the RPU units of the circuit might need to be converted.
      *
      * @param g
      */
@@ -25,11 +25,11 @@ public class GateUtil {
 
             //outer arraylist: rows in truth table
             //inner array: fractional counts representing a histogram
-            ArrayList<double[]> histogram_reus = g.get_histogram_reus();
+            ArrayList<double[]> histogram_rpus = g.get_histogram_rpus();
 
-            ArrayList<double[]> shifted_histogram_reus = new ArrayList<double[]>();
+            ArrayList<double[]> shifted_histogram_rpus = new ArrayList<double[]>();
 
-            for (double[] histogram : histogram_reus) {
+            for (double[] histogram : histogram_rpus) {
 
                 //calculate the new median
                 double current_median = HistogramUtil.median(histogram, g.get_histogram_bins());
@@ -38,10 +38,10 @@ public class GateUtil {
                 //shift the histogram to the new median
                 double[] shifted_histogram = HistogramUtil.normalizeHistogramToNewMedian(histogram, new_median, g.get_histogram_bins());
 
-                shifted_histogram_reus.add(shifted_histogram);
+                shifted_histogram_rpus.add(shifted_histogram);
             }
 
-            g.set_histogram_reus(shifted_histogram_reus);
+            g.set_histogram_rpus(shifted_histogram_rpus);
 
         }
     }
@@ -131,10 +131,10 @@ public class GateUtil {
 
     /**
      *
-     * return min of all ON incoming reus.
+     * return min of all ON incoming rpus.
      *
      * Used to in noise margin analysis.  This is different than calculating ONmin or OFFmax for a gate,
-     * which is based on the output REU.  Noise margin analysis is based in the input REU value(s).
+     * which is based on the output RPU.  Noise margin analysis is based in the input RPU value(s).
      *
      */
     public static HashMap<String, Double> getIncomingONlow(Gate g) {
@@ -162,15 +162,15 @@ public class GateUtil {
 
                 if(ON) {
 
-                    Double sum_of_ons = g.get_inreus().get(var).get(i);
+                    Double sum_of_ons = g.get_inrpus().get(var).get(i);
 
                     /**
-                     * _inreus (prompted by tandem promoter eval) replacing this...
+                     * _inrpus (prompted by tandem promoter eval) replacing this...
                      */
                     /*
                     Double sum_of_ons = 0.0;
                     for (Wire w : g.get_variable_wires().get(var)) {
-                        sum_of_ons += w.To.get_outreus().get(i);
+                        sum_of_ons += w.To.get_outrpus().get(i);
                     }*/
 
                     all_incoming_ON.get(var).add(sum_of_ons);
@@ -191,10 +191,10 @@ public class GateUtil {
 
     /**
      *
-     * return max of all OFF incoming reus
+     * return max of all OFF incoming rpus
      *
      * Used to in noise margin analysis.  This is different than calculating ONmin or OFFmax for a gate,
-     * which is based on the output REU.  Noise margin analysis is based in the input REU value(s).
+     * which is based on the output RPU.  Noise margin analysis is based in the input RPU value(s).
      *
      */
     public static HashMap<String, Double> getIncomingOFFhigh(Gate g) {
@@ -223,15 +223,15 @@ public class GateUtil {
 
                 if(OFF) {
 
-                    Double sum_of_offs = g.get_inreus().get(var).get(i);
+                    Double sum_of_offs = g.get_inrpus().get(var).get(i);
 
                     /**
-                     * _inreus (prompted by tandem promoter eval) replacing this...
+                     * _inrpus (prompted by tandem promoter eval) replacing this...
                      */
                     /*
                     Double sum_of_offs = 0.0;
                     for (Wire w : g.get_variable_wires().get(var)) {
-                        sum_of_offs += w.To.get_outreus().get(i);
+                        sum_of_offs += w.To.get_outrpus().get(i);
                     }*/
 
                     all_incoming_OFF.get(var).add(sum_of_offs);
@@ -257,39 +257,39 @@ public class GateUtil {
 
     /**
      *
-     * Cello assumes tandem promoters have additive activity (REU)
+     * Cello assumes tandem promoters have additive activity (RPU)
      *
      */
-    //replaced by gate.get_inreus()
-    /*public static ArrayList<Double> getSumOfGateInputREUs(Gate g) {
+    //replaced by gate.get_inrpus()
+    /*public static ArrayList<Double> getSumOfGateInputRPUs(Gate g) {
 
         ArrayList<Gate> children = g.getChildren();
-        ArrayList<Double> sum_child_reus = new ArrayList<Double>();
-        for(int i = 0; i<children.get(0).get_outreus().size(); ++i){ //rows in truth table
-            Double this_row_sum_reus = 0.0;
+        ArrayList<Double> sum_child_rpus = new ArrayList<Double>();
+        for(int i = 0; i<children.get(0).get_outrpus().size(); ++i){ //rows in truth table
+            Double this_row_sum_rpus = 0.0;
             for(Gate child: children) {
-                this_row_sum_reus += child.get_outreus().get(i);
+                this_row_sum_rpus += child.get_outrpus().get(i);
             }
-            sum_child_reus.add(this_row_sum_reus);
+            sum_child_rpus.add(this_row_sum_rpus);
         }
-        return sum_child_reus;
+        return sum_child_rpus;
     }*/
 
 
 
-    //TODO using gird look up for medians of inputs REU histograms or grid look up for inputs REU
+    //TODO using gird look up for medians of inputs RPU histograms or grid look up for inputs RPU
     // should be very close depent on the bins been chosen
     
 //    public static ArrayList<Double[]> getSumOfGateInputHistograms_v1(Gate g) {
-//    	ArrayList <Double[]> tt_reu_medians = new ArrayList<Double>();
+//    	ArrayList <Double[]> tt_rpu_medians = new ArrayList<Double>();
 //    	
-//    	return tt_reu_medians;
+//    	return tt_rpu_medians;
 //    }
     
     
     public static ArrayList<double[]> getSumOfGateInputHistograms(Gate g, GateLibrary gate_library, Args options) {
 
-        ArrayList<Double> tt_reu_medians = new ArrayList<Double>();
+        ArrayList<Double> tt_rpu_medians = new ArrayList<Double>();
 
         // TODO changed
         /**
@@ -363,7 +363,7 @@ public class GateUtil {
                         }
                     }
                     else {
-                    	bin_median1 = HistogramUtil.bin_median(child1.get_in_histogram_reus().get(i));
+                    	bin_median1 = HistogramUtil.bin_median(child1.get_in_histogram_rpus().get(i));
                     }
                     
 
@@ -376,7 +376,7 @@ public class GateUtil {
                         }
                     }
                     else {
-                    	bin_median2 = HistogramUtil.bin_median(child2.get_in_histogram_reus().get(i));
+                    	bin_median2 = HistogramUtil.bin_median(child2.get_in_histogram_rpus().get(i));
                     }
                     
                     String gate1_name = fanin_gate_names.get(0);
@@ -397,7 +397,7 @@ public class GateUtil {
 	                sum_median = grid[bin_median1][bin_median2];
                     double out = Math.pow(10, sum_median);
 	                
-	                tt_reu_medians.add(out);
+	                tt_rpu_medians.add(out);
 	            }
 	        }
 	        
@@ -409,12 +409,12 @@ public class GateUtil {
 	
 	                for (Gate child : g.getChildren()) {
 	
-	                    int bin_median = HistogramUtil.bin_median(child.get_histogram_reus().get(i));
-	                    Double reu_median = Math.pow(10, g.get_histogram_bins().get_LOG_BIN_CENTERS()[bin_median]);
-	                    sum_median += reu_median;
+	                    int bin_median = HistogramUtil.bin_median(child.get_histogram_rpus().get(i));
+	                    Double rpu_median = Math.pow(10, g.get_histogram_bins().get_LOG_BIN_CENTERS()[bin_median]);
+	                    sum_median += rpu_median;
 	                }
 	
-	                tt_reu_medians.add(sum_median);
+	                tt_rpu_medians.add(sum_median);
 	            }	            
 	        }
         }
@@ -430,14 +430,14 @@ public class GateUtil {
 
                 for (Gate child : g.getChildren()) {
 
-                    int bin_median = HistogramUtil.bin_median(child.get_histogram_reus().get(i));
-                    Double reu_median = Math.pow(10, g.get_histogram_bins().get_LOG_BIN_CENTERS()[bin_median]);
-                    sum_median += reu_median;
+                    int bin_median = HistogramUtil.bin_median(child.get_histogram_rpus().get(i));
+                    Double rpu_median = Math.pow(10, g.get_histogram_bins().get_LOG_BIN_CENTERS()[bin_median]);
+                    sum_median += rpu_median;
                 }
 
                 //}
 
-                tt_reu_medians.add(sum_median);
+                tt_rpu_medians.add(sum_median);
             }
         }
 
@@ -457,8 +457,8 @@ public class GateUtil {
 
             for(Gate child: g.getChildren()) {
 
-                Double target_median = tt_reu_medians.get(i);
-                double[] child_histogram = child.get_histogram_reus().get(i);
+                Double target_median = tt_rpu_medians.get(i);
+                double[] child_histogram = child.get_histogram_rpus().get(i);
                 double[] shifted_histogram = HistogramUtil.normalizeHistogramToNewMedian(child_histogram, target_median, g.get_histogram_bins());
 
                 //for each child of this gate, sum the zeroed fractional counts.
@@ -495,9 +495,9 @@ public class GateUtil {
             double[] min_histogram = new double[g.get_histogram_bins().get_NBINS()];
 
             for (Gate child : g.getChildren()) {
-                if(HistogramUtil.median( child.get_histogram_reus().get(i), g.get_histogram_bins()) < min_median ) {
-                    min_median = HistogramUtil.median( child.get_histogram_reus().get(i), g.get_histogram_bins());
-                    min_histogram = child.get_histogram_reus().get(i);
+                if(HistogramUtil.median( child.get_histogram_rpus().get(i), g.get_histogram_bins()) < min_median ) {
+                    min_median = HistogramUtil.median( child.get_histogram_rpus().get(i), g.get_histogram_bins());
+                    min_histogram = child.get_histogram_rpus().get(i);
                 }
             }
             tt_AND.add(min_histogram);
@@ -507,28 +507,28 @@ public class GateUtil {
     }
 
 
-    public static ArrayList<ArrayList<Double>> getGateInputREUs(Gate g) {
+    public static ArrayList<ArrayList<Double>> getGateInputRPUs(Gate g) {
 
         ArrayList<Gate> children = g.getChildren();
 
         //outer is truth table
         //inner is children
-        ArrayList<ArrayList<Double>> all_child_reus = new ArrayList<ArrayList<Double>>();
+        ArrayList<ArrayList<Double>> all_child_rpus = new ArrayList<ArrayList<Double>>();
 
-        for(int i = 0; i<children.get(0).get_outreus().size(); ++i) { //rows in truth table
+        for(int i = 0; i<children.get(0).get_outrpus().size(); ++i) { //rows in truth table
 
-            ArrayList<Double> all_child_reu_for_row = new ArrayList<Double>();
+            ArrayList<Double> all_child_rpu_for_row = new ArrayList<Double>();
 
             for(Gate child: children) {
 
-                all_child_reu_for_row.add(child.get_outreus().get(i));
+                all_child_rpu_for_row.add(child.get_outrpus().get(i));
             }
 
-            all_child_reus.add(all_child_reu_for_row);
+            all_child_rpus.add(all_child_rpu_for_row);
 
         }
 
-        return all_child_reus;
+        return all_child_rpus;
     }
 
 
@@ -585,7 +585,7 @@ public class GateUtil {
 
 
     /**
-     * Sum REUs for tandem promoters, map the summed value to the name of the independent variable
+     * Sum RPUs for tandem promoters, map the summed value to the name of the independent variable
      * from the gate's response function.
      *
      * @param g
@@ -668,8 +668,8 @@ public class GateUtil {
                 for (String v : g.get_variable_wires().keySet()) {
 
                     for (Wire w : g.get_variable_wires().get(v)) {
-                        //this is the line that adds REU values for tandem promoters
-                        additive_val += w.To.get_outreus().get(row);
+                        //this is the line that adds RPU values for tandem promoters
+                        additive_val += w.To.get_outrpus().get(row);
                     }
                 }
             }*/
@@ -682,8 +682,8 @@ public class GateUtil {
                 Double dtest = 0.0;
 
                 for (Wire w : g.get_variable_wires().get(v)) {
-                    //this is the line that adds REU values for tandem promoters
-                    dtest += w.To.get_outreus().get(row);
+                    //this is the line that adds RPU values for tandem promoters
+                    dtest += w.To.get_outrpus().get(row);
                 }
 
 
@@ -708,7 +708,7 @@ public class GateUtil {
                         }
                     }
                     else {
-                        in1 = child1.get_inreus().get(v).get(row);
+                        in1 = child1.get_inrpus().get(v).get(row);
                     }
 
 
@@ -721,7 +721,7 @@ public class GateUtil {
                         }
                     }
                     else {
-                        in2 = child2.get_inreus().get(v).get(row);
+                        in2 = child2.get_inrpus().get(v).get(row);
                     }
 
 
@@ -737,8 +737,8 @@ public class GateUtil {
                         throw new IllegalStateException("Problem with tandem promoter lookup");
                     }
 
-                    Integer bin1 = HistogramUtil.bin_of_logreu(Math.log10(in1), hbins);
-                    Integer bin2 = HistogramUtil.bin_of_logreu(Math.log10(in2), hbins);
+                    Integer bin1 = HistogramUtil.bin_of_logrpu(Math.log10(in1), hbins);
+                    Integer bin2 = HistogramUtil.bin_of_logrpu(Math.log10(in2), hbins);
 
                     Double log_out = grid[bin1][bin2];
                     Double out = Math.pow(10, log_out);
@@ -750,8 +750,8 @@ public class GateUtil {
                  */
                 else {
                     for (Wire w : g.get_variable_wires().get(v)) {
-                        //this is the line that adds REU values for tandem promoters
-                        d += w.To.get_outreus().get(row);
+                        //this is the line that adds RPU values for tandem promoters
+                        d += w.To.get_outrpus().get(row);
                     }
                     variable_values.put(v, d);
                 }
@@ -764,8 +764,8 @@ public class GateUtil {
             for(String v: g.get_variable_wires().keySet()) {
                 Double d = 0.0;
                 for (Wire w : g.get_variable_wires().get(v)) {
-                    //this is the line that adds REU values for tandem promoters
-                    d += w.To.get_outreus().get(row);
+                    //this is the line that adds RPU values for tandem promoters
+                    d += w.To.get_outrpus().get(row);
                 }
                 variable_values.put(v, d);
             }

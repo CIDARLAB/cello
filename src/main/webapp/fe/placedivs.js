@@ -54,10 +54,10 @@ function placeDivs(circuit) {
     var out_pre_html = "out\n";
 
     for(var i=0; i<8; ++i) {
-        in1_pre_html += format(circuit["input_gates"][0]["reus"][i].toFixed(2), 5) + " : " + circuit["input_gates"][0]["logics"][i] + '\n';
-        in2_pre_html += format(circuit["input_gates"][1]["reus"][i].toFixed(2), 5) + " : " + circuit["input_gates"][1]["logics"][i] + '\n';
-        in3_pre_html += format(circuit["input_gates"][2]["reus"][i].toFixed(2), 5) + " : " + circuit["input_gates"][2]["logics"][i] + '\n';
-        out_pre_html += format(circuit["output_gates"][0]["reus"][i].toFixed(2), 5) + " : " + circuit["output_gates"][0]["logics"][i] + '\n';
+        in1_pre_html += format(circuit["input_gates"][0]["rpus"][i].toFixed(2), 5) + " : " + circuit["input_gates"][0]["logics"][i] + '\n';
+        in2_pre_html += format(circuit["input_gates"][1]["rpus"][i].toFixed(2), 5) + " : " + circuit["input_gates"][1]["logics"][i] + '\n';
+        in3_pre_html += format(circuit["input_gates"][2]["rpus"][i].toFixed(2), 5) + " : " + circuit["input_gates"][2]["logics"][i] + '\n';
+        out_pre_html += format(circuit["output_gates"][0]["rpus"][i].toFixed(2), 5) + " : " + circuit["output_gates"][0]["logics"][i] + '\n';
     }
     $('#in1_pre').html(in1_pre_html);
     $('#in2_pre').html(in2_pre_html);

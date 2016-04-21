@@ -58,7 +58,7 @@ for(my $i=1; $i<=$rows; ++$i) {
 
     if($i == $rows) {
 	print GP "set format x \"10^{%T}\" \n";
-	print GP "set xlabel \"Output (REU)\" \n";
+	print GP "set xlabel \"Output (RPU)\" \n";
     }
     print GP "plot \"$input_txt\" u (10**\$1):$column w boxes lc rgb \"$color\" notitle\n";
 }

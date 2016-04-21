@@ -15,7 +15,7 @@
 },
 {
   "collection": "measurement_std",
-  "signal_carrier_units": "REU",
+  "signal_carrier_units": "RPU",
   "normalization_instructions": "",
   "plasmid_description": "",
   "plasmid_sequence": ""

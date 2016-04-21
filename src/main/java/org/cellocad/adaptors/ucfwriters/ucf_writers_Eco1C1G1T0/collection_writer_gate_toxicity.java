@@ -52,15 +52,15 @@ public class collection_writer_gate_toxicity extends collection_writer {
 
             ArrayList<LinkedHashMap> titrations = new ArrayList<LinkedHashMap>();
 
-            ArrayList<Double> in_reus = new ArrayList<Double>();
+            ArrayList<Double> in_rpus = new ArrayList<Double>();
             ArrayList<Double> od600s = new ArrayList<Double>();
 
             for (int i = 0; i < toxtable.size(); ++i) {
 
-                Double inREU = toxtable.get(i).get_x() / 4.23; //adjustment for ribozyme-insulated YFP REU standard
+                Double inRPU = toxtable.get(i).get_x() / 4.23; //adjustment for ribozyme-insulated YFP RPU standard
                 Double cellgrowth_value = toxtable.get(i).get_y();
 
-                in_reus.add(inREU);
+                in_rpus.add(inRPU);
                 od600s.add(cellgrowth_value);
             }
 
@@ -68,7 +68,7 @@ public class collection_writer_gate_toxicity extends collection_writer {
             obj.put("collection", "gate_toxicity");
             obj.put("gate_name", g.Name);
 
-            obj.put("input", in_reus);
+            obj.put("input", in_rpus);
             obj.put("growth", od600s);
 
             objects.add(obj);
@@ -87,7 +87,7 @@ public class collection_writer_gate_toxicity extends collection_writer {
         ArrayList< ArrayList<String>> tokenized_list = Util.fileTokenizer(path);
 
         ///////////////////////
-        //  Read titration REU's
+        //  Read titration RPU's
         ///////////////////////
         for(int j=1; j<tokenized_list.get(0).size(); ++j) {
             Double od = Double.valueOf(tokenized_list.get(0).get(j));

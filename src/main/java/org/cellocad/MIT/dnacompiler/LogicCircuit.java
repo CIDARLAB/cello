@@ -198,7 +198,7 @@ public class LogicCircuit{
     public String toString(){
         String s = "";
         s += printGraph();
-        s += printLogicREU();
+        s += LogicCircuit.this.printLogicRPU();
 
         return s;
     }
@@ -255,7 +255,7 @@ public class LogicCircuit{
     }
 
 
-    public String printREUTable() {
+    public String printRPUTable() {
         String s = "\n";
 
         s += String.format("%14s", "truth table") + "\t";
@@ -280,8 +280,8 @@ public class LogicCircuit{
             for(int j=this.get_Gates().size()-1; j>=0; --j) {
                 Gate g = this.get_Gates().get(j);
 
-                if (g.get_logics().size() > 0 && g.get_outreus().size() > 0){
-                    s += String.format("%7s", String.format("%4.2f",g.get_outreus().get(i))) + "\t";
+                if (g.get_logics().size() > 0 && g.get_outrpus().size() > 0){
+                    s += String.format("%7s", String.format("%4.2f",g.get_outrpus().get(i))) + "\t";
                 }
             }
             s += "\n";
@@ -322,13 +322,13 @@ public class LogicCircuit{
     /**
      *
      *
-     * print REUs and incoming REUs for all rows of all gates.
+     * print RPUs and incoming RPUs for all rows of all gates.
      * print scores for all gates.
      * print toxicity values if available.
      *
      * Example:
      *
-     * Circuit_score = 1.59047     maxREU = 51.79068    avgREU = 28.63099    maxTox = 0.02418     avgTox = 0.02998
+     * Circuit_score = 1.59047     maxRPU = 51.79068    avgRPU = 28.63099    maxTox = 0.02418     avgTox = 0.02998
      *
      * output_YFP  Gate=1.59047
      * _OUTPUT_OR    [ 0 0 ]: 0        0.038   0.056:  0.094    multiplied_tox: 0.05
@@ -343,7 +343,7 @@ public class LogicCircuit{
      * _NOR    2     [ 1 1 ]: 0        8.792   0.267:  0.053    individual_tox: 0.05
      *
      */
-    public String printLogicREU() {
+    public String printLogicRPU() {
 
 
         //header
@@ -356,29 +356,29 @@ public class LogicCircuit{
 
         //body
         for(Gate gate: _Gates) {
-            s += printLogicREU(gate);
+            s += printLogicRPU(gate);
         }
 
         return s;
     }
 
 
-    public String printLogicREU(Gate g) {  //my improved output format
+    public String printLogicRPU(Gate g) {  //my improved output format
 
         String s = "";
 
-        if (g.get_logics().size() > 0 && g.get_outreus().size() > 0){
+        if (g.get_logics().size() > 0 && g.get_outrpus().size() > 0){
 
             s += g.Name + "  Gate=" + String.format("%-6.5f",g.get_scores().get_score()) + "\n";
 
-            for(int i=0; i<g.get_outreus().size(); ++i){
+            for(int i=0; i<g.get_outrpus().size(); ++i){
 
-                String child_reu = "";
+                String child_rpu = "";
                 if(g.Type != GateType.INPUT) {
                     for(Gate child: g.getChildren()) {
-                        child_reu += String.format("%8.3f", child.get_outreus().get(i));
+                        child_rpu += String.format("%8.3f", child.get_outrpus().get(i));
                     }
-                    //child_reu = String.format("%4.3f", sum_incoming_reus.get(i));
+                    //child_rpu = String.format("%4.3f", sum_incoming_rpus.get(i));
                 }
 
                 String dist2in = "    ";
@@ -393,8 +393,8 @@ public class LogicCircuit{
                 }
 
                 s += String.format("%11s", g.Type) + " " + dist2in + " " + String.format("%11s: %-6s", getLogicRow(i), logic_i);
-                //s += String.format("%11s: %6.3f", child_reu, g.get_outreus().get(i));
-                s += String.format("%18s: %6.3f", child_reu, g.get_outreus().get(i));
+                //s += String.format("%11s: %6.3f", child_rpu, g.get_outrpus().get(i));
+                s += String.format("%18s: %6.3f", child_rpu, g.get_outrpus().get(i));
 
                 if(!g.get_toxicity().isEmpty()) {
                     if (g.get_toxicity().size() > 0 && g.Type != GateType.OUTPUT && g.Type != GateType.OUTPUT_OR)

@@ -11,7 +11,7 @@ function inputFormDialog() {
         this.reset();
     });
 
-    //open a dialog box that allows the user to enter promoter name, low REU, high REU, and DNA sequence.
+    //open a dialog box that allows the user to enter promoter name, low RPU, high RPU, and DNA sequence.
     $("#new_input_div").dialog( 'option', 'width', 300 );
     $("#new_input_div").dialog( 'open' );
 
@@ -40,19 +40,19 @@ function outputFormDialog() {
  */
 function addNewInput() {
     var prom_name = $('#add_input_name').val();
-    var low_REU   = Number($('#add_input_lowREU').val());
-    var high_REU  = Number($('#add_input_highREU').val());
+    var low_RPU   = Number($('#add_input_lowRPU').val());
+    var high_RPU  = Number($('#add_input_highRPU').val());
     var sequence  = $('#add_input_sequence').val();
 
     //the input promoter specification will be written to a text file with 4 columns.
     //this text file will be read by Cello.
     //see the -input_promoters filepath option in Args.java.
-    var input_data = prom_name + " " + low_REU + " " + high_REU + " " + sequence + "\n";
+    var input_data = prom_name + " " + low_RPU + " " + high_RPU + " " + sequence + "\n";
 
     //max and min can be specified in the html form, but this extra check is needed
-    //to prevent the low REU from exceeding the high REU.
-    if(low_REU >= high_REU) {
-        var rhtml = "<div class='alert alert-danger'> low REU not less than high REU </div>";
+    //to prevent the low RPU from exceeding the high RPU.
+    if(low_RPU >= high_RPU) {
+        var rhtml = "<div class='alert alert-danger'> low RPU not less than high RPU </div>";
         $('#dialog_pre').html(rhtml);
         $('#dialog').dialog({title: "Input promoters"});
         $('#dialog').dialog('open');
@@ -92,8 +92,8 @@ function addNewInput() {
             var message = response['message'];
             var input_obj = {};
             input_obj.prom_name = prom_name;
-            input_obj.lowreu  = low_REU;
-            input_obj.highreu = high_REU;
+            input_obj.lowrpu  = low_RPU;
+            input_obj.highrpu = high_RPU;
             input_obj.dnaseq  = sequence;
             vio.inputs_list.push(input_obj); //defined in verilog.js
             addInputsToMenu(); //update the pulldown menu with the new entry
@@ -263,8 +263,8 @@ function saveInputs() {
             var input_obj = {};
             input_obj.index     = $(this).find('td').eq(0).find('input').val();
             input_obj.prom_name = $(this).find('td').eq(1).find('input').val();
-            input_obj.lowreu    = $(this).find('td').eq(2).find('input').val();
-            input_obj.highreu   = $(this).find('td').eq(3).find('input').val();
+            input_obj.lowrpu    = $(this).find('td').eq(2).find('input').val();
+            input_obj.highrpu   = $(this).find('td').eq(3).find('input').val();
             input_obj.dnaseq    = $(this).find('td').eq(4).find('input').val();
             vio.inputs.push(input_obj);
         }
@@ -300,8 +300,8 @@ function loadInputs() {
         var input_obj = vio.inputs[i];
         $('#input_index'   + n).val(n);
         $('#input_name'    + n).val(input_obj.prom_name);
-        $('#input_lowreu'  + n).val(input_obj.lowreu);
-        $('#input_highreu' + n).val(input_obj.highreu);
+        $('#input_lowrpu'  + n).val(input_obj.lowrpu);
+        $('#input_highrpu' + n).val(input_obj.highrpu);
         $('#input_dnaseq'  + n).val(input_obj.dnaseq);
     }
 
@@ -442,8 +442,8 @@ function getInputFiles() {
                                 var input_attr = file_contents.split(" ");
                                 var input_obj = {};
                                 input_obj.prom_name    = String (input_attr[0]);
-                                input_obj.lowreu  = Number (input_attr[1]);
-                                input_obj.highreu = Number (input_attr[2]);
+                                input_obj.lowrpu  = Number (input_attr[1]);
+                                input_obj.highrpu = Number (input_attr[2]);
                                 input_obj.dnaseq  = String (input_attr[3]).replace(/(\r\n|\n|\r)/gm,"");
                                 vio.inputs_list.push(input_obj);
                             },
@@ -547,8 +547,8 @@ function setInputFromList() {
             vio.inputs.push(input_obj);
             $('#input_index'   + vio.inputs.length).val(vio.inputs.length);
             $('#input_name'    + vio.inputs.length).val(input_obj.prom_name);
-            $('#input_lowreu'  + vio.inputs.length).val(input_obj.lowreu);
-            $('#input_highreu' + vio.inputs.length).val(input_obj.highreu);
+            $('#input_lowrpu'  + vio.inputs.length).val(input_obj.lowrpu);
+            $('#input_highrpu' + vio.inputs.length).val(input_obj.highrpu);
             $('#input_dnaseq'  + vio.inputs.length).val(input_obj.dnaseq);
             break;
         }
@@ -635,16 +635,16 @@ function addInput() {
 //        "<td width='5%'><a href='#'><i id='input_trash"+n+"' class='fa fa-trash fw'></i></a></td>" +
 //        "<td width='10%'><input id='input_index"  +n+"' type='text' value='"+n+"' readonly></td>" +
 //        "<td width='10%'><input id='input_name"   +n+"' type='text' required></td>" +
-//        "<td width='12%'><input id='input_lowreu" +n+"' min='0.001' max='100' type='number' step='any' required></td>" +
-//        "<td width='12%'><input id='input_highreu"+n+"' min='0.001' max='100' type='number' step='any' required></td>" +
+//        "<td width='12%'><input id='input_lowrpu" +n+"' min='0.001' max='100' type='number' step='any' required></td>" +
+//        "<td width='12%'><input id='input_highrpu"+n+"' min='0.001' max='100' type='number' step='any' required></td>" +
 //        "<td width='30%'><input id='input_dnaseq" +n+"' type='text' required></td>"+
 //        "</tr>");
 
     $('#inputs_table').append("<tr>" +
         "<td width='10%'><input id='input_index"  +n+"' type='text' value='"+n+"' readonly></td>" +
         "<td width='20%'><input id='input_name"   +n+"' type='text' required></td>" +
-        "<td width='15%'><input id='input_lowreu" +n+"' min='0.001' max='100' type='number' step='any' required></td>" +
-        "<td width='15%'><input id='input_highreu"+n+"' min='0.001' max='100' type='number' step='any' required></td>" +
+        "<td width='15%'><input id='input_lowrpu" +n+"' min='0.001' max='100' type='number' step='any' required></td>" +
+        "<td width='15%'><input id='input_highrpu"+n+"' min='0.001' max='100' type='number' step='any' required></td>" +
         "<td width='40%'><input id='input_dnaseq" +n+"' type='text' required></td>"+
         "</tr>");
 }
@@ -705,7 +705,7 @@ function makeInputTableText(inputs) {
     var table_text = "";
     for(var i=0; i<inputs.length; ++i) {
         var input = inputs[i];
-        table_text += input.prom_name + " " + input.lowreu + " " + input.highreu + " " + input.dnaseq + "\n";
+        table_text += input.prom_name + " " + input.lowrpu + " " + input.highrpu + " " + input.dnaseq + "\n";
     }
     return table_text;
 }

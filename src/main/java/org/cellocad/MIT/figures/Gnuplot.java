@@ -45,28 +45,28 @@ public class Gnuplot {
         for (int i = 0; i < STEPS - 1; ++i) {
             for (int j = i + 1; j < STEPS; ++j) {
 
-                Double log_reu_low = LOGMIN + i * LOGINC;
-                Double reu_low = Math.pow(10, log_reu_low);
+                Double log_rpu_low = LOGMIN + i * LOGINC;
+                Double rpu_low = Math.pow(10, log_rpu_low);
 
-                Double log_reu_high = LOGMIN + j * LOGINC;
-                Double reu_high = Math.pow(10, log_reu_high);
+                Double log_rpu_high = LOGMIN + j * LOGINC;
+                Double rpu_high = Math.pow(10, log_rpu_high);
 
                 HashMap<String, Double> low_x = new HashMap<>();
-                low_x.put("x", reu_low);
+                low_x.put("x", rpu_low);
 
                 HashMap<String, Double> high_x = new HashMap<>();
-                high_x.put("x", reu_high);
+                high_x.put("x", rpu_high);
 
                 Double out_high = ResponseFunction.computeOutput(low_x, g.get_params(), g.get_equation());
                 Double out_low = ResponseFunction.computeOutput(high_x, g.get_params(), g.get_equation());
 
                 Double out_snr = 20 * Math.log10((Math.log10(out_high / out_low)) / (2 * Math.log10(3.2)));
-                Double in_snr = 20 * Math.log10((Math.log10(reu_high / reu_low)) / (2 * Math.log10(3.2)));
+                Double in_snr = 20 * Math.log10((Math.log10(rpu_high / rpu_low)) / (2 * Math.log10(3.2)));
 
                 Double d_snr = out_snr - in_snr;
 
-                snr_out  += reu_low + " " + reu_high + " " + out_snr + "\n";
-                dsnr_out += reu_low + " " + reu_high + " " + d_snr + "\n";
+                snr_out  += rpu_low + " " + rpu_high + " " + out_snr + "\n";
+                dsnr_out += rpu_low + " " + rpu_high + " " + d_snr + "\n";
 
 
                 if(d_snr > 0) {
@@ -87,9 +87,9 @@ public class Gnuplot {
         for(Gate child: g.getChildren()) {
             for (int i = 0; i < child.get_logics().size(); ++i) {
                 if (child.get_logics().get(i) == 1) {
-                    child_ons.add(child.get_outreus().get(i));
+                    child_ons.add(child.get_outrpus().get(i));
                 } else if (child.get_logics().get(i) == 0) {
-                    child_offs.add(child.get_outreus().get(i));
+                    child_offs.add(child.get_outrpus().get(i));
                 }
             }
         }
@@ -141,7 +141,7 @@ public class Gnuplot {
      Synopsis    [  ]
 
      To generate a wiring diagram with transfer function images as nodes, we first need to make the transfer function images using gnuplot.
-     This function puts .gp files in figs directory, which can be converted into images using scripts/make_gnuplot_reu.pl
+     This function puts .gp files in figs directory, which can be converted into images using scripts/make_gnuplot_rpu.pl
 
      ***********************************************************************/
 
@@ -157,8 +157,8 @@ public class Gnuplot {
         Double axis_max = Math.pow(10, hbins.get_LOGMAX());
         Double axis_min = Math.pow(10, hbins.get_LOGMIN());
 
-        HashMap<String, Double> lowest_on_reu_map   = GateUtil.getIncomingONlow(g);
-        HashMap<String, Double> highest_off_reu_map = GateUtil.getIncomingOFFhigh(g);
+        HashMap<String, Double> lowest_on_rpu_map   = GateUtil.getIncomingONlow(g);
+        HashMap<String, Double> highest_off_rpu_map = GateUtil.getIncomingOFFhigh(g);
 
         String xfer_color = g.ColorHex;
 
@@ -186,8 +186,8 @@ public class Gnuplot {
         gnuplot_xfer_lines += "\n" + "set xlabel '" + BooleanLogic.logicString(g.get_logics()) + "'";
 
 
-        Double highest_off_reu = highest_off_reu_map.get(var);
-        Double lowest_on_reu = lowest_on_reu_map.get(var);
+        Double highest_off_rpu = highest_off_rpu_map.get(var);
+        Double lowest_on_rpu = lowest_on_rpu_map.get(var);
         Double IL_x = 0.0;
         Double IH_x = 0.0;
         Double IL_y = 0.0;
@@ -210,19 +210,19 @@ public class Gnuplot {
             String high_rect_color = "gold";
 
 
-            if (highest_off_reu > IL_x) {
+            if (highest_off_rpu > IL_x) {
                 low_rect_color = "red";
             }
-            if (lowest_on_reu < IH_x) {
+            if (lowest_on_rpu < IH_x) {
                 high_rect_color = "red";
             }
 
-            //gnuplot_xfer_lines += "\n" + "set object 1 rect from " + highest_off_reu + "," + ""+axis_min+"" + " to " + IL_x + "," + "50" + " fc rgb '" + low_rect_color + "'";
-            //gnuplot_xfer_lines += "\n" + "set object 2 rect from " + IH_x + "," + ""+axis_min+"" + " to " + lowest_on_reu + "," + "50" + " fc rgb '" + high_rect_color + "'";
+            //gnuplot_xfer_lines += "\n" + "set object 1 rect from " + highest_off_rpu + "," + ""+axis_min+"" + " to " + IL_x + "," + "50" + " fc rgb '" + low_rect_color + "'";
+            //gnuplot_xfer_lines += "\n" + "set object 2 rect from " + IH_x + "," + ""+axis_min+"" + " to " + lowest_on_rpu + "," + "50" + " fc rgb '" + high_rect_color + "'";
         }
 
-        gnuplot_xfer_lines += "\n" + "set arrow from "+highest_off_reu+","+axis_min+" to "+highest_off_reu+","+axis_max+" nohead lw 10 lt 2 lc rgb '#000000'";
-        gnuplot_xfer_lines += "\n" + "set arrow from "+lowest_on_reu+","+axis_min+" to "+lowest_on_reu+","+axis_max+" nohead lw 10 lt 2 lc rgb '#000000'";
+        gnuplot_xfer_lines += "\n" + "set arrow from "+highest_off_rpu+","+axis_min+" to "+highest_off_rpu+","+axis_max+" nohead lw 10 lt 2 lc rgb '#000000'";
+        gnuplot_xfer_lines += "\n" + "set arrow from "+lowest_on_rpu+","+axis_min+" to "+lowest_on_rpu+","+axis_max+" nohead lw 10 lt 2 lc rgb '#000000'";
 
 
         String title = "";
@@ -254,8 +254,8 @@ public class Gnuplot {
         String gp_file  = _output_directory + assignment_name + "_xfer_model_" + g.Name + ".gp";
         String eps_file = assignment_name + "_xfer_model_" + g.Name + ".eps";
 
-        HashMap<String, Double> lowest_on_reu_map   = GateUtil.getIncomingONlow(g);
-        HashMap<String, Double> highest_off_reu_map = GateUtil.getIncomingOFFhigh(g);
+        HashMap<String, Double> lowest_on_rpu_map   = GateUtil.getIncomingONlow(g);
+        HashMap<String, Double> highest_off_rpu_map = GateUtil.getIncomingOFFhigh(g);
 
         HistogramBins hbins = new HistogramBins();
         hbins.init();
@@ -315,18 +315,18 @@ public class Gnuplot {
         String equation = g.get_equation().replaceAll("\\^", "**");
 
 
-        HashMap<String, Double> highest_off_reus = GateUtil.getIncomingOFFhigh(g);
-        HashMap<String, Double> lowest_on_reus   = GateUtil.getIncomingONlow(g);
+        HashMap<String, Double> highest_off_rpus = GateUtil.getIncomingOFFhigh(g);
+        HashMap<String, Double> lowest_on_rpus   = GateUtil.getIncomingONlow(g);
 
 
         String varX = g.get_variable_names().get(0);
         String varY = g.get_variable_names().get(1);
 
-        Double offX = highest_off_reus.get(varX);
-        Double onX  = lowest_on_reus.get(varX);
+        Double offX = highest_off_rpus.get(varX);
+        Double onX  = lowest_on_rpus.get(varX);
 
-        Double offY = highest_off_reus.get(varY);
-        Double onY  = lowest_on_reus.get(varY);
+        Double offY = highest_off_rpus.get(varY);
+        Double onY  = lowest_on_rpus.get(varY);
 
         gnuplot_xfer_lines += "\n" + "set arrow from "+offX+","+axis_min+" to "+offX+","+axis_max+" nohead front lw 10 lt 2 lc rgb 'black'";
         gnuplot_xfer_lines += "\n" + "set arrow from "+onX +","+axis_min+" to "+onX +","+axis_max+" nohead front lw 10 lt 2 lc rgb 'black'";
@@ -382,15 +382,15 @@ public class Gnuplot {
         for(int i=0; i<gates.size(); ++i) {
 
             String outname = gates.get(i).Name;
-            String name_logic_reus = lc.get_assignment_name() + "_" + outname + "_" + suffix + ".txt";
-            String logic_reus_data = lc.printLogicREU(gates.get(i));
-            Util.fileWriter(_output_directory + name_logic_reus, logic_reus_data, false);
+            String name_logic_rpus = lc.get_assignment_name() + "_" + outname + "_" + suffix + ".txt";
+            String logic_rpus_data = lc.printLogicRPU(gates.get(i));
+            Util.fileWriter(_output_directory + name_logic_rpus, logic_rpus_data, false);
 
-            String name_reus = lc.get_assignment_name() + "_" + gates.get(i).Name + "_" + suffix + ".txt";
+            String name_rpus = lc.get_assignment_name() + "_" + gates.get(i).Name + "_" + suffix + ".txt";
 
             String logic_string = BooleanLogic.logicString(gates.get(i).get_logics());
             logic_string = logic_string.replaceAll("[^\\d.]", "");
-            String cmd = "perl " + _home + "/resources/scripts/make_gnuplot_cellgrowth.pl " + _output_directory + " " + _dateID + " " + name_reus;
+            String cmd = "perl " + _home + "/resources/scripts/make_gnuplot_cellgrowth.pl " + _output_directory + " " + _dateID + " " + name_rpus;
             String command_result = Util.executeCommand(cmd);
         }
     }
@@ -405,15 +405,15 @@ public class Gnuplot {
      ***********************************************************************/
     public void makeTruthtableBargraph(Gate g, String prefix, String suffix) {
 
-        String name_reu_data = prefix + "_" + g.Name + "_" + suffix + ".txt";
+        String name_rpu_data = prefix + "_" + g.Name + "_" + suffix + ".txt";
 
         LogicCircuit lc = new LogicCircuit();
-        String reu_data = lc.printLogicREU(g);
-        Util.fileWriter(_output_directory + name_reu_data, reu_data, false);
+        String rpu_data = lc.printLogicRPU(g);
+        Util.fileWriter(_output_directory + name_rpu_data, rpu_data, false);
 
         String logic_string = BooleanLogic.logicString(g.get_logics());
         logic_string = logic_string.replaceAll("[^\\d.]", "");
-        String cmd = "perl " + _home + "/resources/scripts/make_gnuplot_truthtable.pl " + _output_directory + " " + _dateID + " " + name_reu_data + " " + logic_string;
+        String cmd = "perl " + _home + "/resources/scripts/make_gnuplot_truthtable.pl " + _output_directory + " " + _dateID + " " + name_rpu_data + " " + logic_string;
         Util.executeCommand(cmd);
     }
 
@@ -422,14 +422,14 @@ public class Gnuplot {
 
         for(int i=0; i<lc.get_output_gates().size(); ++i) {
 
-            String name_reu_data = lc.get_assignment_name() + "_" + lc.get_output_gates().get(i).Name + "_" + suffix + ".txt";
+            String name_rpu_data = lc.get_assignment_name() + "_" + lc.get_output_gates().get(i).Name + "_" + suffix + ".txt";
 
-            String reu_data = lc.printLogicREU(lc.get_output_gates().get(i));
-            Util.fileWriter(_output_directory + name_reu_data, reu_data, false);
+            String rpu_data = lc.printLogicRPU(lc.get_output_gates().get(i));
+            Util.fileWriter(_output_directory + name_rpu_data, rpu_data, false);
 
             String logic_string = BooleanLogic.logicString(lc.get_output_gates().get(i).get_logics());
             logic_string = logic_string.replaceAll("[^\\d.]", "");
-            String cmd = "perl " + _home + "/resources/scripts/make_gnuplot_truthtable.pl " + _output_directory + " " + _dateID + " " + name_reu_data + " " + logic_string;
+            String cmd = "perl " + _home + "/resources/scripts/make_gnuplot_truthtable.pl " + _output_directory + " " + _dateID + " " + name_rpu_data + " " + logic_string;
             Util.executeCommand(cmd);
         }
     }
@@ -448,17 +448,17 @@ public class Gnuplot {
         String h_datapoints = "";
         for(int h=0; h<g.get_histogram_bins().get_NBINS(); ++h) {
             h_datapoints += g.get_histogram_bins().get_LOG_BIN_CENTERS()[h] + " \t ";
-            for(int row=0; row<g.get_histogram_reus().size(); ++row) {
-                h_datapoints += g.get_histogram_reus().get(row)[h] + " \t ";
+            for(int row=0; row<g.get_histogram_rpus().size(); ++row) {
+                h_datapoints += g.get_histogram_rpus().get(row)[h] + " \t ";
             }
             h_datapoints += "\n";
             //each row of the truth table is a column of fractional counts in the output text file
         }
-        String name_conv_reus = prefix + "_" + g.Name + "_" + suffix + ".txt";
+        String name_conv_rpus = prefix + "_" + g.Name + "_" + suffix + ".txt";
 
         //write data to file, where columns are truth table rows
         //data is not pre-binned, this is done in Gnuplot
-        Util.fileWriter(_output_directory + name_conv_reus, h_datapoints, false);
+        Util.fileWriter(_output_directory + name_conv_rpus, h_datapoints, false);
 
         String logic_string = BooleanLogic.logicString(g.get_logics());
         logic_string = logic_string.replaceAll("[^\\d.]", "");
@@ -466,7 +466,7 @@ public class Gnuplot {
 
         String input_truth_string = "";
 
-        String cmd = "perl " + _home + "/resources/scripts/make_conv_multiplot.pl " + _output_directory + " " + _dateID + " " + name_conv_reus + " " + logic_string + " " + input_truth;
+        String cmd = "perl " + _home + "/resources/scripts/make_conv_multiplot.pl " + _output_directory + " " + _dateID + " " + name_conv_rpus + " " + logic_string + " " + input_truth;
         Util.executeCommand(cmd);
     }
 
@@ -486,21 +486,21 @@ public class Gnuplot {
             String h_datapoints = "";
             for(int h=0; h<g.get_histogram_bins().get_NBINS(); ++h) {
                 h_datapoints += g.get_histogram_bins().get_LOG_BIN_CENTERS()[h] + " \t ";
-                for(int row=0; row<lc.get_output_gates().get(i).get_histogram_reus().size(); ++row) {
-                    h_datapoints += lc.get_output_gates().get(i).get_histogram_reus().get(row)[h] + " \t ";
+                for(int row=0; row<lc.get_output_gates().get(i).get_histogram_rpus().size(); ++row) {
+                    h_datapoints += lc.get_output_gates().get(i).get_histogram_rpus().get(row)[h] + " \t ";
                 }
                 h_datapoints += "\n";
                 //each row of the truth table is a column of fractional counts in the output text file
             }
-            String name_conv_reus = lc.get_assignment_name() + "_" + lc.get_output_gates().get(i).Name + "_" + suffix + ".txt";
+            String name_conv_rpus = lc.get_assignment_name() + "_" + lc.get_output_gates().get(i).Name + "_" + suffix + ".txt";
 
             //write data to file, where columns are truth table rows
             //data is not pre-binned, this is done in Gnuplot
-            Util.fileWriter(_output_directory + name_conv_reus, h_datapoints, false);
+            Util.fileWriter(_output_directory + name_conv_rpus, h_datapoints, false);
 
             String logic_string = BooleanLogic.logicString(lc.get_output_gates().get(i).get_logics());
             logic_string = logic_string.replaceAll("[^\\d.]", "");
-            String cmd = "perl " + _home + "/resources/scripts/make_conv_multiplot.pl " + _output_directory + " " + _dateID + " " + name_conv_reus + " " + logic_string + " " + input_truth;
+            String cmd = "perl " + _home + "/resources/scripts/make_conv_multiplot.pl " + _output_directory + " " + _dateID + " " + name_conv_rpus + " " + logic_string + " " + input_truth;
             String command_result = Util.executeCommand(cmd);
         }
     }
@@ -597,7 +597,7 @@ public class Gnuplot {
                             in1 = Math.pow(10, hbins.get_LOGMAX());
                         }
                     } else {
-                        in1 = child1.get_inreus().get(v).get(row);
+                        in1 = child1.get_inrpus().get(v).get(row);
                     }
 
 
@@ -608,7 +608,7 @@ public class Gnuplot {
                             in2 = Math.pow(10, hbins.get_LOGMAX());
                         }
                     } else {
-                        in2 = child2.get_inreus().get(v).get(row);
+                        in2 = child2.get_inrpus().get(v).get(row);
                     }
 
 
@@ -622,8 +622,8 @@ public class Gnuplot {
                         throw new IllegalStateException("Problem with tandem promoter lookup");
                     }
 
-                    Integer bin1 = HistogramUtil.bin_of_logreu(Math.log10(in1), hbins);
-                    Integer bin2 = HistogramUtil.bin_of_logreu(Math.log10(in2), hbins);
+                    Integer bin1 = HistogramUtil.bin_of_logrpu(Math.log10(in1), hbins);
+                    Integer bin2 = HistogramUtil.bin_of_logrpu(Math.log10(in2), hbins);
 
                     int logic = g.get_logics().get(row);
 

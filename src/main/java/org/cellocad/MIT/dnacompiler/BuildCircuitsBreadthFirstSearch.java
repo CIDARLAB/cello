@@ -95,8 +95,8 @@ public class BuildCircuitsBreadthFirstSearch extends BuildCircuits {
 
                     g.set_unvisited(true);
 
-                    //simulates the REU's
-                    Evaluate.simulateREU(g, get_gate_library(), get_options());
+                    //simulates the RPU's
+                    Evaluate.simulateRPU(g, get_gate_library(), get_options());
 
                     //computes the gate score based on ON/OFF ratio
                     Evaluate.evaluateGate(g, get_options());
@@ -128,7 +128,7 @@ public class BuildCircuitsBreadthFirstSearch extends BuildCircuits {
 
                         gc.set_unvisited(true);
 
-                        Evaluate.simulateREU(gc, get_gate_library(), get_options());
+                        Evaluate.simulateRPU(gc, get_gate_library(), get_options());
 
                         Evaluate.evaluateGate(gc, get_options());
 

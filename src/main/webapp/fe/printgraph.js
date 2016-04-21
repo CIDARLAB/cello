@@ -23,10 +23,10 @@ function printGraph2(circuit) {
         for(var i=0; i<gates.length; ++i) {
 
             for(var f=0; f<gates[i]["fanin"].length; ++f) {
-                s += " " + format(gates[i]["fanin"][f]["to"]["reus"][j].toFixed(2), 5) + " +";
+                s += " " + format(gates[i]["fanin"][f]["to"]["rpus"][j].toFixed(2), 5) + " +";
             }
             s = s.substring(0, s.length - 1);
-            s += "->" + format(gates[i]["reus"][j].toFixed(2), 5) + "    ";
+            s += "->" + format(gates[i]["rpus"][j].toFixed(2), 5) + "    ";
         }
         s += "\n";
     }

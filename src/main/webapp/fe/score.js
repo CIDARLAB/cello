@@ -9,13 +9,13 @@ function computeScore(circuit) {
 
         for (var j = 0; j < 8; ++j) {
             if(g["logics"][j] == 0) {
-                if(g["reus"][j] > off_high) {
-                    off_high = g["reus"][j];
+                if(g["rpus"][j] > off_high) {
+                    off_high = g["rpus"][j];
                 }
             }
             if(g["logics"][j] == 1) {
-                if(g["reus"][j] < on_low) {
-                    on_low = g["reus"][j];
+                if(g["rpus"][j] < on_low) {
+                    on_low = g["rpus"][j];
                 }
             }
         }

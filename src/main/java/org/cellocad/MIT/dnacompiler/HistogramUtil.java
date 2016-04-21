@@ -14,7 +14,7 @@ public class HistogramUtil {
 
     /**
      *
-     * Allows histogram scoring from discrete input REU values
+     * Allows histogram scoring from discrete input RPU values
      *
      * Uses a representative cytometry distribution, and centers the distribution at the desired mean.
      *
@@ -23,24 +23,24 @@ public class HistogramUtil {
 
         ArrayList<Double> histogram = new ArrayList<Double>();
 
-        ArrayList<String> reus = Util.fileLines(file_name_default);
+        ArrayList<String> rpus = Util.fileLines(file_name_default);
 
-        double total_logreu = 0.0;
+        double total_logrpu = 0.0;
 
 
-        for (int r = 0; r < reus.size(); ++r) {
-            double reu = Double.valueOf(reus.get(r));
-            double logreu = Math.log10(reu);
-            total_logreu += logreu;
+        for (int r = 0; r < rpus.size(); ++r) {
+            double rpu = Double.valueOf(rpus.get(r));
+            double logrpu = Math.log10(rpu);
+            total_logrpu += logrpu;
         }
 
 
-        double avg_logreu = total_logreu / reus.size();
+        double avg_logrpu = total_logrpu / rpus.size();
 
-        for (int r = 0; r < reus.size(); ++r) {
-            double reu = Double.valueOf(reus.get(r));
-            double logreu = Math.log10(reu) - avg_logreu + log_mean; //histogram centered at input value
-            histogram.add(logreu);
+        for (int r = 0; r < rpus.size(); ++r) {
+            double rpu = Double.valueOf(rpus.get(r));
+            double logrpu = Math.log10(rpu) - avg_logrpu + log_mean; //histogram centered at input value
+            histogram.add(logrpu);
         }
 
         return histogram;
@@ -74,13 +74,13 @@ public class HistogramUtil {
 
         for(int i=0; i<hbins.get_LOG_BIN_CENTERS().length; ++i) { //scanning x
             double x = hbins.get_LOG_BIN_CENTERS()[i];
-            double reu_x = Math.pow(10, x);
+            double rpu_x = Math.pow(10, x);
 
             HashMap<String, Double> variables = new HashMap<String, Double>();
-            variables.put(var, reu_x);
+            variables.put(var, rpu_x);
 
-            double reu_y = ResponseFunction.computeOutput(variables, g.get_params(), g.get_equation());
-            double hill_mean = Math.log10(reu_y);
+            double rpu_y = ResponseFunction.computeOutput(variables, g.get_params(), g.get_equation());
+            double hill_mean = Math.log10(rpu_y);
             int hill_mean_bin = 0;
             for(int ii=0; ii<hbins.get_NBINS(); ++ii) {
                 hill_mean_bin = ii;
@@ -235,7 +235,7 @@ public class HistogramUtil {
         for(int i=1; i<=12; ++i) {
             xfer_data_raw.add( new ArrayList<Double>() );
 
-            String file_name = filepath + g.Name + "/reus_" + g.Name + "_" + String.format("%02d", i) + ".txt";
+            String file_name = filepath + g.Name + "/rpus_" + g.Name + "_" + String.format("%02d", i) + ".txt";
             //System.out.println("ls " + file_name);
 
             File f = new File(file_name);
@@ -244,10 +244,10 @@ public class HistogramUtil {
                 System.exit(-1);
             }
 
-            ArrayList<String> reu_lines = Util.fileLines(file_name);
-            for (String r : reu_lines) {
-                double logreu = Math.log10(Double.valueOf(r));
-                xfer_data_raw.get(i - 1).add(logreu);
+            ArrayList<String> rpu_lines = Util.fileLines(file_name);
+            for (String r : rpu_lines) {
+                double logrpu = Math.log10(Double.valueOf(r));
+                xfer_data_raw.get(i - 1).add(logrpu);
             }
         }
         xfer_hist.set_xfer_data_raw( xfer_data_raw );
@@ -271,14 +271,14 @@ public class HistogramUtil {
      * Instead, see placeDataIntoBins.
      *
      */
-    public static double[] calcHistogram(ArrayList<Double> data, double min, double max, int numBins, boolean logreu) {
+    public static double[] calcHistogram(ArrayList<Double> data, double min, double max, int numBins, boolean logrpu) {
 
         final double[] result = new double[numBins];
         final double binSize = (max - min)/numBins;
 
         for (double d : data) {
 
-            if(logreu) {
+            if(logrpu) {
                 d = Math.log10(d);
             }
 
@@ -314,7 +314,7 @@ public class HistogramUtil {
     }
 
 
-    //returns REU, not log(REU)
+    //returns RPU, not log(RPU)
     public static double median(ArrayList<Double> m) {
 
         Collections.sort(m);
@@ -329,7 +329,7 @@ public class HistogramUtil {
 
     }
 
-    //returns REU, not log(REU)
+    //returns RPU, not log(RPU)
     public static double median(double[] data, HistogramBins hbins) {
 
         double total_sum = 0.0;
@@ -383,14 +383,14 @@ public class HistogramUtil {
 
     /**
      *
-     * Given an REU, find the bin index of that REU in the histogram
+     * Given an RPU, find the bin index of that RPU in the histogram
      *
      */
-    public static int bin_of_logreu(double logreu, HistogramBins hbins) {
+    public static int bin_of_logrpu(double logrpu, HistogramBins hbins) {
 
         for(int i=0; i<hbins.get_LOG_BIN_CENTERS().length; ++i) {
 
-            if(hbins.get_LOG_BIN_CENTERS()[i] >= logreu) {
+            if(hbins.get_LOG_BIN_CENTERS()[i] >= logrpu) {
                 return i;
             }
         }
@@ -434,7 +434,7 @@ public class HistogramUtil {
     public static double[] normalizeHistogramToNewMedian(double[] histogram, Double new_median, HistogramBins hbins) {
 
         int bin_median = HistogramUtil.bin_median(histogram);
-        int shift = bin_median - HistogramUtil.bin_of_logreu(Math.log10(new_median), hbins);
+        int shift = bin_median - HistogramUtil.bin_of_logrpu(Math.log10(new_median), hbins);
         double[] shifted_histogram = new double[hbins.get_NBINS()];
 
         for(int bin=0; bin<hbins.get_NBINS(); ++bin) {

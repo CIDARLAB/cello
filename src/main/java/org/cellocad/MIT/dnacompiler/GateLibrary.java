@@ -26,21 +26,21 @@ public class GateLibrary {
 
     //logic gates have response functions, but inputs just have ON and OFF values.
 
-    //map the input name to the ON REU value for that input promoter
-    //units of REU (not logREU)
+    //map the input name to the ON RPU value for that input promoter
+    //units of RPU (not logRPU)
     @Getter private final HashMap<String, Double> _INPUTS_ON    = new HashMap<String, Double>();
 
-    //map the input name to the OFF REU value for that input promoter
-    //units of REU (not logREU)
+    //map the input name to the OFF RPU value for that input promoter
+    //units of RPU (not logRPU)
     @Getter private final HashMap<String, Double> _INPUTS_OFF   = new HashMap<String, Double>();
 
     //map the input name to the DNA sequence for that input promoter
     @Getter private final HashMap<String, String> _INPUTS_SEQ = new HashMap<String, String>();
 
-    //map the input name to the ON REU histogram value for that input
+    //map the input name to the ON RPU histogram value for that input
     @Getter private final HashMap<String, double[] > _INPUTS_HIST_ON = new HashMap<String, double[] >();
 
-    //map the input name to the OFF REU histogram value for that input
+    //map the input name to the OFF RPU histogram value for that input
     @Getter private final HashMap<String, double[] > _INPUTS_HIST_OFF = new HashMap<String, double[] >();
 
     //map the output name to the DNA sequence of the output cassette.

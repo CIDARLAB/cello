@@ -7,7 +7,7 @@ chdir($location);
 my $dateID = $ARGV[1];
 
 
-###################################### gnuplot figures for REU wiring
+###################################### gnuplot figures for RPU wiring
 
 my $gpquery = $dateID . "*snr*.gp";
 my @files = qx{ls $gpquery};

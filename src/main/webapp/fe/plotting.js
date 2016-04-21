@@ -77,22 +77,22 @@ function plotTransferFunction(g, i) {
 
     for(var j=0; j<8; ++j) {
 
-        var fanin_reu = 0;
+        var fanin_rpu = 0;
 
         for (var k = 0; k < g["fanin"].length; ++k) {
-            fanin_reu += g["fanin"][k]["to"]["reus"][j];
+            fanin_rpu += g["fanin"][k]["to"]["rpus"][j];
         }
 
         if(g["logics"][j] == 0) {
             //inputs should be high
-            if(fanin_reu < on_low_x) {
-                on_low_x = fanin_reu;
+            if(fanin_rpu < on_low_x) {
+                on_low_x = fanin_rpu;
             }
         }
         if(g["logics"][j] == 1) {
             //inputs should be low
-            if(fanin_reu > off_high_x) {
-                off_high_x = fanin_reu;
+            if(fanin_rpu > off_high_x) {
+                off_high_x = fanin_rpu;
             }
         }
     }
@@ -154,10 +154,10 @@ function updateOutputTable(circuit) {
     var out_pre_html = "out\n";
 
     for(var i=0; i<8; ++i) {
-        in1_pre_html += format(circuit["input_gates"][0]["reus"][i].toFixed(2), 5) + " : " + circuit["input_gates"][0]["logics"][i] + '\n';
-        in2_pre_html += format(circuit["input_gates"][1]["reus"][i].toFixed(2), 5) + " : " + circuit["input_gates"][1]["logics"][i] + '\n';
-        in3_pre_html += format(circuit["input_gates"][2]["reus"][i].toFixed(2), 5) + " : " + circuit["input_gates"][2]["logics"][i] + '\n';
-        out_pre_html += format(circuit["output_gates"][0]["reus"][i].toFixed(2), 5) + " : " + circuit["output_gates"][0]["logics"][i] + '\n';
+        in1_pre_html += format(circuit["input_gates"][0]["rpus"][i].toFixed(2), 5) + " : " + circuit["input_gates"][0]["logics"][i] + '\n';
+        in2_pre_html += format(circuit["input_gates"][1]["rpus"][i].toFixed(2), 5) + " : " + circuit["input_gates"][1]["logics"][i] + '\n';
+        in3_pre_html += format(circuit["input_gates"][2]["rpus"][i].toFixed(2), 5) + " : " + circuit["input_gates"][2]["logics"][i] + '\n';
+        out_pre_html += format(circuit["output_gates"][0]["rpus"][i].toFixed(2), 5) + " : " + circuit["output_gates"][0]["logics"][i] + '\n';
     }
     $('#in1_pre').html(in1_pre_html);
     $('#in2_pre').html(in2_pre_html);

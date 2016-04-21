@@ -80,7 +80,7 @@ print GP "set key off\n";
 print GP "set xrange [0.5:$nrows+0.5]\n";
 print GP "set yrange [0.001:100.0]\n";
 #print GP "set format x \"\"\n";
-#print GP "set ylabel \"Output (REU)\"\n";
+#print GP "set ylabel \"Output (RPU)\"\n";
 #print GP "set xlabel \"Input Logic\"\n";
 #print GP "set format y \"\"\n";
 #print GP "set xtic rotate by -90\n";

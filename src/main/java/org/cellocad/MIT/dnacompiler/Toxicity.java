@@ -10,8 +10,8 @@ import java.util.Collections;
  * Gate Toxicity: 1=nontoxic growth, 0=no growth. Circuit Toxicity is multiplicative for all gates.
  *
  * Toxicity data for a repressor takes the form of an array of OD measurements, where each OD measurement
- * corresponds to an input REU level.  Toxicity evaluation is performed by a weighted average of the nearest OD datapoints
- * given the incoming REU.
+ * corresponds to an input RPU level.  Toxicity evaluation is performed by a weighted average of the nearest OD datapoints
+ * given the incoming RPU.
  *
  * In the Toxicity table, OD measurements are normalized by the uninduced OD measurement for each repressor.
  * Value of 1.0 means non-toxic.  Value below 1.0 indicates the degree of Toxicity.
@@ -37,7 +37,7 @@ public class Toxicity {
 
 
     /**
-     * Interpolate OD value (get weighted average) for nearest input REUs from the ToxicityTable.
+     * Interpolate OD value (get weighted average) for nearest input RPUs from the ToxicityTable.
      * Do this for all rows in truth table.
      *
      */
@@ -55,9 +55,9 @@ public class Toxicity {
 
                 ArrayList<Double> toxicity = new ArrayList<Double>();
 
-                ArrayList<Double> input_reu_rows = g.get_inreus().get(var);
+                ArrayList<Double> input_rpu_rows = g.get_inrpus().get(var);
 
-                for (int i = 0; i < input_reu_rows.size(); ++i) {
+                for (int i = 0; i < input_rpu_rows.size(); ++i) {
                     toxicity.add(1.0);
                 }
 
@@ -67,38 +67,38 @@ public class Toxicity {
 
                 ArrayList<Double> toxicity = new ArrayList<Double>();
 
-                ArrayList<Double> input_reu_rows = g.get_inreus().get(var);
+                ArrayList<Double> input_rpu_rows = g.get_inrpus().get(var);
 
-                for (int i = 0; i < input_reu_rows.size(); ++i) {
+                for (int i = 0; i < input_rpu_rows.size(); ++i) {
 
-                    double incoming_reu = input_reu_rows.get(i);
+                    double incoming_rpu = input_rpu_rows.get(i);
 
                     double tox_score = 1.0;
 
-                    //if incoming reu is below the first titration reu
-                    if (incoming_reu < g.get_toxtable().get(0).get_x()) {
+                    //if incoming rpu is below the first titration rpu
+                    if (incoming_rpu < g.get_toxtable().get(0).get_x()) {
                         tox_score = g.get_toxtable().get(0).get_y();
                     }
 
-                    //if incoming reu is above the last titration reu
-                    else if (incoming_reu > g.get_toxtable().get(g.get_toxtable().size() - 1).get_x()) {
+                    //if incoming rpu is above the last titration rpu
+                    else if (incoming_rpu > g.get_toxtable().get(g.get_toxtable().size() - 1).get_x()) {
                         tox_score = g.get_toxtable().get(g.get_toxtable().size() - 1).get_y();
                     }
 
-                    //if incoming reu is in the titration range, use weighted average of the two surrounding titration points
+                    //if incoming rpu is in the titration range, use weighted average of the two surrounding titration points
                     else {
-                        //...search titrations until titration > incoming reu
+                        //...search titrations until titration > incoming rpu
                         for (int t = 0; t < g.get_toxtable().size(); ++t) {
 
-                            if (incoming_reu < g.get_toxtable().get(t).get_x()) {
+                            if (incoming_rpu < g.get_toxtable().get(t).get_x()) {
 
-                                double lower_reu = Math.log10(g.get_toxtable().get(t - 1).get_x());
-                                double upper_reu = Math.log10(g.get_toxtable().get(t).get_x());
+                                double lower_rpu = Math.log10(g.get_toxtable().get(t - 1).get_x());
+                                double upper_rpu = Math.log10(g.get_toxtable().get(t).get_x());
 
                                 double lower_tox = g.get_toxtable().get(t - 1).get_y();
                                 double upper_tox = g.get_toxtable().get(t).get_y();
 
-                                double weight = (Math.log10(incoming_reu) - lower_reu) / (upper_reu - lower_reu);
+                                double weight = (Math.log10(incoming_rpu) - lower_rpu) / (upper_rpu - lower_rpu);
 
                                 double weighted_avg = (lower_tox * (1 - weight)) + (upper_tox * weight);
 
@@ -106,9 +106,9 @@ public class Toxicity {
                                 //tox_score = tox_table.get(Name.Repressor(g)).get(t - 1);
 
                                 //for example,
-                                // input_reu = 16
-                                // reu titration  8.44 = tox 0.12 for QacR
-                                // reu titration 17.52 = tox 0.05 for QacR
+                                // input_rpu = 16
+                                // rpu titration  8.44 = tox 0.12 for QacR
+                                // rpu titration 17.52 = tox 0.05 for QacR
                                 // weighted_avg_tox = 0.051
                                 break;
                             }

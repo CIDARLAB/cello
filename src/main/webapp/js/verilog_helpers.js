@@ -12,14 +12,14 @@ function setVerilogMethod() {
 
         var input_obj1 = {};
         input_obj1.prom_name = "pTac";
-        input_obj1.lowreu = 0.0034;
-        input_obj1.highreu = 2.8;
+        input_obj1.lowrpu = 0.0034;
+        input_obj1.highrpu = 2.8;
         input_obj1.dnaseq = "AACGATCGTTGGCTGTGTTGACAATTAATCATCGGCTCGTATAATGTGTGGAATTGTGAGCGCTCACAATT";
 
         var input_obj2 = {};
         input_obj2.prom_name = "pTet";
-        input_obj2.lowreu = 0.0013;
-        input_obj2.highreu = 4.4;
+        input_obj2.lowrpu = 0.0013;
+        input_obj2.highrpu = 4.4;
         input_obj2.dnaseq = "TACTCCACCGTTGGCTTTTTTCCCTATCAGTGATAGAGATTGACATCCCTATCAGTGATAGAGATAATGAGCAC";
 
         vio.inputs.push(input_obj1);

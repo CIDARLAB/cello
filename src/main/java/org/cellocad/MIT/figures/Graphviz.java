@@ -20,7 +20,7 @@ public class Graphviz {
      This function was originally written to make animated GIFs to illustrate assignment algorithms.
      Now it's used to generate one graphviz file with transfer function images as nodes
 
-     example file name: 1404317484362_A000_wiring_reu.dot
+     example file name: 1404317484362_A000_wiring_rpu.dot
 
      ***********************************************************************/
     public void printGraphvizXferPNG(LogicCircuit lc, String outfile) { //single output only

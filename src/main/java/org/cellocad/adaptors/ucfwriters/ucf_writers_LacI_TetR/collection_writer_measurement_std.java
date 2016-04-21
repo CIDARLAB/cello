@@ -14,7 +14,7 @@ public class collection_writer_measurement_std extends collection_writer {
 
         Map obj = new LinkedHashMap();
         obj.put("collection", "measurement_std");
-        obj.put("signal_carrier_units", "REU");
+        obj.put("signal_carrier_units", "RPU");
         obj.put("normalization_instructions", "");
 
         obj.put("plasmid_description", "");

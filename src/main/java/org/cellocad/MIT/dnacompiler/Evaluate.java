@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 /***********************************************************************
 
- Synopsis    [ Compute out_reu from in_reu given the 4 transfer function parameters. ]
+ Synopsis    [ Compute out_rpu from in_rpu given the 4 transfer function parameters. ]
 
  ***********************************************************************/
 
@@ -25,7 +25,7 @@ public class Evaluate {
      *      score = log(ON/OFF), where ON is the lowest ON in the truthtable, and OFF is the highest off in the truthtable
      *
      * -circuit_score noise_margin
-     *      noise margin is computed from input REU distance from low margin (if low) or high margin (if high)
+     *      noise margin is computed from input RPU distance from low margin (if low) or high margin (if high)
      *      score = average noise margin of all logic gates
      *      used for NOR/NOT only, and cannot be used if there are input gates and no logic gates
      *
@@ -44,18 +44,18 @@ public class Evaluate {
         //if sequential
         if(options.get_circuit_type() == DNACompiler.CircuitType.sequential) {
 
-            SequentialHelper.setInitialREUs(lc, gate_library);
+            SequentialHelper.setInitialRPUs(lc, gate_library);
 
-            HashMap<String, ArrayList<ArrayList<Double>>> track_reus = new HashMap<>();
+            HashMap<String, ArrayList<ArrayList<Double>>> track_rpus = new HashMap<>();
 
             for (Gate g : lc.get_Gates()) {
-                track_reus.put(g.Name, new ArrayList<ArrayList<Double>>());
-                ArrayList<Double> copy_reus = new ArrayList<Double>(g.get_outreus());
-                track_reus.get(g.Name).add(copy_reus);
-                track_reus.get(g.Name).add(copy_reus);
+                track_rpus.put(g.Name, new ArrayList<ArrayList<Double>>());
+                ArrayList<Double> copy_rpus = new ArrayList<Double>(g.get_outrpus());
+                track_rpus.get(g.Name).add(copy_rpus);
+                track_rpus.get(g.Name).add(copy_rpus);
             }
 
-            boolean converges = SequentialHelper.convergeREUs(lc, gate_library, options, track_reus);
+            boolean converges = SequentialHelper.convergeRPUs(lc, gate_library, options, track_rpus);
 
             if(!converges) {
 
@@ -69,7 +69,7 @@ public class Evaluate {
 
         //if combinational
         else if(options.get_circuit_type() == DNACompiler.CircuitType.combinational) {
-            simulateREU(lc, gate_library, options);
+            simulateRPU(lc, gate_library, options);
         }
 
 
@@ -177,26 +177,26 @@ public class Evaluate {
         if(options.get_circuit_type() == DNACompiler.CircuitType.sequential) {
 
             //set initial
-            SequentialHelper.setInitialHistogramREUs(lc, gate_library);
+            SequentialHelper.setInitialHistogramRPUs(lc, gate_library);
 
 
             //track
-            HashMap<String, ArrayList<ArrayList<double[]>>> track_reus = new HashMap<>();
+            HashMap<String, ArrayList<ArrayList<double[]>>> track_rpus = new HashMap<>();
             for (Gate g : lc.get_Gates()) {
-                track_reus.put(g.Name, new ArrayList<ArrayList<double[]>>());
-                ArrayList<double[]> copy_hist_reus = new ArrayList<double[]>(g.get_histogram_reus());
-                track_reus.get(g.Name).add(copy_hist_reus);
-                track_reus.get(g.Name).add(copy_hist_reus); //looks for i-1
+                track_rpus.put(g.Name, new ArrayList<ArrayList<double[]>>());
+                ArrayList<double[]> copy_hist_rpus = new ArrayList<double[]>(g.get_histogram_rpus());
+                track_rpus.get(g.Name).add(copy_hist_rpus);
+                track_rpus.get(g.Name).add(copy_hist_rpus); //looks for i-1
             }
 
             //converge
-            SequentialHelper.convergeHistogramREUs(lc, gate_library, options, track_reus);
+            SequentialHelper.convergeHistogramRPUs(lc, gate_library, options, track_rpus);
         }
 
 
         //if combinational
         else if(options.get_circuit_type() == DNACompiler.CircuitType.combinational) {
-            Evaluate.simulateHistogramREU(lc, gate_library, options);
+            Evaluate.simulateHistogramRPU(lc, gate_library, options);
         }
 
 
@@ -233,9 +233,9 @@ public class Evaluate {
         for(Gate input: lc.get_input_gates()) {
             for (int i = 0; i < input.get_logics().size(); ++i) {
                 if (input.get_logics().get(i) == 1) {
-                    input_ons.add(input.get_outreus().get(i));
+                    input_ons.add(input.get_outrpus().get(i));
                 } else if (input.get_logics().get(i) == 0) {
-                    input_offs.add(input.get_outreus().get(i));
+                    input_offs.add(input.get_outrpus().get(i));
                 }
             }
         }
@@ -250,9 +250,9 @@ public class Evaluate {
         for(Gate output: lc.get_output_gates()) {
             for (int i = 0; i < output.get_logics().size(); ++i) {
                 if (output.get_logics().get(i) == 1) {
-                    output_ons.add(output.get_outreus().get(i));
+                    output_ons.add(output.get_outrpus().get(i));
                 } else if (output.get_logics().get(i) == 0) {
-                    output_offs.add(output.get_outreus().get(i));
+                    output_offs.add(output.get_outrpus().get(i));
                 }
             }
         }
@@ -284,7 +284,7 @@ public class Evaluate {
     public static void evaluateGate(Gate g, Args options) {
 
         //refreshGateAttributes(g);
-        //simulateREU(g);
+        //simulateRPU(g);
 
         evaluateGateONOFFRatio(g);
 
@@ -305,26 +305,26 @@ public class Evaluate {
      */
     public static void evaluateGateONOFFRatio(Gate g){
 
-        double lowest_on_reu   = Double.MAX_VALUE;
-        double highest_off_reu = Double.MIN_VALUE;
+        double lowest_on_rpu   = Double.MAX_VALUE;
+        double highest_off_rpu = Double.MIN_VALUE;
 
         for(int i=0; i<g.get_logics().size(); ++i) { //for each row in the truth table...
             //if (!Args.dontcare_rows.contains(i)) { //don't score dontcare rows
-            Double reu = g.get_outreus().get(i);
+            Double rpu = g.get_outrpus().get(i);
 
             if (g.get_logics().get(i) == 1) {
-                if (lowest_on_reu > reu) {
-                    lowest_on_reu = reu;
+                if (lowest_on_rpu > rpu) {
+                    lowest_on_rpu = rpu;
                 }
             } else if (g.get_logics().get(i) == 0) {
-                if (highest_off_reu < reu) {
-                    highest_off_reu = reu;
+                if (highest_off_rpu < rpu) {
+                    highest_off_rpu = rpu;
                 }
             }
             //}
         }
-        //g.get_scores().set_onoff_ratio( Math.log10(lowest_on_reu/highest_off_reu) );
-        g.get_scores().set_onoff_ratio( lowest_on_reu/highest_off_reu );
+        //g.get_scores().set_onoff_ratio( Math.log10(lowest_on_rpu/highest_off_rpu) );
+        g.get_scores().set_onoff_ratio(lowest_on_rpu/highest_off_rpu );
     }
 
     /**
@@ -358,8 +358,8 @@ public class Evaluate {
 
                 //if(!Args.dontcare_rows.contains(on) && !Args.dontcare_rows.contains(off)) {
 
-                double median_on = Math.pow(Math.E, HistogramUtil.median(g.get_histogram_reus().get(ons.get(on)), g.get_histogram_bins() ));
-                double median_off = Math.pow(Math.E, HistogramUtil.median(g.get_histogram_reus().get(offs.get(off)), g.get_histogram_bins() ));
+                double median_on = Math.pow(Math.E, HistogramUtil.median(g.get_histogram_rpus().get(ons.get(on)), g.get_histogram_bins() ));
+                double median_off = Math.pow(Math.E, HistogramUtil.median(g.get_histogram_rpus().get(offs.get(off)), g.get_histogram_bins() ));
                 double score = 1 - median_off / median_on;
                 double overlap_penalty = 0.0;
 
@@ -368,8 +368,8 @@ public class Evaluate {
                     scores_conv_overlap.add(0.0);
                     continue;
                 } else {
-                    double[] on_norm = HistogramUtil.normalize(g.get_histogram_reus().get(ons.get(on)));
-                    double[] off_norm = HistogramUtil.normalize(g.get_histogram_reus().get(offs.get(off)));
+                    double[] on_norm = HistogramUtil.normalize(g.get_histogram_rpus().get(ons.get(on)));
+                    double[] off_norm = HistogramUtil.normalize(g.get_histogram_rpus().get(offs.get(off)));
 
                     //penalty is sum of geometric means for each bin
                     //total counts have been normalized to 1
@@ -393,7 +393,7 @@ public class Evaluate {
 
 
     /**
-     * gate score = smallest noise margin (distance in log(REU) of input REU to margin REU)
+     * gate score = smallest noise margin (distance in log(RPU) of input RPU to margin RPU)
      */
     public static void evaluateGateNoiseMargin(Gate g, Args options){
 
@@ -407,33 +407,33 @@ public class Evaluate {
         }
 
         //"x" to value
-        HashMap<String, Double> lowest_on_reu = GateUtil.getIncomingONlow(g);
-        HashMap<String, Double> highest_off_reu = GateUtil.getIncomingOFFhigh(g);
+        HashMap<String, Double> lowest_on_rpu = GateUtil.getIncomingONlow(g);
+        HashMap<String, Double> highest_off_rpu = GateUtil.getIncomingOFFhigh(g);
 
         ArrayList<Double> all_margins = new ArrayList<Double>();
 
-        for (String var : highest_off_reu.keySet()) {
+        for (String var : highest_off_rpu.keySet()) {
 
             if (g.get_variable_thresholds().get(var) != null) {
 
                 //IL is the input-low threshold
                 Double IL = g.get_variable_thresholds().get(var)[0];
 
-                //actual REU
-                Double log_input_reu = Math.log10(highest_off_reu.get(var));
+                //actual RPU
+                Double log_input_rpu = Math.log10(highest_off_rpu.get(var));
 
-                //NML is the margin/width between the actual REU and the threshold REU
-                Double NML = Math.log10(IL) - log_input_reu;
+                //NML is the margin/width between the actual RPU and the threshold RPU
+                Double NML = Math.log10(IL) - log_input_rpu;
 
                 all_margins.add(NML);
             }
         }
 
-        for (String var : lowest_on_reu.keySet()) {
+        for (String var : lowest_on_rpu.keySet()) {
 
             if (g.get_variable_thresholds().get(var) != null) {
                 Double IH = g.get_variable_thresholds().get(var)[1];
-                Double NMH = Math.log10(lowest_on_reu.get(var)) - Math.log10(IH);
+                Double NMH = Math.log10(lowest_on_rpu.get(var)) - Math.log10(IH);
                 all_margins.add(NMH);
             }
         }
@@ -466,10 +466,10 @@ public class Evaluate {
         //get ons and offs
         for(int i=0; i<g.get_logics().size(); ++i){
             if(g.get_logics().get(i) == 1){
-                ons.add(g.get_outreus().get(i));
+                ons.add(g.get_outrpus().get(i));
             }
             else if(g.get_logics().get(i) == 0){
-                offs.add(g.get_outreus().get(i));
+                offs.add(g.get_outrpus().get(i));
             }
         }
 
@@ -479,9 +479,9 @@ public class Evaluate {
         for(Gate child: g.getChildren()) {
             for (int i = 0; i < child.get_logics().size(); ++i) {
                 if (child.get_logics().get(i) == 1) {
-                    child_ons.add(child.get_outreus().get(i));
+                    child_ons.add(child.get_outrpus().get(i));
                 } else if (child.get_logics().get(i) == 0) {
-                    child_offs.add(child.get_outreus().get(i));
+                    child_offs.add(child.get_outrpus().get(i));
                 }
             }
         }
@@ -533,25 +533,25 @@ public class Evaluate {
     /**
      *
      * for all logic and output gates:
-     *     set flag simulate_reu = true (indicates that REU needs to be simulated)
-     *     then call simulateREU() in Gate.java
+     *     set flag simulate_rpu = true (indicates that RPU needs to be simulated)
+     *     then call simulateRPU() in Gate.java
      *
      * Hill function evaluation
      *
      */
-    public static void simulateREU(LogicCircuit lc, GateLibrary gate_library, Args options){
+    public static void simulateRPU(LogicCircuit lc, GateLibrary gate_library, Args options){
         ArrayList<Gate> logic_and_output_gates = new ArrayList<Gate>();
         logic_and_output_gates.addAll(lc.get_logic_gates());
         logic_and_output_gates.addAll(lc.get_output_gates());
 
 
-        //input gate REU already set
-        //make sure that all gates are re-simulated by setting simulate_reu to TRUE
+        //input gate RPU already set
+        //make sure that all gates are re-simulated by setting simulate_rpu to TRUE
         for(Gate gate: logic_and_output_gates){
             gate.set_unvisited(true);
         }
         for(Gate gate: logic_and_output_gates){
-            simulateREU(gate, gate_library, options);
+            Evaluate.simulateRPU(gate, gate_library, options);
         }
     }
 
@@ -560,18 +560,18 @@ public class Evaluate {
      * Same as above, but converts input distr to output distr using a matrix transfer function
      *
      */
-    public static void simulateHistogramREU(LogicCircuit lc, GateLibrary gate_library, Args options){
+    public static void simulateHistogramRPU(LogicCircuit lc, GateLibrary gate_library, Args options){
 
         ArrayList<Gate> logic_and_output_gates = new ArrayList<Gate>();
         logic_and_output_gates.addAll(lc.get_logic_gates());
         logic_and_output_gates.addAll(lc.get_output_gates());
 
-        //input gate REU already set
+        //input gate RPU already set
         for(Gate gate: logic_and_output_gates){
             gate.set_unvisited(true);
         }
         for(Gate gate: logic_and_output_gates){
-            simulateHistogramREU(gate, gate_library, options);
+            simulateHistogramRPU(gate, gate_library, options);
         }
     }
 
@@ -680,13 +680,13 @@ public class Evaluate {
      this method is recursive
      Note: Recursion is not necessary and does not occur if we sort the gates by distance to input, then simulate logic in that order.
 
-     For NOT gate, compute output REU based on child1 REU and xfer function
-     For NOR gate, compute output REU based on child1 REU + child2 REU and xfer function
-     For OUTPUT gate, output REU = child1 REU
-     For OUTPUT_OR gate, output REU = child1 REU + child2 REU
+     For NOT gate, compute output RPU based on child1 RPU and xfer function
+     For NOR gate, compute output RPU based on child1 RPU + child2 RPU and xfer function
+     For OUTPUT gate, output RPU = child1 RPU
+     For OUTPUT_OR gate, output RPU = child1 RPU + child2 RPU
 
      ***********************************************************************/
-    public static void simulateREU(Gate g, GateLibrary gate_library, Args options){
+    public static void simulateRPU(Gate g, GateLibrary gate_library, Args options){
 
         if (g.is_unvisited()) {
 
@@ -696,7 +696,7 @@ public class Evaluate {
             ArrayList<Gate> children = g.getChildren();
             for(Gate child: children) {
                 if(child.is_unvisited()) {
-                    simulateREU(child, gate_library, options);
+                    Evaluate.simulateRPU(child, gate_library, options);
                 }
             }
 
@@ -712,14 +712,14 @@ public class Evaluate {
             ///////////////////////////////////////////////////////////////////
             //now that the best variable mapping was found, resimulate
             ///////////////////////////////////////////////////////////////////
-            g.get_outreus().clear();
+            g.get_outrpus().clear();
 
-            g.get_inreus().clear();
+            g.get_inrpus().clear();
 
 
             for (int i = 0; i < g.get_logics().size(); ++i) { //rows in truth table
                 /*if (Args.dontcare_rows.contains(i)) {
-                    g.get_outreus().add(0.0);
+                    g.get_outrpus().add(0.0);
                     continue;
                 }*/
 
@@ -727,7 +727,7 @@ public class Evaluate {
 
                 /**
                  * For example, String = "x".
-                 * Double = summed REUs for tandem promoters
+                 * Double = summed RPUs for tandem promoters
                  * i is the row in the truth table.
                  */
                 HashMap<String, Double> variable_values = GateUtil.getVariableValues(g, i, gate_library, options);
@@ -735,14 +735,14 @@ public class Evaluate {
                 //v = "x"
                 for(String v: variable_values.keySet()) {
 
-                    if(!g.get_inreus().containsKey(v)) {
+                    if(!g.get_inrpus().containsKey(v)) {
                         //initialize with empty arraylist
-                        g.get_inreus().put(v, new ArrayList<Double>());
+                        g.get_inrpus().put(v, new ArrayList<Double>());
                     }
-                    g.get_inreus().get(v).add(variable_values.get(v));
+                    g.get_inrpus().get(v).add(variable_values.get(v));
                 }
 
-                double output_reu = ResponseFunction.computeOutput(
+                double output_rpu = ResponseFunction.computeOutput(
                         //sum contributions of tandem promoters for this row in the truth table
                         //...unless there is tandem promoter data, then we look up the value instead of adding
                         variable_values,
@@ -750,7 +750,7 @@ public class Evaluate {
                         g.get_equation()
                 );
 
-                g.get_outreus().add(output_reu);
+                g.get_outrpus().add(output_rpu);
             }
 
 
@@ -781,24 +781,24 @@ public class Evaluate {
         int v = 0;
         for (ArrayList<String> variable_name_order : variable_name_orders) {
 
-            g.get_outreus().clear();
+            g.get_outrpus().clear();
 
             for (int i = 0; i < g.get_logics().size(); ++i) { //rows in truth table
 
                 /*if (Args.dontcare_rows.contains(i)) {
-                    g.get_outreus().add(0.0);
+                    g.get_outrpus().add(0.0);
                     continue;
                 }*/
 
                 GateUtil.mapWiresToVariables(g, variable_name_order);
 
-                double output_reu = ResponseFunction.computeOutput(
+                double output_rpu = ResponseFunction.computeOutput(
                         GateUtil.getVariableValues(g, i, gate_library, options),
                         g.get_params(),
                         g.get_equation()
                 );
 
-                g.get_outreus().add(output_reu);
+                g.get_outrpus().add(output_rpu);
             }
 
             evaluateGate(g, options);
@@ -822,7 +822,7 @@ public class Evaluate {
      Synopsis    [  ]
 
      ***********************************************************************/
-    public static void simulateHistogramREU(Gate g, GateLibrary gate_library, Args options) {
+    public static void simulateHistogramRPU(Gate g, GateLibrary gate_library, Args options) {
 
         if (g.is_unvisited()) {
 
@@ -832,49 +832,49 @@ public class Evaluate {
             ArrayList<Gate> children = g.getChildren();
             for(Gate child: children) {
                 if(child.is_unvisited()) {
-                    simulateHistogramREU(child,gate_library,options);
+                    simulateHistogramRPU(child,gate_library,options);
                 }
             }
 
             //initialize
-            g.get_histogram_reus().clear();
+            g.get_histogram_rpus().clear();
             for (int i = 0; i < g.get_logics().size(); ++i) { //rows in truth table
 
-                g.get_histogram_reus().add(new double[g.get_histogram_bins().get_NBINS()]);
+                g.get_histogram_rpus().add(new double[g.get_histogram_bins().get_NBINS()]);
                 for (int j = 0; j < g.get_histogram_bins().get_NBINS(); ++j) {
-                    g.get_histogram_reus().get(i)[j] = 0.0;
+                    g.get_histogram_rpus().get(i)[j] = 0.0;
                 }
             }
 
             if ( g.Type == GateType.OUTPUT_OR || g.Type == GateType.OUTPUT ) {
-                g.set_histogram_reus(GateUtil.getSumOfGateInputHistograms(g, gate_library, options));
+                g.set_histogram_rpus(GateUtil.getSumOfGateInputHistograms(g, gate_library, options));
                 GateUtil.outputHistogramUnitConversion(g);
             }
             else if (g.Type == GateType.AND) {
-                g.set_histogram_reus(GateUtil.getANDOfGateInputHistograms(g));
+                g.set_histogram_rpus(GateUtil.getANDOfGateInputHistograms(g));
             }
             else if (g.Type == GateType.NOT || g.Type == GateType.NOR){
                 //2. For each row: for each bin: for each output bin: add normalizeToValue
-                ArrayList<double[]> input_convreus = GateUtil.getSumOfGateInputHistograms(g, gate_library,options);
-                g.set_in_histogram_reus(input_convreus);
+                ArrayList<double[]> input_convrpus = GateUtil.getSumOfGateInputHistograms(g, gate_library,options);
+                g.set_in_histogram_rpus(input_convrpus);
                 
-                for (int i = 0; i < input_convreus.size(); ++i) {
+                for (int i = 0; i < input_convrpus.size(); ++i) {
 
                     /*if(Args.dontcare_rows.contains(i)) {
-                        for(int bin=0; bin< g.get_histogram_reus().get(i).length; ++bin) {
-                            g.get_histogram_reus().get(i)[bin] = 0.0;
+                        for(int bin=0; bin< g.get_histogram_rpus().get(i).length; ++bin) {
+                            g.get_histogram_rpus().get(i)[bin] = 0.0;
                         }
                         continue;
                     }*/
 
-                    double[] convhist = input_convreus.get(i);
+                    double[] convhist = input_convrpus.get(i);
 
                     for (int bin = 0; bin < g.get_histogram_bins().get_NBINS(); ++bin) {
                         double fractional_counts = convhist[bin];
                         double[] xslice = g.get_xfer_hist().get_xfer_interp().get(bin);
 
                         for(int xslice_bin = 0; xslice_bin<g.get_histogram_bins().get_NBINS(); ++xslice_bin) {
-                            g.get_histogram_reus().get(i)[xslice_bin] += xslice[xslice_bin] * fractional_counts;
+                            g.get_histogram_rpus().get(i)[xslice_bin] += xslice[xslice_bin] * fractional_counts;
                         }
                     }
                 }

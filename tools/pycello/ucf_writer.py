@@ -189,7 +189,7 @@ def writeUCF(table, header_map):
     # description only, values not parsed
     measurement_std = {}
     measurement_std["collection"] = "measurement_std"
-    measurement_std["signal_carrier_units"] = "REU"
+    measurement_std["signal_carrier_units"] = "RPU"
     measurement_std["normalization_instructions"] = "placeholder"
     measurement_std["plasmid_description"] = "placeholder"
     measurement_std["plasmid_sequence"] = "placeholder"

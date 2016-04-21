@@ -8,7 +8,7 @@ Note: Maven is used for software project management and should be installed on y
 Cello can be used without downloading/installing anything!  All you need is a web browser:
 
 * login at www.cellocad.org
-* specify input promoters (name, REU ON/OFF levels, DNA sequence)
+* specify input promoters (name, RPU ON/OFF levels, DNA sequence)
 * specify output gene(s) (name, DNA sequence)
 * specify Verilog (use the drop-down list to get started with case, assign, or structural Verilog)
 * click "Run":
@@ -205,8 +205,8 @@ mvn -f ~/cello/pom.xml -DskipTests=true -PCelloMain -Dexec.args="-verilog demo_v
 [input promoters example file](resources/data/inputs/Inputs.txt)
 
 (column 1: promoter name)
-(column 2: low REU)
-(column 3: high REU)
+(column 2: low RPU)
+(column 3: high RPU)
 (column 4: DNA sequence)
 
 [output genes example file](resources/data/outputs/Outputs.txt)

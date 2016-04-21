@@ -26,7 +26,7 @@ public class HistogramXfer {
     //
     /////////////////////////
     //for 12 titrations, the outer arraylist size will be 12.
-    //The inner arraylist will typically be tens of thousands of values (fluorescence values normalized to REU)
+    //The inner arraylist will typically be tens of thousands of values (fluorescence values normalized to RPU)
     @Getter @Setter private ArrayList< ArrayList<Double> > _xfer_data_raw = new ArrayList< ArrayList<Double> >();
 
     //titration data
@@ -35,7 +35,7 @@ public class HistogramXfer {
     @Getter @Setter private ArrayList<double[]> _xfer_binned;
 
     //the length is the same as the number of titrations, i.e. 12.
-    //the values are the x-axis input REU values that correspond to each titration
+    //the values are the x-axis input RPU values that correspond to each titration
     @Getter @Setter private ArrayList<Double> _xfer_titration;
 
     //titration data interpolated based on _xfer_binned and _xfer_titration

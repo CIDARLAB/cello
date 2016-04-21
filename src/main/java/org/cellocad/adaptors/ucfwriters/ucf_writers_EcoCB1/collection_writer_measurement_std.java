@@ -22,8 +22,8 @@ public class collection_writer_measurement_std extends collection_writer {
 
         Map obj = new LinkedHashMap();
         obj.put("collection", "measurement_std");
-        obj.put("signal_carrier_units", "REU");
-        obj.put("normalization_instructions", "The following equation converts the median YFP fluorescence to REU.  REU = (YFP – YFP0)/(YFPREU – YFP0), where YFP is the median fluorescence of the cells of interest, YFP0 is the median autofluorescence, and YFPREU is the median fluorescence of the cells containing the measurement standard plasmid");
+        obj.put("signal_carrier_units", "RPU");
+        obj.put("normalization_instructions", "The following equation converts the median YFP fluorescence to RPU.  RPU = (YFP – YFP0)/(YFPRPU – YFP0), where YFP is the median fluorescence of the cells of interest, YFP0 is the median autofluorescence, and YFPRPU is the median fluorescence of the cells containing the measurement standard plasmid");
         obj.put("plasmid_description", "p15A plasmid backbone with kanamycin resistance and a YFP expression cassette. Upstream isulation by terminator L3S3P21\n" +
                 "and a 5’-promoter spacer.  Promoter BBa_J23101, ribozyme RiboJ, RBS BBa_B0064 drives constitutive YFP expression, with transcriptional termination by L3S3P21.");
         obj.put("plasmid_sequence", plasmid_genbank);

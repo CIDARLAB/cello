@@ -329,7 +329,7 @@ public class UCFAdaptor {
 
                     ArrayList<double[]> xfer_binned = new ArrayList<double[]>();
 
-                    ArrayList<Double> xfer_titration_inputREUs = new ArrayList<Double>();
+                    ArrayList<Double> xfer_titration_inputRPUs = new ArrayList<Double>();
 
                     ArrayList<JSONObject> titrations = (ArrayList<JSONObject>) map.get("cytometry_data");
 
@@ -352,7 +352,7 @@ public class UCFAdaptor {
                             double current_logmax = Math.log10(output_bins.get(output_bins.size() - 1));
                         }
 
-                        xfer_titration_inputREUs.add(input);
+                        xfer_titration_inputRPUs.add(input);
 
                         double[] xfer_titration_counts = new double[output_counts.size()];
                         for (int b = 0; b < output_counts.size(); ++b) {
@@ -370,7 +370,7 @@ public class UCFAdaptor {
                     g.get_histogram_bins().set_LOGMAX( logmax );
                     g.get_histogram_bins().set_LOGMIN( logmin );
 
-                    g.get_xfer_hist().set_xfer_titration(xfer_titration_inputREUs);
+                    g.get_xfer_hist().set_xfer_titration(xfer_titration_inputRPUs);
 
                     g.get_xfer_hist().set_xfer_binned(xfer_binned);
                 }
@@ -594,7 +594,7 @@ public class UCFAdaptor {
 
             /**
              * See also: GateUtil.getVariableValues,
-             * tandem promoter data will change the additive assumption for tandem promoter REU values.
+             * tandem promoter data will change the additive assumption for tandem promoter RPU values.
              */
             gate_library.get_TANDEM_PROMOTERS().put(tp_name, grid);
         }

@@ -40,10 +40,10 @@ public class Gate {
     /**
      *
      * Wires just connect gates, there are not data associated with Wire objects.
-     * Gate objects have all the data, such as REUs, etc.
+     * Gate objects have all the data, such as RPUs, etc.
      *
-     * Potential point of confusion: REUs are properties of promoters, and promoters are 'wires',
-     * but by associating REUs with gates, the idea is that all fan-out promoters have the same REU values
+     * Potential point of confusion: RPUs are properties of promoters, and promoters are 'wires',
+     * but by associating RPUs with gates, the idea is that all fan-out promoters have the same RPU values
      * for the gate.
      *
      */
@@ -237,20 +237,20 @@ public class Gate {
         _toxtable = gate._toxtable;
         _toxicity = gate._toxicity;
         _logics   = gate._logics;
-        _histogram_reus = gate._histogram_reus;
+        _histogram_rpus = gate._histogram_rpus;
         _histogram_bins = gate._histogram_bins;
         _xfer_hist = gate._xfer_hist;
         _unit_conversion = gate._unit_conversion;
 
-        // Deep copy of reus.  Other data are not deep-copied to save memory.
-        //_outreus = gate._outreus; //this would be the shallow copy of _outreus
-        if(!gate._outreus.isEmpty()) {
-            _outreus = new ArrayList<Double>();
-           for(Double d: gate._outreus) {
-               _outreus.add(new Double(d));
+        // Deep copy of rpus.  Other data are not deep-copied to save memory.
+        //_outrpus = gate._outrpus; //this would be the shallow copy of _outrpus
+        if(!gate._outrpus.isEmpty()) {
+            _outrpus = new ArrayList<Double>();
+           for(Double d: gate._outrpus) {
+               _outrpus.add(new Double(d));
            }
         }
-        _inreus = gate._inreus;
+        _inrpus = gate._inrpus;
 
         stage = gate.stage;
         outW = gate.outW;
@@ -324,29 +324,29 @@ public class Gate {
     //arraylist represents rows of truth table, Integer is either 0 or 1
     @Getter @Setter private ArrayList<Integer> _logics = new ArrayList<Integer>();
 
-    //arraylist represents rows of truth table, Double is the REU value.
-    //The REU value should be low if the logic value is 0, the REU value should be high if the logic value is 1.
-    @Getter @Setter private ArrayList<Double> _outreus = new ArrayList<Double>();
+    //arraylist represents rows of truth table, Double is the RPU value.
+    //The RPU value should be low if the logic value is 0, the RPU value should be high if the logic value is 1.
+    @Getter @Setter private ArrayList<Double> _outrpus = new ArrayList<Double>();
 
-    //map input REUs to variable name, "x"
-    @Getter @Setter private HashMap<String, ArrayList<Double>> _inreus = new HashMap<>();
+    //map input RPUs to variable name, "x"
+    @Getter @Setter private HashMap<String, ArrayList<Double>> _inrpus = new HashMap<>();
 
     /**
      * if the output module is on a different plasmid than the circuit module,
-     * the REU units must be adjusted for the change in plasmid copy number.
+     * the RPU units must be adjusted for the change in plasmid copy number.
      * In our work, gates were characterized on p15A, but the output module was on pSC101.
      * The conversion factor is specified in the 'genetic_locations' collection of the UCF.
      */
     @Getter @Setter private Double _unit_conversion = 1.0;
 
     //predicted growth scores: arraylist is rows of truth table, Double is predicted relative growth value
-    //based on the REU value in that row for this gate.
+    //based on the RPU value in that row for this gate.
     @Getter @Setter private ArrayList<Double>  _toxicity = new ArrayList<Double>();
 
     //arraylist represents the rows in the truth table, the double[] represents the histogram
     //the length of the double[] is the same length as HistogramBin._LOG_BIN_CENTERS[]
-    @Getter @Setter private ArrayList< double[] > _histogram_reus = new ArrayList< double[] >();
-    @Getter @Setter private ArrayList< double[] > _in_histogram_reus = new ArrayList< double[] >();
+    @Getter @Setter private ArrayList< double[] > _histogram_rpus = new ArrayList< double[] >();
+    @Getter @Setter private ArrayList< double[] > _in_histogram_rpus = new ArrayList< double[] >();
     
 
     //min, max, bin width, bin centers
@@ -378,7 +378,7 @@ public class Gate {
      * for a 1-input gate such as NOT, which can actually be implemented as a NOR via tandem promoters,
      * multiple wires will map to the same variable name in the response function equation.
      * This is what allows a 1-dimensional hill equation to serve as as the response function for a 2-input NOR gate.
-     * REU values from both wires in a NOR gate will contribute to the input REU value that is applied to the Hill equation.
+     * RPU values from both wires in a NOR gate will contribute to the input RPU value that is applied to the Hill equation.
      */
     @Getter @Setter private HashMap<String, ArrayList<Wire>> _variable_wires = new HashMap<>();
 
@@ -397,7 +397,7 @@ public class Gate {
     
     //from the UCF
     /**
-     * List of x,y value pairs.  x is the input REU, y is the normalized growth value
+     * List of x,y value pairs.  x is the input RPU, y is the normalized growth value
      */
     @Getter @Setter private ArrayList<Pair> _toxtable = new ArrayList<Pair>();
 

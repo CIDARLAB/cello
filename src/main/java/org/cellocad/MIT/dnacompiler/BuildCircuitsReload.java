@@ -165,7 +165,7 @@ public class BuildCircuitsReload extends BuildCircuits {
         LogicCircuit lc = new LogicCircuit(gates, wires);
         Evaluate.simulateLogic(lc);
 
-        LogicCircuitUtil.setInputREU(lc, get_gate_library());
+        LogicCircuitUtil.setInputRPU(lc, get_gate_library());
         Evaluate.evaluateCircuit(lc, get_gate_library(), get_options());
 
         get_logic_circuits().add(lc);

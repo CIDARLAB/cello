@@ -64,9 +64,9 @@ public class LogicCircuitUtil{
                 input_lc.get_output_gates().get(i).Name = gate_library.get_OUTPUT_NAMES()[i];
             }
             for(int i=0; i<input_lc.get_input_gates().size(); ++i) {
-                input_lc.get_input_gates().get(i).Name = gate_library.get_INPUT_NAMES()[a[i]]; //change the name, which will allow REU values to change when calling setInputREU
+                input_lc.get_input_gates().get(i).Name = gate_library.get_INPUT_NAMES()[a[i]]; //change the name, which will allow RPU values to change when calling setInputRPU
             }
-            setInputREU(input_lc, gate_library);
+            setInputRPU(input_lc, gate_library);
 
             partially_abstract_lcs.add(input_lc); //unassigned_lcs from DNAC
         }
@@ -152,40 +152,40 @@ public class LogicCircuitUtil{
 
     /**
      *
-     * REU = relative expression  units
-     * Once names are assigned to input gates (getInputAssignments), add high REU if logic is 1, add low REU if logic is 0
+     * RPU = relative expression  units
+     * Once names are assigned to input gates (getInputAssignments), add high RPU if logic is 1, add low RPU if logic is 0
      *
      * For normal scoring or histogram scoring
      *
      */
-    public static void setInputREU(LogicCircuit lc, GateLibrary gate_library) {
+    public static void setInputRPU(LogicCircuit lc, GateLibrary gate_library) {
 
         for(Gate input_gate: lc.get_input_gates()) {
 
             if(input_gate.get_logics() == null || input_gate.get_logics().size() == 0) {
-                throw new IllegalStateException("trying to initialize reus before initializing logics.  exiting.");
+                throw new IllegalStateException("trying to initialize rpus before initializing logics.  exiting.");
             }
-            ArrayList<Double> reus = new ArrayList<Double>();
-            ArrayList<double[]> convreus = new ArrayList<double[]>();
+            ArrayList<Double> rpus = new ArrayList<Double>();
+            ArrayList<double[]> convrpus = new ArrayList<double[]>();
             for(Integer i: input_gate.get_logics()) {
                 if(i == 0) {
-                    reus.add(gate_library.get_INPUTS_OFF().get(input_gate.Name)); //low
-                    convreus.add(gate_library.get_INPUTS_HIST_OFF().get(input_gate.Name)); //low
+                    rpus.add(gate_library.get_INPUTS_OFF().get(input_gate.Name)); //low
+                    convrpus.add(gate_library.get_INPUTS_HIST_OFF().get(input_gate.Name)); //low
                 }
                 else if(i == 1) {
-                    reus.add(gate_library.get_INPUTS_ON().get(input_gate.Name)); //high
-                    convreus.add(gate_library.get_INPUTS_HIST_ON().get(input_gate.Name)); //high
+                    rpus.add(gate_library.get_INPUTS_ON().get(input_gate.Name)); //high
+                    convrpus.add(gate_library.get_INPUTS_HIST_ON().get(input_gate.Name)); //high
                 }
                 else if(i == 2) {
-                    reus.add(0.0);
-                    convreus.add(new double[input_gate.get_histogram_bins().get_NBINS()]);
+                    rpus.add(0.0);
+                    convrpus.add(new double[input_gate.get_histogram_bins().get_NBINS()]);
                 }
             }
             input_gate.set_unvisited( false );
             input_gate.set_unvisited( false );
 
-            input_gate.set_outreus(reus);
-            input_gate.set_histogram_reus(convreus);
+            input_gate.set_outrpus(rpus);
+            input_gate.set_histogram_rpus(convrpus);
         }
 
     }
