@@ -72,7 +72,7 @@ The first step uses ABC (Mischenko and Brayton, Berkeley) to convert a truth tab
 
 #### NOR-Inverter Graph
 
-The AND-Inverter Graph is converted to a NOR-Inverter Graph using DeMorgan's rule: A and B  equals  (not A) and (not B).
+The AND-Inverter Graph is converted to a NOR-Inverter Graph using DeMorgan's rule: A and B  equals  (not A) (nor) (not B).
 
 #### Subcircuit substitutions
 
@@ -137,4 +137,21 @@ The example Eugene code (link below) can be copied/pasted and modified at Eugene
 The final DNA sequences that result from Eugene variants are then inserted into the plasmid or genomic locations specified in the UCF.  This specification is a Genbank file and start/end insertion base-pair indexes where the sensor module (e.g. expression of LacI, AraC), circuit module (e.g. TetR homolog logic gates), and output module (e.g. fluorescence reporter driven by a regulable promoter). As a result, the complete DNA sequence required to implement the logic circuit in cells is generated.
 
 
+Install and Run Cello
+----------------------------
+Instructions to install Cello can be found in [INSTALL.md](INSTALL.md). Instructions to run a local instance of Cello can be found in [RUN.md](RUN.md).
 
+
+Contributing to this project
+----------------------------
+
+Anyone and everyone is welcome to contribute. Please take a moment to
+review the [guidelines for contributing](CONTRIBUTING.md).
+
+* [Bug reports](CONTRIBUTING.md#bugs)
+* [Feature requests](CONTRIBUTING.md#features)
+* [Pull requests](CONTRIBUTING.md#pull-requests)
+
+Contact Us
+----------------------------
+If you would like to receive updates from the Cello team regarding bug fixes, patches, feature updates or if you would like to contact the Cello team, please check the links in [CONTACT.md](CONTACT.md)
