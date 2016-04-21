@@ -8,11 +8,19 @@ $('#verilog_link').on('click', function() {
         window.location.replace('verilog.html');
         return false; // prevents current page from reloading so that the new page can be loaded
     }
+    else if(window.location.href.indexOf("about.html") > -1){
+        window.location.replace('index.html');
+        return false;
+    }
 });
 $('#results_link').on('click', function() {
     if(isRegistered()) {
         window.location.replace('result.html');
         return false; // prevents current page from reloading so that the new page can be loaded
+    }
+    else if(window.location.href.indexOf("about.html") > -1){
+        window.location.replace('index.html');
+        return false;
     }
 });
 $('#options_link').on('click', function() {
@@ -20,12 +28,16 @@ $('#options_link').on('click', function() {
         window.location.replace('options.html');
         return false; // prevents current page from reloading so that the new page can be loaded
     }
+    else if(window.location.href.indexOf("about.html") > -1){
+        window.location.replace('index.html');
+        return false;
+    }
 });
 $('#about_link').on('click', function() {
-    if(isRegistered()) {
+    //if(isRegistered()) {
         window.location.replace('about.html');
         return false; // prevents current page from reloading so that the new page can be loaded
-    }
+    //}
 });
 
 
