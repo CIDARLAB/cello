@@ -43,7 +43,7 @@ public class Graphviz {
             if(g.Type == Gate.GateType.INPUT) {
                 gvText += g.Name + "[shape=none,label=\"" + shape + "\"]; \n";
             }
-            else if(g.Type == Gate.GateType.NOT || g.Type == Gate.GateType.NOR || g.Type == Gate.GateType.AND) {
+            else if(g.Type == Gate.GateType.NOT || g.Type == Gate.GateType.NOR || g.Type == Gate.GateType.AND || g.Type == Gate.GateType.NAND || g.Type == Gate.GateType.OR || g.Type == Gate.GateType.XOR || g.Type == Gate.GateType.XNOR ) {
                 String image_location = "\"" + lc.get_assignment_name() + "_xfer_model_" + g.Name +".png"+ "\"";
                 gvText += g.Name + "[fixedsize=true,height=1.0,width=1.0,label=\"\",shape=none,image="+image_location+"]; \n";
             }

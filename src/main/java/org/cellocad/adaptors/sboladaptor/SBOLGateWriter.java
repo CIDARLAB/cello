@@ -245,7 +245,17 @@ public class SBOLGateWriter {
                 regulation_type = "activation";
             }
 
-
+            if(g.Type == GateType.NAND){
+                
+            }
+            
+            if(g.Type == GateType.XOR){
+                
+            }
+            
+            if(g.Type == GateType.XNOR){
+                
+            }
             //component definition type
             Set<URI> smallMoleculeTypeURIs = new HashSet<URI>();
             smallMoleculeTypeURIs.add(URI.create("http://www.biopax.org/release/biopax-level3.owl#SmallMolecule"));
