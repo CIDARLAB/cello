@@ -9,7 +9,9 @@ import org.cellocad.adaptors.ucfadaptor.UCFAdaptor;
 import org.cellocad.adaptors.ucfadaptor.UCFReader;
 import org.sbolstandard.core2.ComponentDefinition;
 import org.sbolstandard.core2.SBOLDocument;
+import org.sbolstandard.core2.SBOLValidationException;
 import org.sbolstandard.core2.Sequence;
+import org.sbolstandard.core2.SequenceOntology;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -27,11 +29,11 @@ public class SBOLPartWriter {
         Args options = new Args();
         _filepath = options.get_home();
 
-        sequence_ontology_map.put("ribozyme", org.sbolstandard.core.util.SequenceOntology.INSULATOR);
-        sequence_ontology_map.put("rbs", org.sbolstandard.core.util.SequenceOntology.FIVE_PRIME_UTR);
-        sequence_ontology_map.put("cds", org.sbolstandard.core.util.SequenceOntology.CDS);
-        sequence_ontology_map.put("terminator", org.sbolstandard.core.util.SequenceOntology.TERMINATOR);
-        sequence_ontology_map.put("promoter", org.sbolstandard.core.util.SequenceOntology.PROMOTER);
+        sequence_ontology_map.put("ribozyme", SequenceOntology.INSULATOR);
+        sequence_ontology_map.put("rbs", SequenceOntology.FIVE_PRIME_UTR);
+        sequence_ontology_map.put("cds", SequenceOntology.CDS);
+        sequence_ontology_map.put("terminator", SequenceOntology.TERMINATOR);
+        sequence_ontology_map.put("promoter", SequenceOntology.PROMOTER);
 
 
 
@@ -40,12 +42,14 @@ public class SBOLPartWriter {
         UCFAdaptor ucf_adaptor = new UCFAdaptor();
 
         PartLibrary part_library = ucf_adaptor.createPartLibrary(ucf);
-
-        writeSBOLParts(part_library);
+	try {
+	    writeSBOLParts(part_library);
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }
 
-    public static void writeSBOLParts(PartLibrary part_library) {
-
+    public static void writeSBOLParts(PartLibrary part_library) throws SBOLValidationException {
 
         for(Part p: part_library.get_ALL_PARTS().values()) {
 
@@ -66,30 +70,28 @@ public class SBOLPartWriter {
 
             //URI partURI = URI.create("http://www.cellocad.org/" + p.get_name());
 
-            ComponentDefinition cd = sbolDocument.createComponentDefinition(p.get_name(), partTypeURIs);
-
+	    ComponentDefinition cd = sbolDocument.createComponentDefinition(p.get_name(), partTypeURIs);
             String sequenceDisplayID = p.get_name() + "_sequence";
             URI encodingURI = URI.create("http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html");
-            Sequence s = sbolDocument.createSequence(sequenceDisplayID, p.get_seq(), encodingURI);
-            HashSet<URI> s_set = new HashSet<URI>();
-            s_set.add(s.getIdentity());
-            cd.setSequences(s_set);
 
-            if(sequence_ontology_map.containsKey(p.get_type())) {
-                cd.addRole(sequence_ontology_map.get(p.get_type()));
-            }
+	    Sequence s = sbolDocument.createSequence(sequenceDisplayID, p.get_seq(), encodingURI);
+	    HashSet<URI> s_set = new HashSet<URI>();
+	    s_set.add(s.getIdentity());
+
+	    cd.setSequences(s_set);
+	    if (sequence_ontology_map.containsKey(p.get_type())) {
+		cd.addRole(sequence_ontology_map.get(p.get_type()));
+	    }
 
             String sbolDocumentFileName = _filepath+"/resources/sbol2_xml/parts/part_" + p.get_name() + "_SBOL.xml";
 
-            try {
-                org.sbolstandard.core2.SBOLWriter.write(sbolDocument, sbolDocumentFileName);
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
+	    try {
+		org.sbolstandard.core2.SBOLWriter.write(sbolDocument, sbolDocumentFileName);
+	    } catch (Exception e) {
+		e.printStackTrace();
+	    }
 
         }
-
 
     }
 
