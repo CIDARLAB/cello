@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import java.util.HashMap;
+import java.net.URI;
 
 /**
  * Part contains data: name, type, direction, sequence, etc.
@@ -71,6 +72,10 @@ public class Part {
         _gate_index = 0;
     }
 
+	public Part(String name, String type, String seq, URI uri) {
+		this(name, type, seq);
+		synBioHubURI = uri;
+	}
 
     /**
      * default part colors for Ape file.
@@ -100,8 +105,6 @@ public class Part {
 
         return s;
     }
-
-
     /////////////////////////
     //
     // Private member data
@@ -125,4 +128,19 @@ public class Part {
     //for the Ape plasmid viewer
     @Getter @Setter private HashMap<String, String> PART_TYPE_COLORS = new HashMap<String, String>();
 
+	private URI synBioHubURI;
+
+	/**
+	 * @return the synBioHubURI
+	 */
+	public URI getSynBioHubURI() {
+		return synBioHubURI;
+	}
+
+	/**
+	 * @param synBioHubURI the synBioHubURI to set
+	 */
+	public void setSynBioHubURI(URI synBioHubURI) {
+		this.synBioHubURI = synBioHubURI;
+	}
 }
