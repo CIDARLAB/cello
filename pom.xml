@@ -118,8 +118,7 @@
         <dependency>
             <groupId>org.sbolstandard</groupId>
             <artifactId>libSBOLj</artifactId>
-            <version>2.0.0</version>
-            <type>jar</type>
+            <version>2.2.1</version>
         </dependency>
         <!--> local jars -->
         <dependency>
