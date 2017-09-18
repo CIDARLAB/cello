@@ -39,13 +39,13 @@ public class collection_writer_gate_cytometry extends collection_writer {
 
             String gate_name = gate_tokens.get(0);
             Gate g = new Gate();
-            g.Name = gate_name;
-            gate_library.get_GATES_BY_NAME().put(g.Name, g);
+            g.name = gate_name;
+            gate_library.get_GATES_BY_NAME().put(g.name, g);
         }
 
 
         for(Gate g: gate_library.get_GATES_BY_NAME().values()) {
-            String gate_name = g.Name;
+            String gate_name = g.name;
 
             String rootpath = collection_writer.getRootPath();
             String filepath = rootpath + "/resources/data/nor_gates/cytometry/";

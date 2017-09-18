@@ -280,18 +280,18 @@ public class EugeneAdaptor {
 
 		for (Gate g : gates) {
 
-            if(g.Regulator == null || g.Regulator.isEmpty()) {
-                g.Regulator = g.Name;
+            if(g.regulator == null || g.regulator.isEmpty()) {
+                g.regulator = g.name;
             }
 
 			for (int i = 0; i < g.get_txn_units().size(); ++i) {
 
                 String key = "";
-				if (!txn_units.containsKey(g.Regulator)) {
-                    key = g.Regulator;
+				if (!txn_units.containsKey(g.regulator)) {
+                    key = g.regulator;
 
 				} else {
-                    key = g.Regulator + "_" + (i + 1);
+                    key = g.regulator + "_" + (i + 1);
 				}
                 txn_units.put(key, g.get_txn_units().get(i));
 			}

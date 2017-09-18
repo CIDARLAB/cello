@@ -245,7 +245,7 @@ public class BuildCircuitsPermuteNOR extends BuildCircuits {
                 ArrayList<String> assignment_gates = new ArrayList<>();
 
                 for(Gate g: lc.get_logic_gates()) {
-                    assignment_gates.add(g.Name);
+                    assignment_gates.add(g.name);
                 }
 
                 this._assignment_gate_names.add(assignment_gates);
@@ -276,10 +276,10 @@ public class BuildCircuitsPermuteNOR extends BuildCircuits {
 
             for (int a = 0; a < gate_assignment.size(); ++a) {
                 String gate_name = gate_assignment.get(a);
-                String group_name = get_gate_library().get_GATES_BY_NAME().get(gate_name).Group;
+                String group_name = get_gate_library().get_GATES_BY_NAME().get(gate_name).group;
 
                 Gate g = lc.get_logic_gates().get(a);
-                g.Name = gate_name;
+                g.name = gate_name;
 
 
                 Evaluate.evaluateCircuit(lc, get_gate_library(), get_options());
@@ -317,7 +317,7 @@ public class BuildCircuitsPermuteNOR extends BuildCircuits {
 
         //String gates_assignment = "";
         for(int i=0; i<lc.get_logic_gates().size(); ++i) {
-            lc.get_logic_gates().get(i).Name  = repr_assignment.get(i).get(rbs_asn[i]).Name;
+            lc.get_logic_gates().get(i).name  = repr_assignment.get(i).get(rbs_asn[i]).name;
             //gates_assignment += repr_assignment.get(i).get(rbs_asn[i]).Name + " ";
         }
         //logger.info(gates_assignment);

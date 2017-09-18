@@ -77,7 +77,7 @@ public class SequentialHelper {
         //update the list of cycles
         for(Gate g: lc.get_Gates()) {
             ArrayList<Double> copy_rpus = new ArrayList<Double>(g.get_outrpus());
-            track_rpus.get(g.Name).add(copy_rpus);
+            track_rpus.get(g.name).add(copy_rpus);
         }
     }
 
@@ -94,10 +94,10 @@ public class SequentialHelper {
 
                 Integer logic = g.get_logics().get(i);
                 if (logic == 0) {
-                    Double rpu = gate_library.get_INPUTS_OFF().get(g.Name);
+                    Double rpu = gate_library.get_INPUTS_OFF().get(g.name);
                     rpus.add(rpu);
                 } else {
-                    Double rpu = gate_library.get_INPUTS_ON().get(g.Name);
+                    Double rpu = gate_library.get_INPUTS_ON().get(g.name);
                     rpus.add(rpu);
                 }
             }
@@ -144,7 +144,7 @@ public class SequentialHelper {
         //TODO not sufficient for OUTPUT_OR
         for(Gate g: lc.get_output_gates()) {
 
-            ArrayList<Double> rpus = new ArrayList<Double>(g.Outgoing.To.get_outrpus());
+            ArrayList<Double> rpus = new ArrayList<Double>(g.outgoing.To.get_outrpus());
             g.set_outrpus(rpus);
 
         }
@@ -158,7 +158,7 @@ public class SequentialHelper {
 
         for(Gate g: lc.get_Gates()) {
 
-            tt += String.format("%7s", g.Name);
+            tt += String.format("%7s", g.name);
         }
 
         tt += "\n";
@@ -197,22 +197,22 @@ public class SequentialHelper {
             //g.Group: for S, R, Qa, Qb latch naming
 
             for(Gate g: lc.get_input_gates()) {
-                if(g.Name.equals(gate_name)) {
+                if(g.name.equals(gate_name)) {
                     g.set_logics(new ArrayList<Integer>(logics));
                 }
             }
 
             for(Gate g: lc.get_logic_gates()) {
-                if(g.Name.equals(gate_name)) {
+                if(g.name.equals(gate_name)) {
                     g.set_logics(new ArrayList<Integer>(logics));
                 }
             }
 
             for(Gate g: lc.get_output_gates()) {
-                if(g.Name.equals(gate_name)) {
+                if(g.name.equals(gate_name)) {
                     g.set_logics(new ArrayList<Integer>(logics));
 
-                    Gate child = g.Outgoing.To;
+                    Gate child = g.outgoing.To;
                     child.set_logics(new ArrayList<Integer>(logics));
                 }
             }
@@ -225,7 +225,7 @@ public class SequentialHelper {
 
         for(Gate g: lc.get_Gates()) {
 
-            if(g.Type == Gate.GateType.INPUT) {
+            if(g.type == Gate.GateType.INPUT) {
                 continue;
             }
 
@@ -244,7 +244,7 @@ public class SequentialHelper {
 
         for(Gate g: lc.get_Gates()) {
 
-            if(g.Type == Gate.GateType.INPUT) {
+            if(g.type == Gate.GateType.INPUT) {
                 continue;
             }
 
@@ -256,10 +256,10 @@ public class SequentialHelper {
                     child_logics.add(child.get_logics().get(i));
                 }
 
-                Integer expected_logic = BooleanLogic.computeLogic(g.Type, child_logics);
+                Integer expected_logic = BooleanLogic.computeLogic(g.type, child_logics);
 
                 if(expected_logic != logic) {
-                    System.out.println(g.Group + " " + logic + " " + expected_logic + " : from " + child_logics.toString());
+                    System.out.println(g.group + " " + logic + " " + expected_logic + " : from " + child_logics.toString());
                     return false;
                 }
             }
@@ -338,10 +338,10 @@ public class SequentialHelper {
 
                 Integer logic = g.get_logics().get(i);
                 if (logic == 0) {
-                    double[] hist_rpu = gate_library.get_INPUTS_HIST_OFF().get(g.Name);
+                    double[] hist_rpu = gate_library.get_INPUTS_HIST_OFF().get(g.name);
                     hist_rpus.add(hist_rpu);
                 } else {
-                    double[] hist_rpu = gate_library.get_INPUTS_HIST_ON().get(g.Name);
+                    double[] hist_rpu = gate_library.get_INPUTS_HIST_ON().get(g.name);
                     hist_rpus.add(hist_rpu);
                 }
             }
@@ -382,7 +382,7 @@ public class SequentialHelper {
         //TODO not sufficient for OUTPUT_OR
         for(Gate g: lc.get_output_gates()) {
 
-            ArrayList<double[]> hist_rpus = new ArrayList<double[]>(g.Outgoing.To.get_histogram_rpus());
+            ArrayList<double[]> hist_rpus = new ArrayList<double[]>(g.outgoing.To.get_histogram_rpus());
             g.set_histogram_rpus(hist_rpus);
 
         }
@@ -450,7 +450,7 @@ public class SequentialHelper {
         //update the list of cycles
         for(Gate g: lc.get_Gates()) {
             ArrayList<double[]> copy_rpus = new ArrayList<double[]>(g.get_histogram_rpus());
-            track_rpus.get(g.Name).add(copy_rpus);
+            track_rpus.get(g.name).add(copy_rpus);
         }
     }
 

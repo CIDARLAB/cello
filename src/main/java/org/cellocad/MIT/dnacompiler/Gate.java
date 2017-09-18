@@ -66,19 +66,19 @@ public class Gate {
 
     //DAG
     public DWire outW = new DWire();
-    public int Index = -1;
-    public int RIndex= -1; //a renumbered index so that the first logic gate has index 1.
-    public String Name = "";
-    public String Group = "";
-    public String Regulator = "";
-    public String Inducer = ""; //added for an IWBDA demo, not really used in Cello.
-    public String ColorHex = "";//six character hexidecimal color.
-    public String System = "";  //currently only used to check for CRIPSRi system to design NOR gates with separate txn units instead of tandem promoters
-    public GateType Type = null;
+    public int index = -1;
+    public int rIndex= -1; //a renumbered index so that the first logic gate has index 1.
+    public String name = "";
+    public String group = "";
+    public String regulator = "";
+    public String inducer = ""; //added for an IWBDA demo, not really used in Cello.
+    public String colorHex = "";//six character hexidecimal color.
+    public String system = "";  //currently only used to check for CRIPSRi system to design NOR gates with separate txn units instead of tandem promoters
+    public GateType type = null;
 
-    public Wire Outgoing = null; //toward INPUTS. note that a gate is not aware of its wire(s) going toward OUTPUT
+    public Wire outgoing = null; //toward INPUTS. note that a gate is not aware of its wire(s) going toward OUTPUT
 
-    public int Outgoing_wire_index = -1;
+    public int outgoing_wire_index = -1;
     public int stage = 0; //longest path, depth of gate
 
 
@@ -88,65 +88,65 @@ public class Gate {
     //When creating a DAGW object, NetSynth uses the MIT/dnacompiler Gate and Wire objects.
     public Gate(int ind, GateType dType)
     {
-        Index = ind;
-        RIndex = ind;
-        Type = dType;
+        index = ind;
+        rIndex = ind;
+        type = dType;
         stage = 0;
 
         if(dType == GateType.NOR)
         {
-            Name = "~|";
+            name = "~|";
         }
         else if(dType == GateType.NOT)
         {
-            Name = "~";
+            name = "~";
         }
         else if(dType == GateType.AND)
         {
-            Name = "&";
+            name = "&";
         }
         else if(dType == GateType.OR)
         {
-            Name = "|";
+            name = "|";
         }
         else
         {
-            Name = "";
+            name = "";
         }
 
         outW = new DWire();
-        this.Outgoing = null;
+        this.outgoing = null;
     }
 
     //constructor used in NetSynth
-    public Gate(int ind, GateType dType,Wire de)
+    public Gate(int ind, GateType dType, Wire de)
     {
-        Index = ind;
-        RIndex = ind;
-        Type = dType;
+        index = ind;
+        rIndex = ind;
+        type = dType;
         stage = 0;
 
         if(dType == GateType.NOR)
         {
-            Name = "~|";
+            name = "~|";
         }
         else if(dType == GateType.NOT)
         {
-            Name = "~";
+            name = "~";
         }
         else if(dType == GateType.AND)
         {
-            Name = "&";
+            name = "&";
         }
         else if(dType == GateType.OR)
         {
-            Name = "|";
+            name = "|";
         }
         else
         {
-            Name = "";
+            name = "";
         }
-        this.Outgoing = de;
+        this.outgoing = de;
 
         outW = new DWire();
     }
@@ -154,65 +154,65 @@ public class Gate {
     //constructor used in NetSynth
     public Gate(int ind, String dType)
     {
-        Index = ind;
-        RIndex = ind;
-        Type = GateType.valueOf(dType);
+        index = ind;
+        rIndex = ind;
+        type = GateType.valueOf(dType);
         stage = 0;
 
-        if(Type == GateType.NOR)
+        if(type == GateType.NOR)
         {
-            Name = "~|";
+            name = "~|";
         }
-        else if(Type == GateType.NOT)
+        else if(type == GateType.NOT)
         {
-            Name = "~";
+            name = "~";
         }
-        else if(Type == GateType.AND)
+        else if(type == GateType.AND)
         {
-            Name = "&";
+            name = "&";
         }
-        else if(Type == GateType.OR)
+        else if(type == GateType.OR)
         {
-            Name = "|";
+            name = "|";
         }
         else
         {
-            Name = "";
+            name = "";
         }
 
         outW = new DWire();
-        this.Outgoing = null;
+        this.outgoing = null;
     }
 
     //constructor used in NetSynth
     public Gate(int ind, String dType,Wire de)
     {
-        Index = ind;
-        RIndex = ind;
-        Type = GateType.valueOf(dType);
+        index = ind;
+        rIndex = ind;
+        type = GateType.valueOf(dType);
         stage = 0;
 
-        if(Type == GateType.NOR)
+        if(type == GateType.NOR)
         {
-            Name = "~|";
+            name = "~|";
         }
-        else if(Type == GateType.NOT)
+        else if(type == GateType.NOT)
         {
-            Name = "~";
+            name = "~";
         }
-        else if(Type == GateType.AND)
+        else if(type == GateType.AND)
         {
-            Name = "&";
+            name = "&";
         }
-        else if(Type == GateType.OR)
+        else if(type == GateType.OR)
         {
-            Name = "|";
+            name = "|";
         }
         else
         {
-            Name = "";
+            name = "";
         }
-        this.Outgoing = de;
+        this.outgoing = de;
 
         outW = new DWire();
     }
@@ -254,22 +254,22 @@ public class Gate {
 
         stage = gate.stage;
         outW = gate.outW;
-        Index = gate.Index;
-        RIndex = gate.RIndex;
-        Name = gate.Name;
-        Group = gate.Group;
-        Regulator = gate.Regulator;
-        ColorHex = gate.ColorHex;
-        System = gate.System;
-        Type = gate.Type;
-        Outgoing = gate.Outgoing;
-        Outgoing_wire_index = gate.Outgoing_wire_index;
+        index = gate.index;
+        rIndex = gate.rIndex;
+        name = gate.name;
+        group = gate.group;
+        regulator = gate.regulator;
+        colorHex = gate.colorHex;
+        system = gate.system;
+        type = gate.type;
+        outgoing = gate.outgoing;
+        outgoing_wire_index = gate.outgoing_wire_index;
     }
 
 
     @Override
     public String toString(){
-        return Index + " " + Type + " " + Name;
+        return index + " " + type + " " + name;
     }
 
 
@@ -292,10 +292,10 @@ public class Gate {
 
         ArrayList<Gate> children = new ArrayList<Gate>();
 
-        if ( (this.Outgoing != null) && (this.Outgoing.To != null)){
-            children.add(this.Outgoing.To);
+        if ( (this.outgoing != null) && (this.outgoing.To != null)){
+            children.add(this.outgoing.To);
 
-            Wire w = this.Outgoing;
+            Wire w = this.outgoing;
             while(w.Next != null && w.Next.To != null) {
                 children.add(w.Next.To);
                 w = w.Next;

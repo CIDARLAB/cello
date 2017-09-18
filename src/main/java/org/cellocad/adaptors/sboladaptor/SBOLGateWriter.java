@@ -66,7 +66,7 @@ public class SBOLGateWriter {
 
     public static void writeSBOL(Gate g) {
 
-        System.out.println(g.Name);
+        System.out.println(g.name);
 
         _document = new org.sbolstandard.core2.SBOLDocument();
 
@@ -103,7 +103,7 @@ public class SBOLGateWriter {
 
 
         //String output_filename = "resources/sbol2_xml/gates/gate_" + g.Name + "_SBOL.xml";
-        String output_filename = "resources/sbol2_xml/gates/gate_" + g.Name + ".sbol";
+        String output_filename = "resources/sbol2_xml/gates/gate_" + g.name + ".sbol";
         try {
             org.sbolstandard.core2.SBOLWriter.write(_document, output_filename);
         }
@@ -119,7 +119,7 @@ public class SBOLGateWriter {
         //URI gateModuleDefinitionURI = URI.create("http://cellocad.org/" + g.Name);
         URI gateRoleURI = URI.create("http://cellocad.org/Gate");
 
-        _gate_module_definition = _document.createModuleDefinition(g.Name);
+        _gate_module_definition = _document.createModuleDefinition(g.name);
         _gate_module_definition.addRole(gateRoleURI);
 
         String prURI=_document.getDefaultURIprefix();
@@ -179,7 +179,7 @@ public class SBOLGateWriter {
 
         //component definitions
 
-        String protein_name = g.Regulator + "_protein";
+        String protein_name = g.regulator + "_protein";
         ComponentDefinition protein = _document.createComponentDefinition(protein_name, proteinTypeURIs);
 
 
@@ -235,13 +235,13 @@ public class SBOLGateWriter {
 
 
 
-        if(! g.Inducer.isEmpty()) {
+        if(! g.inducer.isEmpty()) {
 
             String regulation_type = "";
-            if(g.Type == GateType.NOT || g.Type == GateType.NOR) {
+            if(g.type == GateType.NOT || g.type == GateType.NOR) {
                 regulation_type = "repression";
             }
-            if(g.Type == GateType.AND) {
+            if(g.type == GateType.AND) {
                 regulation_type = "activation";
             }
 
@@ -266,10 +266,10 @@ public class SBOLGateWriter {
 
 
 
-            String inducer_name = g.Inducer;
+            String inducer_name = g.inducer;
             ComponentDefinition inducer = _document.createComponentDefinition(inducer_name, smallMoleculeTypeURIs);
 
-            String complex_name = inducer_name + "_" + g.Regulator + "_Complex";
+            String complex_name = inducer_name + "_" + g.regulator + "_Complex";
             ComponentDefinition complex = _document.createComponentDefinition(complex_name, complexTypeURIs);
 
 

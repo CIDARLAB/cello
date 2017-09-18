@@ -21,7 +21,7 @@ public class GateUtil {
      */
     public static void outputHistogramUnitConversion(Gate g) {
 
-        if(g.Type == Gate.GateType.OUTPUT || g.Type == Gate.GateType.OUTPUT_OR) {
+        if(g.type == Gate.GateType.OUTPUT || g.type == Gate.GateType.OUTPUT_OR) {
 
             //outer arraylist: rows in truth table
             //inner array: fractional counts representing a histogram
@@ -57,7 +57,7 @@ public class GateUtil {
         ArrayList<Gate> children = g.getChildren();
         ArrayList<Integer> gate_logics = new ArrayList<Integer>();
 
-        if(g.Type != Gate.GateType.INPUT) {
+        if(g.type != Gate.GateType.INPUT) {
             for (int i = 0; i < children.get(0).get_logics().size(); ++i) { //rows in truth table
 
                 //arraylength = # children
@@ -68,7 +68,7 @@ public class GateUtil {
                 }
 
                 //compute Boolean value based on gate type and child logics
-                Integer logic = BooleanLogic.computeLogic(g.Type, this_row_child_logics);
+                Integer logic = BooleanLogic.computeLogic(g.type, this_row_child_logics);
 
                 /*if(Args.dontcare_rows.contains(i)) {
                     logic = 2; //integer required, 2 used as placeholder for dont-care.  will be changed to - when printing
@@ -104,7 +104,7 @@ public class GateUtil {
             g.set_distance_to_input(0);
             g.set_unvisited(false);
 
-            if (g.Type != Gate.GateType.INPUT) { //inputs are an endpoint (inputs gates are also initialized with unvisited=false;
+            if (g.type != Gate.GateType.INPUT) { //inputs are an endpoint (inputs gates are also initialized with unvisited=false;
 
                 for (Gate child : g.getChildren()) {
 
@@ -317,16 +317,16 @@ public class GateUtil {
                 child1 = g.getChildren().get(0);
                 child2 = g.getChildren().get(1);
 
-                if (child1.Type == Gate.GateType.INPUT) {
-                    fanin_gate_names.add("input_" + child1.Name);
+                if (child1.type == Gate.GateType.INPUT) {
+                    fanin_gate_names.add("input_" + child1.name);
                 } else {
-                    fanin_gate_names.add(child1.Name);
+                    fanin_gate_names.add(child1.name);
                 }
 
-                if (child2.Type == Gate.GateType.INPUT) {
-                    fanin_gate_names.add("input_" + child2.Name);
+                if (child2.type == Gate.GateType.INPUT) {
+                    fanin_gate_names.add("input_" + child2.name);
                 } else {
-                    fanin_gate_names.add(child2.Name);
+                    fanin_gate_names.add(child2.name);
                 }
 
 
@@ -354,7 +354,7 @@ public class GateUtil {
 	            	int bin_median1 = 0;  
 	            	int bin_median2 = 0;
 	            	
-                    if(child1.Type == Gate.GateType.INPUT) {
+                    if(child1.type == Gate.GateType.INPUT) {
                         if(child1.get_logics().get(i) == 0) {
                             bin_median1 = 0;
                         }
@@ -367,7 +367,7 @@ public class GateUtil {
                     }
                     
 
-                    if(child2.Type == Gate.GateType.INPUT) {
+                    if(child2.type == Gate.GateType.INPUT) {
                         if(child2.get_logics().get(i) == 0) {
                             bin_median2 = 0;
                         }
@@ -541,10 +541,10 @@ public class GateUtil {
          * List of all input wires for gate 'g'
          */
         ArrayList<Wire> input_wires = new ArrayList<Wire>();
-        if (g.Outgoing != null) {
-            input_wires.add(g.Outgoing);
+        if (g.outgoing != null) {
+            input_wires.add(g.outgoing);
 
-            Wire w = g.Outgoing;
+            Wire w = g.outgoing;
             while(w.Next != null) {
                 input_wires.add(w.Next);
                 w = w.Next;
@@ -631,16 +631,16 @@ public class GateUtil {
                 child1 = g.getChildren().get(0);
                 child2 = g.getChildren().get(1);
 
-                if (child1.Type == Gate.GateType.INPUT) {
-                    fanin_gate_names.add("input_" + child1.Name);
+                if (child1.type == Gate.GateType.INPUT) {
+                    fanin_gate_names.add("input_" + child1.name);
                 } else {
-                    fanin_gate_names.add(child1.Name);
+                    fanin_gate_names.add(child1.name);
                 }
 
-                if (child2.Type == Gate.GateType.INPUT) {
-                    fanin_gate_names.add("input_" + child2.Name);
+                if (child2.type == Gate.GateType.INPUT) {
+                    fanin_gate_names.add("input_" + child2.name);
                 } else {
-                    fanin_gate_names.add(child2.Name);
+                    fanin_gate_names.add(child2.name);
                 }
 
 
@@ -699,7 +699,7 @@ public class GateUtil {
                     Double in1 = 0.0;
                     Double in2 = 0.0;
 
-                    if(child1.Type == Gate.GateType.INPUT) {
+                    if(child1.type == Gate.GateType.INPUT) {
                         if(child1.get_logics().get(row) == 0) {
                             in1 = Math.pow(10, hbins.get_LOGMIN());
                         }
@@ -712,7 +712,7 @@ public class GateUtil {
                     }
 
 
-                    if(child2.Type == Gate.GateType.INPUT) {
+                    if(child2.type == Gate.GateType.INPUT) {
                         if(child2.get_logics().get(row) == 0) {
                             in2 = Math.pow(10, hbins.get_LOGMIN());
                         }

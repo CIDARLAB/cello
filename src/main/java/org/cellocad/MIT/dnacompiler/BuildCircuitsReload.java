@@ -84,23 +84,23 @@ public class BuildCircuitsReload extends BuildCircuits {
 
             Gate g = new Gate();
             if(gate_type.equals("NOT")) {
-                g.Type = Gate.GateType.NOT;
+                g.type = Gate.GateType.NOT;
             }
             if(gate_type.equals("NOR")) {
-                g.Type = Gate.GateType.NOR;
+                g.type = Gate.GateType.NOR;
             }
             if(gate_type.equals("INPUT")) {
-                g.Type = Gate.GateType.INPUT;
+                g.type = Gate.GateType.INPUT;
                 g.set_unvisited(false);
             }
             if(gate_type.equals("OUTPUT")) {
-                g.Type = Gate.GateType.OUTPUT;
+                g.type = Gate.GateType.OUTPUT;
             }
             if(gate_type.equals("OUTPUT_OR")) {
-                g.Type = Gate.GateType.OUTPUT_OR;
+                g.type = Gate.GateType.OUTPUT_OR;
             }
-            g.Name = gate_name;
-            g.Index = Integer.valueOf(gate_index);
+            g.name = gate_name;
+            g.index = Integer.valueOf(gate_index);
 
 
             g.set_logics(new ArrayList<Integer>());
@@ -114,7 +114,7 @@ public class BuildCircuitsReload extends BuildCircuits {
 
 
 
-            gate_map.put(g.Index, g);
+            gate_map.put(g.index, g);
 
             if(!gate_child_indexes.isEmpty()) {
                 ArrayList<Integer> fanin_indexes = new ArrayList<>();
@@ -123,17 +123,17 @@ public class BuildCircuitsReload extends BuildCircuits {
                     Integer index = Integer.valueOf(st.nextToken());
                     fanin_indexes.add(index);
                 }
-                fanin_map.put(g.Index, fanin_indexes);
+                fanin_map.put(g.index, fanin_indexes);
             }
         }
 
         for(Integer i: gate_map.keySet()) {
             Gate g = gate_map.get(i);
 
-            if(fanin_map.containsKey(g.Index)) {
+            if(fanin_map.containsKey(g.index)) {
                 int counter = 0;
 
-                for (Integer fanin_index : fanin_map.get(g.Index)) {
+                for (Integer fanin_index : fanin_map.get(g.index)) {
                     Wire w = new Wire();
                     w.From = g;
                     w.To = gate_map.get(fanin_index);
@@ -142,7 +142,7 @@ public class BuildCircuitsReload extends BuildCircuits {
                     if(counter > 0) {
                         w.Next = wires.get(wires.size()-1);
                     }
-                    g.Outgoing = w;
+                    g.outgoing = w;
 
                     wires.add(w);
                     counter++;
@@ -153,11 +153,11 @@ public class BuildCircuitsReload extends BuildCircuits {
         for(Gate g: gate_map.values()) {
             gates.add(g);
 
-            if(get_gate_library().get_GATES_BY_NAME().containsKey(g.Name)) {
-                logger.info("Found " + g.Name);
+            if(get_gate_library().get_GATES_BY_NAME().containsKey(g.name)) {
+                logger.info("Found " + g.name);
             }
             else {
-                logger.info("Missing " + g.Name);
+                logger.info("Missing " + g.name);
             }
         }
 

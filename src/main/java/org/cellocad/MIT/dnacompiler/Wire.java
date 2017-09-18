@@ -78,7 +78,7 @@ public class Wire {
     @Override
     public String toString()
     {
-        String x= "Index:"+Index + " From:"+From.Index + " To:"+To.Index;
+        String x= "Index:"+Index + " From:"+From.index + " To:"+To.index;
         return x;
     }
 }

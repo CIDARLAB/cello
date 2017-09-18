@@ -27,7 +27,7 @@ public class UCFValidator {
     public boolean allGatesHaveResponseFunctions(GateLibrary gate_library) {
         for (Gate g : gate_library.get_GATES_BY_NAME().values()) {
             if(g.get_equation().isEmpty() || g.get_params().isEmpty() || g.get_variable_names().isEmpty()) {
-                System.out.println("invalid UCF. response_function data missing for " + g.Name);
+                System.out.println("invalid UCF. response_function data missing for " + g.name);
                 return false;
             }
         }

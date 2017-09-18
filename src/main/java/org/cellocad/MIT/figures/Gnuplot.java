@@ -19,13 +19,13 @@ public class Gnuplot {
 
     public void printGnuplotGateSNR(Gate g, String assignment_name, Args options) {
 
-        String snr_gp_file  = _output_directory + assignment_name + "_snr_" + g.Name + ".gp";
-        String snr_eps_file = assignment_name + "_snr_" + g.Name + ".eps";
-        String snr_txt_file = assignment_name + "_snr_" + g.Name + ".txt";
+        String snr_gp_file  = _output_directory + assignment_name + "_snr_" + g.name + ".gp";
+        String snr_eps_file = assignment_name + "_snr_" + g.name + ".eps";
+        String snr_txt_file = assignment_name + "_snr_" + g.name + ".txt";
 
-        String dsnr_gp_file  = _output_directory + assignment_name + "_dsnr_" + g.Name + ".gp";
-        String dsnr_eps_file = assignment_name + "_dsnr_" + g.Name + ".eps";
-        String dsnr_txt_file = assignment_name + "_dsnr_" + g.Name + ".txt";
+        String dsnr_gp_file  = _output_directory + assignment_name + "_dsnr_" + g.name + ".gp";
+        String dsnr_eps_file = assignment_name + "_dsnr_" + g.name + ".eps";
+        String dsnr_txt_file = assignment_name + "_dsnr_" + g.name + ".txt";
 
         Integer STEPS = 100;
 
@@ -149,8 +149,8 @@ public class Gnuplot {
 
         String var = g.get_variable_names().get(0);
 
-        String gp_file  = _output_directory + assignment_name + "_xfer_model_" + g.Name + ".gp";
-        String eps_file = assignment_name + "_xfer_model_" + g.Name + ".eps";
+        String gp_file  = _output_directory + assignment_name + "_xfer_model_" + g.name + ".gp";
+        String eps_file = assignment_name + "_xfer_model_" + g.name + ".eps";
 
         HistogramBins hbins = new HistogramBins();
         hbins.init();
@@ -160,7 +160,7 @@ public class Gnuplot {
         HashMap<String, Double> lowest_on_rpu_map   = GateUtil.getIncomingONlow(g);
         HashMap<String, Double> highest_off_rpu_map = GateUtil.getIncomingOFFhigh(g);
 
-        String xfer_color = g.ColorHex;
+        String xfer_color = g.colorHex;
 
         String gnuplot_xfer_lines = "";
         gnuplot_xfer_lines += "\n" + "set output \"" + eps_file + "\"";
@@ -226,7 +226,7 @@ public class Gnuplot {
 
 
         String title = "";
-        title = g.Name;
+        title = g.name;
         title = title.replaceAll("_", "");
 
         gnuplot_xfer_lines += "\n";
@@ -251,8 +251,8 @@ public class Gnuplot {
 
     public void printGnuplotXfer2D(Gate g, String assignment_name, Args options) {
 
-        String gp_file  = _output_directory + assignment_name + "_xfer_model_" + g.Name + ".gp";
-        String eps_file = assignment_name + "_xfer_model_" + g.Name + ".eps";
+        String gp_file  = _output_directory + assignment_name + "_xfer_model_" + g.name + ".gp";
+        String eps_file = assignment_name + "_xfer_model_" + g.name + ".eps";
 
         HashMap<String, Double> lowest_on_rpu_map   = GateUtil.getIncomingONlow(g);
         HashMap<String, Double> highest_off_rpu_map = GateUtil.getIncomingOFFhigh(g);
@@ -262,7 +262,7 @@ public class Gnuplot {
         Double axis_max = Math.pow(10, hbins.get_LOGMAX());
         Double axis_min = Math.pow(10, hbins.get_LOGMIN());
 
-        String xfer_color = g.ColorHex;
+        String xfer_color = g.colorHex;
 
         String gnuplot_xfer_lines = "";
         gnuplot_xfer_lines += "\n" + "set output \"" + eps_file + "\"";
@@ -298,7 +298,7 @@ public class Gnuplot {
         gnuplot_xfer_lines += "\n" + "set palette defined ( 0 '#FFFFFF',  1 '#"+xfer_color+"')";
 
         String title = "";
-        title = g.Name;
+        title = g.name;
         title = title.replaceAll("_", "");
 
         gnuplot_xfer_lines += "\n";
@@ -381,12 +381,12 @@ public class Gnuplot {
 
         for(int i=0; i<gates.size(); ++i) {
 
-            String outname = gates.get(i).Name;
+            String outname = gates.get(i).name;
             String name_logic_rpus = lc.get_assignment_name() + "_" + outname + "_" + suffix + ".txt";
             String logic_rpus_data = lc.printLogicRPU(gates.get(i));
             Util.fileWriter(_output_directory + name_logic_rpus, logic_rpus_data, false);
 
-            String name_rpus = lc.get_assignment_name() + "_" + gates.get(i).Name + "_" + suffix + ".txt";
+            String name_rpus = lc.get_assignment_name() + "_" + gates.get(i).name + "_" + suffix + ".txt";
 
             String logic_string = BooleanLogic.logicString(gates.get(i).get_logics());
             logic_string = logic_string.replaceAll("[^\\d.]", "");
@@ -405,7 +405,7 @@ public class Gnuplot {
      ***********************************************************************/
     public void makeTruthtableBargraph(Gate g, String prefix, String suffix) {
 
-        String name_rpu_data = prefix + "_" + g.Name + "_" + suffix + ".txt";
+        String name_rpu_data = prefix + "_" + g.name + "_" + suffix + ".txt";
 
         LogicCircuit lc = new LogicCircuit();
         String rpu_data = lc.printLogicRPU(g);
@@ -422,7 +422,7 @@ public class Gnuplot {
 
         for(int i=0; i<lc.get_output_gates().size(); ++i) {
 
-            String name_rpu_data = lc.get_assignment_name() + "_" + lc.get_output_gates().get(i).Name + "_" + suffix + ".txt";
+            String name_rpu_data = lc.get_assignment_name() + "_" + lc.get_output_gates().get(i).name + "_" + suffix + ".txt";
 
             String rpu_data = lc.printLogicRPU(lc.get_output_gates().get(i));
             Util.fileWriter(_output_directory + name_rpu_data, rpu_data, false);
@@ -454,7 +454,7 @@ public class Gnuplot {
             h_datapoints += "\n";
             //each row of the truth table is a column of fractional counts in the output text file
         }
-        String name_conv_rpus = prefix + "_" + g.Name + "_" + suffix + ".txt";
+        String name_conv_rpus = prefix + "_" + g.name + "_" + suffix + ".txt";
 
         //write data to file, where columns are truth table rows
         //data is not pre-binned, this is done in Gnuplot
@@ -492,7 +492,7 @@ public class Gnuplot {
                 h_datapoints += "\n";
                 //each row of the truth table is a column of fractional counts in the output text file
             }
-            String name_conv_rpus = lc.get_assignment_name() + "_" + lc.get_output_gates().get(i).Name + "_" + suffix + ".txt";
+            String name_conv_rpus = lc.get_assignment_name() + "_" + lc.get_output_gates().get(i).name + "_" + suffix + ".txt";
 
             //write data to file, where columns are truth table rows
             //data is not pre-binned, this is done in Gnuplot
@@ -514,7 +514,7 @@ public class Gnuplot {
         hbins.init();
 
         for(Gate g: lc.get_Gates()) {
-            if(g.Type == Gate.GateType.INPUT) {
+            if(g.type == Gate.GateType.INPUT) {
                 continue;
             }
 
@@ -537,16 +537,16 @@ public class Gnuplot {
                 child1 = g.getChildren().get(0);
                 child2 = g.getChildren().get(1);
 
-                if (child1.Type == Gate.GateType.INPUT) {
-                    fanin_gate_names.add("input_" + child1.Name);
+                if (child1.type == Gate.GateType.INPUT) {
+                    fanin_gate_names.add("input_" + child1.name);
                 } else {
-                    fanin_gate_names.add(child1.Name);
+                    fanin_gate_names.add(child1.name);
                 }
 
-                if (child2.Type == Gate.GateType.INPUT) {
-                    fanin_gate_names.add("input_" + child2.Name);
+                if (child2.type == Gate.GateType.INPUT) {
+                    fanin_gate_names.add("input_" + child2.name);
                 } else {
-                    fanin_gate_names.add(child2.Name);
+                    fanin_gate_names.add(child2.name);
                 }
 
 
@@ -590,7 +590,7 @@ public class Gnuplot {
                     Double in1 = 0.0;
                     Double in2 = 0.0;
 
-                    if (child1.Type == Gate.GateType.INPUT) {
+                    if (child1.type == Gate.GateType.INPUT) {
                         if (child1.get_logics().get(row) == 0) {
                             in1 = Math.pow(10, hbins.get_LOGMIN());
                         } else if (child1.get_logics().get(row) == 1) {
@@ -601,7 +601,7 @@ public class Gnuplot {
                     }
 
 
-                    if (child2.Type == Gate.GateType.INPUT) {
+                    if (child2.type == Gate.GateType.INPUT) {
                         if (child2.get_logics().get(row) == 0) {
                             in2 = Math.pow(10, hbins.get_LOGMIN());
                         } else if (child2.get_logics().get(row) == 1) {
@@ -627,7 +627,7 @@ public class Gnuplot {
 
                     int logic = g.get_logics().get(row);
 
-                    if (g.Type == Gate.GateType.NOR) {
+                    if (g.type == Gate.GateType.NOR) {
                         logic = BooleanLogic.computeNOT(logic);
                     }
 

@@ -20,7 +20,7 @@ public class BuildCircuitsRandom extends BuildCircuits {
 
         for(Gate g: lc.get_logic_gates()) {
 
-            if(g.Group.equals(group_name)) {
+            if(g.group.equals(group_name)) {
 
                 return true;
 
@@ -59,14 +59,14 @@ public class BuildCircuitsRandom extends BuildCircuits {
                 for (int i = 0; i < lc.get_logic_gates().size(); ++i) {
                     Gate g = lc.get_logic_gates().get(i);
 
-                    g.Name = "null";
+                    g.name = "null";
                 }
 
                 for (int i = 0; i < lc.get_logic_gates().size(); ++i) {
 
                     Gate g = lc.get_logic_gates().get(i);
 
-                    LinkedHashMap<String, ArrayList<Gate>> groups_of_type = get_gate_library().get_GATES_BY_GROUP().get(g.Type);
+                    LinkedHashMap<String, ArrayList<Gate>> groups_of_type = get_gate_library().get_GATES_BY_GROUP().get(g.type);
 
                     ArrayList<String> group_names = new ArrayList<String>(groups_of_type.keySet());
 
@@ -80,7 +80,7 @@ public class BuildCircuitsRandom extends BuildCircuits {
 
                             Collections.shuffle(gates_of_group);
 
-                            g.Name = gates_of_group.get(0).Name;
+                            g.name = gates_of_group.get(0).name;
                         }
                     }
 

@@ -89,37 +89,37 @@ public class GateLibrary {
         for (Gate g : _GATES_BY_NAME.values()) {
 
             //organization 1
-            _GATES_BY_NAME.put(g.Name, g);
+            _GATES_BY_NAME.put(g.name, g);
 
 
             //organization 2
-            if (!_GATES_BY_TYPE.containsKey(g.Type)) {
+            if (!_GATES_BY_TYPE.containsKey(g.type)) {
 
-                _GATES_BY_TYPE.put(g.Type, new LinkedHashMap<String, Gate>());
+                _GATES_BY_TYPE.put(g.type, new LinkedHashMap<String, Gate>());
 
             }
 
-            LinkedHashMap<String, Gate> gate_type_map = _GATES_BY_TYPE.get(g.Type);
+            LinkedHashMap<String, Gate> gate_type_map = _GATES_BY_TYPE.get(g.type);
 
-            gate_type_map.put(g.Name, g);
+            gate_type_map.put(g.name, g);
 
 
             //organization 3
-            if (!_GATES_BY_GROUP.containsKey(g.Type)) {
+            if (!_GATES_BY_GROUP.containsKey(g.type)) {
 
-                _GATES_BY_GROUP.put(g.Type, new LinkedHashMap<String, ArrayList<Gate>>());
-
-            }
-
-            LinkedHashMap<String, ArrayList<Gate>> gate_type_group_map = _GATES_BY_GROUP.get(g.Type);
-
-            if( ! gate_type_group_map.containsKey(g.Group)) {
-
-                gate_type_group_map.put(g.Group, new ArrayList<Gate>());
+                _GATES_BY_GROUP.put(g.type, new LinkedHashMap<String, ArrayList<Gate>>());
 
             }
 
-            gate_type_group_map.get(g.Group).add(g); //add group member to arraylist
+            LinkedHashMap<String, ArrayList<Gate>> gate_type_group_map = _GATES_BY_GROUP.get(g.type);
+
+            if( ! gate_type_group_map.containsKey(g.group)) {
+
+                gate_type_group_map.put(g.group, new ArrayList<Gate>());
+
+            }
+
+            gate_type_group_map.get(g.group).add(g); //add group member to arraylist
 
         }
     }

@@ -27,7 +27,7 @@ public class BuildCircuitsUtil {
 
             //bug fix for sequential circuit
             for(Gate g: lc.get_Gates()) {
-                if(g.Type == Gate.GateType.INPUT) {
+                if(g.type == Gate.GateType.INPUT) {
                     continue;
                 }
 
@@ -125,7 +125,7 @@ public class BuildCircuitsUtil {
 
             //bug fix for sequential circuit
             for(Gate g: lc.get_Gates()) {
-                if(g.Type == Gate.GateType.INPUT) {
+                if(g.type == Gate.GateType.INPUT) {
                     continue;
                 }
 
@@ -150,7 +150,7 @@ public class BuildCircuitsUtil {
 
             for(Gate g: lc.get_logic_gates()) {
                 Evaluate.refreshGateAttributes(g, gate_library);
-                asn += g.Name;
+                asn += g.name;
 
                 ArrayList<String> promoter_names = new ArrayList<>();
                 String rbs = "";

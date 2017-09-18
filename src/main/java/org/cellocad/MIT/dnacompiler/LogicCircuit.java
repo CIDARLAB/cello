@@ -109,24 +109,24 @@ public class LogicCircuit{
 
         //after making deep copies of _Gates/_Wires, the _Gates/_Wires have the proper data but the new objects need to be reconnected in memory
         for (int i = 0; i < new_Gates.size(); i++) {
-            if (_Gates.get(i).Outgoing != null) {                     //Outgoing is a wire
-                int index = _Gates.get(i).Outgoing.Index;
+            if (_Gates.get(i).outgoing != null) {                     //Outgoing is a wire
+                int index = _Gates.get(i).outgoing.Index;
                 for(Wire w: new_Wires) {
-                    if(w.Index == index) { new_Gates.get(i).Outgoing = w; }
+                    if(w.Index == index) { new_Gates.get(i).outgoing = w; }
                 }
             }
         }
         for (int i = 0; i < new_Wires.size(); i++) {
             if (_Wires.get(i).From != null) {                        //From is a gate
-                int index = _Wires.get(i).From.Index;
+                int index = _Wires.get(i).From.index;
                 for(Gate g: new_Gates) {
-                    if(g.Index == index) { new_Wires.get(i).From = g; }
+                    if(g.index == index) { new_Wires.get(i).From = g; }
                 }
             }
             if (_Wires.get(i).To != null) {                          //To is a gate
-                int index = _Wires.get(i).To.Index;
+                int index = _Wires.get(i).To.index;
                 for(Gate g: new_Gates) {
-                    if(g.Index == index) { new_Wires.get(i).To = g; }
+                    if(g.index == index) { new_Wires.get(i).To = g; }
                 }
             }
             if (_Wires.get(i).Next != null) {                        //Next is a wire
@@ -146,8 +146,8 @@ public class LogicCircuit{
         for(Gate g: this.get_Gates()) {
 
             for(Wire w: this.get_Wires()) {
-                if (g.Outgoing_wire_index == w.Index) {
-                    g.Outgoing = w;
+                if (g.outgoing_wire_index == w.Index) {
+                    g.outgoing = w;
                 }
             }
 
@@ -155,10 +155,10 @@ public class LogicCircuit{
                 for(Wire w: g.get_variable_wires().get(x)) {
 
                     for(Gate g2: this.get_Gates()) {
-                        if(w.From_index == g2.Index) {
+                        if(w.From_index == g2.index) {
                             w.From = g2;
                         }
-                        if(w.To_index == g2.Index) {
+                        if(w.To_index == g2.index) {
                             w.To = g2;
                         }
                     }
@@ -175,10 +175,10 @@ public class LogicCircuit{
 
         for(Wire w: this.get_Wires()) {
             for(Gate g: this.get_Gates()) {
-                if(w.From_index == g.Index) {
+                if(w.From_index == g.index) {
                     w.From = g;
                 }
-                if(w.To_index == g.Index) {
+                if(w.To_index == g.index) {
                     w.To = g;
                 }
             }
@@ -224,17 +224,17 @@ public class LogicCircuit{
         for (int i = 0; i < _Gates.size(); ++i) {
             Gate gi = _Gates.get(i);
 
-            s += String.format("%-12s", gi.Type);
+            s += String.format("%-12s", gi.type);
             s += String.format("%-18s", BooleanLogic.logicString(gi.get_logics()));
-            s += String.format("%-18s", gi.Name);
-            s += String.format("%-3d", gi.Index);
+            s += String.format("%-18s", gi.name);
+            s += String.format("%-3d", gi.index);
 
             String child_indx = "(";
             for(Gate child: gi.getChildren()) {
-                child_indx += child.Index +",";
+                child_indx += child.index +",";
             }
             child_indx = child_indx.substring(0,child_indx.length()-1);
-            if(gi.Type != GateType.INPUT)
+            if(gi.type != GateType.INPUT)
                 child_indx += ")";
 
             s += String.format("%-12s", child_indx);
@@ -263,11 +263,11 @@ public class LogicCircuit{
             Gate g = this.get_Gates().get(j);
 
             String name;
-            if(g.Group.equals("") || g.Group == null) {
-               name = g.Name;
+            if(g.group.equals("") || g.group == null) {
+               name = g.name;
             }
             else{
-                name = g.Group;
+                name = g.group;
             }
 
             s += String.format("%7s", name) + "\t";
@@ -296,17 +296,17 @@ public class LogicCircuit{
             Gate gi = _Gates.get(i);
 
             s += String.format("%-3d", gi.get_distance_to_input());
-            s += String.format("%-12s", gi.Type);
+            s += String.format("%-12s", gi.type);
             s += String.format("%-18s", BooleanLogic.logicString(gi.get_logics()));
-            s += String.format("%-18s", gi.Name);
-            s += String.format("%-3d", gi.Index);
+            s += String.format("%-18s", gi.name);
+            s += String.format("%-3d", gi.index);
 
             String child_indx = "(";
             for(Gate child: gi.getChildren()) {
-                child_indx += child.Index +",";
+                child_indx += child.index +",";
             }
             child_indx = child_indx.substring(0,child_indx.length()-1);
-            if(gi.Type != GateType.INPUT)
+            if(gi.type != GateType.INPUT)
                 child_indx += ")";
 
             s += String.format("%-12s", child_indx);
@@ -369,12 +369,12 @@ public class LogicCircuit{
 
         if (g.get_logics().size() > 0 && g.get_outrpus().size() > 0){
 
-            s += g.Name + "  Gate=" + String.format("%-6.5f",g.get_scores().get_score()) + "\n";
+            s += g.name + "  Gate=" + String.format("%-6.5f",g.get_scores().get_score()) + "\n";
 
             for(int i=0; i<g.get_outrpus().size(); ++i){
 
                 String child_rpu = "";
-                if(g.Type != GateType.INPUT) {
+                if(g.type != GateType.INPUT) {
                     for(Gate child: g.getChildren()) {
                         child_rpu += String.format("%8.3f", child.get_outrpus().get(i));
                     }
@@ -382,7 +382,7 @@ public class LogicCircuit{
                 }
 
                 String dist2in = "    ";
-                if(g.Type != GateType.INPUT && g.Type != GateType.OUTPUT_OR && g.Type != GateType.OUTPUT) {
+                if(g.type != GateType.INPUT && g.type != GateType.OUTPUT_OR && g.type != GateType.OUTPUT) {
                     dist2in = String.format("%4s", g.get_distance_to_input());
                 }
                 //String tagged_gate_type = "_" + g.Type; // for grepping purposes to make truth table figure
@@ -392,14 +392,14 @@ public class LogicCircuit{
                     logic_i = "-"; //dontcare
                 }
 
-                s += String.format("%11s", g.Type) + " " + dist2in + " " + String.format("%11s: %-6s", getLogicRow(i), logic_i);
+                s += String.format("%11s", g.type) + " " + dist2in + " " + String.format("%11s: %-6s", getLogicRow(i), logic_i);
                 //s += String.format("%11s: %6.3f", child_rpu, g.get_outrpus().get(i));
                 s += String.format("%18s: %6.3f", child_rpu, g.get_outrpus().get(i));
 
                 if(!g.get_toxicity().isEmpty()) {
-                    if (g.get_toxicity().size() > 0 && g.Type != GateType.OUTPUT && g.Type != GateType.OUTPUT_OR)
+                    if (g.get_toxicity().size() > 0 && g.type != GateType.OUTPUT && g.type != GateType.OUTPUT_OR)
                         s += String.format("%18s: %3.2f", "individual_tox", g.get_toxicity().get(i));
-                    else if (g.get_toxicity().size() > 0 && (g.Type == GateType.OUTPUT || g.Type == GateType.OUTPUT_OR))
+                    else if (g.get_toxicity().size() > 0 && (g.type == GateType.OUTPUT || g.type == GateType.OUTPUT_OR))
                         s += String.format("%18s: %3.2f", "multiplied_tox", g.get_toxicity().get(i));
                 }
 
@@ -418,15 +418,15 @@ public class LogicCircuit{
         for (int i = 0; i < _Gates.size(); ++i) {
             Gate gi = _Gates.get(i);
 
-            s += String.format("%-3d", gi.Index);
-            s += String.format("%-12s", gi.Type);
+            s += String.format("%-3d", gi.index);
+            s += String.format("%-12s", gi.type);
 
             String child_indx = "(";
             for(Gate child: gi.getChildren()) {
-                child_indx += child.Index +",";
+                child_indx += child.index +",";
             }
             child_indx = child_indx.substring(0,child_indx.length()-1);
-            if(gi.Type != GateType.INPUT)
+            if(gi.type != GateType.INPUT)
                 child_indx += ")";
 
             s += String.format("%-12s", child_indx);
@@ -473,13 +473,13 @@ public class LogicCircuit{
 
         for(Gate g: _Gates) {
 
-            if(g.Type == GateType.INPUT) {
+            if(g.type == GateType.INPUT) {
 
                 input_gates.add(g);
 
             }
 
-            else if(g.Type == GateType.OUTPUT || g.Type == GateType.OUTPUT_OR) {
+            else if(g.type == GateType.OUTPUT || g.type == GateType.OUTPUT_OR) {
 
                 output_gates.add(g);
 
@@ -489,7 +489,7 @@ public class LogicCircuit{
 
                 GateUtil.calculateDistanceToFarthestInput(g);
 
-                g.RIndex = logic_gates.size() + 1;
+                g.rIndex = logic_gates.size() + 1;
 
                 logic_gates.add(g);
 
@@ -509,7 +509,7 @@ public class LogicCircuit{
                             result = 1;
                         }
                         else if ( (g1.get_distance_to_input() - g2.get_distance_to_input() == 0) ) {
-                            if(g1.Index < g2.Index) {
+                            if(g1.index < g2.index) {
                                 return -1;
                             }
                             else {
@@ -534,7 +534,7 @@ public class LogicCircuit{
     public String assignment() {
         String assignment = "";
         for(Gate g: this._logic_gates) {
-            assignment += g.Name + " ";
+            assignment += g.name + " ";
         }
         return assignment;
     }
@@ -589,13 +589,13 @@ public class LogicCircuit{
 
         for(Gate g: this.get_Gates()) {
 
-            if(!gate_types.containsKey(g.Type)) {
+            if(!gate_types.containsKey(g.type)) {
 
-                gate_types.put(g.Type, new ArrayList<Gate>());
+                gate_types.put(g.type, new ArrayList<Gate>());
 
             }
 
-            gate_types.get(g.Type).add(g);
+            gate_types.get(g.type).add(g);
 
         }
 
@@ -618,7 +618,7 @@ public class LogicCircuit{
 
         for(Gate g: _Gates) {
 
-            if(g.Type == gtype) {
+            if(g.type == gtype) {
 
                 gates.add(g);
 
@@ -635,7 +635,7 @@ public class LogicCircuit{
 
         for(Gate g: _Gates) {
 
-            if(g.Type == gtype1 || g.Type == gtype2) {
+            if(g.type == gtype1 || g.type == gtype2) {
 
                 gates.add(g);
 

@@ -31,21 +31,21 @@ public class Graphviz {
         gvText += "splines=ortho; \n";
 
         for(int i=0; i<lc.get_output_gates().size(); ++i) {
-            gvText += lc.get_output_gates().get(i).Name + "[shape=none,label=\"" + lc.get_output_gates().get(i).Name + "\"]; \n";
+            gvText += lc.get_output_gates().get(i).name + "[shape=none,label=\"" + lc.get_output_gates().get(i).name + "\"]; \n";
         }
 
         for(int i=lc.get_Gates().size()-1; i>=0; --i) {
 
             Gate g = lc.get_Gates().get(i);
 
-            if(g.Type == Gate.GateType.OUTPUT || g.Type == Gate.GateType.OUTPUT_OR ) { continue; }
-            String shape = g.Name;
-            if(g.Type == Gate.GateType.INPUT) {
-                gvText += g.Name + "[shape=none,label=\"" + shape + "\"]; \n";
+            if(g.type == Gate.GateType.OUTPUT || g.type == Gate.GateType.OUTPUT_OR ) { continue; }
+            String shape = g.name;
+            if(g.type == Gate.GateType.INPUT) {
+                gvText += g.name + "[shape=none,label=\"" + shape + "\"]; \n";
             }
-            else if(g.Type == Gate.GateType.NOT || g.Type == Gate.GateType.NOR || g.Type == Gate.GateType.AND) {
-                String image_location = "\"" + lc.get_assignment_name() + "_xfer_model_" + g.Name +".png"+ "\"";
-                gvText += g.Name + "[fixedsize=true,height=1.0,width=1.0,label=\"\",shape=none,image="+image_location+"]; \n";
+            else if(g.type == Gate.GateType.NOT || g.type == Gate.GateType.NOR || g.type == Gate.GateType.AND) {
+                String image_location = "\"" + lc.get_assignment_name() + "_xfer_model_" + g.name +".png"+ "\"";
+                gvText += g.name + "[fixedsize=true,height=1.0,width=1.0,label=\"\",shape=none,image="+image_location+"]; \n";
             }
             else {
                 String g_logics = "\\n" + BooleanLogic.logicString(g.get_logics());
@@ -53,15 +53,15 @@ public class Graphviz {
                 if(g.get_scores().get_score() != -1.0) {
                     labelscore = "\\n" + String.format("%5.4f", g.get_scores().get_score());
                 }
-                gvText += g.Name + "[shape=box,label=\"" + shape + labelscore + g_logics + "\"]; \n";
+                gvText += g.name + "[shape=box,label=\"" + shape + labelscore + g_logics + "\"]; \n";
             }
         }
 
         for(int i=0; i<lc.get_Wires().size(); ++i) {
             Wire w = lc.get_Wires().get(i);
 
-            String child = w.To.Name;
-            String parent = w.From.Name;
+            String child = w.To.name;
+            String parent = w.From.name;
 
             gvText += child + " ->" + parent + " ; \n";
         }
@@ -87,30 +87,30 @@ public class Graphviz {
 
         for(int i=0; i<lc.get_output_gates().size(); ++i) {
             Gate g = lc.get_output_gates().get(i);
-            gvText += g.Name + "[shape=none,label=\"" + lc.get_output_gates().get(i).Name + "\"]; \n";
+            gvText += g.name + "[shape=none,label=\"" + lc.get_output_gates().get(i).name + "\"]; \n";
         }
 
         for(int i=lc.get_Gates().size()-1; i>=0; --i) {
 
             Gate g = lc.get_Gates().get(i);
 
-            if(g.Type == Gate.GateType.OUTPUT || g.Type == Gate.GateType.OUTPUT_OR) { continue; }
-            String shape = g.Name;
-            if(g.Type == Gate.GateType.INPUT) {
-                gvText += g.Name + "[shape=none,label=\"" + shape + "\"]; \n";
+            if(g.type == Gate.GateType.OUTPUT || g.type == Gate.GateType.OUTPUT_OR) { continue; }
+            String shape = g.name;
+            if(g.type == Gate.GateType.INPUT) {
+                gvText += g.name + "[shape=none,label=\"" + shape + "\"]; \n";
             }
             else {
                 //String image_location = "\"" + _output_directory + prefixA + "_" + g.Name +"_gate.png"+ "\"";
-                String image_location = "\"" + lc.get_assignment_name() + "_" + g.Name +"_gate.png"+ "\"";
-                gvText += g.Name + "[fixedsize=true,height=1.0,width=1.0,label=\"\",shape=none,image="+image_location+"]; \n";
+                String image_location = "\"" + lc.get_assignment_name() + "_" + g.name +"_gate.png"+ "\"";
+                gvText += g.name + "[fixedsize=true,height=1.0,width=1.0,label=\"\",shape=none,image="+image_location+"]; \n";
             }
         }
 
         for(int i=0; i<lc.get_Wires().size(); ++i) {
             Wire w = lc.get_Wires().get(i);
 
-            String child = w.To.Name;
-            String parent = w.From.Name;
+            String child = w.To.name;
+            String parent = w.From.name;
 
             gvText += child + " ->" + parent + " ; \n";
         }
@@ -178,7 +178,7 @@ public class Graphviz {
             if(lc.get_output_gates().get(i).get_scores().get_score() != -1.0000)
                 output_score = "\\n" + String.format("%8.2f", lc.get_output_gates().get(i).get_scores().get_score());
             String output_logics = "\\n" + BooleanLogic.logicString(lc.get_output_gates().get(i).get_logics());
-            gvText += lc.get_output_gates().get(i).Name + "[shape=none,label=\"" + lc.get_output_gates().get(i).Name + output_score + output_logics + "\"]; \n";
+            gvText += lc.get_output_gates().get(i).name + "[shape=none,label=\"" + lc.get_output_gates().get(i).name + output_score + output_logics + "\"]; \n";
         }
 
         for(int i=lc.get_Gates().size()-1; i>=0; --i) {
@@ -193,33 +193,33 @@ public class Graphviz {
                 labelscore = "\\n" + String.format("%8.2f", g.get_scores().get_score());
             }
 
-            if(g.Type == Gate.GateType.OUTPUT || g.Type == Gate.GateType.OUTPUT_OR) { continue; }
+            if(g.type == Gate.GateType.OUTPUT || g.type == Gate.GateType.OUTPUT_OR) { continue; }
 
-            if(!g.Name.matches("[A-Za-z0-9_]+")) {
-                g.Name = g.Type + "" + Integer.toString(g.RIndex); //abstract gate
+            if(!g.name.matches("[A-Za-z0-9_]+")) {
+                g.name = g.type + "" + Integer.toString(g.rIndex); //abstract gate
             }
 
-            String shape = g.Type + " " + g.Name  + " " + g.get_distance_to_input();
+            String shape = g.type + " " + g.name  + " " + g.get_distance_to_input();
 
-            if(g.Type == Gate.GateType.INPUT) {
-                shape = g.Type + " " + g.Name + " " + g.get_distance_to_input();
-                gvText += g.Name + "[shape=none,label=\"" + shape +labelscore + g_logics + "\"]; \n";
+            if(g.type == Gate.GateType.INPUT) {
+                shape = g.type + " " + g.name + " " + g.get_distance_to_input();
+                gvText += g.name + "[shape=none,label=\"" + shape +labelscore + g_logics + "\"]; \n";
             }
             else {
                 String shape_type = "box";
-                if(g.Type == Gate.GateType.OR)
+                if(g.type == Gate.GateType.OR)
                     shape_type = "none";
-                if(g.Type == Gate.GateType.AND)
+                if(g.type == Gate.GateType.AND)
                     shape_type = "oval";
-                gvText += g.Name + "[shape="+shape_type+",style=filled,fillcolor=gray"+graycolor+",label=\"" + shape + labelscore + g_logics + "\"]; \n";
+                gvText += g.name + "[shape="+shape_type+",style=filled,fillcolor=gray"+graycolor+",label=\"" + shape + labelscore + g_logics + "\"]; \n";
             }
         }
 
         for(int i=0; i<lc.get_Wires().size(); ++i) {
             Wire w = lc.get_Wires().get(i);
 
-            String child = w.To.Name;
-            String parent = w.From.Name;
+            String child = w.To.name;
+            String parent = w.From.name;
 
             gvText += child + "->" + parent + "; \n";
         }
