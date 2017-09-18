@@ -358,27 +358,35 @@ public class LogicCircuitUtil{
 
         HashMap<GateType, Integer> assigned_groups = new HashMap<GateType, Integer>();
 
-        for (Gate.GateType gtype : lc.get_logic_gate_types().keySet()) {
+        Set<Gate> gates = lc.getGates();
+        Set<Gate.GateType> inoutTypes = new HashSet<>(Arrays.asList(GateType.INPUT,
+                                                                    GateType.OUTPUT,
+                                                                    GateType.OUTPUT_OR));
+        gates.removeAll(lc.getGatesByType(inoutTypes));
 
-            if (!assigned_groups.containsKey(gtype)) {
-                assigned_groups.put(gtype, 0);
+        for (Gate gate : gates) {
+
+            Gate.GateType gateType = gate.getType();
+
+            if (!assigned_groups.containsKey(gateType)) {
+                assigned_groups.put(gateType, 0);
             }
 
-            if(!gate_library.get_GATES_BY_GROUP().containsKey(gtype)) {
+            if(!gate_library.get_GATES_BY_GROUP().containsKey(gateType)) {
                 return false;
             }
 
-            for (String group_name : gate_library.get_GATES_BY_GROUP().get(gtype).keySet()) {
+            for (String group_name : gate_library.get_GATES_BY_GROUP().get(gateType).keySet()) {
 
-                if (assigned_groups.get(gtype) < lc.get_gate_types().get(gtype).size()) {
+                if (assigned_groups.get(gateType) < lc.get_gate_types().get(gateType).size()) {
 
                     if (!used_groups.contains(group_name)) {
 
                         used_groups.add(group_name);
 
 
-                        Integer n = assigned_groups.get(gtype);
-                        assigned_groups.put(gtype, (n + 1));
+                        Integer n = assigned_groups.get(gateType);
+                        assigned_groups.put(gateType, (n + 1));
 
                     }
 
@@ -388,9 +396,9 @@ public class LogicCircuitUtil{
 
         }
 
-        for(Gate.GateType gtype: assigned_groups.keySet()) {
+        for(Gate.GateType gateType: assigned_groups.keySet()) {
 
-            if(assigned_groups.get(gtype) < lc.get_gate_types().get(gtype).size()) {
+            if(assigned_groups.get(gateType) < lc.get_gate_types().get(gateType).size()) {
                 return false;
             }
 

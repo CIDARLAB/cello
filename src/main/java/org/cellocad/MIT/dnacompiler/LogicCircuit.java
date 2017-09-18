@@ -7,6 +7,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.cellocad.MIT.dnacompiler.Gate.GateType;
 
+import com.google.common.graph.GraphBuilder;
+import com.google.common.graph.MutableGraph;
+import com.google.common.graph.EndpointPair;
+
 import java.util.*;
 
 //import org.sbolstandard.core2.ComponentDefinition;
@@ -21,7 +25,9 @@ import java.util.*;
  * Assigned LogicCircuits are ranked by score.
  *
  */
-public class LogicCircuit{
+public class LogicCircuit {
+
+    private MutableGraph<Gate> graph;
 
     /**
      *
@@ -29,6 +35,7 @@ public class LogicCircuit{
      *
      */
     public LogicCircuit(){
+        graph = GraphBuilder.directed().build();
         _Wires = new ArrayList<Wire>();
         _Gates = new ArrayList<Gate>();
     }
@@ -39,12 +46,18 @@ public class LogicCircuit{
      * Constructor to make LogicCircuit from DAGW (dag = abstract circuit)
      *
      */
-    public LogicCircuit(ArrayList<Gate> Gates, ArrayList<Wire> Wires){ // used to make abstract circuit from frontend handoff
+    public LogicCircuit(ArrayList<Gate> gates, ArrayList<Wire> wires){ // used to make abstract circuit from frontend handoff
+        this();
 
-        _Gates = new ArrayList<Gate>();
-        _Wires = new ArrayList<Wire>();
-        for(Gate g:Gates) { _Gates.add(g); }
-        for(Wire w:Wires) { _Wires.add(w); }
+        for (Gate g : gates) {
+            _Gates.add(g);
+            graph.addNode(g);
+        }
+
+        for (Wire w : wires) {
+            _Wires.add(w);
+            graph.putEdge(w.from, w.to);
+        }
 
         reconnectCircuit();
         categorizeGates();
@@ -60,6 +73,8 @@ public class LogicCircuit{
     public LogicCircuit(LogicCircuit lc){ // copy constructor
         _Gates = lc.get_Gates();
         _Wires = lc.get_Wires();
+
+        graph = GraphBuilder.directed().build();
 
         _index = _number_of_logic_circuits;
         _number_of_logic_circuits++;
@@ -274,7 +289,10 @@ public class LogicCircuit{
         }
         s += "\n";
 
-        for(int i=0; i<get_Gates(GateType.OUTPUT, GateType.OUTPUT_OR).get(0).get_logics().size(); ++i){
+        Set<Gate.GateType> outputTypes = new HashSet<>(Arrays.asList(GateType.OUTPUT,
+                                                                     GateType.OUTPUT_OR));
+        Set<Gate> gates = getGatesByType(outputTypes);
+        for(int i=0; i<gates.iterator().next().get_logics().size(); ++i){
             s += String.format("%14s", this.getLogicRow(i)) + "\t";
 
             for(int j=this.get_Gates().size()-1; j>=0; --j) {
@@ -610,42 +628,34 @@ public class LogicCircuit{
     //
     /////////////////////////
 
-
-
-    public ArrayList<Gate> get_Gates(GateType gtype) {
-
-        ArrayList<Gate> gates = new ArrayList<Gate>();
-
-        for(Gate g: _Gates) {
-
-            if(g.type == gtype) {
-
-                gates.add(g);
-
-            }
-        }
-
-        return gates;
-
+    /**
+     * @return all the nodes in the graph
+     */
+    public Set<Gate> getGates() {
+        return graph.nodes();
     }
 
-    public ArrayList<Gate> get_Gates(GateType gtype1, GateType gtype2) {
+    /**
+     * @param types
+     * @return the gates with types in {types}
+     */
+    public Set<Gate> getGatesByType( Set<Gate.GateType> types ) {
+        Set<Gate> nodes = graph.nodes();
+        Set<Gate> gates = new HashSet<>();
 
-        ArrayList<Gate> gates = new ArrayList<Gate>();
-
-        for(Gate g: _Gates) {
-
-            if(g.type == gtype1 || g.type == gtype2) {
-
-                gates.add(g);
-
+        for ( Gate gate : nodes ) {
+            Gate.GateType gateType = gate.getType();
+            if ( types.contains(gateType) ) {
+                gates.add(gate);
             }
-
         }
 
         return gates;
     }
 
+    public Set<EndpointPair<Gate>> getEdges() {
+        return graph.edges();
+    }
 
     public HashMap<GateType, ArrayList<Gate>> get_logic_gate_types() {
 
