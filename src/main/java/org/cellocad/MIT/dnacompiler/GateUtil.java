@@ -155,7 +155,7 @@ public class GateUtil {
                 boolean ON = false;
 
                 for (Wire w : g.get_variable_wires().get(var)) {
-                    if (w.To.get_logics().get(i) == 1) {
+                    if (w.to.get_logics().get(i) == 1) {
                         ON = true;
                     }
                 }
@@ -216,7 +216,7 @@ public class GateUtil {
 
                 for (Wire w : g.get_variable_wires().get(var)) {
 
-                    if (w.To.get_logics().get(i) == 1) {
+                    if (w.to.get_logics().get(i) == 1) {
                         OFF = false;
                     }
                 }
@@ -545,9 +545,9 @@ public class GateUtil {
             input_wires.add(g.outgoing);
 
             Wire w = g.outgoing;
-            while(w.Next != null) {
-                input_wires.add(w.Next);
-                w = w.Next;
+            while(w.next != null) {
+                input_wires.add(w.next);
+                w = w.next;
             }
         }
 
@@ -683,7 +683,7 @@ public class GateUtil {
 
                 for (Wire w : g.get_variable_wires().get(v)) {
                     //this is the line that adds RPU values for tandem promoters
-                    dtest += w.To.get_outrpus().get(row);
+                    dtest += w.to.get_outrpus().get(row);
                 }
 
 
@@ -751,7 +751,7 @@ public class GateUtil {
                 else {
                     for (Wire w : g.get_variable_wires().get(v)) {
                         //this is the line that adds RPU values for tandem promoters
-                        d += w.To.get_outrpus().get(row);
+                        d += w.to.get_outrpus().get(row);
                     }
                     variable_values.put(v, d);
                 }
@@ -765,7 +765,7 @@ public class GateUtil {
                 Double d = 0.0;
                 for (Wire w : g.get_variable_wires().get(v)) {
                     //this is the line that adds RPU values for tandem promoters
-                    d += w.To.get_outrpus().get(row);
+                    d += w.to.get_outrpus().get(row);
                 }
                 variable_values.put(v, d);
             }

@@ -135,12 +135,12 @@ public class BuildCircuitsReload extends BuildCircuits {
 
                 for (Integer fanin_index : fanin_map.get(g.index)) {
                     Wire w = new Wire();
-                    w.From = g;
-                    w.To = gate_map.get(fanin_index);
-                    w.Index = wires.size();
+                    w.from = g;
+                    w.to = gate_map.get(fanin_index);
+                    w.index = wires.size();
 
                     if(counter > 0) {
-                        w.Next = wires.get(wires.size()-1);
+                        w.next = wires.get(wires.size()-1);
                     }
                     g.outgoing = w;
 

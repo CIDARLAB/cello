@@ -120,19 +120,19 @@ public class Netlist{
 
             for(Wire w: lc.get_Wires()) {
 
-                if(w.To != null && w.To.name.trim() == g.name.trim()) {
-                    net += w.Name + ", ";
+                if(w.to != null && w.to.name.trim() == g.name.trim()) {
+                    net += w.name + ", ";
                     break;
                 }
             }
 
-            if ( (g.outgoing != null) && (g.outgoing.To != null)){
-                net += g.outgoing.Name + ", ";
+            if ( (g.outgoing != null) && (g.outgoing.to != null)){
+                net += g.outgoing.name + ", ";
 
                 Wire w = g.outgoing;
-                while(w.Next != null && w.Next.To != null) {
-                    net += w.Next.Name + ", ";
-                    w = w.Next;
+                while(w.next != null && w.next.to != null) {
+                    net += w.next.name + ", ";
+                    w = w.next;
                 }
             }
 

@@ -110,29 +110,29 @@ public class LogicCircuit{
         //after making deep copies of _Gates/_Wires, the _Gates/_Wires have the proper data but the new objects need to be reconnected in memory
         for (int i = 0; i < new_Gates.size(); i++) {
             if (_Gates.get(i).outgoing != null) {                     //Outgoing is a wire
-                int index = _Gates.get(i).outgoing.Index;
+                int index = _Gates.get(i).outgoing.index;
                 for(Wire w: new_Wires) {
-                    if(w.Index == index) { new_Gates.get(i).outgoing = w; }
+                    if(w.index == index) { new_Gates.get(i).outgoing = w; }
                 }
             }
         }
         for (int i = 0; i < new_Wires.size(); i++) {
-            if (_Wires.get(i).From != null) {                        //From is a gate
-                int index = _Wires.get(i).From.index;
+            if (_Wires.get(i).from != null) {                        //From is a gate
+                int index = _Wires.get(i).from.index;
                 for(Gate g: new_Gates) {
-                    if(g.index == index) { new_Wires.get(i).From = g; }
+                    if(g.index == index) { new_Wires.get(i).from = g; }
                 }
             }
-            if (_Wires.get(i).To != null) {                          //To is a gate
-                int index = _Wires.get(i).To.index;
+            if (_Wires.get(i).to != null) {                          //To is a gate
+                int index = _Wires.get(i).to.index;
                 for(Gate g: new_Gates) {
-                    if(g.index == index) { new_Wires.get(i).To = g; }
+                    if(g.index == index) { new_Wires.get(i).to = g; }
                 }
             }
-            if (_Wires.get(i).Next != null) {                        //Next is a wire
-                int index = _Wires.get(i).Next.Index;
+            if (_Wires.get(i).next != null) {                        //Next is a wire
+                int index = _Wires.get(i).next.index;
                 for(Wire w: new_Wires) {
-                    if(w.Index == index) { new_Wires.get(i).Next = w; }
+                    if(w.index == index) { new_Wires.get(i).next = w; }
                 }
             }
         }
@@ -146,7 +146,7 @@ public class LogicCircuit{
         for(Gate g: this.get_Gates()) {
 
             for(Wire w: this.get_Wires()) {
-                if (g.outgoing_wire_index == w.Index) {
+                if (g.outgoing_wire_index == w.index) {
                     g.outgoing = w;
                 }
             }
@@ -155,17 +155,17 @@ public class LogicCircuit{
                 for(Wire w: g.get_variable_wires().get(x)) {
 
                     for(Gate g2: this.get_Gates()) {
-                        if(w.From_index == g2.index) {
-                            w.From = g2;
+                        if(w.from_index == g2.index) {
+                            w.from = g2;
                         }
-                        if(w.To_index == g2.index) {
-                            w.To = g2;
+                        if(w.to_index == g2.index) {
+                            w.to = g2;
                         }
                     }
 
                     for(Wire w2: this.get_Wires()) {
-                        if(w.Next_index == w2.Index) {
-                            w.Next = w2;
+                        if(w.next_index == w2.index) {
+                            w.next = w2;
                         }
                     }
                 }
@@ -175,19 +175,19 @@ public class LogicCircuit{
 
         for(Wire w: this.get_Wires()) {
             for(Gate g: this.get_Gates()) {
-                if(w.From_index == g.index) {
-                    w.From = g;
+                if(w.from_index == g.index) {
+                    w.from = g;
                 }
-                if(w.To_index == g.index) {
-                    w.To = g;
+                if(w.to_index == g.index) {
+                    w.to = g;
                 }
             }
         }
 
         for(Wire w1: this.get_Wires()) {
             for(Wire w2: this.get_Wires()) {
-                if(w1.Next_index == w2.Index && w1.Next_index != -1) {
-                    w1.Next = w2;
+                if(w1.next_index == w2.index && w1.next_index != -1) {
+                    w1.next = w2;
                 }
             }
         }

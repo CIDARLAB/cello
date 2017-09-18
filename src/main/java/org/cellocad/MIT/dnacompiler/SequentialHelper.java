@@ -144,7 +144,7 @@ public class SequentialHelper {
         //TODO not sufficient for OUTPUT_OR
         for(Gate g: lc.get_output_gates()) {
 
-            ArrayList<Double> rpus = new ArrayList<Double>(g.outgoing.To.get_outrpus());
+            ArrayList<Double> rpus = new ArrayList<Double>(g.outgoing.to.get_outrpus());
             g.set_outrpus(rpus);
 
         }
@@ -212,7 +212,7 @@ public class SequentialHelper {
                 if(g.name.equals(gate_name)) {
                     g.set_logics(new ArrayList<Integer>(logics));
 
-                    Gate child = g.outgoing.To;
+                    Gate child = g.outgoing.to;
                     child.set_logics(new ArrayList<Integer>(logics));
                 }
             }
@@ -382,7 +382,7 @@ public class SequentialHelper {
         //TODO not sufficient for OUTPUT_OR
         for(Gate g: lc.get_output_gates()) {
 
-            ArrayList<double[]> hist_rpus = new ArrayList<double[]>(g.outgoing.To.get_histogram_rpus());
+            ArrayList<double[]> hist_rpus = new ArrayList<double[]>(g.outgoing.to.get_histogram_rpus());
             g.set_histogram_rpus(hist_rpus);
 
         }

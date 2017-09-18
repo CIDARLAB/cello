@@ -127,14 +127,14 @@ public class Roadblock {
             ArrayList<Wire> wires = g.get_variable_wires().get(var);
             for(Wire w: wires) {
 
-                if(_input_roadblockers.contains(w.To.name)) {
+                if(_input_roadblockers.contains(w.to.name)) {
                     n_child_roadblockers_input++;
                 }
 
 
-                if(gate_library.get_GATES_BY_NAME().containsKey(w.To.name)) {
+                if(gate_library.get_GATES_BY_NAME().containsKey(w.to.name)) {
 
-                    if (_logic_roadblockers.contains(gate_library.get_GATES_BY_NAME().get(w.To.name).get_regulable_promoter().get_name())) {
+                    if (_logic_roadblockers.contains(gate_library.get_GATES_BY_NAME().get(w.to.name).get_regulable_promoter().get_name())) {
                         n_child_roadblockers_logic++;
                     }
                 }

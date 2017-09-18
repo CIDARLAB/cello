@@ -60,8 +60,8 @@ public class Graphviz {
         for(int i=0; i<lc.get_Wires().size(); ++i) {
             Wire w = lc.get_Wires().get(i);
 
-            String child = w.To.name;
-            String parent = w.From.name;
+            String child = w.to.name;
+            String parent = w.from.name;
 
             gvText += child + " ->" + parent + " ; \n";
         }
@@ -109,8 +109,8 @@ public class Graphviz {
         for(int i=0; i<lc.get_Wires().size(); ++i) {
             Wire w = lc.get_Wires().get(i);
 
-            String child = w.To.name;
-            String parent = w.From.name;
+            String child = w.to.name;
+            String parent = w.from.name;
 
             gvText += child + " ->" + parent + " ; \n";
         }
@@ -218,8 +218,8 @@ public class Graphviz {
         for(int i=0; i<lc.get_Wires().size(); ++i) {
             Wire w = lc.get_Wires().get(i);
 
-            String child = w.To.name;
-            String parent = w.From.name;
+            String child = w.to.name;
+            String parent = w.from.name;
 
             gvText += child + "->" + parent + "; \n";
         }

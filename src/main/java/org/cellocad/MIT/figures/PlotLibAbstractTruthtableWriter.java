@@ -68,12 +68,12 @@ public class PlotLibAbstractTruthtableWriter {
                 if(g.type == GateType.INPUT)
                     continue;
 
-                dna_design += "p" + g.outgoing.To.index + ",";
+                dna_design += "p" + g.outgoing.to.index + ",";
 
                 Wire w = g.outgoing;
-                while(w.Next != null) {
-                    dna_design += "p" + w.Next.To.index + ",";
-                    w = w.Next;
+                while(w.next != null) {
+                    dna_design += "p" + w.next.to.index + ",";
+                    w = w.next;
                 }
 
                 dna_design += "i" + g.rIndex + ",";
@@ -136,20 +136,20 @@ public class PlotLibAbstractTruthtableWriter {
                 continue;
 
 
-            if(g.outgoing.To.type == GateType.INPUT)
-                unique_parts.add("p"+g.outgoing.To.index + "," + "Promoter" + ",,,,," + gray + ",,,,,\n");
+            if(g.outgoing.to.type == GateType.INPUT)
+                unique_parts.add("p"+g.outgoing.to.index + "," + "Promoter" + ",,,,," + gray + ",,,,,\n");
             else
-                unique_parts.add("p"+g.outgoing.To.index + "," + "Promoter" + ",,,,," + rgb_color(g.outgoing.To.rIndex) + ",,,,,\n" );
+                unique_parts.add("p"+g.outgoing.to.index + "," + "Promoter" + ",,,,," + rgb_color(g.outgoing.to.rIndex) + ",,,,,\n" );
 
 
             Wire w = g.outgoing;
-            while(w.Next != null) {
-                if(w.Next.To.type == GateType.INPUT)
-                    unique_parts.add("p"+w.Next.To.index + "," + "Promoter" + ",,,,," + gray + ",,,,,\n" );
+            while(w.next != null) {
+                if(w.next.to.type == GateType.INPUT)
+                    unique_parts.add("p"+w.next.to.index + "," + "Promoter" + ",,,,," + gray + ",,,,,\n" );
                 else
-                    unique_parts.add("p"+w.Next.To.index + "," + "Promoter" + ",,,,," + rgb_color(w.Next.To.rIndex) + ",,,,,\n" );
+                    unique_parts.add("p"+w.next.to.index + "," + "Promoter" + ",,,,," + rgb_color(w.next.to.rIndex) + ",,,,,\n" );
 
-                w = w.Next;
+                w = w.next;
             }
 
             unique_parts.add( "i" + g.rIndex + "," + "Ribozyme" + ",,,,," + rgb_color(g.rIndex) + ",,,,,\n" );

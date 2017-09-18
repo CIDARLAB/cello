@@ -1702,7 +1702,7 @@ public class DNACompiler {
         LogicCircuit lc = abstract_logic_circuit;
         for(int i=0; i<lc.get_Wires().size(); ++i) {
             Wire w = lc.get_Wires().get(i);
-            if(w.To.index == w.From.index) {
+            if(w.to.index == w.from.index) {
                 lc.get_Wires().remove(i);
                 i--;
             }
@@ -1711,18 +1711,18 @@ public class DNACompiler {
 
         for(Gate g: abstract_logic_circuit.get_Gates()) {
             if(g.outgoing != null) {
-                g.outgoing_wire_index = g.outgoing.Index;
+                g.outgoing_wire_index = g.outgoing.index;
             }
         }
         for(Wire w: abstract_logic_circuit.get_Wires()) {
-            if(w.From != null) {
-                w.From_index = w.From.index;
+            if(w.from != null) {
+                w.from_index = w.from.index;
             }
-            if(w.To != null) {
-                w.To_index = w.To.index;
+            if(w.to != null) {
+                w.to_index = w.to.index;
             }
-            if(w.Next != null) {
-                w.Next_index = w.Next.Index;
+            if(w.next != null) {
+                w.next_index = w.next.index;
             }
         }
 

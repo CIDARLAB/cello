@@ -142,16 +142,16 @@ public class StructuralVerilogToDAG {
                 String fanin_name = fanin.get(i);
 
                 Wire w = new Wire();
-                w.Name = fanin_name;
-                w.From = g;
-                w.Index = wire_count;
+                w.name = fanin_name;
+                w.from = g;
+                w.index = wire_count;
 
 
                 if(i==0) {
                     g.outgoing = w;
                 }
                 else {
-                    prev.Next = w;
+                    prev.next = w;
                 }
 
                 prev = w;
@@ -171,7 +171,7 @@ public class StructuralVerilogToDAG {
             Gate g = gate_map.get(output_name);
 
             for(Wire w: wires) {
-                if(w.Name.equals(output_name)) {
+                if(w.name.equals(output_name)) {
                     g.outgoing = w;
                 }
             }
@@ -199,18 +199,18 @@ public class StructuralVerilogToDAG {
 
 
             for(Wire w: wires) {
-                if(w.Name.equals(fanout_name)) {
-                    w.To = g;
+                if(w.name.equals(fanout_name)) {
+                    w.to = g;
                 }
                 else {
                     for(String input_name: input_names) {
-                        if(w.Name.equals(input_name)) {
-                            w.To = gate_map.get(input_name);
+                        if(w.name.equals(input_name)) {
+                            w.to = gate_map.get(input_name);
                         }
                     }
                     for(String output_name: output_names) {
-                        if(w.Name.equals(output_name)) {
-                            w.From = gate_map.get(output_name);
+                        if(w.name.equals(output_name)) {
+                            w.from = gate_map.get(output_name);
                         }
                     }
                 }
@@ -229,10 +229,10 @@ public class StructuralVerilogToDAG {
                 for(String output_name: output_names) {
                     if(fanin_name.equals(output_name)) {
                         Wire w = new Wire();
-                        w.Name = fanin_name;
-                        w.Index = wire_count;
-                        w.From = g;
-                        w.To = gate_map.get(output_name).outgoing.To;
+                        w.name = fanin_name;
+                        w.index = wire_count;
+                        w.from = g;
+                        w.to = gate_map.get(output_name).outgoing.to;
                         wire_count++;
                         wires.add(w);
                     }

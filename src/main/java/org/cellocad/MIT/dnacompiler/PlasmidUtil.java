@@ -427,7 +427,7 @@ public class PlasmidUtil {
                     ArrayList<Part> txn_unit = new ArrayList<>();
 
                     for(Wire w: g.get_variable_wires().get(var)) {
-                        txn_unit.add(w.To.get_regulable_promoter());
+                        txn_unit.add(w.to.get_regulable_promoter());
                     }
 
                     ArrayList<Part> expression_cassette = g.get_downstream_parts().get(var);
@@ -445,7 +445,7 @@ public class PlasmidUtil {
                     for(Wire w: g.get_variable_wires().get(var)) {
                         ArrayList<Part> txn_unit = new ArrayList<>();
 
-                        txn_unit.add(w.To.get_regulable_promoter());
+                        txn_unit.add(w.to.get_regulable_promoter());
 
                         ArrayList<Part> expression_cassette = g.get_downstream_parts().get(var);
 

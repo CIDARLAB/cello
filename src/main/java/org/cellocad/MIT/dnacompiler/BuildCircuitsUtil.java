@@ -34,8 +34,8 @@ public class BuildCircuitsUtil {
                 for(Wire w: g.get_variable_wires().get("x")) {
 
                     for(Wire wi: lc.get_Wires()) {
-                        if(w.Index == wi.Index) {
-                            w.To = wi.To;
+                        if(w.index == wi.index) {
+                            w.to = wi.to;
                         }
                     }
                 }
@@ -132,8 +132,8 @@ public class BuildCircuitsUtil {
                 for(Wire w: g.get_variable_wires().get("x")) {
 
                     for(Wire wi: lc.get_Wires()) {
-                        if(w.Index == wi.Index) {
-                            w.To = wi.To;
+                        if(w.index == wi.index) {
+                            w.to = wi.to;
                         }
                     }
                 }

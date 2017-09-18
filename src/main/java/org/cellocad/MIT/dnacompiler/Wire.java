@@ -19,66 +19,66 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties({"From", "To", "Next", "wire"})
 public class Wire {
 
-    public int Index;
-    public String Name;
+    public int index;
+    public String name;
 
 
-    public Gate From; //toward outputs
-    public Gate To;   //toward inputs
-    public Wire Next; //sibling wire in NOR or OUTPUT_OR
+    public Gate from; //toward outputs
+    public Gate to;   //toward inputs
+    public Wire next; //sibling wire in NOR or OUTPUT_OR
 
 
-    public int From_index;
-    public int To_index;
-    public int Next_index;
+    public int from_index;
+    public int to_index;
+    public int next_index;
 
     public DWire wire;
 
     public Wire()
     {
-        this.Index = -1;
-        this.Name = null;
+        this.index = -1;
+        this.name = null;
         this.wire = null;
-        this.From = null;
-        this.To = null;
-        this.Next = null;
-        this.From_index = -1;
-        this.To_index = -1;
-        this.Next_index = -1;
+        this.from = null;
+        this.to = null;
+        this.next = null;
+        this.from_index = -1;
+        this.to_index = -1;
+        this.next_index = -1;
     }
     public Wire(Wire w) {
-        this.Index = w.Index;
-        this.Name = w.Name;
+        this.index = w.index;
+        this.name = w.name;
         this.wire = w.wire;
-        this.From = w.From;
-        this.To = w.To;
-        this.Next = w.Next;
-        this.From_index = w.From_index;
-        this.To_index = w.To_index;
-        this.Next_index = w.Next_index;
+        this.from = w.from;
+        this.to = w.to;
+        this.next = w.next;
+        this.from_index = w.from_index;
+        this.to_index = w.to_index;
+        this.next_index = w.next_index;
     }
     public Wire(int indx,Gate dFrom,Gate dTo)
     {
-        this.Index = indx;
-        this.Name = null;
+        this.index = indx;
+        this.name = null;
         this.wire = null;
-        this.From = dFrom;
-        this.To = dTo;
-        this.Next = null;
+        this.from = dFrom;
+        this.to = dTo;
+        this.next = null;
     }
     public Wire(int indx,Gate dFrom,Gate dTo,Wire next)
     {
-        this.Index = indx;
-        this.Name = null;
+        this.index = indx;
+        this.name = null;
         this.wire = null;
-        this.From = dFrom;
-        this.To = dTo;
-        this.Next = next;
+        this.from = dFrom;
+        this.to = dTo;
+        this.next = next;
     }
     @Override
     public String toString()
     {
-        String x= "Index:"+Index + " From:"+From.index + " To:"+To.index;
+        String x= "Index:"+index + " From:"+from.index + " To:"+to.index;
         return x;
     }
 }

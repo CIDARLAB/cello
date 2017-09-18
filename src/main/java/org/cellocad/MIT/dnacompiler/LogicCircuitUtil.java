@@ -480,12 +480,12 @@ public class LogicCircuitUtil{
         }
 
         for(Wire w: lc.get_Wires()) {
-            if(w.To != null) {
-                if(w.To.type == GateType.INPUT) {
-                    w.Name = w.To.name;
+            if(w.to != null) {
+                if(w.to.type == GateType.INPUT) {
+                    w.name = w.to.name;
                 }
                 else {
-                    w.Name = "w" + w.To.rIndex;
+                    w.name = "w" + w.to.rIndex;
                 }
             }
         }
