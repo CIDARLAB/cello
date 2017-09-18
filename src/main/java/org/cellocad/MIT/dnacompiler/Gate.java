@@ -311,8 +311,23 @@ public class Gate {
     // Private member data
     //
     /////////////////////////
-    
+
 //    @Getter @Setter private boolean _tp_exists = false;
+
+    /**
+     * @return the type of the gate, an element of the GateType enum
+     */
+    public GateType getType() {
+        return type;
+    }
+
+    /**
+     * @param type the new GateType
+     */
+    public void setType(GateType type) {
+        this.type = type;
+    }
+
 
     @Getter @Setter private int _distance_to_input = -1;
 
