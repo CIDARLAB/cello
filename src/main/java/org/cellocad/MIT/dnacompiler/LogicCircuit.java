@@ -656,25 +656,7 @@ public class LogicCircuit {
     public Set<EndpointPair<Gate>> getEdges() {
         return graph.edges();
     }
-
-    public HashMap<GateType, ArrayList<Gate>> get_logic_gate_types() {
-
-        HashMap<GateType, ArrayList<Gate>> logic_gate_types = new HashMap<GateType, ArrayList<Gate>>();
-
-        for(GateType gtype: _gate_types.keySet()) {
-
-            if(gtype != GateType.INPUT && gtype != GateType.OUTPUT && gtype != GateType.OUTPUT_OR ) {
-
-                logic_gate_types.put(gtype, _gate_types.get(gtype));
-
-            }
-
-        }
-
-        return logic_gate_types;
-    }
-
-
+    
     /////////////////////////
     //
     // Private member data
