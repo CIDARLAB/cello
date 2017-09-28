@@ -9,7 +9,7 @@ public class NoiseMarginScanner {
 
     public static void main(String[] args) {
         Gate g = new Gate();
-        g.Name = "SicA_InvF";
+        g.name = "SicA_InvF";
 
         /*
         sicA_map_ymax.put("name", "ymax");
@@ -73,7 +73,7 @@ public class NoiseMarginScanner {
         }
 
 
-        System.out.println( g.Name + "    " +
+        System.out.println( g.name + "    " +
                 String.format("%8.3f",g.get_params().get("ymax")) + "  " +
                 String.format("%8.3f",g.get_params().get("ymin")) + "  " +
                 String.format("%8.3f",g.get_params().get("K")) + "  " +

@@ -15,3 +15,4 @@ derby.log
 /resources/results/*
 /demo/job_*
 **/.DS_Store
+nb-configuration.xml

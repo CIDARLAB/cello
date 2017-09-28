@@ -49,10 +49,10 @@ public class Evaluate {
             HashMap<String, ArrayList<ArrayList<Double>>> track_rpus = new HashMap<>();
 
             for (Gate g : lc.get_Gates()) {
-                track_rpus.put(g.Name, new ArrayList<ArrayList<Double>>());
+                track_rpus.put(g.name, new ArrayList<ArrayList<Double>>());
                 ArrayList<Double> copy_rpus = new ArrayList<Double>(g.get_outrpus());
-                track_rpus.get(g.Name).add(copy_rpus);
-                track_rpus.get(g.Name).add(copy_rpus);
+                track_rpus.get(g.name).add(copy_rpus);
+                track_rpus.get(g.name).add(copy_rpus);
             }
 
             boolean converges = SequentialHelper.convergeRPUs(lc, gate_library, options, track_rpus);
@@ -183,10 +183,10 @@ public class Evaluate {
             //track
             HashMap<String, ArrayList<ArrayList<double[]>>> track_rpus = new HashMap<>();
             for (Gate g : lc.get_Gates()) {
-                track_rpus.put(g.Name, new ArrayList<ArrayList<double[]>>());
+                track_rpus.put(g.name, new ArrayList<ArrayList<double[]>>());
                 ArrayList<double[]> copy_hist_rpus = new ArrayList<double[]>(g.get_histogram_rpus());
-                track_rpus.get(g.Name).add(copy_hist_rpus);
-                track_rpus.get(g.Name).add(copy_hist_rpus); //looks for i-1
+                track_rpus.get(g.name).add(copy_hist_rpus);
+                track_rpus.get(g.name).add(copy_hist_rpus); //looks for i-1
             }
 
             //converge
@@ -402,7 +402,7 @@ public class Evaluate {
             return;
         }
 
-        if (g.Type == GateType.INPUT || g.Type == GateType.OUTPUT || g.Type == GateType.OUTPUT_OR) {
+        if (g.type == GateType.INPUT || g.type == GateType.OUTPUT || g.type == GateType.OUTPUT_OR) {
             return;
         }
 
@@ -456,7 +456,7 @@ public class Evaluate {
 
     public static void evaluateGateSNR(Gate g, Args options){
 
-        if(g.Type == GateType.INPUT) {
+        if(g.type == GateType.INPUT) {
             return;
         }
 
@@ -593,7 +593,7 @@ public class Evaluate {
     }
     public static void refreshGateAttributes(Gate g, GateLibrary gate_library) {
 
-        if (g.Type == GateType.OUTPUT || g.Type == GateType.OUTPUT_OR) {
+        if (g.type == GateType.OUTPUT || g.type == GateType.OUTPUT_OR) {
 
             g.set_params(null);
 
@@ -609,34 +609,34 @@ public class Evaluate {
             g.set_equation(equation);
         }
 
-        else if (gate_library.get_GATES_BY_NAME().containsKey(g.Name)) {
-            g.set_params(gate_library.get_GATES_BY_NAME().get(g.Name).get_params());
+        else if (gate_library.get_GATES_BY_NAME().containsKey(g.name)) {
+            g.set_params(gate_library.get_GATES_BY_NAME().get(g.name).get_params());
 
             if(g.get_variable_names().isEmpty()) {
-                g.set_variable_names(gate_library.get_GATES_BY_NAME().get(g.Name).get_variable_names());
+                g.set_variable_names(gate_library.get_GATES_BY_NAME().get(g.name).get_variable_names());
             }
 
-            g.set_variable_thresholds(gate_library.get_GATES_BY_NAME().get(g.Name).get_variable_thresholds());
-            g.set_equation(gate_library.get_GATES_BY_NAME().get(g.Name).get_equation());
+            g.set_variable_thresholds(gate_library.get_GATES_BY_NAME().get(g.name).get_variable_thresholds());
+            g.set_equation(gate_library.get_GATES_BY_NAME().get(g.name).get_equation());
 
-            g.System    = gate_library.get_GATES_BY_NAME().get(g.Name).System;
-            g.ColorHex  = gate_library.get_GATES_BY_NAME().get(g.Name).ColorHex;
-            g.Group     = gate_library.get_GATES_BY_NAME().get(g.Name).Group;
-            g.Regulator = gate_library.get_GATES_BY_NAME().get(g.Name).Regulator;
-            g.Inducer   = gate_library.get_GATES_BY_NAME().get(g.Name).Inducer;
+            g.system    = gate_library.get_GATES_BY_NAME().get(g.name).system;
+            g.colorHex  = gate_library.get_GATES_BY_NAME().get(g.name).colorHex;
+            g.group     = gate_library.get_GATES_BY_NAME().get(g.name).group;
+            g.regulator = gate_library.get_GATES_BY_NAME().get(g.name).regulator;
+            g.inducer   = gate_library.get_GATES_BY_NAME().get(g.name).inducer;
 
             //if(Args.histogram) {
-            if(gate_library.get_GATES_BY_NAME().get(g.Name).get_xfer_hist() != null) {
-                g.set_xfer_hist(gate_library.get_GATES_BY_NAME().get(g.Name).get_xfer_hist());
+            if(gate_library.get_GATES_BY_NAME().get(g.name).get_xfer_hist() != null) {
+                g.set_xfer_hist(gate_library.get_GATES_BY_NAME().get(g.name).get_xfer_hist());
             }
         }
 
         else {
-            g.System    = "null";
-            g.ColorHex  = "null";
-            g.Group     = "null";
-            g.Regulator = "null";
-            g.Inducer   = "";
+            g.system    = "null";
+            g.colorHex  = "null";
+            g.group     = "null";
+            g.regulator = "null";
+            g.inducer   = "";
         }
     }
 
@@ -846,14 +846,14 @@ public class Evaluate {
                 }
             }
 
-            if ( g.Type == GateType.OUTPUT_OR || g.Type == GateType.OUTPUT ) {
+            if ( g.type == GateType.OUTPUT_OR || g.type == GateType.OUTPUT ) {
                 g.set_histogram_rpus(GateUtil.getSumOfGateInputHistograms(g, gate_library, options));
                 GateUtil.outputHistogramUnitConversion(g);
             }
-            else if (g.Type == GateType.AND) {
+            else if (g.type == GateType.AND) {
                 g.set_histogram_rpus(GateUtil.getANDOfGateInputHistograms(g));
             }
-            else if (g.Type == GateType.NOT || g.Type == GateType.NOR){
+            else if (g.type == GateType.NOT || g.type == GateType.NOR){
                 //2. For each row: for each bin: for each output bin: add normalizeToValue
                 ArrayList<double[]> input_convrpus = GateUtil.getSumOfGateInputHistograms(g, gate_library,options);
                 g.set_in_histogram_rpus(input_convrpus);

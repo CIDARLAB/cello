@@ -65,19 +65,19 @@ public class PlotLibAbstractTruthtableWriter {
 
             for(int i= _lc.get_Gates().size()-1; i>=0; --i) {
                 Gate g = _lc.get_Gates().get(i);
-                if(g.Type == GateType.INPUT)
+                if(g.type == GateType.INPUT)
                     continue;
 
-                dna_design += "p" + g.Outgoing.To.Index + ",";
+                dna_design += "p" + g.outgoing.to.index + ",";
 
-                Wire w = g.Outgoing;
-                while(w.Next != null) {
-                    dna_design += "p" + w.Next.To.Index + ",";
-                    w = w.Next;
+                Wire w = g.outgoing;
+                while(w.next != null) {
+                    dna_design += "p" + w.next.to.index + ",";
+                    w = w.next;
                 }
 
-                dna_design += "i" + g.RIndex + ",";
-                dna_design += "u" + g.RIndex + ",";
+                dna_design += "i" + g.rIndex + ",";
+                dna_design += "u" + g.rIndex + ",";
 
                 boolean ON = false;
                 ArrayList<Gate> children = g.getChildren();
@@ -87,13 +87,13 @@ public class PlotLibAbstractTruthtableWriter {
                     }
                 }
                 if(ON) {
-                    dna_design += "g" + g.RIndex + "_ON,";
+                    dna_design += "g" + g.rIndex + "_ON,";
                 }
                 else {
-                    dna_design += "g" + g.RIndex + "_OFF,";
+                    dna_design += "g" + g.rIndex + "_OFF,";
                 }
 
-                dna_design += "t" + g.RIndex + ",";
+                dna_design += "t" + g.rIndex + ",";
 
             }
             dna_design += "\n";
@@ -132,39 +132,39 @@ public class PlotLibAbstractTruthtableWriter {
 
         for(int i= _lc.get_Gates().size()-1; i>=0; --i) {
             Gate g = _lc.get_Gates().get(i);
-            if (g.Type == GateType.INPUT)
+            if (g.type == GateType.INPUT)
                 continue;
 
 
-            if(g.Outgoing.To.Type == GateType.INPUT)
-                unique_parts.add("p"+g.Outgoing.To.Index + "," + "Promoter" + ",,,,," + gray + ",,,,,\n");
+            if(g.outgoing.to.type == GateType.INPUT)
+                unique_parts.add("p"+g.outgoing.to.index + "," + "Promoter" + ",,,,," + gray + ",,,,,\n");
             else
-                unique_parts.add("p"+g.Outgoing.To.Index + "," + "Promoter" + ",,,,," + rgb_color(g.Outgoing.To.RIndex) + ",,,,,\n" );
+                unique_parts.add("p"+g.outgoing.to.index + "," + "Promoter" + ",,,,," + rgb_color(g.outgoing.to.rIndex) + ",,,,,\n" );
 
 
-            Wire w = g.Outgoing;
-            while(w.Next != null) {
-                if(w.Next.To.Type == GateType.INPUT)
-                    unique_parts.add("p"+w.Next.To.Index + "," + "Promoter" + ",,,,," + gray + ",,,,,\n" );
+            Wire w = g.outgoing;
+            while(w.next != null) {
+                if(w.next.to.type == GateType.INPUT)
+                    unique_parts.add("p"+w.next.to.index + "," + "Promoter" + ",,,,," + gray + ",,,,,\n" );
                 else
-                    unique_parts.add("p"+w.Next.To.Index + "," + "Promoter" + ",,,,," + rgb_color(w.Next.To.RIndex) + ",,,,,\n" );
+                    unique_parts.add("p"+w.next.to.index + "," + "Promoter" + ",,,,," + rgb_color(w.next.to.rIndex) + ",,,,,\n" );
 
-                w = w.Next;
+                w = w.next;
             }
 
-            unique_parts.add( "i" + g.RIndex + "," + "Ribozyme" + ",,,,," + rgb_color(g.RIndex) + ",,,,,\n" );
-            unique_parts.add( "u" + g.RIndex + "," + "RBS" + ",,,,," + rgb_color(g.RIndex) + ",,,,,\n" );
+            unique_parts.add( "i" + g.rIndex + "," + "Ribozyme" + ",,,,," + rgb_color(g.rIndex) + ",,,,,\n" );
+            unique_parts.add( "u" + g.rIndex + "," + "RBS" + ",,,,," + rgb_color(g.rIndex) + ",,,,,\n" );
 
-            if(g.Type == GateType.OUTPUT || g.Type == GateType.OUTPUT_OR) {
-                unique_parts.add("g" + g.RIndex + "_ON" + "," + "CDS" + ",,,,," + white + ",,,,,\n");
-                unique_parts.add("g" + g.RIndex + "_OFF" + "," + "CDS" + ",,,,," + white + ",////,,,,\n");
+            if(g.type == GateType.OUTPUT || g.type == GateType.OUTPUT_OR) {
+                unique_parts.add("g" + g.rIndex + "_ON" + "," + "CDS" + ",,,,," + white + ",,,,,\n");
+                unique_parts.add("g" + g.rIndex + "_OFF" + "," + "CDS" + ",,,,," + white + ",////,,,,\n");
             }
             else{
-                unique_parts.add("g" + g.RIndex + "_ON" + "," + "CDS" + ",,,,," + rgb_color(g.RIndex) + ",,,,,\n");
-                unique_parts.add("g" + g.RIndex + "_OFF" + "," + "CDS" + ",,,,," + rgb_color(g.RIndex) + ",////,,,,\n");
+                unique_parts.add("g" + g.rIndex + "_ON" + "," + "CDS" + ",,,,," + rgb_color(g.rIndex) + ",,,,,\n");
+                unique_parts.add("g" + g.rIndex + "_OFF" + "," + "CDS" + ",,,,," + rgb_color(g.rIndex) + ",////,,,,\n");
             }
 
-            unique_parts.add( "t" + g.RIndex + "," + "Terminator" + ",,,,," + rgb_color(g.RIndex) + ",,,,,\n" );
+            unique_parts.add( "t" + g.rIndex + "," + "Terminator" + ",,,,," + rgb_color(g.rIndex) + ",,,,,\n" );
 
         }
 
@@ -183,10 +183,10 @@ public class PlotLibAbstractTruthtableWriter {
 
         for(int i= _lc.get_Gates().size()-1; i>=0; --i) {
             Gate g = _lc.get_Gates().get(i);
-            if (g.Type == GateType.INPUT || g.Type == GateType.OUTPUT || g.Type == GateType.OUTPUT_OR)
+            if (g.type == GateType.INPUT || g.type == GateType.OUTPUT || g.type == GateType.OUTPUT_OR)
                 continue;
 
-            String arc = "g"+g.RIndex+"_ON" + ",Repression," + "p"+g.RIndex + ",3,-,2.0,"+rgb_color(g.RIndex)+"\n";
+            String arc = "g"+g.rIndex+"_ON" + ",Repression," + "p"+g.rIndex + ",3,-,2.0,"+rgb_color(g.rIndex)+"\n";
             reg_information += arc;
 
         }

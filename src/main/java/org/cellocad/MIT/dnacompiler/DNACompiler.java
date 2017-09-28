@@ -416,7 +416,7 @@ public class DNACompiler {
 
 
         for(Gate g: gate_library.get_GATES_BY_NAME().values()) {
-            logger.info("loading gate from UCF gates collection: " + g.Name);
+            logger.info("loading gate from UCF gates collection: " + g.name);
         }
 
 
@@ -475,7 +475,7 @@ public class DNACompiler {
 
         //printing the response functions
         for (Gate g : gate_library.get_GATES_BY_NAME().values()) {
-            logger.info(g.Name + " " + g.get_equation() + " " + g.get_params().toString());
+            logger.info(g.name + " " + g.get_equation() + " " + g.get_params().toString());
         }
 
 
@@ -554,7 +554,7 @@ public class DNACompiler {
         }
 
         for (Gate g : gate_library.get_GATES_BY_NAME().values()) {
-            logger.info("Gate: " + g.System + " " + g.Type + " " + g.Name + " " + g.Group);
+            logger.info("Gate: " + g.system + " " + g.type + " " + g.name + " " + g.group);
         }
 
         for (GateType gtype : gate_library.get_GATES_BY_GROUP().keySet()) {
@@ -572,7 +572,7 @@ public class DNACompiler {
                 ArrayList<Gate> gates = groups.get(group_name);
 
                 for (Gate g : gates) {
-                    group_string_builder += " " + g.Name;
+                    group_string_builder += " " + g.name;
                 }
 
                 logger.info(group_string_builder);
@@ -581,7 +581,7 @@ public class DNACompiler {
 
 
         for(Gate g: _abstract_lc.get_logic_gates()) {
-            logger.info(g.Type);
+            logger.info(g.type);
         }
 
 
@@ -912,7 +912,7 @@ public class DNACompiler {
             if(_options.is_histogram()) {
 
                 for(Gate g: gate_library.get_GATES_BY_NAME().values()) {
-                    HistogramUtil.interpolateTransferFunctionTitrations(g.Name, gate_library);
+                    HistogramUtil.interpolateTransferFunctionTitrations(g.name, gate_library);
                 }
 
                 String file_name_default = _options.get_home() + _options.get_datapath() + "default_histogram.txt";
@@ -926,7 +926,7 @@ public class DNACompiler {
                     }
 
                     for (Gate g : lc.get_logic_gates()) {
-                        g.set_xfer_hist(gate_library.get_GATES_BY_NAME().get(g.Name).get_xfer_hist());
+                        g.set_xfer_hist(gate_library.get_GATES_BY_NAME().get(g.name).get_xfer_hist());
                     }
 
                     Evaluate.evaluateCircuitHistogramOverlap(lc, gate_library, _options);
@@ -1020,11 +1020,11 @@ public class DNACompiler {
 
                 for(Gate g: lc.get_logic_gates()) {
 
-                    HistogramUtil.interpolateTransferFunctionTitrations(g.Name, gate_library);
+                    HistogramUtil.interpolateTransferFunctionTitrations(g.name, gate_library);
 
-                    g.set_xfer_hist(gate_library.get_GATES_BY_NAME().get(g.Name).get_xfer_hist());
+                    g.set_xfer_hist(gate_library.get_GATES_BY_NAME().get(g.name).get_xfer_hist());
 
-                    logger.info("histogram interpolation for " + g.Name + " " + g.get_xfer_hist().get_xfer_interp().size() + " " + g.get_xfer_hist().get_xfer_interp().get(0).length );
+                    logger.info("histogram interpolation for " + g.name + " " + g.get_xfer_hist().get_xfer_interp().size() + " " + g.get_xfer_hist().get_xfer_interp().get(0).length );
 
                 }
 
@@ -1360,7 +1360,7 @@ public class DNACompiler {
             hbins.init();
 
             for(Gate g: lc.get_Gates()) {
-                if(g.Type == GateType.INPUT) {
+                if(g.type == GateType.INPUT) {
                     continue;
                 }
 
@@ -1383,16 +1383,16 @@ public class DNACompiler {
                     child1 = g.getChildren().get(0);
                     child2 = g.getChildren().get(1);
 
-                    if (child1.Type == Gate.GateType.INPUT) {
-                        fanin_gate_names.add("input_" + child1.Name);
+                    if (child1.type == Gate.GateType.INPUT) {
+                        fanin_gate_names.add("input_" + child1.name);
                     } else {
-                        fanin_gate_names.add(child1.Name);
+                        fanin_gate_names.add(child1.name);
                     }
 
-                    if (child2.Type == Gate.GateType.INPUT) {
-                        fanin_gate_names.add("input_" + child2.Name);
+                    if (child2.type == Gate.GateType.INPUT) {
+                        fanin_gate_names.add("input_" + child2.name);
                     } else {
-                        fanin_gate_names.add(child2.Name);
+                        fanin_gate_names.add(child2.name);
                     }
 
 
@@ -1442,7 +1442,7 @@ public class DNACompiler {
                         Double in1 = 0.0;
                         Double in2 = 0.0;
 
-                        if (child1.Type == Gate.GateType.INPUT) {
+                        if (child1.type == Gate.GateType.INPUT) {
                             if (child1.get_logics().get(row) == 0) {
                                 in1 = Math.pow(10, hbins.get_LOGMIN());
                             } else if (child1.get_logics().get(row) == 1) {
@@ -1453,7 +1453,7 @@ public class DNACompiler {
                         }
 
 
-                        if (child2.Type == Gate.GateType.INPUT) {
+                        if (child2.type == Gate.GateType.INPUT) {
                             if (child2.get_logics().get(row) == 0) {
                                 in2 = Math.pow(10, hbins.get_LOGMIN());
                             } else if (child2.get_logics().get(row) == 1) {
@@ -1479,7 +1479,7 @@ public class DNACompiler {
 
                         int logic = g.get_logics().get(row);
 
-                        if (g.Type == GateType.NOR) {
+                        if (g.type == GateType.NOR) {
                             logic = BooleanLogic.computeNOT(logic);
                         }
 
@@ -1702,7 +1702,7 @@ public class DNACompiler {
         LogicCircuit lc = abstract_logic_circuit;
         for(int i=0; i<lc.get_Wires().size(); ++i) {
             Wire w = lc.get_Wires().get(i);
-            if(w.To.Index == w.From.Index) {
+            if(w.to.index == w.from.index) {
                 lc.get_Wires().remove(i);
                 i--;
             }
@@ -1710,19 +1710,19 @@ public class DNACompiler {
 
 
         for(Gate g: abstract_logic_circuit.get_Gates()) {
-            if(g.Outgoing != null) {
-                g.Outgoing_wire_index = g.Outgoing.Index;
+            if(g.outgoing != null) {
+                g.outgoing_wire_index = g.outgoing.index;
             }
         }
         for(Wire w: abstract_logic_circuit.get_Wires()) {
-            if(w.From != null) {
-                w.From_index = w.From.Index;
+            if(w.from != null) {
+                w.from_index = w.from.index;
             }
-            if(w.To != null) {
-                w.To_index = w.To.Index;
+            if(w.to != null) {
+                w.to_index = w.to.index;
             }
-            if(w.Next != null) {
-                w.Next_index = w.Next.Index;
+            if(w.next != null) {
+                w.next_index = w.next.index;
             }
         }
 

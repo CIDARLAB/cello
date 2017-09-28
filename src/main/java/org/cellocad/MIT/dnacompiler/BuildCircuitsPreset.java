@@ -38,8 +38,8 @@ public class BuildCircuitsPreset extends BuildCircuits {
 
         for(int i=0; i<lc.get_logic_gates().size(); ++i) {
             Gate g = lc.get_logic_gates().get(i);
-            g.Name = gate_names.get(i);
-            g.Group = get_gate_library().get_GATES_BY_NAME().get(g.Name).Group;
+            g.name = gate_names.get(i);
+            g.group = get_gate_library().get_GATES_BY_NAME().get(g.name).group;
         }
 
         Evaluate.evaluateCircuit(lc, get_gate_library(), get_options());

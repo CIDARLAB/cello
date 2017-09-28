@@ -89,7 +89,7 @@ public class BuildCircuitsBreadthFirstSearch extends BuildCircuits {
 
                     Gate g = lc.get_logic_gates().get(i);
 
-                    g.Name = curr_asn.get(i);
+                    g.name = curr_asn.get(i);
 
                     Evaluate.refreshGateAttributes(g, get_gate_library());
 
@@ -112,17 +112,17 @@ public class BuildCircuitsBreadthFirstSearch extends BuildCircuits {
 
 
                 //adding branches
-                for (Gate libgate : get_gate_library().get_GATES_BY_TYPE().get(gc.Type).values()) {
+                for (Gate libgate : get_gate_library().get_GATES_BY_TYPE().get(gc.type).values()) {
 
-                    gc.Name = "null";
+                    gc.name = "null";
 
                     //setting to null then refreshing clears the attributes assocated with the gate
                     Evaluate.refreshGateAttributes(gc, get_gate_library());
 
 
-                    if (!currentlyAssignedGroup(lc, libgate.Group)) {
+                    if (!currentlyAssignedGroup(lc, libgate.group)) {
 
-                        gc.Name = libgate.Name;
+                        gc.name = libgate.name;
 
                         Evaluate.refreshGateAttributes(gc, get_gate_library());
 
@@ -145,7 +145,7 @@ public class BuildCircuitsBreadthFirstSearch extends BuildCircuits {
 
                         if(get_options().is_toxicity()) {
 
-                            gc.set_toxtable(get_gate_library().get_GATES_BY_NAME().get(gc.Name).get_toxtable());
+                            gc.set_toxtable(get_gate_library().get_GATES_BY_NAME().get(gc.name).get_toxtable());
 
                             Toxicity.evaluateGateToxicity(gc);
 
@@ -173,7 +173,7 @@ public class BuildCircuitsBreadthFirstSearch extends BuildCircuits {
 
                         //pass_asn is a list of gate names...
                         //the index order matches the index order of the gates in the 'logic_gates' array
-                        pass_asn.add(gc.Name);
+                        pass_asn.add(gc.name);
 
                         //curr_asns is a list of passing assignments
                         next_asns.add(new ArrayList<String>(pass_asn));
@@ -241,7 +241,7 @@ public class BuildCircuitsBreadthFirstSearch extends BuildCircuits {
 
                 Gate g = lc.get_logic_gates().get(i);
 
-                g.Name = gate_name;
+                g.name = gate_name;
             }
 
             Evaluate.evaluateCircuit(lc, get_gate_library(), get_options());
@@ -271,7 +271,7 @@ public class BuildCircuitsBreadthFirstSearch extends BuildCircuits {
 
         for(Gate g: lc.get_logic_gates()) {
 
-            if(g.Group.equals(group_name)) {
+            if(g.group.equals(group_name)) {
                 return true;
             }
         }

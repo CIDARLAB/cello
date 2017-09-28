@@ -235,7 +235,7 @@ public class HistogramUtil {
         for(int i=1; i<=12; ++i) {
             xfer_data_raw.add( new ArrayList<Double>() );
 
-            String file_name = filepath + g.Name + "/rpus_" + g.Name + "_" + String.format("%02d", i) + ".txt";
+            String file_name = filepath + g.name + "/rpus_" + g.name + "_" + String.format("%02d", i) + ".txt";
             //System.out.println("ls " + file_name);
 
             File f = new File(file_name);

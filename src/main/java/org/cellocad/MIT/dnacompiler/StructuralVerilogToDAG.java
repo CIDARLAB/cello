@@ -77,15 +77,15 @@ public class StructuralVerilogToDAG {
 
         for(String input_name: input_names) {
             Gate g = new Gate();
-            g.Name = input_name;
-            g.Type = Gate.GateType.INPUT;
+            g.name = input_name;
+            g.type = Gate.GateType.INPUT;
             gate_map.put(input_name, g);
             g.set_unvisited(false);
         }
         for(String output_name: output_names) {
             Gate g = new Gate();
-            g.Name = output_name;
-            g.Type = Gate.GateType.OUTPUT;
+            g.name = output_name;
+            g.type = Gate.GateType.OUTPUT;
             gate_map.put(output_name, g);
         }
 
@@ -113,18 +113,18 @@ public class StructuralVerilogToDAG {
             }
 
             Gate g = new Gate();
-            g.Name = gate_name;
-            g.Index = gate_index;
+            g.name = gate_name;
+            g.index = gate_index;
 
             //Check only not and nor?
             if(gate_type.equals("not")) {
-                g.Type = Gate.GateType.NOT;
+                g.type = Gate.GateType.NOT;
             }
             if(gate_type.equals("nor")) {
-                g.Type = Gate.GateType.NOR;
+                g.type = Gate.GateType.NOR;
             }
 
-            gate_map.put(g.Name, g);
+            gate_map.put(g.name, g);
 
 
             for(String output_name: output_names) {
@@ -142,16 +142,16 @@ public class StructuralVerilogToDAG {
                 String fanin_name = fanin.get(i);
 
                 Wire w = new Wire();
-                w.Name = fanin_name;
-                w.From = g;
-                w.Index = wire_count;
+                w.name = fanin_name;
+                w.from = g;
+                w.index = wire_count;
 
 
                 if(i==0) {
-                    g.Outgoing = w;
+                    g.outgoing = w;
                 }
                 else {
-                    prev.Next = w;
+                    prev.next = w;
                 }
 
                 prev = w;
@@ -171,8 +171,8 @@ public class StructuralVerilogToDAG {
             Gate g = gate_map.get(output_name);
 
             for(Wire w: wires) {
-                if(w.Name.equals(output_name)) {
-                    g.Outgoing = w;
+                if(w.name.equals(output_name)) {
+                    g.outgoing = w;
                 }
             }
         }
@@ -199,18 +199,18 @@ public class StructuralVerilogToDAG {
 
 
             for(Wire w: wires) {
-                if(w.Name.equals(fanout_name)) {
-                    w.To = g;
+                if(w.name.equals(fanout_name)) {
+                    w.to = g;
                 }
                 else {
                     for(String input_name: input_names) {
-                        if(w.Name.equals(input_name)) {
-                            w.To = gate_map.get(input_name);
+                        if(w.name.equals(input_name)) {
+                            w.to = gate_map.get(input_name);
                         }
                     }
                     for(String output_name: output_names) {
-                        if(w.Name.equals(output_name)) {
-                            w.From = gate_map.get(output_name);
+                        if(w.name.equals(output_name)) {
+                            w.from = gate_map.get(output_name);
                         }
                     }
                 }
@@ -229,10 +229,10 @@ public class StructuralVerilogToDAG {
                 for(String output_name: output_names) {
                     if(fanin_name.equals(output_name)) {
                         Wire w = new Wire();
-                        w.Name = fanin_name;
-                        w.Index = wire_count;
-                        w.From = g;
-                        w.To = gate_map.get(output_name).Outgoing.To;
+                        w.name = fanin_name;
+                        w.index = wire_count;
+                        w.from = g;
+                        w.to = gate_map.get(output_name).outgoing.to;
                         wire_count++;
                         wires.add(w);
                     }
@@ -246,7 +246,7 @@ public class StructuralVerilogToDAG {
 
         for(int i=0; i<gates.size(); ++i) {
             Gate g = gates.get(i);
-            g.Index = i;
+            g.index = i;
         }
 
         LogicCircuit lc = new LogicCircuit(gates, wires);

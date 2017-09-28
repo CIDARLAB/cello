@@ -149,7 +149,7 @@ public class Toxicity {
 
             for(Gate g: lc.get_logic_gates()) {
 
-                g.set_toxtable(gate_library.get_GATES_BY_NAME().get(g.Name).get_toxtable());
+                g.set_toxtable(gate_library.get_GATES_BY_NAME().get(g.name).get_toxtable());
 
                 evaluateGateToxicity(g);
 
@@ -251,7 +251,7 @@ public class Toxicity {
             Gate gate = lc.get_logic_gates().get(j);
 
             if (gate.get_logics().size() > 0 && gate.get_toxicity().size() > 0){
-                s += String.format("%7s", gate.Group) + "\t";
+                s += String.format("%7s", gate.group) + "\t";
             }
 
         }

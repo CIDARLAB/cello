@@ -29,9 +29,9 @@ public class collection_writer_gate_toxicity extends collection_writer {
             String repressor_name = gate_name.split("_")[1];
 
             Gate g = new Gate();
-            g.Name = gate_name;
-            g.Regulator = repressor_name;
-            gate_library.get_GATES_BY_NAME().put(g.Name, g);
+            g.name = gate_name;
+            g.regulator = repressor_name;
+            gate_library.get_GATES_BY_NAME().put(g.name, g);
         }
 
         readToxTable(gate_library);
@@ -56,7 +56,7 @@ public class collection_writer_gate_toxicity extends collection_writer {
 
             LinkedHashMap obj = new LinkedHashMap();
             obj.put("collection", "gate_toxicity");
-            obj.put("gate_name", g.Name);
+            obj.put("gate_name", g.name);
 
             obj.put("maps_to_variable", "x");
             obj.put("input", in_rpus);
@@ -103,8 +103,8 @@ public class collection_writer_gate_toxicity extends collection_writer {
 
         for(Gate g: gate_library.get_GATES_BY_NAME().values()) {
 
-            System.out.println("looking for " + g.Regulator);
-            ArrayList<Double> ods = TOX_TABLE.get(g.Regulator);
+            System.out.println("looking for " + g.regulator);
+            ArrayList<Double> ods = TOX_TABLE.get(g.regulator);
 
             ArrayList<Pair> toxtable = new ArrayList<Pair>();
             for(int i=0; i<ods.size(); ++i) {

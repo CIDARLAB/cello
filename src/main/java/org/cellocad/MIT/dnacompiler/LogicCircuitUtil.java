@@ -61,10 +61,10 @@ public class LogicCircuitUtil{
             LogicCircuit input_lc = new LogicCircuit(lc);
 
             for(int i=0; i<input_lc.get_output_gates().size(); ++i) {
-                input_lc.get_output_gates().get(i).Name = gate_library.get_OUTPUT_NAMES()[i];
+                input_lc.get_output_gates().get(i).name = gate_library.get_OUTPUT_NAMES()[i];
             }
             for(int i=0; i<input_lc.get_input_gates().size(); ++i) {
-                input_lc.get_input_gates().get(i).Name = gate_library.get_INPUT_NAMES()[a[i]]; //change the name, which will allow RPU values to change when calling setInputRPU
+                input_lc.get_input_gates().get(i).name = gate_library.get_INPUT_NAMES()[a[i]]; //change the name, which will allow RPU values to change when calling setInputRPU
             }
             setInputRPU(input_lc, gate_library);
 
@@ -81,7 +81,7 @@ public class LogicCircuitUtil{
         	
         	for(LogicCircuit specified_input_lc: partially_abstract_lcs) {
         		
-        		if (specified_input_lc.get_input_gates().get(0).Name.equals("pBAD")) {
+        		if (specified_input_lc.get_input_gates().get(0).name.equals("pBAD")) {
         			
         				specified_lc.add(specified_input_lc);
         		}
@@ -169,12 +169,12 @@ public class LogicCircuitUtil{
             ArrayList<double[]> convrpus = new ArrayList<double[]>();
             for(Integer i: input_gate.get_logics()) {
                 if(i == 0) {
-                    rpus.add(gate_library.get_INPUTS_OFF().get(input_gate.Name)); //low
-                    convrpus.add(gate_library.get_INPUTS_HIST_OFF().get(input_gate.Name)); //low
+                    rpus.add(gate_library.get_INPUTS_OFF().get(input_gate.name)); //low
+                    convrpus.add(gate_library.get_INPUTS_HIST_OFF().get(input_gate.name)); //low
                 }
                 else if(i == 1) {
-                    rpus.add(gate_library.get_INPUTS_ON().get(input_gate.Name)); //high
-                    convrpus.add(gate_library.get_INPUTS_HIST_ON().get(input_gate.Name)); //high
+                    rpus.add(gate_library.get_INPUTS_ON().get(input_gate.name)); //high
+                    convrpus.add(gate_library.get_INPUTS_HIST_ON().get(input_gate.name)); //high
                 }
                 else if(i == 2) {
                     rpus.add(0.0);
@@ -319,7 +319,7 @@ public class LogicCircuitUtil{
                             result = 1;
                         }
                         else if ( (g1.get_distance_to_input() - g2.get_distance_to_input() == 0) ) {
-                            if(g1.Index < g2.Index) {
+                            if(g1.index < g2.index) {
                                 return -1;
                             }
                             else {
@@ -338,7 +338,7 @@ public class LogicCircuitUtil{
                 new Comparator<Gate>() {
                     public int compare(Gate g1, Gate g2) {
                         int result = 0;
-                        if ( g1.Index < g2.Index ){
+                        if ( g1.index < g2.index ){
                             result = -1;
                         }
                         else {
@@ -404,13 +404,13 @@ public class LogicCircuitUtil{
     public static void setInputOutputGroups(LogicCircuit lc) {
 
         for(Gate g: lc.get_input_gates()) {
-            g.Group = g.Name;
-            g.Regulator = g.Name;
+            g.group = g.name;
+            g.regulator = g.name;
         }
 
         for(Gate g: lc.get_output_gates()) {
-            g.Group = g.Name;
-            g.Regulator = g.Name;
+            g.group = g.name;
+            g.regulator = g.name;
         }
 
     }
@@ -429,7 +429,7 @@ public class LogicCircuitUtil{
             String asn = "";
 
             for(Gate g: lc.get_logic_gates()) {
-                asn += g.Regulator;
+                asn += g.regulator;
 
                 ArrayList<String> promoter_names = new ArrayList<>();
                 String cds = "";
@@ -474,18 +474,18 @@ public class LogicCircuitUtil{
 
     public static void renameGatesWires(LogicCircuit lc) {
         for(Gate g: lc.get_Gates()) {
-            if(g.Type != GateType.INPUT && g.Type != GateType.OUTPUT && g.Type != GateType.OUTPUT_OR) {
-                g.Name = "g"+g.RIndex;
+            if(g.type != GateType.INPUT && g.type != GateType.OUTPUT && g.type != GateType.OUTPUT_OR) {
+                g.name = "g"+g.rIndex;
             }
         }
 
         for(Wire w: lc.get_Wires()) {
-            if(w.To != null) {
-                if(w.To.Type == GateType.INPUT) {
-                    w.Name = w.To.Name;
+            if(w.to != null) {
+                if(w.to.type == GateType.INPUT) {
+                    w.name = w.to.name;
                 }
                 else {
-                    w.Name = "w" + w.To.RIndex;
+                    w.name = "w" + w.to.rIndex;
                 }
             }
         }
@@ -513,16 +513,16 @@ public class LogicCircuitUtil{
                 Gate child1 = g.getChildren().get(0);
                 Gate child2 = g.getChildren().get(1);
 
-                if (child1.Type == Gate.GateType.INPUT) {
-                    fanin_gate_names.add("input_" + child1.Name);
+                if (child1.type == Gate.GateType.INPUT) {
+                    fanin_gate_names.add("input_" + child1.name);
                 } else {
-                    fanin_gate_names.add(child1.Name);
+                    fanin_gate_names.add(child1.name);
                 }
 
-                if (child2.Type == Gate.GateType.INPUT) {
-                    fanin_gate_names.add("input_" + child2.Name);
+                if (child2.type == Gate.GateType.INPUT) {
+                    fanin_gate_names.add("input_" + child2.name);
                 } else {
-                    fanin_gate_names.add(child2.Name);
+                    fanin_gate_names.add(child2.name);
                 }
 
 

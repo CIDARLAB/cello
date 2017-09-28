@@ -27,17 +27,17 @@ public class Netlist{
 
             String s = "";
 
-            String name = g.Name;
+            String name = g.name;
 
-            if(add_index && g.Type != GateType.INPUT)
-                name += "_" + g.RIndex;
+            if(add_index && g.type != GateType.INPUT)
+                name += "_" + g.rIndex;
 
             name = name.replaceAll("~\\|", "NOR");
             name = name.replaceAll("~",    "NOT");
 
             s += String.format("%-16s", name);
 
-            if(g.Type == GateType.INPUT) {
+            if(g.type == GateType.INPUT) {
                 s += BooleanLogic.logicString(g.get_logics());
             }
 
@@ -116,23 +116,23 @@ public class Netlist{
         String net = "";
 
         for(Gate g: lc.get_Gates()) {
-            net += String.format("%5s", g.Name) + ": " + g.Type + "(";
+            net += String.format("%5s", g.name) + ": " + g.type + "(";
 
             for(Wire w: lc.get_Wires()) {
 
-                if(w.To != null && w.To.Name.trim() == g.Name.trim()) {
-                    net += w.Name + ", ";
+                if(w.to != null && w.to.name.trim() == g.name.trim()) {
+                    net += w.name + ", ";
                     break;
                 }
             }
 
-            if ( (g.Outgoing != null) && (g.Outgoing.To != null)){
-                net += g.Outgoing.Name + ", ";
+            if ( (g.outgoing != null) && (g.outgoing.to != null)){
+                net += g.outgoing.name + ", ";
 
-                Wire w = g.Outgoing;
-                while(w.Next != null && w.Next.To != null) {
-                    net += w.Next.Name + ", ";
-                    w = w.Next;
+                Wire w = g.outgoing;
+                while(w.next != null && w.next.to != null) {
+                    net += w.next.name + ", ";
+                    w = w.next;
                 }
             }
 

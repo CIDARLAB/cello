@@ -221,13 +221,13 @@ public class PlasmidUtil {
             for (Part p : plasmid) {
                 for (Gate g : lc.get_Gates()) {
 
-                    if (g.Type != Gate.GateType.OUTPUT && g.Type != Gate.GateType.OUTPUT_OR) {
+                    if (g.type != Gate.GateType.OUTPUT && g.type != Gate.GateType.OUTPUT_OR) {
                         if (p.get_name().equals(g.get_regulable_promoter().get_name())) {
                             p.set_parent_gate(g);
                         }
                     }
 
-                    if (g.Type != Gate.GateType.INPUT) {
+                    if (g.type != Gate.GateType.INPUT) {
 
                         for(String var: g.get_downstream_parts().keySet()) {
                             ArrayList<Part> cassette = g.get_downstream_parts().get(var);
@@ -257,7 +257,7 @@ public class PlasmidUtil {
             int largest_match = 0;
             ArrayList<Part> output_parts = new ArrayList<>();
             boolean found_part_at_prefix = true;
-            String output_seq = gate_library.get_OUTPUTS_SEQ().get(g.Name);
+            String output_seq = gate_library.get_OUTPUTS_SEQ().get(g.name);
 
 
             while(found_part_at_prefix) {
@@ -335,11 +335,11 @@ public class PlasmidUtil {
         for(int i=0; i<lc.get_logic_gates().size(); ++i) {
             Gate g = lc.get_logic_gates().get(i);
 
-            if(gate_library.get_GATES_BY_NAME().containsKey(g.Name)) {
+            if(gate_library.get_GATES_BY_NAME().containsKey(g.name)) {
 
-                g.set_downstream_parts(gate_library.get_GATES_BY_NAME().get(g.Name).get_downstream_parts());
+                g.set_downstream_parts(gate_library.get_GATES_BY_NAME().get(g.name).get_downstream_parts());
 
-                g.set_regulable_promoter(gate_library.get_GATES_BY_NAME().get(g.Name).get_regulable_promoter());
+                g.set_regulable_promoter(gate_library.get_GATES_BY_NAME().get(g.name).get_regulable_promoter());
             }
 
         }
@@ -347,9 +347,9 @@ public class PlasmidUtil {
         for(int i=0; i<lc.get_input_gates().size(); ++i) {
             Gate g = lc.get_input_gates().get(i);
 
-            Part input_promoter = new Part(g.Name, "promoter", gate_library.get_INPUTS_SEQ().get(g.Name));
+            Part input_promoter = new Part(g.name, "promoter", gate_library.get_INPUTS_SEQ().get(g.name));
 
-            part_library.get_ALL_PARTS().put(g.Name, input_promoter);
+            part_library.get_ALL_PARTS().put(g.name, input_promoter);
 
             g.set_regulable_promoter( input_promoter );
         }
@@ -360,10 +360,10 @@ public class PlasmidUtil {
 
             ArrayList<Part> composite_part = new ArrayList<Part>();
 
-            composite_part.add(new Part(g.Name, "output", gate_library.get_OUTPUTS_SEQ().get(g.Name)));
+            composite_part.add(new Part(g.name, "output", gate_library.get_OUTPUTS_SEQ().get(g.name)));
 
-            if(!part_library.get_ALL_PARTS().containsKey(g.Name)) {
-                part_library.get_ALL_PARTS().put(g.Name, composite_part.get(0));
+            if(!part_library.get_ALL_PARTS().containsKey(g.name)) {
+                part_library.get_ALL_PARTS().put(g.name, composite_part.get(0));
             }
 
             g.get_downstream_parts().put("x", composite_part);
@@ -420,14 +420,14 @@ public class PlasmidUtil {
 
         for(Gate g: gates) {
 
-            if(!g.System.equals("CRISPRi")) {
+            if(!g.system.equals("CRISPRi")) {
 
                 for(String var: g.get_variable_names()) {
 
                     ArrayList<Part> txn_unit = new ArrayList<>();
 
                     for(Wire w: g.get_variable_wires().get(var)) {
-                        txn_unit.add(w.To.get_regulable_promoter());
+                        txn_unit.add(w.to.get_regulable_promoter());
                     }
 
                     ArrayList<Part> expression_cassette = g.get_downstream_parts().get(var);
@@ -438,14 +438,14 @@ public class PlasmidUtil {
                 }
             }
 
-            else if(g.System.equals("CRISPRi")) {
+            else if(g.system.equals("CRISPRi")) {
 
                 for(String var: g.get_variable_names()) {
 
                     for(Wire w: g.get_variable_wires().get(var)) {
                         ArrayList<Part> txn_unit = new ArrayList<>();
 
-                        txn_unit.add(w.To.get_regulable_promoter());
+                        txn_unit.add(w.to.get_regulable_promoter());
 
                         ArrayList<Part> expression_cassette = g.get_downstream_parts().get(var);
 

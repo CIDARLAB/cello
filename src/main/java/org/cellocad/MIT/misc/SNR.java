@@ -40,7 +40,7 @@ public class SNR {
 
         for(Gate g: gate_library.get_GATES_BY_NAME().values()) {
 
-            String filename = "rpu_triangle_" + g.Name + ".txt";
+            String filename = "rpu_triangle_" + g.name + ".txt";
 
             Util.fileWriter(_options.get_home() + "/src/test/resources/"+filename, "", false);
 
@@ -84,7 +84,7 @@ public class SNR {
             Double on_off_ratio = g.get_params().get("ymax") / g.get_params().get("ymin");
             Double n = g.get_params().get("n");
             Double ratio_n = on_off_ratio * n;
-            System.out.println(g.Name + " dsnr_score: " + snr_score + " " + on_off_ratio + " " + n + " " + ratio_n);
+            System.out.println(g.name + " dsnr_score: " + snr_score + " " + on_off_ratio + " " + n + " " + ratio_n);
 
         }
     }

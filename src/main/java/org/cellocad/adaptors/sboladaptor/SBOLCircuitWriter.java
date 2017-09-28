@@ -529,30 +529,30 @@ public class SBOLCircuitWriter {
 
         for (Gate g : lc.get_Gates()) {
 
-            if(g.Type == Gate.GateType.INPUT) {
+            if(g.type == Gate.GateType.INPUT) {
                 continue;
             }
 
 
-            else if(g.Type == Gate.GateType.OUTPUT || g.Type == Gate.GateType.OUTPUT_OR) {
+            else if(g.type == Gate.GateType.OUTPUT || g.type == Gate.GateType.OUTPUT_OR) {
                 for(Gate child: g.getChildren()) {
                     _production_promoters.add(child.get_regulable_promoter().get_name());
-                    _production_proteins.add(g.Regulator + "_protein");
+                    _production_proteins.add(g.regulator + "_protein");
                 }
             }
 
             else {
                 String promoter_name = g.get_regulable_promoter().get_name();
 
-                _repression_map.put(g.Regulator + "_protein", promoter_name);
+                _repression_map.put(g.regulator + "_protein", promoter_name);
 
                 for(Gate child: g.getChildren()) {
                     _production_promoters.add(child.get_regulable_promoter().get_name());
-                    _production_proteins.add(g.Regulator + "_protein");
+                    _production_proteins.add(g.regulator + "_protein");
                 }
 
-                if(g.Inducer != "") {
-                    _noncovalent_map.put(g.Regulator + "_protein", g.Inducer);
+                if(g.inducer != "") {
+                    _noncovalent_map.put(g.regulator + "_protein", g.inducer);
                 }
             }
 

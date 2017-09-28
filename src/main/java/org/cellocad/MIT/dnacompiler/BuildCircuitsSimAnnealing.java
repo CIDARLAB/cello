@@ -18,7 +18,7 @@ public class BuildCircuitsSimAnnealing extends BuildCircuits {
     private boolean currentlyAssignedGroup(LogicCircuit lc, String group_name) {
 
         for(Gate g: lc.get_logic_gates()) {
-            if(g.Group.equals(group_name)) {
+            if(g.group.equals(group_name)) {
                 return true;
             }
         }
@@ -48,15 +48,15 @@ public class BuildCircuitsSimAnnealing extends BuildCircuits {
             for (int i = 0; i < lc.get_logic_gates().size(); ++i) {
                 Gate g = lc.get_logic_gates().get(i);
 
-                g.Name = "null";
-                g.Group = "null";
+                g.name = "null";
+                g.group = "null";
             }
 
             for (int i = 0; i < lc.get_logic_gates().size(); ++i) {
 
                 Gate g = lc.get_logic_gates().get(i);
 
-                LinkedHashMap<String, ArrayList<Gate>> groups_of_type = get_gate_library().get_GATES_BY_GROUP().get(g.Type);
+                LinkedHashMap<String, ArrayList<Gate>> groups_of_type = get_gate_library().get_GATES_BY_GROUP().get(g.type);
 
                 ArrayList<String> group_names = new ArrayList<String>(groups_of_type.keySet());
 
@@ -70,8 +70,8 @@ public class BuildCircuitsSimAnnealing extends BuildCircuits {
 
                         Collections.shuffle(gates_of_group);
 
-                        g.Name = gates_of_group.get(0).Name;
-                        g.Group = group_name;
+                        g.name = gates_of_group.get(0).name;
+                        g.group = group_name;
 
                     }
                 }
@@ -135,31 +135,31 @@ public class BuildCircuitsSimAnnealing extends BuildCircuits {
 
                 Gate B_gate = getNextGate(lc, A_gate); //Get a second gate, either used or unused.
 
-                String A_gate_name = new String(A_gate.Name);
-                String B_gate_name = new String(B_gate.Name);
-                String A_gate_group = new String(A_gate.Group);
-                String B_gate_group = new String(B_gate.Group);
+                String A_gate_name = new String(A_gate.name);
+                String B_gate_name = new String(B_gate.name);
+                String A_gate_group = new String(A_gate.group);
+                String B_gate_group = new String(B_gate.group);
 
                 //1. if second gate is used, swap
                 if(isNextGateCurrentlyUsed(lc, B_gate)) {
 
                     int B_gate_index = 0; //need to know the second gate index
                     for(int j=0; j<lc.get_logic_gates().size(); ++j) {
-                        if(lc.get_logic_gates().get(j).Name.equals(B_gate.Name)) {
+                        if(lc.get_logic_gates().get(j).name.equals(B_gate.name)) {
                             B_gate_index = j;
                         }
                     }
 
-                    lc.get_logic_gates().get(A_gate_index).Name  = B_gate_name;
-                    lc.get_logic_gates().get(B_gate_index).Name  = A_gate_name;
-                    lc.get_logic_gates().get(A_gate_index).Group = B_gate_group;
-                    lc.get_logic_gates().get(B_gate_index).Group = A_gate_group;
+                    lc.get_logic_gates().get(A_gate_index).name  = B_gate_name;
+                    lc.get_logic_gates().get(B_gate_index).name  = A_gate_name;
+                    lc.get_logic_gates().get(A_gate_index).group = B_gate_group;
+                    lc.get_logic_gates().get(B_gate_index).group = A_gate_group;
 
                 }
                 //2. if second gate is unused, substitute
                 else {
-                    lc.get_logic_gates().get(A_gate_index).Name  = B_gate_name;
-                    lc.get_logic_gates().get(A_gate_index).Group = B_gate_group;
+                    lc.get_logic_gates().get(A_gate_index).name  = B_gate_name;
+                    lc.get_logic_gates().get(A_gate_index).group = B_gate_group;
                 }
 
 
@@ -282,8 +282,8 @@ public class BuildCircuitsSimAnnealing extends BuildCircuits {
     private boolean isNextGateCurrentlyUsed(LogicCircuit A_lc, Gate B_gate) {
         boolean is_used = false;
         for(int i=0; i<A_lc.get_logic_gates().size(); ++i) {
-            String gate_name = A_lc.get_logic_gates().get(i).Name;
-            if(B_gate.Name.equals(gate_name)) {
+            String gate_name = A_lc.get_logic_gates().get(i).name;
+            if(B_gate.name.equals(gate_name)) {
                 is_used = true;
                 break;
             }
@@ -295,26 +295,26 @@ public class BuildCircuitsSimAnnealing extends BuildCircuits {
 
     private Gate getNextGate(LogicCircuit lc, Gate A_gate) {
 
-        ArrayList<Gate> gates_of_type = new ArrayList<Gate>(get_gate_library().get_GATES_BY_TYPE().get(A_gate.Type).values());
+        ArrayList<Gate> gates_of_type = new ArrayList<Gate>(get_gate_library().get_GATES_BY_TYPE().get(A_gate.type).values());
 
         HashMap<String, Gate> allowed_B_gates = new HashMap<String, Gate>();
 
         for(Gate g: gates_of_type) {
 
             //disallow same gate
-            if(g.Name.equals(A_gate.Name)) {
+            if(g.name.equals(A_gate.name)) {
                 continue;
             }
 
             //allow RBS variant
-            if(g.Group.equals(A_gate.Group)) {
+            if(g.group.equals(A_gate.group)) {
                 //System.out.println("allowing RBS variant " + A_gate.Name + ": " + g.Name);
-                allowed_B_gates.put(g.Name, g);
+                allowed_B_gates.put(g.name, g);
             }
 
             //allow non-duplicate groups
-            if (!currentlyAssignedGroup(lc, g.Group)) {
-                allowed_B_gates.put(g.Name, g);
+            if (!currentlyAssignedGroup(lc, g.group)) {
+                allowed_B_gates.put(g.name, g);
             }
 
         }
@@ -339,8 +339,8 @@ public class BuildCircuitsSimAnnealing extends BuildCircuits {
     private void checkReuseError(LogicCircuit lc) {
         for(int i=0; i<lc.get_logic_gates().size()-1; ++i) {
             for(int j=i+1; j<lc.get_logic_gates().size(); ++j) {
-                if(lc.get_logic_gates().get(i).Group.equals(lc.get_logic_gates().get(j).Group)) {
-                    throw new IllegalStateException("Repressor reuse error in simulated annealing, \n" + lc.get_logic_gates().get(i).Name + " " + lc.get_logic_gates().get(j).Name);
+                if(lc.get_logic_gates().get(i).group.equals(lc.get_logic_gates().get(j).group)) {
+                    throw new IllegalStateException("Repressor reuse error in simulated annealing, \n" + lc.get_logic_gates().get(i).name + " " + lc.get_logic_gates().get(j).name);
                 }
             }
         }
@@ -350,8 +350,8 @@ public class BuildCircuitsSimAnnealing extends BuildCircuits {
     private void revert(LogicCircuit B_lc, LogicCircuit A_lc) {
 
         for(int i=0; i<A_lc.get_logic_gates().size(); ++i) {
-            B_lc.get_logic_gates().get(i).Name  = A_lc.get_logic_gates().get(i).Name;
-            B_lc.get_logic_gates().get(i).Group = A_lc.get_logic_gates().get(i).Group;
+            B_lc.get_logic_gates().get(i).name  = A_lc.get_logic_gates().get(i).name;
+            B_lc.get_logic_gates().get(i).group = A_lc.get_logic_gates().get(i).group;
         }
 
         Evaluate.evaluateCircuit(B_lc, get_gate_library(), get_options());

@@ -103,8 +103,8 @@ public class PlotLibWriter {
 
             String color = "000000";
 
-            if(p.get_parent_gate() != null && p.get_parent_gate().ColorHex.length() == 6) {
-                color = p.get_parent_gate().ColorHex;
+            if(p.get_parent_gate() != null && p.get_parent_gate().colorHex.length() == 6) {
+                color = p.get_parent_gate().colorHex;
             }
 
             String r_hex = color.substring(0, 2);
@@ -170,11 +170,11 @@ public class PlotLibWriter {
 
                 for(Part p2: unique_parts.values()) {
 
-                    if(g.Type != Gate.GateType.INPUT && g.Type != Gate.GateType.OUTPUT && g.Type != Gate.GateType.OUTPUT_OR) {
+                    if(g.type != Gate.GateType.INPUT && g.type != Gate.GateType.OUTPUT && g.type != Gate.GateType.OUTPUT_OR) {
 
                         if (p2.get_name().equals(g.get_regulable_promoter().get_name())) {
                             String regulation_type = "Repression";
-                            if (g.Type == Gate.GateType.AND || g.Type == Gate.GateType.OR) {
+                            if (g.type == Gate.GateType.AND || g.type == Gate.GateType.OR) {
                                 regulation_type = "Activation";
                             }
 

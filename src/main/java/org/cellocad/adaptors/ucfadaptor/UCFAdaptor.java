@@ -69,32 +69,32 @@ public class UCFAdaptor {
 
             Gate g = new Gate();
 
-            g.Regulator = map.get("regulator").toString();
-            g.Name = map.get("gate_name").toString();
-            g.Group = map.get("group_name").toString();
-            g.Type = Gate.GateType.valueOf(map.get("gate_type").toString());
-            g.System = map.get("system").toString();
+            g.regulator = map.get("regulator").toString();
+            g.name = map.get("gate_name").toString();
+            g.group = map.get("group_name").toString();
+            g.type = Gate.GateType.valueOf(map.get("gate_type").toString());
+            g.system = map.get("system").toString();
 
 
-            if(options.get_exclude_groups().contains(g.Regulator)) {
+            if(options.get_exclude_groups().contains(g.regulator)) {
                 continue;
             }
 
             if(map.containsKey("color_hexcode")) {
-                g.ColorHex = map.get("color_hexcode").toString();
+                g.colorHex = map.get("color_hexcode").toString();
             }
             else {
-                g.ColorHex = randomGateColor();
+                g.colorHex = randomGateColor();
             }
 
             if(map.containsKey("inducer")) {
-                g.Inducer = map.get("inducer").toString();
+                g.inducer = map.get("inducer").toString();
             }
             else {
-                g.Inducer = "";
+                g.inducer = "";
             }
 
-            gate_library.get_GATES_BY_NAME().put(g.Name, g);
+            gate_library.get_GATES_BY_NAME().put(g.name, g);
         }
 
 
