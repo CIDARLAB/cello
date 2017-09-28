@@ -37,6 +37,15 @@ public class BooleanLogic {
         else if (gate_type == GateType.AND) {
             out = computeAND(inputs);
         }
+        else if (gate_type == GateType.NAND) {
+            out = computeNAND(inputs);
+        }
+        else if (gate_type == GateType.XOR) {
+            out = computeXOR(inputs);
+        }
+        else if (gate_type == GateType.XNOR) {
+            out = computeXNOR(inputs);
+        }
         return out;
     }
 
@@ -98,8 +107,37 @@ public class BooleanLogic {
         }
         return 1;
     }
+    
+    public static Integer computeNAND(ArrayList<Integer> inputs){
+        for(Integer i:inputs){
+            if(i == 0) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+    
+    public static Integer computeXOR(ArrayList<Integer> inputs){
+        int count = 0;
+        for(Integer i:inputs){
+            count += i;
+        }
+        if(count%2 == 0){
+            return 0;
+        }
+        return 1;
+    }
 
-
+    public static Integer computeXNOR(ArrayList<Integer> inputs){
+        int count = 0;
+        for(Integer i:inputs){
+            count += i;
+        }
+        if(count%2 == 0){
+            return 1;
+        }
+        return 0;
+    }
     /**
      * Reformat toString() of ArrayList<Integer>.  Remove spaces and brackets.
      *

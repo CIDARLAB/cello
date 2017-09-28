@@ -33,14 +33,12 @@ public class SBOLGateWriter {
         Args options = new Args();
         _filepath = options.get_home();
 
-        sequence_ontology_map.put("ribozyme", org.sbolstandard.core.util.SequenceOntology.INSULATOR);
-        sequence_ontology_map.put("rbs", URI.create("http://identifiers.org/so/SO:0000139"));
-        sequence_ontology_map.put("cds", URI.create("http://identifiers.org/so/SO:0000316"));
-        sequence_ontology_map.put("terminator", URI.create("http://identifiers.org/so/SO:0000141"));
-        sequence_ontology_map.put("promoter", URI.create("http://identifiers.org/so/SO:0000167"));
+        sequence_ontology_map.put("ribozyme", SequenceOntology.INSULATOR);
+        sequence_ontology_map.put("rbs", SequenceOntology.RIBOSOME_ENTRY_SITE);
+        sequence_ontology_map.put("cds", SequenceOntology.CDS);
+        sequence_ontology_map.put("terminator", SequenceOntology.TERMINATOR);
+        sequence_ontology_map.put("promoter", SequenceOntology.PROMOTER);
         sequence_ontology_map.put("output", URI.create("http://www.biopax.org/release/biopax-level3.owl#DnaRegion"));
-
-
 
         UCFReader ucf_reader = new UCFReader();
         _ucf = ucf_reader.readAllCollections(_filepath + "/resources/UCF/Eco1C1G1T1.UCF.json");
@@ -78,29 +76,20 @@ public class SBOLGateWriter {
         gate_parts.addAll(g.get_downstream_parts().get("x"));
         gate_parts.add(g.get_regulable_promoter());
 
-
-        setGateModuleDefinition(g);
-
-        setPartComponentDefinitions(gate_parts);
-
-        setCassetteComponentDefinition();
-
-        setCassetteSubComponents();
-
-        setCassetteSequenceAnnotations(gate_parts);
-
-        setPromoterCDSFunctionalComponents();
-
-        //setPromoterCDSInteraction();
-
-        setMoleculeComponentDefinitionsInteractions(g);
-
-
-
-        //setCassetteFunctionalComponent();
-
-        //setGateModel();
-
+	try {
+	    setGateModuleDefinition(g);
+	    setPartComponentDefinitions(gate_parts);
+	    setCassetteComponentDefinition();
+	    setCassetteSubComponents();
+	    setCassetteSequenceAnnotations(gate_parts);
+	    setPromoterCDSFunctionalComponents();
+	    //setPromoterCDSInteraction();
+	    setMoleculeComponentDefinitionsInteractions(g);
+	    //setCassetteFunctionalComponent();
+	    //setGateModel();
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
 
         //String output_filename = "resources/sbol2_xml/gates/gate_" + g.Name + "_SBOL.xml";
         String output_filename = "resources/sbol2_xml/gates/gate_" + g.name + ".sbol";
@@ -114,7 +103,7 @@ public class SBOLGateWriter {
 
     }
 
-    private static void setGateModuleDefinition(Gate g) {
+    private static void setGateModuleDefinition(Gate g) throws SBOLValidationException {
 
         //URI gateModuleDefinitionURI = URI.create("http://cellocad.org/" + g.Name);
         URI gateRoleURI = URI.create("http://cellocad.org/Gate");
@@ -126,8 +115,6 @@ public class SBOLGateWriter {
         String prPrefix="cellocad";
 
         _document.addNamespace( URI.create(_document.getDefaultURIprefix()), prPrefix);
-
-
 
         JSONObject obj = new JSONObject();
         obj.put("equation", g.get_equation());
@@ -151,15 +138,12 @@ public class SBOLGateWriter {
 
         String response_fn_string = "\n" + _gson.toJson(obj).replace("\"", "\'") + "\n";
 
-
-
-
-        _gate_module_definition.createAnnotation(new QName(prURI, "response_function", prPrefix), response_fn_string);
+	_gate_module_definition.createAnnotation(new QName(prURI, "response_function", prPrefix), response_fn_string);
 
     }
 
 
-    public static void setMoleculeComponentDefinitionsInteractions(Gate g) {
+    public static void setMoleculeComponentDefinitionsInteractions(Gate g) throws SBOLValidationException {
 
 
         // interaction types
@@ -218,22 +202,21 @@ public class SBOLGateWriter {
         String proteinParticipationID = protein.getDisplayId() + "_participation";
 
         //production interaction between CDS and Regulator
-        Participation production_cds = productionInteraction.createParticipation(cdsParticipationID, cds_fc.getDisplayId());
-        Participation production_regulator = productionInteraction.createParticipation(proteinParticipationID, protein_fc.getDisplayId());
+        Participation production_cds = productionInteraction.createParticipation(cds_fc.getDisplayId(),cdsParticipationID,SystemsBiologyOntology.MODIFIER);
+        Participation production_regulator = productionInteraction.createParticipation(protein_fc.getDisplayId(),proteinParticipationID,SystemsBiologyOntology.PRODUCT);
 
-        //repression interaction between Regulator and Promoter
-        Participation repression_regulator = repressionInteraction.createParticipation(proteinParticipationID, protein_fc.getDisplayId());
-        Participation repression_promoter = repressionInteraction.createParticipation(promoterParticipationID, promoter_fc.getDisplayId());
+
+	//repression interaction between Regulator and Promoter
+        Participation repression_regulator = repressionInteraction.createParticipation(protein_fc.getDisplayId(),proteinParticipationID,SystemsBiologyOntology.INHIBITOR);
+
+	Set<URI> repressionPromoterRoles = new HashSet<URI>();
+	repressionPromoterRoles.add(SystemsBiologyOntology.INHIBITED);
+	repressionPromoterRoles.add(SystemsBiologyOntology.PROMOTER);
+
+        Participation repression_promoter = repressionInteraction.createParticipation(promoter_fc.getDisplayId(),promoterParticipationID,repressionPromoterRoles);
 
 
         // participation roles
-
-        //inhibitor
-        URI inhibitorRole = URI.create("http://identifiers.org/biomodels.sbo/SBO:0000020");
-        repression_regulator.addRole(inhibitorRole);
-
-
-
 
         if(! g.inducer.isEmpty()) {
 
@@ -245,7 +228,17 @@ public class SBOLGateWriter {
                 regulation_type = "activation";
             }
 
-
+            if(g.type == GateType.NAND){
+                
+            }
+            
+            if(g.type == GateType.XOR){
+                
+            }
+            
+            if(g.type == GateType.XNOR){
+                
+            }
             //component definition type
             Set<URI> smallMoleculeTypeURIs = new HashSet<URI>();
             smallMoleculeTypeURIs.add(URI.create("http://www.biopax.org/release/biopax-level3.owl#SmallMolecule"));
@@ -299,26 +292,20 @@ public class SBOLGateWriter {
             String inducerParticipationID = inducer.getDisplayId() + "_participation";
             String complexParticipationID = complex.getDisplayId() + "_participation";
 
-            //non-covalent interaction between Regulator and Small Molecule
-            Participation complex_regulator = noncovalentInteraction.createParticipation(proteinParticipationID, protein_fc.getDisplayId());
-            Participation complex_inducer = noncovalentInteraction.createParticipation(inducerParticipationID, inducer_fc.getDisplayId());
-            Participation complex_complex = noncovalentInteraction.createParticipation(complexParticipationID, complex_fc.getDisplayId());
-
-
             //ligand
             URI ligandRole = URI.create("http://identifiers.org/biomodels.sbo/SBO:0000280");
-
             //complex
             URI complexRole = URI.create("http://identifiers.org/biomodels.sbo/SBO:0000253");
 
-            complex_inducer.addRole(ligandRole);
-            complex_regulator.addRole(ligandRole);
-            complex_complex.addRole(complexRole);
+            //non-covalent interaction between Regulator and Small Molecule
+            Participation complex_regulator = noncovalentInteraction.createParticipation(protein_fc.getDisplayId(),proteinParticipationID,ligandRole);
+            Participation complex_inducer = noncovalentInteraction.createParticipation(inducer_fc.getDisplayId(),inducerParticipationID,ligandRole);
+            Participation complex_complex = noncovalentInteraction.createParticipation(complex_fc.getDisplayId(),complexParticipationID,complexRole);
         }
     }
 
 
-    public static void setPartComponentDefinitions(ArrayList<Part> gate_parts) {
+    public static void setPartComponentDefinitions(ArrayList<Part> gate_parts) throws SBOLValidationException {
 
         URI partTypeURI = URI.create("http://www.biopax.org/release/biopax-level3.owl#DnaRegion");
         HashSet<URI> partTypeURIs = new HashSet<URI>();
@@ -361,7 +348,7 @@ public class SBOLGateWriter {
 
     }
 
-    public static void setCassetteComponentDefinition() {
+    public static void setCassetteComponentDefinition() throws SBOLValidationException {
 
         URI cassetteTypeURI = URI.create("http://www.biopax.org/release/biopax-level3.owl#DnaRegion");
 
@@ -375,7 +362,7 @@ public class SBOLGateWriter {
         _cassetteComponentDefinition = _document.createComponentDefinition(_gate_module_definition.getDisplayId() + "_cassette", cassetteTypeURIs);
     }
 
-    public static void setCassetteSubComponents() {
+    public static void setCassetteSubComponents() throws SBOLValidationException {
 
         ///////////////////////////////////////////////////////////
         /////////////  cassette subcomponents
@@ -386,7 +373,7 @@ public class SBOLGateWriter {
         }
     }
 
-    public static void setPromoterCDSFunctionalComponents() {
+    public static void setPromoterCDSFunctionalComponents() throws SBOLValidationException {
 
         ///////////////////////////////////////////////////////////
         ///////////// promoter functional component
@@ -408,13 +395,10 @@ public class SBOLGateWriter {
     }
 
 
-    public static void setPromoterCDSInteraction() {
+    public static void setPromoterCDSInteraction() throws SBOLValidationException {
 
         Set<URI> interactionTypes = new HashSet<URI>();
         interactionTypes.add(URI.create("http://identifiers.org/biomodels.sbo/SBO:0000169"));
-
-        Set<URI> inhibitorRoles = new HashSet<URI>();
-        inhibitorRoles.add(URI.create("http://identifiers.org/biomodels.sbo/SBO:0000020"));
 
         String interactionDisplayID = _cdsComponentDefinition.getDisplayId() + "_represses_" + _promoterComponentDefinition.getDisplayId();
 
@@ -423,12 +407,12 @@ public class SBOLGateWriter {
         String promoterParticipationID = _promoterComponentDefinition.getDisplayId() + "_participation";
         String cdsParticipationID = _cdsComponentDefinition.getDisplayId() + "_participation";
 
-        Participation promoterParticipation = interaction.createParticipation(promoterParticipationID, _promoterFC.getDisplayId());
-        Participation cdsParticipation = interaction.createParticipation(cdsParticipationID, _cdsFC.getDisplayId());
+        Participation promoterParticipation = interaction.createParticipation(_promoterFC.getDisplayId(),promoterParticipationID,SystemsBiologyOntology.PROMOTER);
+        Participation cdsParticipation = interaction.createParticipation(_cdsFC.getDisplayId(),cdsParticipationID,sequence_ontology_map.get("cds"));
     }
 
 
-    public static void setCassetteSequenceAnnotations(ArrayList<Part> gate_parts) {
+    public static void setCassetteSequenceAnnotations(ArrayList<Part> gate_parts) throws SBOLValidationException {
 
         String cassette_seq = "";
         _annotation_index = 1;

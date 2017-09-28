@@ -32,7 +32,10 @@ public class Gate {
         OUTPUT_OR,
         OR,
         AND,
+        NAND,
         NOR,
+        XOR,
+        XNOR,
         NOT;
     }
 
@@ -109,6 +112,15 @@ public class Gate {
         {
             name = "|";
         }
+        else if(dType == GateType.NAND){
+            name = "~&";
+        }
+        else if(dType == GateType.XOR){
+            name = "*"; 
+        }
+        else if(dType == GateType.XNOR){
+            name = "~*"; 
+        }
         else
         {
             name = "";
@@ -141,6 +153,15 @@ public class Gate {
         else if(dType == GateType.OR)
         {
             name = "|";
+        }
+        else if(dType == GateType.NAND){
+            name = "~&";
+        }
+        else if(dType == GateType.XOR){
+            name = "*"; 
+        }
+        else if(dType == GateType.XNOR){
+            name = "~*"; 
         }
         else
         {
@@ -175,6 +196,15 @@ public class Gate {
         {
             name = "|";
         }
+        else if(type == GateType.NAND){
+            name = "~&";
+        }
+        else if(type == GateType.XOR){
+            name = "*"; 
+        }
+        else if(type == GateType.XNOR){
+            name = "~*"; 
+        }
         else
         {
             name = "";
@@ -207,6 +237,15 @@ public class Gate {
         else if(type == GateType.OR)
         {
             name = "|";
+        }
+        else if(type == GateType.NAND){
+            name = "~&";
+        }
+        else if(type == GateType.XOR){
+            name = "*"; 
+        }
+        else if(type == GateType.XNOR){
+            name = "~*"; 
         }
         else
         {

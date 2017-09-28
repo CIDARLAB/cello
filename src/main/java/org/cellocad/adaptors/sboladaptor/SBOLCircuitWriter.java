@@ -48,23 +48,27 @@ public class SBOLCircuitWriter {
         //////////  Structural layer: component definitions
         /////////////////////////////////////////////
 
-        setCircuitComponentDefinition(plasmid);
-
-        setPartComponentDefinitions(plasmid);
-
-        setAnnotations();
+	try {
+	    setCircuitComponentDefinition(plasmid);
+	    setPartComponentDefinitions(plasmid);
+	    setAnnotations();
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
 
         /////////////////////////////////////////////
         //////////  Functional layer: Module definitions, modules, functional components
         /////////////////////////////////////////////
 
-        setCircuitModuleDefinition();
-
-        setPartFunctionalComponents();
-
-        setProductionInteractions(plasmid);
-        setRepressionInteractions(plasmid);
-        setInducerInteractions(plasmid);
+	try {
+	    setCircuitModuleDefinition();
+	    setPartFunctionalComponents();
+	    setProductionInteractions(plasmid);
+	    setRepressionInteractions(plasmid);
+	    setInducerInteractions(plasmid);
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
 
 
 
@@ -89,7 +93,7 @@ public class SBOLCircuitWriter {
     /**
      * Annotate plasmid with start bp and end bp for each part
      */
-    public void setAnnotations() {
+    public void setAnnotations() throws SBOLValidationException {
 
         int current_bp = 1;
 
@@ -122,11 +126,11 @@ public class SBOLCircuitWriter {
      * Highest level in the functional layer.
      * Contains functional components (promoter, protein, inducer) and interactions between fc's.
      */
-    public void setCircuitModuleDefinition() {
+    public void setCircuitModuleDefinition() throws SBOLValidationException {
 
         URI gateRoleURI = URI.create("http://cellocad.org/LogicCircuit");
 
-        _circuit_module_definition = _document.createModuleDefinition(_circuit_name + "_module");
+	_circuit_module_definition = _document.createModuleDefinition(_circuit_name + "_module");
         _circuit_module_definition.addRole(gateRoleURI);
     }
 
@@ -134,7 +138,7 @@ public class SBOLCircuitWriter {
     /**
      * Functional components for promoters and cds's.
      */
-    public void setPartFunctionalComponents() {
+    public void setPartFunctionalComponents() throws SBOLValidationException {
 
         for(ComponentDefinition part_cd: _part_component_definitions) {
 
@@ -173,7 +177,7 @@ public class SBOLCircuitWriter {
      * a separate plasmid from the circuit module.
      * @param plasmid
      */
-    public void setCircuitComponentDefinition(ArrayList<Part> plasmid) {
+    public void setCircuitComponentDefinition(ArrayList<Part> plasmid) throws SBOLValidationException {
 
         URI circuitTypeURI = URI.create("http://www.biopax.org/release/biopax-level3.owl#DnaRegion");
 
@@ -199,7 +203,7 @@ public class SBOLCircuitWriter {
 
 
 
-    public void setProductionInteractions(ArrayList<Part> plasmid) {
+    public void setProductionInteractions(ArrayList<Part> plasmid) throws SBOLValidationException {
 
         //production
 
@@ -300,19 +304,15 @@ public class SBOLCircuitWriter {
             //Add for CDS
             //(fn component for cds?)
 
-            Participation production_promoter = productionInteraction.createParticipation(promoterParticipationID, promoter_fc.getDisplayId());
-            Participation production_regulator = productionInteraction.createParticipation(proteinParticipationID, protein_fc.getDisplayId());
-            //Do this again for the CDS
-
-            //missing roles
-            production_promoter.addRole(SystemsBiologyOntology.PROMOTER);
-            production_regulator.addRole(SystemsBiologyOntology.PRODUCT);
-            //CDS. production_cds.addRole(SystemsBiologyOntology.MODIFIER)
+            Participation production_promoter = productionInteraction.createParticipation(promoter_fc.getDisplayId(),promoterParticipationID,SystemsBiologyOntology.PROMOTER);
+            Participation production_regulator = productionInteraction.createParticipation(protein_fc.getDisplayId(),proteinParticipationID,SystemsBiologyOntology.PRODUCT);
+            // Do this again for the CDS
+            // production_cds, will have role SystemsBiologyOntology.MODIFIER
 
         }
     }
 
-    public void setRepressionInteractions(ArrayList<Part> plasmid) {
+    public void setRepressionInteractions(ArrayList<Part> plasmid) throws SBOLValidationException {
 
         //repression
 
@@ -339,7 +339,7 @@ public class SBOLCircuitWriter {
             String proteinParticipationID = protein_name + "_participation";
 
 
-            Participation repression_regulator = repressionInteraction.createParticipation(proteinParticipationID, protein_fc.getDisplayId());
+            Participation repression_regulator = repressionInteraction.createParticipation(protein_fc.getDisplayId(),proteinParticipationID,SystemsBiologyOntology.INHIBITOR);
 
 
             boolean plasmid_has_promoter = false;
@@ -349,20 +349,18 @@ public class SBOLCircuitWriter {
                     break;
                 }
             }
+	    Set<URI> repressionPromoterRoles = new HashSet<URI>();
+	    repressionPromoterRoles.add(SystemsBiologyOntology.INHIBITED);
+	    repressionPromoterRoles.add(SystemsBiologyOntology.PROMOTER);
+
             if (plasmid_has_promoter) {
-                Participation repression_promoter = repressionInteraction.createParticipation(promoterParticipationID, promoter_fc.getDisplayId());
-                repression_promoter.addRole(SystemsBiologyOntology.PROMOTER);
+                Participation repression_promoter = repressionInteraction.createParticipation(promoter_fc.getDisplayId(),promoterParticipationID,repressionPromoterRoles);
             }
-
-
-            //inhibitor
-            URI inhibitorRole = SystemsBiologyOntology.INHIBITOR;
-            repression_regulator.addRole(inhibitorRole);
         }
     }
 
 
-    public void setInducerInteractions(ArrayList<Part> plasmid) {
+    public void setInducerInteractions(ArrayList<Part> plasmid) throws SBOLValidationException {
 
 
         for (String protein_name : _repression_map.keySet()) {
@@ -422,21 +420,13 @@ public class SBOLCircuitWriter {
                 String complexParticipationID = complex.getDisplayId() + "_participation";
                 String proteinParticipationID = protein_name + "_participation";
 
-                //non-covalent interaction between Regulator and Small Molecule
-                Participation complex_regulator = noncovalentInteraction.createParticipation(proteinParticipationID, protein_fc.getDisplayId());
-                Participation complex_inducer = noncovalentInteraction.createParticipation(inducerParticipationID, inducer_fc.getDisplayId());
-                Participation complex_complex = noncovalentInteraction.createParticipation(complexParticipationID, complex_fc.getDisplayId());
-
-
-                //ligand
-                URI ligandRole = URI.create("http://identifiers.org/biomodels.sbo/SBO:0000280");
-
-                //complex
+		URI ligandRole = URI.create("http://identifiers.org/biomodels.sbo/SBO:0000280");
                 URI complexRole = URI.create("http://identifiers.org/biomodels.sbo/SBO:0000253");
 
-                complex_inducer.addRole(ligandRole);
-                complex_regulator.addRole(ligandRole);
-                complex_complex.addRole(complexRole);
+                //non-covalent interaction between Regulator and Small Molecule
+                Participation complex_regulator = noncovalentInteraction.createParticipation(protein_fc.getDisplayId(),proteinParticipationID,ligandRole);
+                Participation complex_inducer = noncovalentInteraction.createParticipation(inducer_fc.getDisplayId(),inducerParticipationID,ligandRole);
+                Participation complex_complex = noncovalentInteraction.createParticipation(complex_fc.getDisplayId(),complexParticipationID,complexRole);
             }
 
         }
@@ -445,7 +435,7 @@ public class SBOLCircuitWriter {
 
 
 
-    public void setPartComponentDefinitions(ArrayList<Part> plasmid) {
+    public void setPartComponentDefinitions(ArrayList<Part> plasmid) throws SBOLValidationException {
 
 
         for(Part p: plasmid) {
@@ -482,7 +472,7 @@ public class SBOLCircuitWriter {
         }
     }
 
-    public Sequence getComponentSequenceForPart(Part p) {
+    public Sequence getComponentSequenceForPart(Part p) throws SBOLValidationException {
 
         String sequenceDisplayID = p.get_name() + "_sequence";
 
@@ -504,7 +494,7 @@ public class SBOLCircuitWriter {
     }
 
 
-    public ComponentDefinition getComponentDefinitionForPart(Part p) {
+    public ComponentDefinition getComponentDefinitionForPart(Part p) throws SBOLValidationException {
 
         String cd_displayID = p.get_name();
 

@@ -43,9 +43,10 @@ public class Graphviz {
             if(g.type == Gate.GateType.INPUT) {
                 gvText += g.name + "[shape=none,label=\"" + shape + "\"]; \n";
             }
-            else if(g.type == Gate.GateType.NOT || g.type == Gate.GateType.NOR || g.type == Gate.GateType.AND) {
+            else if(g.type == Gate.GateType.NOT || g.type == Gate.GateType.NOR || g.type == Gate.GateType.AND || g.type == Gate.GateType.NAND || g.type == Gate.GateType.OR || g.type == Gate.GateType.XOR || g.type == Gate.GateType.XNOR) {
                 String image_location = "\"" + lc.get_assignment_name() + "_xfer_model_" + g.name +".png"+ "\"";
                 gvText += g.name + "[fixedsize=true,height=1.0,width=1.0,label=\"\",shape=none,image="+image_location+"]; \n";
+
             }
             else {
                 String g_logics = "\\n" + BooleanLogic.logicString(g.get_logics());

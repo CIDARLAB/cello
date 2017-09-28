@@ -1,0 +1,3 @@
+[submodule "tools/jscello/ucf2sbol"]
+	path = tools/jscello/ucf2sbol
+	url = https://github.com/CIDARLAB/CelloUCF2SBOL.git
