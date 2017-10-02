@@ -3,6 +3,9 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Set;
 
+import org.cellocad.MIT.dnacompiler.Args;
+import org.cellocad.MIT.dnacompiler.Gate;
+import org.cellocad.MIT.dnacompiler.GateLibrary;
 import org.cellocad.MIT.dnacompiler.Part;
 import org.cellocad.MIT.dnacompiler.PartLibrary;
 import org.cellocad.MIT.dnacompiler.UCF;
@@ -20,12 +23,12 @@ import org.junit.Test;
 public class SynBioHubTest {
 
     @Test
-    public void test() {
+    public void testPartLibrary() throws Exception {
         UCFAdaptor ucfAdaptor = new UCFAdaptor();
         UCFReader ucfReader = new UCFReader();
         UCF ucf = ucfReader.readAllCollections("resources/UCF/Eco1C1G1T0.UCF.json");
-        PartLibrary partLib = ucfAdaptor.createPartLibrary(ucf);
-        HashMap<String,Part> ucfParts = partLib.get_ALL_PARTS();
+        PartLibrary partLibrary = ucfAdaptor.createPartLibrary(ucf);
+        HashMap<String,Part> ucfParts = partLibrary.get_ALL_PARTS();
         Set<String> ucfPartNames = ucfParts.keySet();
 
         SynBioHubAdaptor sbhAdaptor = new SynBioHubAdaptor();
@@ -38,5 +41,23 @@ public class SynBioHubTest {
         for (String name : sbhPartNames) {
             assertTrue(name + " in SynBioHub is missing from the UCF", ucfPartNames.contains(name));
         }
+
+        Part p = sbhParts.get(sbhPartNames.iterator().next());
+    }
+
+    @Test
+    public void testGateLibrary() throws Exception {
+        UCFAdaptor ucfAdaptor = new UCFAdaptor();
+        UCFReader ucfReader = new UCFReader();
+        UCF ucf = ucfReader.readAllCollections("resources/UCF/Eco1C1G1T0.UCF.json");
+        GateLibrary ucfGateLibrary = ucfAdaptor.createGateLibrary(ucf,2,1,new Args());
+
+        SynBioHubAdaptor sbhAdaptor = new SynBioHubAdaptor();
+        GateLibrary sbhGateLibrary = sbhAdaptor.getGateLibrary();
+
+        Set<String> ucfGateNames = ucfGateLibrary.get_GATES_BY_NAME().keySet();
+        Set<String> sbhGateNames = sbhGateLibrary.get_GATES_BY_NAME().keySet();
+        assertTrue(ucfGateNames.equals(sbhGateNames));
+
     }
 }
