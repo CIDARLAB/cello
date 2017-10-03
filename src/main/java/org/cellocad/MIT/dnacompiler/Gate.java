@@ -3,13 +3,15 @@ package org.cellocad.MIT.dnacompiler;
  * Created by Bryan Der on 3/26/14.
  */
 
-import lombok.Getter;
-import lombok.Setter;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.cellocad.BU.dom.DWire;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Connected Gates form a LogicCircuit
@@ -66,6 +68,7 @@ public class Gate {
      * Input gates have no Outgoing wire.
      */
 
+    private URI synBioHubURI;
 
     //DAG
     public DWire outW = new DWire();
@@ -128,6 +131,12 @@ public class Gate {
 
         outW = new DWire();
         this.outgoing = null;
+    }
+
+    public Gate(int index, GateType gateType, URI uri)
+    {
+        this(index,gateType);
+        synBioHubURI = uri;
     }
 
     //constructor used in NetSynth
@@ -353,7 +362,96 @@ public class Gate {
     
 //    @Getter @Setter private boolean _tp_exists = false;
 
-    @Getter @Setter private int _distance_to_input = -1;
+    /**
+	 * @return the {Gate}'s URI on SynBioHub
+	 */
+	public URI getSynBioHubURI() {
+		return synBioHubURI;
+	}
+
+	/**
+	 * @param the {Gate}'s URI on SynBioHub
+	 */
+	public void setSynBioHubURI(URI synBioHubURI) {
+		this.synBioHubURI = synBioHubURI;
+	}
+
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	/**
+	 * @return the group
+	 */
+	public String getGroup() {
+		return group;
+	}
+
+	/**
+	 * @param group the group to set
+	 */
+	public void setGroup(String group) {
+		this.group = group;
+	}
+
+
+	/**
+	 * @return the colorHex
+	 */
+	public String getColorHex() {
+		return colorHex;
+	}
+
+	/**
+	 * @param colorHex the colorHex to set
+	 */
+	public void setColorHex(String colorHex) {
+		this.colorHex = colorHex;
+	}
+
+	/**
+	 * @return the system
+	 */
+	public String getSystem() {
+		return system;
+	}
+
+	/**
+	 * @param system the system to set
+	 */
+	public void setSystem(String system) {
+		this.system = system;
+	}
+
+
+	/**
+	 * @return the type
+	 */
+	public GateType getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(GateType type) {
+		this.type = type;
+	}
+
+
+	@Getter @Setter private int _distance_to_input = -1;
 
     //TODO get rid of this one
     @Getter @Setter private int _farthest_dist2in = 1;

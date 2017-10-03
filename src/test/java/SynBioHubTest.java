@@ -58,6 +58,5 @@ public class SynBioHubTest {
         Set<String> ucfGateNames = ucfGateLibrary.get_GATES_BY_NAME().keySet();
         Set<String> sbhGateNames = sbhGateLibrary.get_GATES_BY_NAME().keySet();
         assertTrue(ucfGateNames.equals(sbhGateNames));
-
     }
 }

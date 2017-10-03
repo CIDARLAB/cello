@@ -3,15 +3,20 @@ package org.cellocad.adaptors.synbiohubadaptor;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.cellocad.MIT.dnacompiler.HistogramUtil;
 import org.cellocad.MIT.dnacompiler.Gate;
+import org.cellocad.MIT.dnacompiler.Pair;
 import org.cellocad.MIT.dnacompiler.GateLibrary;
 import org.cellocad.MIT.dnacompiler.Part;
 import org.cellocad.MIT.dnacompiler.PartLibrary;
@@ -21,6 +26,11 @@ import org.sbolstandard.core2.SBOLDocument;
 import org.sbolstandard.core2.SequenceOntology;
 import org.synbiohub.frontend.SynBioHubException;
 import org.synbiohub.frontend.SynBioHubFrontend;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
+import com.google.gson.Gson;
 
 /**
  * An adaptor to build the parts library from SynBioHub.
@@ -57,8 +67,9 @@ public class SynBioHubAdaptor {
         // System.out.println(celloMD.iterator().next().getFunctionalComponents());
 
         for (ComponentDefinition cd : celloCD) {
-            // i dont know why there would be more than one type per part
-            // in the cello parts there is one type per part, so just grab the first type below
+            // i dont know why there would be more than one type per
+            // part in the cello parts there is one type per part, so
+            // just grab the first type below
             URI type = cd.getTypes().iterator().next();
 
             if (type.equals(URI.create("http://www.biopax.org/release/biopax-level3.owl#DnaRegion"))) {
@@ -67,7 +78,8 @@ public class SynBioHubAdaptor {
                 if (role.equals(SequenceOntology.ENGINEERED_REGION)) { // if the CD is a gate
 
                     Gate g = new Gate();
-                    g.name = cd.getName();
+                    g.setSynBioHubURI(cd.getIdentity());
+                    g.setName(cd.getName());
 
                     // if a gate on synbiohub ever had more than one
                     // toxicity attachment, the last one would be what
@@ -75,35 +87,30 @@ public class SynBioHubAdaptor {
                     for (Annotation a : cd.getAnnotations()) {
                         String annotationType = a.getQName().getLocalPart();
                         if (annotationType == "gate_type") {
-                            g.type = Gate.GateType.valueOf(a.getStringValue());
+                            g.setType(Gate.GateType.valueOf(a.getStringValue()));
                         }
                         if (annotationType == "group-name") {
-                            g.group = a.getStringValue();
+                            g.setGroup(a.getStringValue());
                         }
                         if (annotationType == "family") {
-                            g.system = a.getStringValue();
+                            g.setSystem(a.getStringValue());
                         }
-                        if (annotationType == "gate-color-hexcode") {
-                            g.colorHex = a.getStringValue();
+                        if (annotationType == "gate-color-hexcode") { // color
+                            g.setColorHex(a.getStringValue());
                         }
-                        if (annotationType == "attachment") {
-
+                        if (annotationType == "attachment") { // toxicity or cytometry
                             URI attachmentUri = a.getURIValue();
-
-                            // http://lifelongprogrammer.blogspot.com/2014/11/handling-gzip-response-in-apache.html
-                            if (sbh.getSBOL(attachmentUri).getGenericTopLevel(attachmentUri).getName().contains("toxicity")) {
-                                URL url = new URL(attachmentUri.toString() + "/download");
-                                HttpClientBuilder builder = HttpClientBuilder.create();
-                                CloseableHttpClient httpClient = builder.build();
-                                HttpGet httpGet = new HttpGet(url.toString());
-                                HttpResponse httpResponse = httpClient.execute(httpGet);
-                                String toxicityJSON = EntityUtils.toString(httpResponse.getEntity());
-                                // setGateToxicity(toxicityJSON);
+                            String fileName = sbh.getSBOL(attachmentUri).getGenericTopLevel(attachmentUri).getName();
+                            if (fileName.contains("toxicity")) {
+                                setGateToxicityTable(attachmentUri, g);
+                            }
+                            if (fileName.contains("cytometry")) {
+                                setGateCytometry(attachmentUri, g);
                             }
                         }
                     }
 
-                    gateLibrary.get_GATES_BY_NAME().put(g.name, g);
+                    gateLibrary.get_GATES_BY_NAME().put(g.getName(), g);
                     gateLibrary.setHashMapsForGates();
 
                 } else { // otherwise it's a part
@@ -129,6 +136,90 @@ public class SynBioHubAdaptor {
             }
         }
         partLibrary.set_ALL_PARTS(allParts);
+    }
+
+    private void setGateCytometry(URI uri, Gate gate) throws MalformedURLException, IOException {
+        URL url = new URL(uri.toString() + "/download");
+        String cytometryJson = getURLContentsAsString(url);
+
+        Integer nbins = 0;
+        Double logmin = 0.0;
+        Double logmax = 0.0;
+
+        ArrayList<double[]> xfer_binned = new ArrayList<double[]>();
+        ArrayList<Double> xfer_titration_inputRPUs = new ArrayList<Double>();
+
+        JsonParser parser = new JsonParser();
+        JsonArray jsonArray = parser.parse(cytometryJson).getAsJsonArray();
+
+        Gson gson = new Gson();
+        for (int i = 0; i < jsonArray.size(); ++i) {
+            JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
+            Double input = jsonObject.get("input").getAsDouble();
+            List<Double> outputBins = gson.fromJson(jsonObject.get("output_bins").getAsJsonArray(), ArrayList.class);
+            List<Double> outputCounts = gson.fromJson(jsonObject.get("output_counts").getAsJsonArray(), ArrayList.class);
+
+            if (i==0) {
+                nbins = outputBins.size();
+                logmin = Math.log10(outputBins.get(0));
+                logmax = Math.log10(outputBins.get(outputBins.size() - 1));
+            }
+            else {
+                double current_logmin = Math.log10(outputBins.get(0));
+                double current_logmax = Math.log10(outputBins.get(outputBins.size() - 1));
+            }
+            xfer_titration_inputRPUs.add(input);
+
+            double[] xfer_titration_counts = new double[outputCounts.size()];
+            for (int b = 0; b < outputCounts.size(); ++b) {
+                xfer_titration_counts[b] = outputCounts.get(b);
+            }
+
+            double[] xfer_normalized = HistogramUtil.normalize(xfer_titration_counts);
+            xfer_binned.add(xfer_normalized);
+
+        }
+        gate.get_histogram_bins().init();
+        gate.get_histogram_bins().set_NBINS( nbins );
+        gate.get_histogram_bins().set_LOGMAX( logmax );
+        gate.get_histogram_bins().set_LOGMIN( logmin );
+
+        gate.get_xfer_hist().set_xfer_titration(xfer_titration_inputRPUs);
+
+        gate.get_xfer_hist().set_xfer_binned(xfer_binned);
+    }
+
+    /**
+     * @return the toxicity table
+     */
+    private void setGateToxicityTable(URI uri, Gate g) throws MalformedURLException, IOException {
+        URL url = new URL(uri.toString() + "/download");
+        String toxicityJson = getURLContentsAsString(url);
+
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = parser.parse(toxicityJson).getAsJsonObject();
+
+        Gson gson = new Gson();
+        List<Double> input = gson.fromJson(jsonObject.get("input"), ArrayList.class);
+        List<Double> growth = gson.fromJson(jsonObject.get("growth"), ArrayList.class);
+
+        ArrayList<Pair> toxtable = new ArrayList<Pair>();
+        for (int i = 0; i < input.size(); ++i) {
+            toxtable.add(new Pair(input.get(i), growth.get(i)));
+        }
+
+        g.set_toxtable(toxtable);
+    }
+
+    /**
+     * @return the URL contents (uncompressed) as a String
+     */
+    private String getURLContentsAsString(URL url) throws IOException {
+        HttpClientBuilder builder = HttpClientBuilder.create();
+        CloseableHttpClient httpClient = builder.build();
+        HttpGet httpGet = new HttpGet(url.toString());
+        HttpResponse httpResponse = httpClient.execute(httpGet);
+        return EntityUtils.toString(httpResponse.getEntity());
     }
 
     /**
