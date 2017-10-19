@@ -313,7 +313,7 @@ public class BuildCircuitsSimAnnealing extends BuildCircuits {
             }
 
             //allow non-duplicate groups
-            if (!currentlyAssignedGroup(lc, g.Group)) {
+            if (!currentlyAssignedGroup(lc, g.Group) || isNextGateCurrentlyUsed(lc, g)) {
                 allowed_B_gates.put(g.Name, g);
             }
 
