@@ -124,12 +124,16 @@
         <dependency>
             <groupId>org.cellocad</groupId>
             <artifactId>netsynth</artifactId>
+            <scope>system</scope>
+            <systemPath>${basedir}/resources/library/NetSynth.jar</systemPath>
             <version>1.0</version>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org</groupId>
             <artifactId>eugene</artifactId>
+            <scope>system</scope>
+            <systemPath>${basedir}/resources/library/eugene-2.0.0-SNAPSHOT-jar-with-dependencies.jar</systemPath>
             <version>2.0.0</version>
             <type>jar</type>
         </dependency>
