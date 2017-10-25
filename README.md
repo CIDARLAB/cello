@@ -1,5 +1,7 @@
 <img src="src/main/webapp/images/logo-cello-color.png">
 
+# Cello [![Build Status](https://travis-ci.org/CIDARLAB/cello.svg?branch=develop)](https://travis-ci.org/CIDARLAB/cello.svg?branch=develop)
+
 The Cello input is a high-level logic specification written in Verilog, a hardware description language.  The code is parsed to generate a truth table, and logic synthesis produces a circuit diagram with the genetically available gate types to implement the truth table.  The gates in the circuit are assigned using experimentally characterized genetic gates.  In assignment, a predicted circuit score guides a breadth-first search, or a Monte Carlo simulated annealing search.  The assignment with the highest score is chosen, and this assignment can be physically implemented in a combinatorial number of different genetic layouts.  The Eugene language is used for rule-based constrained combinatorial design of one or more final DNA sequence(s) for the designed circuit.
 
 ## Verilog specification.
