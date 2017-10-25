@@ -1,0 +1,11 @@
+language: java
+install:
+  - cd resources/library
+  - ./install_local_jars_linux.sh
+  - cd ../../
+  - mvn validate -B -V
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+jdk:
+  - oraclejdk8
+  - openjdk8
+  - openjdk7
