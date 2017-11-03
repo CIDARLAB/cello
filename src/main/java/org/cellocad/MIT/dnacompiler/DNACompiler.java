@@ -1689,7 +1689,7 @@ public class DNACompiler {
 
         GW = netsynth.runNetSynth(
                 verilog_filepath,
-                new ArrayList<NetSynthSwitch>(),
+                new ArrayList<NetSynthSwitch>(Arrays.asList(NetSynthSwitch.originalstructural,NetSynthSwitch.output_or)),
                 motifLibrary
         );
 

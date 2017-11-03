@@ -72,7 +72,7 @@ public class Args {
 
     @Getter @Setter ArrayList<String> _exclude_groups = new ArrayList<>();
 
-    @Getter @Setter private BuildCircuits.AssignmentAlgorithm _assignment_algorithm = BuildCircuits.AssignmentAlgorithm.sim_annealing; //
+    @Getter @Setter private BuildCircuits.AssignmentAlgorithm _assignment_algorithm = BuildCircuits.AssignmentAlgorithm.breadth_first; //
 //    @Getter @Setter private int _timelimit = 10; // seconds.
     @Getter @Setter private boolean _unique_repressor_assignments = true; // only output unique repressor assignments
     @Getter @Setter private boolean _unique_rbs_assignments = false; // rbs variants count as unique assignments
