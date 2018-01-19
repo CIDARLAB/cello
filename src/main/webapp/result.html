@@ -66,6 +66,7 @@
             <img id="r3" class="results_icon center" src="results_icons/3_truthtable.jpg">
             <img id="r4" class="results_icon center" src="results_icons/4_eugene.jpg">
             <img id="r5" class="results_icon center" src="results_icons/5_plasmid.jpg">
+	    <img id="r6" class="results_icon center" src="results_icons/repo.jpg">
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="text-align: right">
             <label for="result_pulldown"><h3><small>Design Name</small></h3></label>
@@ -168,7 +169,27 @@
 
 
             <div id="view6" class="view" style="display: none">
-                <h2><small>download results</small></h2><a id="dl_link" href="" target-blank> Download zip file </a> <br>
+              <h2><small>SynBioHub login</small></h2><a id="dl_link" href="" target-blank> </a> <br>
+	      <input id="sbhlogin_username" type="text" class="span2" placeholder="Login"><br>
+              <input id="sbhlogin_password" type="password" class="span2" placeholder="Password"><br>
+              <input id="btnSBHLogin" type="submit" value="Login" class="btn btn-warning">
+	      <div id="sbhLoginError"></div><br>
+	      <label for="sbh_sbol_file_pulldown"><h3><small>SBOL file</small></h3></label>
+              <select id="sbh_sbol_file_pulldown"></select><br>
+	      <label for="collection_pulldown"><h3><small>Collections</small></h3></label>
+              <select id="collection_pulldown"></select><br>
+	      <input id="sbh_id" type="text" class="span2" placeholder="id"><br>
+	      <input id="sbh_version" type="text" class="span2" placeholder="version"><br>
+	      <input id="sbh_name" type="text" class="span2" placeholder="name"><br>
+	      <input id="sbh_description" type="text" class="span2" placeholder="description"><br>
+	      <input id="sbh_citations" type="text" class="span2" placeholder="citations"><br>
+	      <select id="sbh_overwrite">
+		<option value="0">prevent</option>
+		<option value="1">overwrite</option>
+		<option value="2">merge</option>
+	      </select><br>
+	      <input id="btnSBHSubmit" type="submit" value="Submit" class="btn btn-warning"><br>
+	      <div id="sbhSubmitError"></div>
             </div>
 
         </div>

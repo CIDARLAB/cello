@@ -5,23 +5,20 @@ if(!isRegistered()) {
 var res = {}; //data model for results page
 
 $( document ).ready( function() {
-
-        if(sessionStorage.results_page) {
-            var results_page = JSON.parse(sessionStorage.results_page);
-            res.jobID = sessionStorage.jobID;
-            res.show_nA = results_page.show_nA;
-            res.result_tab = results_page.result_tab;
-            res.files = results_page.files;
-            res.all_result_files = results_page.all_result_files;
-        }
-        else {
-            res.jobID = sessionStorage.jobID;
-            res.show_nA = "000";
-        }
-
-        setResults();
+    if(sessionStorage.results_page) {
+        var results_page = JSON.parse(sessionStorage.results_page);
+        res.jobID = sessionStorage.jobID;
+        res.show_nA = results_page.show_nA;
+        res.result_tab = results_page.result_tab;
+        res.files = results_page.files;
+        res.all_result_files = results_page.all_result_files;
+    } else {
+        res.jobID = sessionStorage.jobID;
+        res.show_nA = "000";
     }
-);
+    
+    setResults();
+});
 
 function setResults() {
     set_result_pulldown();
@@ -323,7 +320,6 @@ $("#r6").mousedown(function () {
     res.result_tab = 6;
 });
 
-
 function show(x) { //hide all, then display current mousedown block
     $('#view1').hide();
     $('#view2').hide();
@@ -402,11 +398,14 @@ function showResults() {
     showFile(nA_files.wiring_rpu,    "div3a", "file3a");
     showFile(nA_files.eugene,        "div4a", "file4a");
     showFile(nA_files.dnaplotlib,    "div4b", "file4b");
+    showFile(nA_files.eugene,        "div7a", "file7a");
 
     //file lists
     showImgSet(nA_files.output_rpus, "div3b", "img3set");
     showPlasmidFiles(nA_files.plasmids, 'plasmid_list');
     showSBOLFiles(nA_files.sbol, 'sbol_list');
+    showSBOLFiles(nA_files.sbol, 'test_list');
+    set_synbiohub_sbol_pulldown(nA_files.sbol);
 
     if(res.result_tab > 0) {
         show(res.result_tab);
@@ -595,3 +594,135 @@ $(window).bind('beforeunload', function() {
     sessionStorage.jobID = $('#result_pulldown').val();
     sessionStorage.results_page = JSON.stringify(res);
 });
+
+
+$('#btnSBHLogin').click(function() {
+    $.ajax({
+        url: "synbiohub/login",
+        type: "POST",
+        data: {
+            username: $('#sbhlogin_username').val(),
+            password: $('#sbhlogin_password').val()
+        },
+	headers: {
+            "Authorization": "Basic " + btoa(sessionStorage.username + ":" + sessionStorage.password)
+        },
+        success: function (response) {
+
+            console.log('login response ' + JSON.stringify(response));
+
+            if (response['status'] === 'exception') {
+                $('#sbhLoginError').html('<div class="alert alert-danger" style="margin-top:5px">' + response['result'] + '</div>');
+            } else {
+		$('#sbhLoginError').html('<div class="alert alert-danger" style="margin-top:5px">Logged in to SynBioHub</div>');
+		get_synbiohub_collections();
+            }
+        }
+    });
+
+});
+
+function get_synbiohub_collections() {
+    $.ajax({
+        url: "synbiohub/collections",
+        type: "GET",
+        headers: {
+            "Authorization": "Basic " + btoa(sessionStorage.username + ":" + sessionStorage.password)
+        },
+        dataType: "json",
+        success: function(response) {
+            var collections = response['collections'];
+            res.synbiohub_collections = collections;
+	    var x = document.getElementById("collection_pulldown");
+	    for(var k in collections) {
+		var custom = document.createElement("option");
+		custom.text  = k;
+		custom.value = collections[k];
+		x.add(custom);
+	    }
+            return true;
+        },
+        error: function() {
+            return true;
+        }
+    });
+}
+
+function synbiohub_submit_error(message) {
+    $('#sbhSubmitError').html('<div class="alert alert-danger" style="margin-top:5px">' + message + '</div>');
+}
+
+$('#btnSBHSubmit').click(function() {
+    var missing = [];
+    if ($('#sbh_collection').val() == '') {
+	missing.push("collection");
+    }
+    if ($('#sbh_id').val() == '') {
+	missing.push("id");
+    }
+    if ($('#sbh_version').val() == '') {
+	missing.push("version");
+    }
+    if ($('#sbh_name').val() == '') {
+	missing.push("name");
+    }
+    if ($('#sbh_description').val() == '') {
+	missing.push("description");
+    }
+    // if ($('#sbh_citations').val() == '') {
+    // 	missing.push("citations");
+    // }
+
+    if (missing != []) {
+	synbiohub_submit_error("missing the following fields: " + missing.join(", "));
+    }
+    $.ajax({
+        url: "synbiohub/submit",
+        type: "POST",
+        data: {
+            id: $('#sbh_id').val(),
+            version: $('#sbh_version').val(),
+	    name: $('#sbh_name').val(),
+	    description: $('#sbh_description').val(),
+	    citations: $('#sbh_citations').val(),
+	    collections: $('#collection_pulldown').val(),
+	    overwrite: $('#sbh_overwrite').val(),
+	    sbol: $('#sbh_sbol_file_pulldown').val(),
+	    jobid: res.jobID
+        },
+    	headers: {
+            "Authorization": "Basic " + btoa(sessionStorage.username + ":" + sessionStorage.password)
+        },
+        success: function (response) {
+
+            console.log('login response ' + JSON.stringify(response));
+
+            if (response['status'] === 'exception') {
+                $('#sbhSubmitError').html('<div class="alert alert-danger" style="margin-top:5px">' + response['result'] + '</div>');
+            } else {
+    		$('#sbhSubmitError').html('<div class="alert alert-danger" style="margin-top:5px">submitted</div>');
+            }
+        }
+    });
+
+});
+
+function set_synbiohub_sbol_pulldown(filenames) {
+    var x = document.getElementById("sbh_sbol_file_pulldown");
+    
+    for (var i = 0; i < filenames.length; ++i) {
+        if (filenames[i]) {
+            filenames[i].trim();
+
+            var tokens = filenames[i].split("/");
+            var filename = tokens[tokens.length-1];
+
+	    var custom = document.createElement("option");
+            custom.text = filename;
+            custom.value = filename;
+            x.add(custom);
+        }
+        else {
+        }
+    }
+}

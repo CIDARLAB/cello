@@ -9,11 +9,24 @@ import org.cellocad.MIT.dnacompiler.*;
 import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
+import org.sbolstandard.core2.SBOLValidationException;
+import org.sbolstandard.core2.SBOLConversionException;
+import org.sbolstandard.core2.SBOLDocument;
+import org.sbolstandard.core2.SBOLReader;
+import org.synbiohub.frontend.SynBioHubException;
+import org.synbiohub.frontend.SynBioHubFrontend;
+import org.synbiohub.frontend.IdentifiedMetadata;
+import org.synbiohub.frontend.SearchQuery;
+import org.synbiohub.frontend.SearchCriteria;
+import org.cellocad.api.FileController;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.nio.charset.Charset;
 
 /**
  * Created by Bryan Der on 8/21/15.
@@ -269,5 +282,137 @@ public class MainController extends BaseController {
         return "First login: creating default input promoters and output genes.";
     }
 
+    @RequestMapping(value="/synbiohub/login",method=RequestMethod.POST,produces="application/json")
+    public @ResponseBody
+		JSONObject synBioHubLogin(@RequestHeader("Authorization") String basic,
+							  @RequestParam Map<String, String> params) {
+		if(!auth.login(basic)) {
+            throw new CelloUnauthorizedException("login to Cello first");
+        }
+		String username = params.get("username");
+		String password = params.get("password");
 
+        JSONObject jsonResponse = new JSONObject();
+
+		SynBioHubFrontend sbh = this.getSynBioHubFrontend();
+		if (sbh == null) {
+			sbh = new SynBioHubFrontend("https://synbiohub.programmingbiology.org");
+			this.setSynBioHubFrontend(sbh);
+		}
+
+		try {
+			sbh.login(username,password);
+		} catch (SynBioHubException e) {
+			e.printStackTrace();
+			jsonResponse.put("status", "exception");
+			jsonResponse.put("result", e.getLocalizedMessage());
+			return jsonResponse;
+		}
+
+		jsonResponse.put("status", "good");
+		return jsonResponse;
+	}
+
+    @RequestMapping(value="/synbiohub/collections",method=RequestMethod.GET,produces="application/json")
+    public @ResponseBody JSONObject synBioHubCollections(@RequestHeader("Authorization") String basic) {
+        JSONObject jsonResponse = new JSONObject();
+
+		SynBioHubFrontend sbh = this.getSynBioHubFrontend();
+		if (sbh == null) {
+			jsonResponse.put("status","exception");
+			jsonResponse.put("message","login to synbiohub first");
+			return jsonResponse;
+		}
+
+		try {
+			// List<IdentifiedMetadata> collections = sbh.getRootCollectionMetadata();
+			SearchQuery query = new SearchQuery();
+			SearchCriteria crit = new SearchCriteria();
+			crit.setKey("objectType");
+			crit.setValue("Collection");
+			query.addCriteria(crit);
+			query.setLimit(10000);
+			query.setOffset(0);
+			List<IdentifiedMetadata> collections = sbh.search(query);
+			Map<String,String> collectionsMap = new HashMap<>();
+			for (IdentifiedMetadata im : collections) {
+				collectionsMap.put(im.getName(),im.getDisplayId());
+			}
+			jsonResponse.put("status","good");
+			JSONObject jsonCollections = new JSONObject();
+			jsonCollections.putAll(collectionsMap);
+			jsonResponse.put("collections",collectionsMap);
+			return jsonResponse;
+		} catch (SynBioHubException e) {
+			e.printStackTrace();
+			jsonResponse.put("status","exception");
+			jsonResponse.put("message",e.getLocalizedMessage());
+			return jsonResponse;
+		}
+	}
+
+    @RequestMapping(value="/synbiohub/submit",method=RequestMethod.POST,produces="application/json")
+    public @ResponseBody
+    JSONObject synBioHubSubmit(@RequestHeader("Authorization") String basic,
+							   @RequestParam Map<String, String> params)
+		throws SBOLConversionException,SBOLValidationException,IOException {
+		
+        JSONObject jsonResponse = new JSONObject();
+
+		String sbhId = params.get("id");
+		String sbhName = params.get("name");
+		String sbhVersion = params.get("version");
+		String sbhDescription = params.get("description");
+		String sbhCitations = params.get("citations");
+		String sbhCollections = params.get("collections");
+		String sbhOverwrite = params.get("overwrite");
+		String sbhSBOLFile = params.get("sbol");
+		String jobid = params.get("jobid");
+		
+		SynBioHubFrontend sbh = this.getSynBioHubFrontend();
+		if (sbh == null) {
+			jsonResponse.put("status","exception");
+			jsonResponse.put("message","login to synbiohub first");
+			return jsonResponse;
+		}
+
+		String username = auth.getUsername(basic);
+		String filePath = _resultPath + "/" + username + "/" + jobid + "/" + sbhSBOLFile;
+		SBOLDocument sbol = SBOLReader.read(filePath);
+		
+		try {
+			sbh.submit(sbhId,
+					   sbhVersion,
+					   sbhName,
+					   sbhDescription,
+					   sbhCitations,
+					   sbhCollections,
+					   sbhOverwrite,
+					   sbol);
+			jsonResponse.put("status","good");
+			jsonResponse.put("message","submitted");
+			return jsonResponse;
+		} catch (SynBioHubException e) {
+			e.printStackTrace();
+			jsonResponse.put("status","exception");
+			jsonResponse.put("message",e.getLocalizedMessage());
+			return jsonResponse;
+		}
+	}
+
+	private SynBioHubFrontend synBioHubFrontend;
+
+	/**
+	 * @return the synBioHubFrontend
+	 */
+	public SynBioHubFrontend getSynBioHubFrontend() {
+		return synBioHubFrontend;
+	}
+
+	/**
+	 * @param synBioHubFrontend the synBioHubFrontend to set
+	 */
+	public void setSynBioHubFrontend(SynBioHubFrontend synBioHubFrontend) {
+		this.synBioHubFrontend = synBioHubFrontend;
+	}
 }
