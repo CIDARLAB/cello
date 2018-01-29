@@ -1,10 +1,16 @@
 package org.cellocad.adaptors.sboladaptor;
 
 
+import java.io.IOException;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.HashSet;
+
 import org.cellocad.MIT.dnacompiler.Args;
 import org.cellocad.MIT.dnacompiler.Part;
 import org.cellocad.MIT.dnacompiler.PartLibrary;
 import org.cellocad.MIT.dnacompiler.UCF;
+import org.cellocad.adaptors.synbiohubadaptor.SynBioHubAdaptor;
 import org.cellocad.adaptors.ucfadaptor.UCFAdaptor;
 import org.cellocad.adaptors.ucfadaptor.UCFReader;
 import org.sbolstandard.core2.ComponentDefinition;
@@ -12,10 +18,7 @@ import org.sbolstandard.core2.SBOLDocument;
 import org.sbolstandard.core2.SBOLValidationException;
 import org.sbolstandard.core2.Sequence;
 import org.sbolstandard.core2.SequenceOntology;
-
-import java.net.URI;
-import java.util.HashMap;
-import java.util.HashSet;
+import org.synbiohub.frontend.SynBioHubException;
 
 
 public class SBOLPartWriter {
@@ -39,11 +42,23 @@ public class SBOLPartWriter {
 
         UCFReader ucf_reader = new UCFReader();
         UCF ucf = ucf_reader.readAllCollections(_filepath + "/resources/UCF/Eco1C1G1T1.UCF.json");
-        UCFAdaptor ucf_adaptor = new UCFAdaptor();
+        UCFAdaptor ucfAdaptor = new UCFAdaptor();
 
-        PartLibrary part_library = ucf_adaptor.createPartLibrary(ucf);
+        PartLibrary partLibrary = null;
+		if (options.is_synbiohub_parts()) {
+			try {
+				SynBioHubAdaptor sbh = new SynBioHubAdaptor();
+				partLibrary = sbh.getPartLibrary();
+			} catch (IOException | SynBioHubException e) {
+				e.printStackTrace();
+				partLibrary = ucfAdaptor.createPartLibrary(ucf);
+			}
+		} else {
+			partLibrary = ucfAdaptor.createPartLibrary(ucf);
+		}
+
 	try {
-	    writeSBOLParts(part_library);
+	    writeSBOLParts(partLibrary);
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}

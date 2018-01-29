@@ -1,36 +1,38 @@
 package org.cellocad.adaptors.synbiohubadaptor;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.net.MalformedURLException;
-import java.util.HashMap;
-import java.util.Set;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.cellocad.MIT.dnacompiler.HistogramUtil;
 import org.cellocad.MIT.dnacompiler.Gate;
-import org.cellocad.MIT.dnacompiler.Pair;
 import org.cellocad.MIT.dnacompiler.GateLibrary;
+import org.cellocad.MIT.dnacompiler.HistogramUtil;
+import org.cellocad.MIT.dnacompiler.Pair;
 import org.cellocad.MIT.dnacompiler.Part;
 import org.cellocad.MIT.dnacompiler.PartLibrary;
 import org.sbolstandard.core2.Annotation;
 import org.sbolstandard.core2.ComponentDefinition;
+import org.sbolstandard.core2.Component;
 import org.sbolstandard.core2.SBOLDocument;
 import org.sbolstandard.core2.SequenceOntology;
 import org.synbiohub.frontend.SynBioHubException;
 import org.synbiohub.frontend.SynBioHubFrontend;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonArray;
+
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 /**
  * An adaptor to build the parts library from SynBioHub.
@@ -80,6 +82,7 @@ public class SynBioHubAdaptor {
                     Gate g = new Gate();
                     g.setSynBioHubURI(cd.getIdentity());
                     g.setName(cd.getName());
+					g.setComponentDefinition(cd);
 
                     // if a gate on synbiohub ever had more than one
                     // toxicity attachment, the last one would be what
@@ -221,6 +224,57 @@ public class SynBioHubAdaptor {
         HttpResponse httpResponse = httpClient.execute(httpGet);
         return EntityUtils.toString(httpResponse.getEntity());
     }
+
+	public void setGateParts(GateLibrary gateLibrary, PartLibrary partLibrary) {
+		Map<String,Gate> gatesMap = this.gateLibrary.get_GATES_BY_NAME();
+		for (String gateName : gatesMap.keySet()) {
+			Gate g = gatesMap.get(gateName);
+			ComponentDefinition cd = g.getComponentDefinition();
+			Set<Component> components = cd.getComponents();
+
+			if(gateLibrary.get_GATES_BY_NAME().containsKey(gateName)) {
+
+				HashMap<String, ArrayList<Part>> downstream_gate_parts = new HashMap<>();
+
+				//regulable promoter
+
+				String promoter_name = "p" + g.getGroup();
+
+				if(!partLibrary.get_ALL_PARTS().containsKey(promoter_name)) {
+					throw new IllegalStateException("reading part not found " + promoter_name);
+				}
+
+				Part regulable_promoter = new Part(partLibrary.get_ALL_PARTS().get(promoter_name));
+
+
+				//downstream parts (can be >1 for multi-input logic gates)
+
+				ArrayList<Part> parts = new ArrayList<Part>();
+
+				for (Component c : components) {
+					String partName = c.getName();
+
+					if(!partLibrary.get_ALL_PARTS().containsKey(partName)) {
+						throw new IllegalStateException("reading part not found " + partName);
+					}
+
+					Part p = partLibrary.get_ALL_PARTS().get(partName);
+
+					parts.add(p);
+
+				}
+
+				downstream_gate_parts.put("x", parts);
+
+				gateLibrary.get_GATES_BY_NAME().get(gateName).set_downstream_parts(downstream_gate_parts);
+				gateLibrary.get_GATES_BY_NAME().get(gateName).set_regulable_promoter(regulable_promoter);
+			}
+		}
+	}
+
+	// public void setGateParts(GateLibrary gateLibrary, PartLibrary partLibrary) {
+		
+	// }
 
     /**
      * @return the SBOLDocument containing the SBOL of an arbitrary URI

@@ -1,22 +1,44 @@
 package org.cellocad.adaptors.sboladaptor;
 
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.cellocad.MIT.dnacompiler.*;
-import org.cellocad.MIT.dnacompiler.Gate.GateType;
-import org.cellocad.adaptors.ucfadaptor.UCFAdaptor;
-import org.cellocad.adaptors.ucfadaptor.UCFReader;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.sbolstandard.core2.*;
-
-import javax.xml.namespace.QName;
+import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.xml.namespace.QName;
+
+import org.cellocad.MIT.dnacompiler.Args;
+import org.cellocad.MIT.dnacompiler.Gate;
+import org.cellocad.MIT.dnacompiler.Gate.GateType;
+import org.cellocad.MIT.dnacompiler.GateLibrary;
+import org.cellocad.MIT.dnacompiler.Part;
+import org.cellocad.MIT.dnacompiler.PartLibrary;
+import org.cellocad.MIT.dnacompiler.UCF;
+import org.cellocad.adaptors.synbiohubadaptor.SynBioHubAdaptor;
+import org.cellocad.adaptors.ucfadaptor.UCFAdaptor;
+import org.cellocad.adaptors.ucfadaptor.UCFReader;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.sbolstandard.core2.AccessType;
+import org.sbolstandard.core2.Component;
+import org.sbolstandard.core2.ComponentDefinition;
+import org.sbolstandard.core2.DirectionType;
+import org.sbolstandard.core2.FunctionalComponent;
+import org.sbolstandard.core2.Interaction;
+import org.sbolstandard.core2.ModuleDefinition;
+import org.sbolstandard.core2.Participation;
+import org.sbolstandard.core2.SBOLDocument;
+import org.sbolstandard.core2.SBOLValidationException;
+import org.sbolstandard.core2.Sequence;
+import org.sbolstandard.core2.SequenceAnnotation;
+import org.sbolstandard.core2.SequenceOntology;
+import org.sbolstandard.core2.SystemsBiologyOntology;
+import org.synbiohub.frontend.SynBioHubException;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 
@@ -42,20 +64,42 @@ public class SBOLGateWriter {
 
         UCFReader ucf_reader = new UCFReader();
         _ucf = ucf_reader.readAllCollections(_filepath + "/resources/UCF/Eco1C1G1T1.UCF.json");
-        UCFAdaptor ucf_adaptor = new UCFAdaptor();
+        UCFAdaptor ucfAdaptor = new UCFAdaptor();
 
-        GateLibrary gate_library = ucf_adaptor.createGateLibrary(_ucf, 0, 0, new Args());
-        PartLibrary part_library = ucf_adaptor.createPartLibrary(_ucf);
+		GateLibrary gateLibrary = null;
+		if (options.is_synbiohub_parts()) {
+			try {
+				SynBioHubAdaptor sbh = new SynBioHubAdaptor();
+				gateLibrary = sbh.getGateLibrary();
+			} catch (IOException | SynBioHubException e) {
+				e.printStackTrace();
+				gateLibrary = ucfAdaptor.createGateLibrary(_ucf, 0, 0, new Args());
+			}
+		} else {
+			gateLibrary = ucfAdaptor.createGateLibrary(_ucf, 0, 0, new Args());
+		}
+		PartLibrary partLibrary = null;
+		if (options.is_synbiohub_parts()) {
+			try {
+				SynBioHubAdaptor sbh = new SynBioHubAdaptor();
+				partLibrary = sbh.getPartLibrary();
+			} catch (IOException | SynBioHubException e) {
+				e.printStackTrace();
+				partLibrary = ucfAdaptor.createPartLibrary(_ucf);
+			}
+		} else {
+			partLibrary = ucfAdaptor.createPartLibrary(_ucf);
+		}
 
-        ucf_adaptor.setGateParts(_ucf, gate_library, part_library);
-        ucf_adaptor.setResponseFunctions(_ucf, gate_library);
+        ucfAdaptor.setGateParts(_ucf, gateLibrary, partLibrary);
+        ucfAdaptor.setResponseFunctions(_ucf, gateLibrary);
 
-        for(Gate g: gate_library.get_GATES_BY_NAME().values()) {
+        for(Gate g: gateLibrary.get_GATES_BY_NAME().values()) {
             System.out.println(g.get_params().toString());
         }
 
 
-        for(Gate g: gate_library.get_GATES_BY_NAME().values()) {
+        for(Gate g: gateLibrary.get_GATES_BY_NAME().values()) {
             writeSBOL(g);
         }
 

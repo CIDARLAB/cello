@@ -33,6 +33,9 @@ public class Args {
     // if a gate is listed as 'NOT' in the UCF, it will only be assigned to NOT gates (will not be assigned to NOR gates)
     @Getter @Setter private boolean _NOTequalsNOR1 = true;
 
+	// use synbiohub to import parts
+	@Getter @Setter private boolean _synbiohub_parts = false;
+
     // permute all input assignments
     // e.g.
     // in1, in2 = pTac, pTet

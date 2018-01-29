@@ -1,6 +1,7 @@
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import org.cellocad.MIT.dnacompiler.Args;
@@ -41,8 +42,6 @@ public class SynBioHubTest {
         for (String name : sbhPartNames) {
             assertTrue(name + " in SynBioHub is missing from the UCF", ucfPartNames.contains(name));
         }
-
-        Part p = sbhParts.get(sbhPartNames.iterator().next());
     }
 
     @Test
@@ -59,4 +58,31 @@ public class SynBioHubTest {
         Set<String> sbhGateNames = sbhGateLibrary.get_GATES_BY_NAME().keySet();
         assertTrue(ucfGateNames.equals(sbhGateNames));
     }
+
+	@Test
+	public void testSetGateParts() throws Exception {
+		UCFAdaptor ucfAdaptor = new UCFAdaptor();
+		UCFReader ucfReader = new UCFReader();
+		UCF ucf = ucfReader.readAllCollections("resources/UCF/Eco1C1G1T0.UCF.json");
+		GateLibrary ucfGateLibrary = ucfAdaptor.createGateLibrary(ucf,2,1,new Args());
+		PartLibrary ucfPartLibrary = ucfAdaptor.createPartLibrary(ucf);
+		ucfAdaptor.setGateParts(ucf,ucfGateLibrary,ucfPartLibrary);
+		Map<String,Gate> ucfGatesMap = ucfGateLibrary.get_GATES_BY_NAME();
+		Map<String,String> ucfPromoterMap = new HashMap<>();
+		for (String gateName : ucfGatesMap.keySet()) {
+			ucfPromoterMap.put(gateName,ucfGatesMap.get(gateName).get_regulable_promoter().get_name());
+		}
+
+		SynBioHubAdaptor sbhAdaptor = new SynBioHubAdaptor();
+		PartLibrary sbhPartLibrary = sbhAdaptor.getPartLibrary();
+		GateLibrary sbhGateLibrary = sbhAdaptor.getGateLibrary();
+		sbhAdaptor.setGateParts(sbhGateLibrary, sbhPartLibrary);
+		Map<String,Gate> sbhGatesMap = sbhGateLibrary.get_GATES_BY_NAME();
+		Map<String,String> sbhPromoterMap = new HashMap<>();
+		for (String gateName : sbhGatesMap.keySet()) {
+			sbhPromoterMap.put(gateName,sbhGatesMap.get(gateName).get_regulable_promoter().get_name());
+		}
+		assertTrue(sbhPromoterMap.equals(ucfPromoterMap));
+	}
+
 }

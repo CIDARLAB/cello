@@ -4,12 +4,14 @@ package org.cellocad.MIT.dnacompiler;
  */
 
 
+import java.net.URI;
+import java.util.HashMap;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.sbolstandard.core2.ComponentDefinition;
+
 import lombok.Getter;
 import lombok.Setter;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
-import java.util.HashMap;
-import java.net.URI;
 
 /**
  * Part contains data: name, type, direction, sequence, etc.
@@ -142,5 +144,21 @@ public class Part {
 	 */
 	public void setSynBioHubURI(URI synBioHubURI) {
 		this.synBioHubURI = synBioHubURI;
+	}
+
+	private ComponentDefinition componentDefinition;
+
+	/**
+	 * @return the componentDefinition
+	 */
+	public ComponentDefinition getComponentDefinition() {
+		return componentDefinition;
+	}
+
+	/**
+	 * @param componentDefinition the componentDefinition to set
+	 */
+	public void setComponentDefinition(ComponentDefinition componentDefinition) {
+		this.componentDefinition = componentDefinition;
 	}
 }

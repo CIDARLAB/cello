@@ -3,19 +3,36 @@ package org.cellocad.MIT.dnacompiler;
  * Created by Bryan Der on 3/26/14.
  */
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import lombok.Getter;
-import lombok.Setter;
-import org.apache.log4j.*;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.UUID;
+
+import org.apache.log4j.ConsoleAppender;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
 import org.cellocad.BU.netsynth.NetSynth;
 import org.cellocad.BU.netsynth.NetSynthSwitch;
 import org.cellocad.BU.netsynth.Utilities;
 import org.cellocad.MIT.dnacompiler.Gate.GateType;
-import org.cellocad.MIT.figures.*;
+import org.cellocad.MIT.figures.Colors;
+import org.cellocad.MIT.figures.Gnuplot;
+import org.cellocad.MIT.figures.Graphviz;
+import org.cellocad.MIT.figures.PlotLibWriter;
+import org.cellocad.MIT.figures.ScriptCommands;
 import org.cellocad.MIT.tandem_promoter.InterpolateTandemPromoter;
 import org.cellocad.adaptors.eugeneadaptor.EugeneAdaptor;
 import org.cellocad.adaptors.sboladaptor.SBOLCircuitWriter;
+import org.cellocad.adaptors.synbiohubadaptor.SynBioHubAdaptor;
 import org.cellocad.adaptors.ucfadaptor.UCFAdaptor;
 import org.cellocad.adaptors.ucfadaptor.UCFReader;
 import org.cellocad.adaptors.ucfadaptor.UCFValidator;
@@ -26,11 +43,13 @@ import org.codehaus.jackson.node.ObjectNode;
 import org.json.JSONException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+import org.synbiohub.frontend.SynBioHubException;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Modifier;
-import java.util.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import lombok.Getter;
+import lombok.Setter;
 
 
 //@Slf4j
@@ -383,9 +402,21 @@ public class DNACompiler {
         /**
          * Part objects mapped to the part name.
          */
-        PartLibrary part_library = ucfAdaptor.createPartLibrary(ucf);
+        PartLibrary partLibrary = null;
+		if (_options.is_synbiohub_parts()) {
+			try {
+				SynBioHubAdaptor sbh = new SynBioHubAdaptor();
+				partLibrary = sbh.getPartLibrary();
+			} catch (IOException | SynBioHubException e) {
+				e.printStackTrace();
+				partLibrary = ucfAdaptor.createPartLibrary(ucf);
+			}
+		} else {
+			partLibrary = ucfAdaptor.createPartLibrary(ucf);
+		}
 
-        for (Part p : part_library.get_ALL_PARTS().values()) {
+
+        for (Part p : partLibrary.get_ALL_PARTS().values()) {
             logger.info("Part: " + p.get_type() + " " + p.get_name());
         }
 
@@ -412,10 +443,21 @@ public class DNACompiler {
          * input gates and logic gates were purposefully omitted from the UCF,
          * the idea being that the same gate library can be used to design circuits with different inputs/outputs.
          */
-        GateLibrary gate_library = ucfAdaptor.createGateLibrary(ucf, n_inputs, n_outputs, _options);
+        GateLibrary gateLibrary = null;
+		if (_options.is_synbiohub_parts()) {
+			try {
+				SynBioHubAdaptor sbh = new SynBioHubAdaptor();
+				gateLibrary = sbh.getGateLibrary();
+			} catch (IOException | SynBioHubException e) {
+				e.printStackTrace();
+				gateLibrary = ucfAdaptor.createGateLibrary(ucf, n_inputs, n_outputs, _options);
+			}
+		} else {
+			gateLibrary = ucfAdaptor.createGateLibrary(ucf, n_inputs, n_outputs, _options);
+		}
 
-
-        for(Gate g: gate_library.get_GATES_BY_NAME().values()) {
+		
+        for(Gate g: gateLibrary.get_GATES_BY_NAME().values()) {
             logger.info("loading gate from UCF gates collection: " + g.name);
         }
 
@@ -437,8 +479,8 @@ public class DNACompiler {
          *
          * gate_library is passed in because it will be modified with the input/output data that's read in
          */
-        InputOutputGateReader.readInputsFromFile(_options.get_fin_input_promoters(), gate_library);
-        InputOutputGateReader.readOutputsFromFile(_options.get_fin_output_genes(), gate_library);
+        InputOutputGateReader.readInputsFromFile(_options.get_fin_input_promoters(), gateLibrary);
+        InputOutputGateReader.readOutputsFromFile(_options.get_fin_output_genes(), gateLibrary);
 
 
 
@@ -448,11 +490,11 @@ public class DNACompiler {
         logger.info("///////////////////////////////////////////////////////////\n");
 
         //associate Part objects with the _downstream_parts and _regulable_promoter data members of Gate.java
-        ucfAdaptor.setGateParts(ucf, gate_library, part_library);
+        ucfAdaptor.setGateParts(ucf, gateLibrary, partLibrary);
 
 
         //make sure all gates have gate parts defined
-        if(!ucfValidator.allGatesHaveGateParts(gate_library)) {
+        if(!ucfValidator.allGatesHaveGateParts(gateLibrary)) {
             _result_status = ResultStatus.ucf_invalid;
             return;
         }
@@ -464,17 +506,17 @@ public class DNACompiler {
         logger.info("///////////////   Loading Response Functions   ////////////");
         logger.info("///////////////////////////////////////////////////////////\n");
 
-        ucfAdaptor.setResponseFunctions(ucf, gate_library);
+        ucfAdaptor.setResponseFunctions(ucf, gateLibrary);
 
 
         //make sure all gates have a response function defined.
-        if(!ucfValidator.allGatesHaveResponseFunctions(gate_library)) {
+        if(!ucfValidator.allGatesHaveResponseFunctions(gateLibrary)) {
             _result_status = ResultStatus.ucf_invalid;
             return;
         }
 
         //printing the response functions
-        for (Gate g : gate_library.get_GATES_BY_NAME().values()) {
+        for (Gate g : gateLibrary.get_GATES_BY_NAME().values()) {
             logger.info(g.name + " " + g.get_equation() + " " + g.get_params().toString());
         }
 
@@ -487,7 +529,7 @@ public class DNACompiler {
         /**
          * populate the gate objects with the Part objects for 'downstream_parts' and 'regulable_promoter'.
          */
-        ucfAdaptor.setGateToxicity(ucf, gate_library, _options);
+        ucfAdaptor.setGateToxicity(ucf, gateLibrary, _options);
 
         if (_options.is_toxicity()) {
             Toxicity.initializeCircuitToxicity(abstract_lc);
@@ -499,7 +541,7 @@ public class DNACompiler {
         logger.info("///////////////   Loading Cytometry Data   ////////////////");
         logger.info("///////////////////////////////////////////////////////////\n");
 
-        ucfAdaptor.setGateCytometry(ucf, gate_library, _options);
+        ucfAdaptor.setGateCytometry(ucf, gateLibrary, _options);
 
 
 
@@ -516,7 +558,7 @@ public class DNACompiler {
             logger.info("///////////////   Loading Tandem Promoter Data   //////////");
             logger.info("///////////////////////////////////////////////////////////\n");
 
-            ucfAdaptor.setTandemPromoters(ucf, gate_library, _options);
+            ucfAdaptor.setTandemPromoters(ucf, gateLibrary, _options);
         }
 
 
@@ -526,13 +568,13 @@ public class DNACompiler {
         /**
          * print statements for inputs/outputs
          */
-        for (String i : gate_library.get_INPUT_NAMES()) {
+        for (String i : gateLibrary.get_INPUT_NAMES()) {
             String input_info = "input:    " + String.format("%-16s", i);
-            input_info += "   off_rpu=" + Util.sc(gate_library.get_INPUTS_OFF().get(i));
-            input_info += "   on_rpu=" + Util.sc(gate_library.get_INPUTS_ON().get(i));
+            input_info += "   off_rpu=" + Util.sc(gateLibrary.get_INPUTS_OFF().get(i));
+            input_info += "   on_rpu=" + Util.sc(gateLibrary.get_INPUTS_ON().get(i));
             logger.info(input_info);
         }
-        for (String i : gate_library.get_OUTPUT_NAMES()) {
+        for (String i : gateLibrary.get_OUTPUT_NAMES()) {
             String output_info = "output:   " + String.format("%-16s", i);
             logger.info(output_info);
         }
@@ -541,29 +583,29 @@ public class DNACompiler {
         /**
          * Allow NOR gates to also be used as NOT gates
          */
-        if (_options.is_NOTequalsNOR1() && gate_library.get_GATES_BY_TYPE().containsKey(GateType.NOR)) {
+        if (_options.is_NOTequalsNOR1() && gateLibrary.get_GATES_BY_TYPE().containsKey(GateType.NOR)) {
 
-            LinkedHashMap<String, Gate> NOR_Gates = gate_library.get_GATES_BY_TYPE().get(GateType.NOR);
+            LinkedHashMap<String, Gate> NOR_Gates = gateLibrary.get_GATES_BY_TYPE().get(GateType.NOR);
 
-            gate_library.get_GATES_BY_TYPE().put(GateType.NOT, NOR_Gates);
+            gateLibrary.get_GATES_BY_TYPE().put(GateType.NOT, NOR_Gates);
 
-            LinkedHashMap<String, ArrayList<Gate>> NOR_Gate_Groups = gate_library.get_GATES_BY_GROUP().get(GateType.NOR);
+            LinkedHashMap<String, ArrayList<Gate>> NOR_Gate_Groups = gateLibrary.get_GATES_BY_GROUP().get(GateType.NOR);
 
-            gate_library.get_GATES_BY_GROUP().put(GateType.NOT, NOR_Gate_Groups);
+            gateLibrary.get_GATES_BY_GROUP().put(GateType.NOT, NOR_Gate_Groups);
 
         }
 
-        for (Gate g : gate_library.get_GATES_BY_NAME().values()) {
+        for (Gate g : gateLibrary.get_GATES_BY_NAME().values()) {
             logger.info("Gate: " + g.system + " " + g.type + " " + g.name + " " + g.group);
         }
 
-        for (GateType gtype : gate_library.get_GATES_BY_GROUP().keySet()) {
-            logger.info("GateLibrary groups: " + gtype + " " + gate_library.get_GATES_BY_GROUP().get(gtype).size());
+        for (GateType gtype : gateLibrary.get_GATES_BY_GROUP().keySet()) {
+            logger.info("GateLibrary groups: " + gtype + " " + gateLibrary.get_GATES_BY_GROUP().get(gtype).size());
         }
 
-        for (GateType gtype : gate_library.get_GATES_BY_GROUP().keySet()) {
+        for (GateType gtype : gateLibrary.get_GATES_BY_GROUP().keySet()) {
 
-            LinkedHashMap<String, ArrayList<Gate>> groups = gate_library.get_GATES_BY_GROUP().get(gtype);
+            LinkedHashMap<String, ArrayList<Gate>> groups = gateLibrary.get_GATES_BY_GROUP().get(gtype);
 
             for (String group_name : groups.keySet()) {
 
@@ -588,17 +630,17 @@ public class DNACompiler {
         /**
          * are there enough gates of each type (input, output, logic to build the circuit
          */
-        if (abstract_lc.get_input_gates().size() > gate_library.get_INPUT_NAMES().length) {
+        if (abstract_lc.get_input_gates().size() > gateLibrary.get_INPUT_NAMES().length) {
             logger.info("Number of input gates out of range: " + abstract_lc.get_input_gates().size());
             return;
         }
 
-        if (abstract_lc.get_output_gates().size() > gate_library.get_OUTPUT_NAMES().length) {
+        if (abstract_lc.get_output_gates().size() > gateLibrary.get_OUTPUT_NAMES().length) {
             logger.info("Number of output gates out of range: " + abstract_lc.get_output_gates().size());
             return;
         }
 
-        if (!LogicCircuitUtil.libraryGatesCoverCircuitGates(abstract_lc, gate_library)) {
+        if (!LogicCircuitUtil.libraryGatesCoverCircuitGates(abstract_lc, gateLibrary)) {
             //logger.info("Not enough gates in the library to cover the gates in the circuit.");
             //return;
             logger.info("Not enough gates in the library to cover the gates in the circuit.");
@@ -620,7 +662,7 @@ public class DNACompiler {
         //_options.get_permute_inputs = true;
 
 
-        unassigned_lcs = LogicCircuitUtil.getInputAssignments(abstract_lc, gate_library, _options.is_permute_inputs());
+        unassigned_lcs = LogicCircuitUtil.getInputAssignments(abstract_lc, gateLibrary, _options.is_permute_inputs());
 
 
 
@@ -646,7 +688,7 @@ public class DNACompiler {
         ArrayList<String> eugene_part_rules = ucfAdaptor.getEugenePartRules(ucf);
         Roadblock roadblock = new Roadblock();
         roadblock.setThreadDependentLoggername(threadDependentLoggername);
-        roadblock.set_roadblockers(eugene_part_rules, gate_library);
+        roadblock.set_roadblockers(eugene_part_rules, gateLibrary);
 
 
         //gate_library.setHashMapsForGates();
@@ -729,15 +771,15 @@ public class DNACompiler {
             
             //default: simulated annealing. similar to hill climbing, but with a cooling schedule
             if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.sim_annealing) {
-                circuit_builder = new BuildCircuitsSimAnnealing(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsSimAnnealing(_options, gateLibrary, roadblock);
             }
             //hill climbing.  Many swaps with accept/reject based on score increase/decrease.
             else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.hill_climbing) {
-                circuit_builder = new BuildCircuitsHillClimbing(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsHillClimbing(_options, gateLibrary, roadblock);
             }
             //Breadth First Search algorithm. Performs an exhaustive search.
             else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.breadth_first) {
-                circuit_builder = new BuildCircuitsBreadthFirstSearch(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsBreadthFirstSearch(_options, gateLibrary, roadblock);
 
                 /**
                  * Breadth-first is memory intensive and is not used in the publicly available tool on cellocad.org.
@@ -747,23 +789,23 @@ public class DNACompiler {
             }
             //similar to hill climbing, but explores all options for a single swap and chooses the best swap each time.
             else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.steepest_ascent) {
-                circuit_builder = new BuildCircuitsSteepestAscent(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsSteepestAscent(_options, gateLibrary, roadblock);
             }
             //completely randomizes the gate assignment.  Does this many times.
             else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.random) {
-                circuit_builder = new BuildCircuitsRandom(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsRandom(_options, gateLibrary, roadblock);
             }
             //exhaustive... does not scale.
             else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.permute) {
-                circuit_builder = new BuildCircuitsPermuteNOR(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsPermuteNOR(_options, gateLibrary, roadblock);
             }
             //if you want to reload a prior assignment.  Based on x_logic_circuit.txt parsing.
             else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.reload) {
-                circuit_builder = new BuildCircuitsReload(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsReload(_options, gateLibrary, roadblock);
             }
             //do not use.
             else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.preset) {
-                circuit_builder = new BuildCircuitsPreset(_options, gate_library, roadblock);
+                circuit_builder = new BuildCircuitsPreset(_options, gateLibrary, roadblock);
             }
             else {
 
@@ -801,7 +843,7 @@ public class DNACompiler {
 
                     for (LogicCircuit lc : circuit_builder.get_logic_circuits()) {
 
-                        boolean has_all_tp_data = LogicCircuitUtil.dataFoundForAllTandemPromoters(gate_library, lc);
+                        boolean has_all_tp_data = LogicCircuitUtil.dataFoundForAllTandemPromoters(gateLibrary, lc);
 
                         if (has_all_tp_data) {
                             assigned_lcs.add(lc);
@@ -911,25 +953,25 @@ public class DNACompiler {
 
             if(_options.is_histogram()) {
 
-                for(Gate g: gate_library.get_GATES_BY_NAME().values()) {
-                    HistogramUtil.interpolateTransferFunctionTitrations(g.name, gate_library);
+                for(Gate g: gateLibrary.get_GATES_BY_NAME().values()) {
+                    HistogramUtil.interpolateTransferFunctionTitrations(g.name, gateLibrary);
                 }
 
                 String file_name_default = _options.get_home() + _options.get_datapath() + "default_histogram.txt";
-                InputOutputGateReader.makeHistogramsforInputRPUs(gate_library, file_name_default);
+                InputOutputGateReader.makeHistogramsforInputRPUs(gateLibrary, file_name_default);
 
                 for(LogicCircuit lc: unique_lcs) {
-                    LogicCircuitUtil.setInputRPU(lc, gate_library);
+                    LogicCircuitUtil.setInputRPU(lc, gateLibrary);
 
                     for (Gate g : lc.get_Gates()) {
                         g.get_histogram_bins().init();
                     }
 
                     for (Gate g : lc.get_logic_gates()) {
-                        g.set_xfer_hist(gate_library.get_GATES_BY_NAME().get(g.name).get_xfer_hist());
+                        g.set_xfer_hist(gateLibrary.get_GATES_BY_NAME().get(g.name).get_xfer_hist());
                     }
 
-                    Evaluate.evaluateCircuitHistogramOverlap(lc, gate_library, _options);
+                    Evaluate.evaluateCircuitHistogramOverlap(lc, gateLibrary, _options);
                 }
 
 
@@ -950,7 +992,7 @@ public class DNACompiler {
                 Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_logic_circuit.txt", lc.toString(), false);
 
                 logger.info("=========== Circuit bionetlist ===============");
-                PlasmidUtil.setGateParts(lc, gate_library, part_library);
+                PlasmidUtil.setGateParts(lc, gateLibrary, partLibrary);
                 Netlist.setBioNetlist(lc, false);
                 Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_bionetlist.txt", lc.get_netlist(), false);
             }
@@ -979,12 +1021,12 @@ public class DNACompiler {
                 g.set_unit_conversion(unit_conversion);
             }
 
-            Evaluate.evaluateCircuit(lc, gate_library, _options);
+            Evaluate.evaluateCircuit(lc, gateLibrary, _options);
             for (Gate g : lc.get_Gates()) {
                 Evaluate.evaluateGate(g, _options);
             }
             if (_options.is_toxicity()) {
-                Toxicity.evaluateCircuitToxicity(lc, gate_library);
+                Toxicity.evaluateCircuitToxicity(lc, gateLibrary);
             }
 
 
@@ -996,7 +1038,7 @@ public class DNACompiler {
 
             // TODO
             logger.info("=========== Circuit bionetlist ===============");
-            PlasmidUtil.setGateParts(lc, gate_library, part_library);
+            PlasmidUtil.setGateParts(lc, gateLibrary, partLibrary);
             Netlist.setBioNetlist(lc, false);
             logger.info(lc.get_netlist());
             Util.fileWriter(_options.get_output_directory() + lc.get_assignment_name() + "_bionetlist.txt", lc.get_netlist(), false);
@@ -1008,9 +1050,9 @@ public class DNACompiler {
                 logger.info("=========== Simulate cytometry distributions");
 
                 String file_name_default = _options.get_home() + _options.get_datapath() + "default_histogram.txt";
-                InputOutputGateReader.makeHistogramsforInputRPUs(gate_library, file_name_default);
+                InputOutputGateReader.makeHistogramsforInputRPUs(gateLibrary, file_name_default);
 
-                LogicCircuitUtil.setInputRPU(lc, gate_library);
+                LogicCircuitUtil.setInputRPU(lc, gateLibrary);
 
 
                 for(Gate g: lc.get_Gates()) {
@@ -1020,15 +1062,15 @@ public class DNACompiler {
 
                 for(Gate g: lc.get_logic_gates()) {
 
-                    HistogramUtil.interpolateTransferFunctionTitrations(g.name, gate_library);
+                    HistogramUtil.interpolateTransferFunctionTitrations(g.name, gateLibrary);
 
-                    g.set_xfer_hist(gate_library.get_GATES_BY_NAME().get(g.name).get_xfer_hist());
+                    g.set_xfer_hist(gateLibrary.get_GATES_BY_NAME().get(g.name).get_xfer_hist());
 
                     logger.info("histogram interpolation for " + g.name + " " + g.get_xfer_hist().get_xfer_interp().size() + " " + g.get_xfer_hist().get_xfer_interp().get(0).length );
 
                 }
 
-                Evaluate.evaluateCircuitHistogramOverlap(lc, gate_library, _options);
+                Evaluate.evaluateCircuitHistogramOverlap(lc, gateLibrary, _options);
 
                 logger.info("distribution score: " + lc.get_scores().get_conv_overlap());
             }
@@ -1052,7 +1094,7 @@ public class DNACompiler {
                 logger.info("////////////////////////   Figures   //////////////////////");
                 logger.info("///////////////////////////////////////////////////////////\n");
 
-                generateFigures(lc, gate_library);
+                generateFigures(lc, gateLibrary);
             }
 
             if(_options.is_plasmid()) {
@@ -1061,9 +1103,9 @@ public class DNACompiler {
                 logger.info("///////////////   Plasmid DNA sequences   /////////////////");
                 logger.info("///////////////////////////////////////////////////////////\n");
 
-                PlasmidUtil.findPartComponentsInOutputGates(lc, gate_library, part_library);
+                PlasmidUtil.findPartComponentsInOutputGates(lc, gateLibrary, partLibrary);
 
-                generatePlasmids(lc, gate_library, part_library, ucf);
+                generatePlasmids(lc, gateLibrary, partLibrary, ucf);
             }
 
 

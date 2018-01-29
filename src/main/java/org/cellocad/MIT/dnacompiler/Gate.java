@@ -6,6 +6,7 @@ package org.cellocad.MIT.dnacompiler;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
+import org.sbolstandard.core2.ComponentDefinition;
 
 import org.cellocad.BU.dom.DWire;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -562,4 +563,19 @@ public class Gate {
     //used to visit each gate once during recursive traversal of a graph data structure
     @Getter @Setter private boolean _unvisited = true;
 
+	private ComponentDefinition componentDefinition;
+
+	/**
+	 * @return the componentDefinition
+	 */
+	public ComponentDefinition getComponentDefinition() {
+		return componentDefinition;
+	}
+
+	/**
+	 * @param componentDefinition the componentDefinition to set
+	 */
+	public void setComponentDefinition(ComponentDefinition componentDefinition) {
+		this.componentDefinition = componentDefinition;
+	}
 }
