@@ -54,6 +54,8 @@ public class Part {
         _gate_index = p._gate_index;
         _parent_gate = p._parent_gate;
         setPartTypeColors();
+		this.setSynBioHubURI(p.getSynBioHubURI());
+		this.setComponentDefinition(p.getComponentDefinition());
     }
 
     /**

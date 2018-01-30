@@ -85,26 +85,26 @@ public class SBOLPartWriter {
 
             //URI partURI = URI.create("http://www.cellocad.org/" + p.get_name());
 
-	    ComponentDefinition cd = sbolDocument.createComponentDefinition(p.get_name(), partTypeURIs);
+			ComponentDefinition cd = sbolDocument.createComponentDefinition(p.get_name(), partTypeURIs);
             String sequenceDisplayID = p.get_name() + "_sequence";
             URI encodingURI = URI.create("http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html");
 
-	    Sequence s = sbolDocument.createSequence(sequenceDisplayID, p.get_seq(), encodingURI);
-	    HashSet<URI> s_set = new HashSet<URI>();
-	    s_set.add(s.getIdentity());
+			Sequence s = sbolDocument.createSequence(sequenceDisplayID, p.get_seq(), encodingURI);
+			HashSet<URI> s_set = new HashSet<URI>();
+			s_set.add(s.getIdentity());
 
-	    cd.setSequences(s_set);
-	    if (sequence_ontology_map.containsKey(p.get_type())) {
-		cd.addRole(sequence_ontology_map.get(p.get_type()));
-	    }
+			cd.setSequences(s_set);
+			if (sequence_ontology_map.containsKey(p.get_type())) {
+				cd.addRole(sequence_ontology_map.get(p.get_type()));
+			}
 
             String sbolDocumentFileName = _filepath+"/resources/sbol2_xml/parts/part_" + p.get_name() + "_SBOL.xml";
-
-	    try {
-		org.sbolstandard.core2.SBOLWriter.write(sbolDocument, sbolDocumentFileName);
-	    } catch (Exception e) {
-		e.printStackTrace();
-	    }
+			
+			try {
+				org.sbolstandard.core2.SBOLWriter.write(sbolDocument, sbolDocumentFileName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
         }
 

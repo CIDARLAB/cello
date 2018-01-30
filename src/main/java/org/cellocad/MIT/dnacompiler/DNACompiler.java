@@ -394,10 +394,9 @@ public class DNACompiler {
          * UCFAdaptor: returns java data types from the UCF object.
          */
 
-		SynBioHubAdaptor sbhAdaptor = null;
 		if (_options.is_synbiohub_parts()) {
 			try {
-				sbhAdaptor = new SynBioHubAdaptor();
+				this.setSynBioHubAdaptor(new SynBioHubAdaptor());
 			} catch (IOException | SynBioHubException e) {
 				e.printStackTrace();
 			}
@@ -413,7 +412,7 @@ public class DNACompiler {
          */
         PartLibrary partLibrary = null;
 		if (_options.is_synbiohub_parts()) {
-			partLibrary = sbhAdaptor.getPartLibrary();
+			partLibrary = this.getSynBioHubAdaptor().getPartLibrary();
 		} else {
 			partLibrary = ucfAdaptor.createPartLibrary(ucf);
 		}
@@ -448,7 +447,7 @@ public class DNACompiler {
          */
         GateLibrary gateLibrary = null;
 		if (_options.is_synbiohub_parts()) {
-			gateLibrary = sbhAdaptor.getGateLibrary();
+			gateLibrary = this.getSynBioHubAdaptor().getGateLibrary();
 		} else {
 			gateLibrary = ucfAdaptor.createGateLibrary(ucf, n_inputs, n_outputs, _options);
 		}
@@ -480,7 +479,7 @@ public class DNACompiler {
         InputOutputGateReader.readOutputsFromFile(_options.get_fin_output_genes(), gateLibrary);
 
 		if (_options.is_synbiohub_parts()) {
-			sbhAdaptor.setGateParts(gateLibrary,partLibrary);
+			this.getSynBioHubAdaptor().setGateParts(gateLibrary,partLibrary);
 		} else {
 			ucfAdaptor.setGateParts(ucf,gateLibrary,partLibrary);
 		}
@@ -509,7 +508,7 @@ public class DNACompiler {
         logger.info("///////////////////////////////////////////////////////////\n");
 
 		if (_options.is_synbiohub_parts()) {
-			sbhAdaptor.setResponseFunctions(gateLibrary);
+			this.getSynBioHubAdaptor().setResponseFunctions(gateLibrary);
 		} else {
 			ucfAdaptor.setResponseFunctions(ucf, gateLibrary);
 			//make sure all gates have a response function defined.
@@ -1346,6 +1345,9 @@ public class DNACompiler {
             ArrayList<Part> plasmid = lc.get_circuit_plasmid_parts().get(i);
 
             SBOLCircuitWriter sbol_circuit_writer = new SBOLCircuitWriter();
+			if (_options.is_synbiohub_parts() && this.getSynBioHubAdaptor() != null) {
+				sbol_circuit_writer.setSynBioHubAdaptor(this.getSynBioHubAdaptor());
+			}
 
             sbol_circuit_writer.setCircuitName(lc.get_assignment_name());
             String sbol_filename = lc.get_assignment_name() + "_sbol_circuit" + "_P" + String.format("%03d", i) + ".sbol";
@@ -1920,7 +1922,20 @@ public class DNACompiler {
     private String threadDependentLoggername = String.valueOf(UUID.randomUUID());
     private Logger logger;
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	private SynBioHubAdaptor synBioHubAdaptor;
 
+	/**
+	 * @return the synBioHubAdaptor
+	 */
+	public SynBioHubAdaptor getSynBioHubAdaptor() {
+		return synBioHubAdaptor;
+	}
+	/**
+	 * @param synBioHubAdaptor the synBioHubAdaptor to set
+	 */
+	public void setSynBioHubAdaptor(SynBioHubAdaptor synBioHubAdaptor) {
+		this.synBioHubAdaptor = synBioHubAdaptor;
+	}
 
 }
 

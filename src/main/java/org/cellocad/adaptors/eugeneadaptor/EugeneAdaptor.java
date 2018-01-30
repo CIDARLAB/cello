@@ -29,7 +29,7 @@ public class EugeneAdaptor {
 	 *            .eug file path
 	 * @param module_variants
 	 *            passed as empty ArrayList, populated within the method
-	 * @param part_library
+	 * @param partLibrary
 	 *            Part objects added to module_variants based on part name from
 	 *            Eugene design
 	 * @param options
@@ -37,7 +37,7 @@ public class EugeneAdaptor {
 	 */
 	public void callEugene(String name_Eug_file,
 			ArrayList<ArrayList<Part>> module_variants,
-			PartLibrary part_library, Args options) {
+			PartLibrary partLibrary, Args options) {
 
 		try {
 			Eugene e = new Eugene();
@@ -80,8 +80,7 @@ public class EugeneAdaptor {
 
 							String p_direction = "+";
 
-							Part p = new Part(part_library.get_ALL_PARTS().get(
-									part.getName()));
+							Part p = new Part(partLibrary.get_ALL_PARTS().get(part.getName()));
 
 							p.set_direction(p_direction);
 
@@ -124,8 +123,7 @@ public class EugeneAdaptor {
 									p_direction = "-";
 								}
 
-								Part p = new Part(part_library.get_ALL_PARTS()
-										.get(part.getName()));
+								Part p = new Part(partLibrary.get_ALL_PARTS().get(part.getName()));
 
 								p.set_direction(p_direction);
 

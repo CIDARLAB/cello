@@ -169,8 +169,10 @@ public class SynBioHubAdaptor {
                         roleString = "scar";
 
                     String seq = cd.getSequences().iterator().next().getElements();
-
-                    allParts.put(name, new Part(name, roleString, seq, cd.getIdentity()));
+					
+					Part p = new Part(name, roleString, seq, cd.getIdentity());
+					p.setComponentDefinition(cd);
+                    allParts.put(name, p);
                 }
             }
         }

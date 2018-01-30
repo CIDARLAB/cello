@@ -1,18 +1,31 @@
 package org.cellocad.adaptors.sboladaptor;
 
 
-import org.cellocad.MIT.dnacompiler.Args;
-import org.cellocad.MIT.dnacompiler.Gate;
-import org.cellocad.MIT.dnacompiler.LogicCircuit;
-import org.cellocad.MIT.dnacompiler.Part;
-import org.sbolstandard.core2.*;
-
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.cellocad.adaptors.synbiohubadaptor.SynBioHubAdaptor;
+import org.cellocad.MIT.dnacompiler.Args;
+import org.cellocad.MIT.dnacompiler.Gate;
+import org.cellocad.MIT.dnacompiler.LogicCircuit;
+import org.cellocad.MIT.dnacompiler.Part;
+import org.sbolstandard.core2.AccessType;
+import org.sbolstandard.core2.Component;
+import org.sbolstandard.core2.ComponentDefinition;
+import org.sbolstandard.core2.DirectionType;
+import org.sbolstandard.core2.FunctionalComponent;
+import org.sbolstandard.core2.Interaction;
+import org.sbolstandard.core2.ModuleDefinition;
+import org.sbolstandard.core2.Participation;
+import org.sbolstandard.core2.SBOLDocument;
+import org.sbolstandard.core2.SBOLValidationException;
+import org.sbolstandard.core2.Sequence;
+import org.sbolstandard.core2.SequenceAnnotation;
+import org.sbolstandard.core2.SequenceOntology;
+import org.sbolstandard.core2.SystemsBiologyOntology;
 
 // TODO Needs to be generalized for other gate types
 
@@ -441,33 +454,42 @@ public class SBOLCircuitWriter {
         for(Part p: plasmid) {
 
             //adds cd to document
-            ComponentDefinition part_cd = getComponentDefinitionForPart(p);
-            _part_component_definitions.add(part_cd);
+			ComponentDefinition partCd = p.getComponentDefinition();
+			if ( partCd == null) {
+				partCd = getComponentDefinitionForPart(p);
+			}
+            _part_component_definitions.add(partCd);
 
             //adds seq to document
-            Sequence part_seq = getComponentSequenceForPart(p);
+			Set<Sequence> partSequences = partCd.getSequences();
+			Sequence partSequence = null;
+			if (partSequences.size() == 0) {
+				partSequence = getComponentSequenceForPart(p);
+			} else {
+				partSequence = partSequences.iterator().next();
+			}
 
             //seq is property of cd
             HashSet<URI> s_set = new HashSet<URI>();
-            s_set.add(part_seq.getIdentity());
-            part_cd.setSequences(s_set);
+            s_set.add(partSequence.getIdentity());
+            partCd.setSequences(s_set);
 
             if(_sequence_ontology_map.containsKey(p.get_type())) {
-                part_cd.addRole(_sequence_ontology_map.get(p.get_type()));
+                partCd.addRole(_sequence_ontology_map.get(p.get_type()));
             }
 
-            _part_sequences.add(part_seq);
+            _part_sequences.add(partSequence);
 
 
             boolean exists = false;
             for(Component c: _circuit_component_definition.getComponents()) {
-                if(c.getDisplayId().equals(part_cd.getDisplayId() + "_component")) {
+                if(c.getDisplayId().equals(partCd.getDisplayId() + "_component")) {
                     _part_components.add(c);
                     exists = true;
                 }
             }
             if(! exists) {
-                _part_components.add(_circuit_component_definition.createComponent(part_cd.getDisplayId() + "_component", AccessType.PUBLIC, part_cd.getIdentity()));
+                _part_components.add(_circuit_component_definition.createComponent(partCd.getDisplayId() + "_component", AccessType.PUBLIC, partCd.getIdentity()));
             }
         }
     }
@@ -597,5 +619,20 @@ public class SBOLCircuitWriter {
 
     private SBOLDocument _document;
 
+	private SynBioHubAdaptor synBioHubAdaptor;
+
+	/**
+	 * @return the synBioHubAdaptor
+	 */
+	public SynBioHubAdaptor getSynBioHubAdaptor() {
+		return synBioHubAdaptor;
+	}
+
+	/**
+	 * @param synBioHubAdaptor the synBioHubAdaptor to set
+	 */
+	public void setSynBioHubAdaptor(SynBioHubAdaptor synBioHubAdaptor) {
+		this.synBioHubAdaptor = synBioHubAdaptor;
+	}
 
 }
