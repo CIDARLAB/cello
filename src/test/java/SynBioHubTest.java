@@ -1,6 +1,8 @@
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -85,4 +87,49 @@ public class SynBioHubTest {
 		assertTrue(sbhPromoterMap.equals(ucfPromoterMap));
 	}
 
+	@Test
+	public void testSetResponseFunctions() throws Exception {
+		UCFAdaptor ucfAdaptor = new UCFAdaptor();
+		UCFReader ucfReader = new UCFReader();
+		UCF ucf = ucfReader.readAllCollections("resources/UCF/Eco1C1G1T0.UCF.json");
+		GateLibrary ucfGateLibrary = ucfAdaptor.createGateLibrary(ucf,2,1,new Args());
+		PartLibrary ucfPartLibrary = ucfAdaptor.createPartLibrary(ucf);
+		ucfAdaptor.setResponseFunctions(ucf,ucfGateLibrary);
+		Map<String,Gate> ucfGatesMap = ucfGateLibrary.get_GATES_BY_NAME();
+		Set<Map> ucfParams = new HashSet<>();
+		Set<List> ucfVariableNames = new HashSet<>();
+		Set<Map> ucfVariableThresholds = new HashSet<>();
+		Set<String> ucfEquations = new HashSet<>();
+		for (String gateName : ucfGatesMap.keySet()) {
+			ucfParams.add(ucfGatesMap.get(gateName).get_params());
+			ucfVariableNames.add(ucfGatesMap.get(gateName).get_variable_names());
+			ucfVariableThresholds.add(ucfGatesMap.get(gateName).get_variable_thresholds());
+			ucfEquations.add(ucfGatesMap.get(gateName).get_equation());
+		}
+
+		SynBioHubAdaptor sbhAdaptor = new SynBioHubAdaptor();
+		PartLibrary sbhPartLibrary = sbhAdaptor.getPartLibrary();
+		GateLibrary sbhGateLibrary = sbhAdaptor.getGateLibrary();
+		sbhAdaptor.setResponseFunctions(sbhGateLibrary);
+		Map<String,Gate> sbhGatesMap = sbhGateLibrary.get_GATES_BY_NAME();
+		Set<Map> sbhParams = new HashSet<>();
+		Set<List> sbhVariableNames = new HashSet<>();
+		Set<String> sbhEquations = new HashSet<>();
+		for (String gateName : sbhGatesMap.keySet()) {
+			sbhParams.add(sbhGatesMap.get(gateName).get_params());
+			sbhVariableNames.add(sbhGatesMap.get(gateName).get_variable_names());
+
+			Double a = sbhGatesMap.get(gateName).get_variable_thresholds().get("x")[0];
+			Double b = ucfGatesMap.get(gateName).get_variable_thresholds().get("x")[0];
+			assert(Math.abs(a-b)<1e-6);
+			a = sbhGatesMap.get(gateName).get_variable_thresholds().get("x")[1];
+			b = ucfGatesMap.get(gateName).get_variable_thresholds().get("x")[1];
+			assert(Math.abs(a-b)<1e-6);
+
+			sbhEquations.add(sbhGatesMap.get(gateName).get_equation());
+		}
+		assertTrue(sbhParams.equals(ucfParams));
+		assertTrue(sbhVariableNames.equals(ucfVariableNames));
+		assertTrue(sbhEquations.equals(ucfEquations));
+	}
 }

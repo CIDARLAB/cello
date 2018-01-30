@@ -5,10 +5,13 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.xml.namespace.QName;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -22,8 +25,8 @@ import org.cellocad.MIT.dnacompiler.Pair;
 import org.cellocad.MIT.dnacompiler.Part;
 import org.cellocad.MIT.dnacompiler.PartLibrary;
 import org.sbolstandard.core2.Annotation;
-import org.sbolstandard.core2.ComponentDefinition;
 import org.sbolstandard.core2.Component;
+import org.sbolstandard.core2.ComponentDefinition;
 import org.sbolstandard.core2.SBOLDocument;
 import org.sbolstandard.core2.SequenceOntology;
 import org.synbiohub.frontend.SynBioHubException;
@@ -232,6 +235,7 @@ public class SynBioHubAdaptor {
 			ComponentDefinition cd = g.getComponentDefinition();
 			Set<Component> components = cd.getComponents();
 
+			// adapted from UCFAdaptor
 			if(gateLibrary.get_GATES_BY_NAME().containsKey(gateName)) {
 
 				HashMap<String, ArrayList<Part>> downstream_gate_parts = new HashMap<>();
@@ -272,9 +276,52 @@ public class SynBioHubAdaptor {
 		}
 	}
 
-	// public void setGateParts(GateLibrary gateLibrary, PartLibrary partLibrary) {
-		
-	// }
+	public void setResponseFunctions(GateLibrary gateLibrary) {
+		Map<String,Gate> gatesMap = this.gateLibrary.get_GATES_BY_NAME();
+		for (String gateName : gatesMap.keySet()) {
+			Gate g = gatesMap.get(gateName);
+			ComponentDefinition cd = g.getComponentDefinition();
+			String responseFunction = cd.getAnnotation(new QName("http://wiki.synbiohub.org/wiki/Terms/cello#","response-function")).getStringValue();
+
+			if (gateLibrary.get_GATES_BY_NAME().containsKey(gateName)) {
+                HashMap<String, Double> gate_params = new HashMap<String, Double>();
+                HashMap<String, Double[]> gate_variables = new HashMap<String, Double[]>();
+
+                ArrayList<String> gate_variable_names = new ArrayList<String>();
+
+				for (String name : Arrays.asList("ymax","ymin","K","n")) {
+					QName qName = new QName("http://wiki.synbiohub.org/wiki/Terms/cello#",name);
+					Annotation a = cd.getAnnotation(qName);
+					gate_params.put(name,Double.valueOf(cd.getAnnotation(qName).getStringValue()));
+				}
+
+				gate_variable_names.add("x");
+				// System.out.println((gate_params.get("ymax")/2.0)/(gate_params.get("ymin")-gate_params.get("ymax")/2.0));
+				Double off_threshold = gate_params.get("K")*Math.pow((gate_params.get("ymax")/2.0)/(gate_params.get("ymax")/2.0-gate_params.get("ymin")),
+																	 1.0/gate_params.get("n"));
+				Double on_threshold = gate_params.get("K")*Math.pow((gate_params.get("ymax")-gate_params.get("ymin")*2.0)/gate_params.get("ymin"),
+																	1.0/gate_params.get("n"));
+
+				Double[] thresholds = {off_threshold, on_threshold};
+
+				gate_variables.put("x", thresholds);
+
+                Gate gate = gateLibrary.get_GATES_BY_NAME().get(gateName);
+
+                if (g != null) {
+
+                    for (String v : gate_variables.keySet()) {
+                        g.get_variable_wires().put(v, null);
+                    }
+
+                    g.set_params(gate_params);
+                    g.set_variable_names(gate_variable_names);
+                    g.set_variable_thresholds(gate_variables);
+                    g.set_equation(responseFunction);
+                }
+            }
+		}
+	}
 
     /**
      * @return the SBOLDocument containing the SBOL of an arbitrary URI
