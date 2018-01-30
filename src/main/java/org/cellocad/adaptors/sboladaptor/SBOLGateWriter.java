@@ -86,13 +86,14 @@ public class SBOLGateWriter {
 			} catch (IOException | SynBioHubException e) {
 				e.printStackTrace();
 				partLibrary = ucfAdaptor.createPartLibrary(_ucf);
+				ucfAdaptor.setGateParts(_ucf, gateLibrary, partLibrary);
+				ucfAdaptor.setResponseFunctions(_ucf, gateLibrary);
 			}
 		} else {
 			partLibrary = ucfAdaptor.createPartLibrary(_ucf);
+			ucfAdaptor.setGateParts(_ucf, gateLibrary, partLibrary);
+			ucfAdaptor.setResponseFunctions(_ucf, gateLibrary);
 		}
-
-        ucfAdaptor.setGateParts(_ucf, gateLibrary, partLibrary);
-        ucfAdaptor.setResponseFunctions(_ucf, gateLibrary);
 
         for(Gate g: gateLibrary.get_GATES_BY_NAME().values()) {
             System.out.println(g.get_params().toString());

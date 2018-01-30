@@ -394,6 +394,15 @@ public class DNACompiler {
          * UCFAdaptor: returns java data types from the UCF object.
          */
 
+		SynBioHubAdaptor sbhAdaptor = null;
+		if (_options.is_synbiohub_parts()) {
+			try {
+				sbhAdaptor = new SynBioHubAdaptor();
+			} catch (IOException | SynBioHubException e) {
+				e.printStackTrace();
+			}
+		}
+
         logger.info("\n");
         logger.info("///////////////////////////////////////////////////////////");
         logger.info("///////////////   Loading parts   /////////////////////////");
@@ -404,13 +413,7 @@ public class DNACompiler {
          */
         PartLibrary partLibrary = null;
 		if (_options.is_synbiohub_parts()) {
-			try {
-				SynBioHubAdaptor sbh = new SynBioHubAdaptor();
-				partLibrary = sbh.getPartLibrary();
-			} catch (IOException | SynBioHubException e) {
-				e.printStackTrace();
-				partLibrary = ucfAdaptor.createPartLibrary(ucf);
-			}
+			partLibrary = sbhAdaptor.getPartLibrary();
 		} else {
 			partLibrary = ucfAdaptor.createPartLibrary(ucf);
 		}
@@ -445,13 +448,7 @@ public class DNACompiler {
          */
         GateLibrary gateLibrary = null;
 		if (_options.is_synbiohub_parts()) {
-			try {
-				SynBioHubAdaptor sbh = new SynBioHubAdaptor();
-				gateLibrary = sbh.getGateLibrary();
-			} catch (IOException | SynBioHubException e) {
-				e.printStackTrace();
-				gateLibrary = ucfAdaptor.createGateLibrary(ucf, n_inputs, n_outputs, _options);
-			}
+			gateLibrary = sbhAdaptor.getGateLibrary();
 		} else {
 			gateLibrary = ucfAdaptor.createGateLibrary(ucf, n_inputs, n_outputs, _options);
 		}
@@ -482,6 +479,11 @@ public class DNACompiler {
         InputOutputGateReader.readInputsFromFile(_options.get_fin_input_promoters(), gateLibrary);
         InputOutputGateReader.readOutputsFromFile(_options.get_fin_output_genes(), gateLibrary);
 
+		if (_options.is_synbiohub_parts()) {
+			sbhAdaptor.setGateParts(gateLibrary,partLibrary);
+		} else {
+			ucfAdaptor.setGateParts(ucf,gateLibrary,partLibrary);
+		}
 
 
         logger.info("\n");
@@ -506,15 +508,18 @@ public class DNACompiler {
         logger.info("///////////////   Loading Response Functions   ////////////");
         logger.info("///////////////////////////////////////////////////////////\n");
 
-        ucfAdaptor.setResponseFunctions(ucf, gateLibrary);
+		if (_options.is_synbiohub_parts()) {
+			sbhAdaptor.setResponseFunctions(gateLibrary);
+		} else {
+			ucfAdaptor.setResponseFunctions(ucf, gateLibrary);
+			//make sure all gates have a response function defined.
+			if(!ucfValidator.allGatesHaveResponseFunctions(gateLibrary)) {
+				_result_status = ResultStatus.ucf_invalid;
+				return;
+			}
+		}
 
-
-        //make sure all gates have a response function defined.
-        if(!ucfValidator.allGatesHaveResponseFunctions(gateLibrary)) {
-            _result_status = ResultStatus.ucf_invalid;
-            return;
-        }
-
+        
         //printing the response functions
         for (Gate g : gateLibrary.get_GATES_BY_NAME().values()) {
             logger.info(g.name + " " + g.get_equation() + " " + g.get_params().toString());
@@ -529,7 +534,10 @@ public class DNACompiler {
         /**
          * populate the gate objects with the Part objects for 'downstream_parts' and 'regulable_promoter'.
          */
-        ucfAdaptor.setGateToxicity(ucf, gateLibrary, _options);
+		// already done in synbiohubadaptor init
+		if (!_options.is_synbiohub_parts()) {
+			ucfAdaptor.setGateToxicity(ucf, gateLibrary, _options);
+		}
 
         if (_options.is_toxicity()) {
             Toxicity.initializeCircuitToxicity(abstract_lc);
@@ -541,7 +549,10 @@ public class DNACompiler {
         logger.info("///////////////   Loading Cytometry Data   ////////////////");
         logger.info("///////////////////////////////////////////////////////////\n");
 
-        ucfAdaptor.setGateCytometry(ucf, gateLibrary, _options);
+		// already done in synbiohubadaptor init
+		if (!_options.is_synbiohub_parts()) {
+	        ucfAdaptor.setGateCytometry(ucf, gateLibrary, _options);
+		}
 
 
 
@@ -558,7 +569,9 @@ public class DNACompiler {
             logger.info("///////////////   Loading Tandem Promoter Data   //////////");
             logger.info("///////////////////////////////////////////////////////////\n");
 
-            ucfAdaptor.setTandemPromoters(ucf, gateLibrary, _options);
+			if (!_options.is_synbiohub_parts()) {
+				ucfAdaptor.setTandemPromoters(ucf, gateLibrary, _options);
+			}
         }
 
 
