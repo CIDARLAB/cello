@@ -176,17 +176,17 @@
 	      <div id="sbhLoginError"></div><br>
 	      <label for="sbh_sbol_file_pulldown"><h3><small>SBOL file</small></h3></label>
               <select id="sbh_sbol_file_pulldown"></select><br>
-	      <label for="collection_pulldown"><h3><small>Collections</small></h3></label>
-              <select id="collection_pulldown"></select><br>
+	      <label for="collection_pulldown" style="visibility:hidden;"><h3><small>Collections</small></h3></label>
+              <select id="collection_pulldown" style="visibility:hidden;"></select><br>
 	      <input id="sbh_id" type="text" class="span2" placeholder="id"><br>
 	      <input id="sbh_version" type="text" class="span2" placeholder="version"><br>
 	      <input id="sbh_name" type="text" class="span2" placeholder="name"><br>
 	      <input id="sbh_description" type="text" class="span2" placeholder="description"><br>
 	      <input id="sbh_citations" type="text" class="span2" placeholder="citations"><br>
+	      <label for="sbh_overwrite"><h3><small>overwrite?</small></h3></label>
 	      <select id="sbh_overwrite">
-		<option value="0">prevent</option>
-		<option value="1">overwrite</option>
-		<option value="2">merge</option>
+		<option value="0">false</option>
+		<option value="1">true</option>
 	      </select><br>
 	      <input id="btnSBHSubmit" type="submit" value="Submit" class="btn btn-warning"><br>
 	      <div id="sbhSubmitError"></div>

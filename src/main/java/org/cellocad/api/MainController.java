@@ -356,7 +356,6 @@ public class MainController extends BaseController {
     JSONObject synBioHubSubmit(@RequestHeader("Authorization") String basic,
 							   @RequestParam Map<String, String> params)
 		throws SBOLConversionException,SBOLValidationException,IOException {
-		
         JSONObject jsonResponse = new JSONObject();
 
 		String sbhId = params.get("id");
@@ -364,8 +363,8 @@ public class MainController extends BaseController {
 		String sbhVersion = params.get("version");
 		String sbhDescription = params.get("description");
 		String sbhCitations = params.get("citations");
-		String sbhCollections = params.get("collections");
-		String sbhOverwrite = params.get("overwrite");
+		// String sbhCollections = params.get("collections");
+		boolean sbhOverwrite = Boolean.valueOf(params.get("overwrite"));
 		String sbhSBOLFile = params.get("sbol");
 		String jobid = params.get("jobid");
 		
@@ -379,25 +378,19 @@ public class MainController extends BaseController {
 		String username = auth.getUsername(basic);
 		String filePath = _resultPath + "/" + username + "/" + jobid + "/" + sbhSBOLFile;
 		SBOLDocument sbol = SBOLReader.read(filePath);
+
+		try {
+			sbh.createCollection(sbhId,sbhVersion,sbhName,sbhDescription,sbhCitations,sbhOverwrite,sbol);
+			System.out.println("tried to submit");
+			jsonResponse.put("status","good");
+			jsonResponse.put("message","submitted");
+			return jsonResponse;
+		} catch (Exception e) {
+			e.printStackTrace();
+			jsonResponse.put("status","exception");
+			jsonResponse.put("message",e.getLocalizedMessage());
+		}
 		return jsonResponse;
-		// try {
-		// 	// sbh.submit(sbhId,
-		// 	// 		   sbhVersion,
-		// 	// 		   sbhName,
-		// 	// 		   sbhDescription,
-		// 	// 		   sbhCitations,
-		// 	// 		   sbhCollections,
-		// 	// 		   sbhOverwrite,
-		// 	// 		   sbol);
-		// 	jsonResponse.put("status","good");
-		// 	jsonResponse.put("message","submitted");
-		// 	return jsonResponse;
-		// } catch (SynBioHubException e) {
-		// 	e.printStackTrace();
-		// 	jsonResponse.put("status","exception");
-		// 	jsonResponse.put("message",e.getLocalizedMessage());
-		// 	return jsonResponse;
-		// }
 	}
 
 	private SynBioHubFrontend synBioHubFrontend;

@@ -654,9 +654,9 @@ function synbiohub_submit_error(message) {
 
 $('#btnSBHSubmit').click(function() {
     var missing = [];
-    if ($('#sbh_collection').val() == '') {
-	missing.push("collection");
-    }
+    // if ($('#sbh_collection').val() == '') {
+    // 	missing.push("collection");
+    // }
     if ($('#sbh_id').val() == '') {
 	missing.push("id");
     }
@@ -673,7 +673,7 @@ $('#btnSBHSubmit').click(function() {
     // 	missing.push("citations");
     // }
 
-    if (missing != []) {
+    if (missing.length < 1) {
 	synbiohub_submit_error("missing the following fields: " + missing.join(", "));
     }
     $.ajax({
@@ -685,7 +685,7 @@ $('#btnSBHSubmit').click(function() {
 	    name: $('#sbh_name').val(),
 	    description: $('#sbh_description').val(),
 	    citations: $('#sbh_citations').val(),
-	    collections: $('#collection_pulldown').val(),
+	    // collections: $('#collection_pulldown').val(),
 	    overwrite: $('#sbh_overwrite').val(),
 	    sbol: $('#sbh_sbol_file_pulldown').val(),
 	    jobid: res.jobID
@@ -695,7 +695,7 @@ $('#btnSBHSubmit').click(function() {
         },
         success: function (response) {
 
-            console.log('login response ' + JSON.stringify(response));
+            console.log('submit response ' + JSON.stringify(response));
 
             if (response['status'] === 'exception') {
                 $('#sbhSubmitError').html('<div class="alert alert-danger" style="margin-top:5px">' + response['result'] + '</div>');
