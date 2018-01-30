@@ -65,7 +65,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.4.RELEASE</version>
+        <version>1.5.9.RELEASE</version>
     </parent>
 
 
@@ -92,10 +92,6 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j</artifactId>
-        </dependency>
         
         <!--<dependency>-->
         <!--<groupId>org.springframework.security</groupId>-->
@@ -251,6 +247,10 @@
         	<groupId>org.apache.httpcomponents</groupId>
         	<artifactId>httpclient</artifactId>
         	<version>4.5.3</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
     </dependencies>
 
