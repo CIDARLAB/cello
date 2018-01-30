@@ -132,4 +132,20 @@ public class SynBioHubTest {
 		assertTrue(sbhVariableNames.equals(ucfVariableNames));
 		assertTrue(sbhEquations.equals(ucfEquations));
 	}
+
+    // @Test
+    // public void testCytometry() throws Exception {
+    //     UCFAdaptor ucfAdaptor = new UCFAdaptor();
+    //     UCFReader ucfReader = new UCFReader();
+    //     UCF ucf = ucfReader.readAllCollections("resources/UCF/Eco1C1G1T0.UCF.json");
+    //     GateLibrary ucfGateLibrary = ucfAdaptor.createGateLibrary(ucf,2,1,new Args());
+	// 	ucfAdaptor.setGateCytometry(ucf, ucfGateLibrary, new Args());
+		
+    //     SynBioHubAdaptor sbhAdaptor = new SynBioHubAdaptor();
+    //     GateLibrary sbhGateLibrary = sbhAdaptor.getGateLibrary();
+
+	// 	Map<String,Gate> sbhGatesMap = sbhGateLibrary.get_GATES_BY_NAME();
+	// 	Map<String,Gate> ucfGatesMap = ucfGateLibrary.get_GATES_BY_NAME();
+    // }
+
 }

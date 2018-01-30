@@ -379,25 +379,25 @@ public class MainController extends BaseController {
 		String username = auth.getUsername(basic);
 		String filePath = _resultPath + "/" + username + "/" + jobid + "/" + sbhSBOLFile;
 		SBOLDocument sbol = SBOLReader.read(filePath);
-		
-		try {
-			sbh.submit(sbhId,
-					   sbhVersion,
-					   sbhName,
-					   sbhDescription,
-					   sbhCitations,
-					   sbhCollections,
-					   sbhOverwrite,
-					   sbol);
-			jsonResponse.put("status","good");
-			jsonResponse.put("message","submitted");
-			return jsonResponse;
-		} catch (SynBioHubException e) {
-			e.printStackTrace();
-			jsonResponse.put("status","exception");
-			jsonResponse.put("message",e.getLocalizedMessage());
-			return jsonResponse;
-		}
+		return jsonResponse;
+		// try {
+		// 	// sbh.submit(sbhId,
+		// 	// 		   sbhVersion,
+		// 	// 		   sbhName,
+		// 	// 		   sbhDescription,
+		// 	// 		   sbhCitations,
+		// 	// 		   sbhCollections,
+		// 	// 		   sbhOverwrite,
+		// 	// 		   sbol);
+		// 	jsonResponse.put("status","good");
+		// 	jsonResponse.put("message","submitted");
+		// 	return jsonResponse;
+		// } catch (SynBioHubException e) {
+		// 	e.printStackTrace();
+		// 	jsonResponse.put("status","exception");
+		// 	jsonResponse.put("message",e.getLocalizedMessage());
+		// 	return jsonResponse;
+		// }
 	}
 
 	private SynBioHubFrontend synBioHubFrontend;

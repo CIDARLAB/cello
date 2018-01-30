@@ -25,8 +25,10 @@ import org.cellocad.MIT.dnacompiler.Pair;
 import org.cellocad.MIT.dnacompiler.Part;
 import org.cellocad.MIT.dnacompiler.PartLibrary;
 import org.sbolstandard.core2.Annotation;
+import org.sbolstandard.core2.Attachment;
 import org.sbolstandard.core2.Component;
 import org.sbolstandard.core2.ComponentDefinition;
+import org.sbolstandard.core2.GenericTopLevel;
 import org.sbolstandard.core2.SBOLDocument;
 import org.sbolstandard.core2.SequenceOntology;
 import org.synbiohub.frontend.SynBioHubException;
@@ -63,14 +65,32 @@ public class SynBioHubAdaptor {
     }
 
     private void createLibraries() throws SynBioHubException, IOException {
-        HashMap<String,Part> allParts = new HashMap();
+        HashMap<String,Part> allParts = new HashMap<>();
+        Map<String,URI> cytometryAttachments = new HashMap<>();
+        Map<String,URI> toxicityAttachments = new HashMap<>();
 
         Set<ComponentDefinition> celloCD = celloSBOL.getComponentDefinitions();
 
         // Set<ModuleDefinition> celloMD = celloSBOL.getModuleDefinitions();
         // System.out.println(celloMD.size());
         // System.out.println(celloMD.iterator().next().getFunctionalComponents());
-
+		for (GenericTopLevel tl : celloSBOL.getGenericTopLevels()) {
+			String name = tl.getName();
+			if (name.contains("cytometry")) {
+				cytometryAttachments.put(name.substring(0,name.length()-15),tl.getIdentity());
+			}
+			if (name.contains("toxicity")) {
+				toxicityAttachments.put(name.substring(0,name.length()-14),tl.getIdentity());
+			}
+			// URI attachmentUri = a.getIdentity();
+			// String fileName = sbh.getSBOL(attachmentUri).getGenericTopLevel(attachmentUri).getName();
+			// if (fileName.contains("toxicity")) {
+			// 	setGateToxicityTable(attachmentUri, g);
+			// }
+			// if (fileName.contains("cytometry")) {
+			// 	setGateCytometry(attachmentUri, g);
+			// }
+		}
         for (ComponentDefinition cd : celloCD) {
             // i dont know why there would be more than one type per
             // part in the cello parts there is one type per part, so
@@ -90,6 +110,17 @@ public class SynBioHubAdaptor {
                     // if a gate on synbiohub ever had more than one
                     // toxicity attachment, the last one would be what
                     // the gate gets here.
+					// for (Attachment a : cd.getAttachments()) {
+					// 	URI attachmentUri = a.getIdentity();
+					// 	String fileName = sbh.getSBOL(attachmentUri).getGenericTopLevel(attachmentUri).getName();
+					// 	if (fileName.contains("toxicity")) {
+					// 		setGateToxicityTable(attachmentUri, g);
+					// 	}
+					// 	if (fileName.contains("cytometry")) {
+					// 		setGateCytometry(attachmentUri, g);
+					// 	}
+					// }
+
                     for (Annotation a : cd.getAnnotations()) {
                         String annotationType = a.getQName().getLocalPart();
                         if (annotationType == "gate_type") {
@@ -104,17 +135,19 @@ public class SynBioHubAdaptor {
                         if (annotationType == "gate-color-hexcode") { // color
                             g.setColorHex(a.getStringValue());
                         }
-                        if (annotationType == "attachment") { // toxicity or cytometry
-                            URI attachmentUri = a.getURIValue();
-                            String fileName = sbh.getSBOL(attachmentUri).getGenericTopLevel(attachmentUri).getName();
-                            if (fileName.contains("toxicity")) {
-                                setGateToxicityTable(attachmentUri, g);
-                            }
-                            if (fileName.contains("cytometry")) {
-                                setGateCytometry(attachmentUri, g);
-                            }
-                        }
+						// if (annotationType == "attachment") { // toxicity or cytometry
+                        //     URI attachmentUri = a.getURIValue();
+                        //     String fileName = sbh.getSBOL(attachmentUri).getGenericTopLevel(attachmentUri).getName();
+                        //     if (fileName.contains("toxicity")) {
+                        //         setGateToxicityTable(attachmentUri, g);
+                        //     }
+                        //     if (fileName.contains("cytometry")) {
+                        //         setGateCytometry(attachmentUri, g);
+                        //     }
+                        // }
                     }
+					setGateToxicityTable(toxicityAttachments.get(g.getName()),g);
+					setGateCytometry(cytometryAttachments.get(g.getName()),g);
 
                     gateLibrary.get_GATES_BY_NAME().put(g.getName(), g);
                     gateLibrary.setHashMapsForGates();
@@ -296,7 +329,6 @@ public class SynBioHubAdaptor {
 				}
 
 				gate_variable_names.add("x");
-				// System.out.println((gate_params.get("ymax")/2.0)/(gate_params.get("ymin")-gate_params.get("ymax")/2.0));
 				Double off_threshold = gate_params.get("K")*Math.pow((gate_params.get("ymax")/2.0)/(gate_params.get("ymax")/2.0-gate_params.get("ymin")),
 																	 1.0/gate_params.get("n"));
 				Double on_threshold = gate_params.get("K")*Math.pow((gate_params.get("ymax")-gate_params.get("ymin")*2.0)/gate_params.get("ymin"),
