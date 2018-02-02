@@ -742,8 +742,8 @@ public class DNACompiler {
                 /**
                  * Breadth-first is memory intensive and is not used in the publicly available tool on cellocad.org.
                  */
-                _result_status = ResultStatus.breadth_first_not_allowed;
-                return;
+                // _result_status = ResultStatus.breadth_first_not_allowed;
+                // return;
             }
             //similar to hill climbing, but explores all options for a single swap and chooses the best swap each time.
             else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.steepest_ascent) {
@@ -855,6 +855,20 @@ public class DNACompiler {
          * To get the best circuit, sort the LogicCircuit objects by score
          *
          */
+        Set<String> gates = new HashSet<>(Arrays.asList("H1_HlyIIR","S2_SrpR","A1_AmtR","P3_PhlF","E1_BetI"));
+        List<LogicCircuit> myCircuits = new ArrayList<>();
+        Set<String> lcGates = null;
+        for (LogicCircuit l : assigned_lcs) {
+            lcGates = new HashSet<>();
+            for (Gate g : l.get_Gates()) {
+                if (g.name.contains("_")) {
+                    lcGates.add(g.name);
+                }
+            }
+            if (lcGates.equals(gates)) {
+                myCircuits.add(l);
+            }
+        }
         sortLogicCircuitsByScore(assigned_lcs);
 
         logger.info("best assignment score: " + String.format("%-5.4f", assigned_lcs.get(0).get_scores().get_score()));
@@ -1670,7 +1684,7 @@ public class DNACompiler {
             verilog_string += s + "\n";
         }
 
-        List<NetSynthSwitch> switches = new ArrayList<>();
+        List<NetSynthSwitch> switches = new ArrayList<>(Arrays.asList(NetSynthSwitch.output_or));
         org.json.JSONArray motifLibrary = new org.json.JSONArray();
 
 
