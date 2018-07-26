@@ -34,16 +34,16 @@ This will build a docker image called ``cello`` from the instruction in ``Docker
 
 Once this image has been built, a container can be derived from this image and run with the command:
 
-    docker run -p 8080:8080 -v /path/to/results/folder/:/cello_results cello
+    docker run -p 8080:8080 -v /path/to/results/folder/:/cello_results -v /path/to/resources/folder:/cello/resources  cello
 
-where ``/path/to/results/folder`` is the path to the directory in which you want results to be stored.
+* ``/path/to/results/folder`` is the path to the directory in which you want results to be stored. This path need not be at the same directory-level as the repository. 
+* ``/path/to/resources/folder`` is the path to a directory that includes the contents of ``resources/`` in this repository. The datase will be stored in a subdirectory of this called ``derbydb2``. You can simply omit  ``-v /path/to/resources/folder:/cello/resources/``, but then **database contents, including usernames and passwords will be lost** when the container is stopped.
 
-This path need not be at the same directory-level as the repository. 
-It should be an absolute path: a path like ``./results`` will not work, but ``$PWD/results`` will.
+Both paths should be absolute: a path like ``./results`` will not work, but ``$PWD/results`` will.
 
 You may need to run the ``docker build`` and ``docker run`` commands using ``sudo``, depending on how Docker is configured on your machine.
 
-Once the container is running, you can connect to it by opening ``http://localhost:8080/`` in your web-broweser. Results will appear in the specified directory (and can also be downloaded as zip files through the web interface). However, **database contents, including usernames and passwords, and not currently persisted** and are lost when the container is stopped.
+Once the container is running, you can connect to it by opening ``http://localhost:8080/`` in your web-broweser. Results will appear in the specified directory (and can also be downloaded as zip files through the web interface).
 
 #### Without Docker
 
