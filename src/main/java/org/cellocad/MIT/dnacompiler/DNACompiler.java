@@ -82,6 +82,7 @@ public class DNACompiler {
 
 
 //        "Change with Tim"
+//        Second change
 
         //System.setProperty("logfile.name", "default.log");
         //PropertyConfigurator.configure(_options.get_home() + "/src/main/resources/log4j.properties");
