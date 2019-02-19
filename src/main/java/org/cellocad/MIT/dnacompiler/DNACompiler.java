@@ -80,6 +80,9 @@ public class DNACompiler {
 
     public void run(String[] args) {
 
+
+//        "Change with Tim"
+
         //System.setProperty("logfile.name", "default.log");
         //PropertyConfigurator.configure(_options.get_home() + "/src/main/resources/log4j.properties");
 
