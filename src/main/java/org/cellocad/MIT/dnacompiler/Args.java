@@ -28,6 +28,7 @@ public class Args {
 
     //synthesis (NetSynth)
     @Getter @Setter private String _synthesis   = "defaultmode"; // defaultmode uses ABC and Espresso, and chooses the best
+    @Getter @Setter private String _output_or   = "true"; // allow OUTPUT_OR
 
     // this option allows NOR gates from the UCF to also be used as NOT gates.
     // if a gate is listed as 'NOT' in the UCF, it will only be assigned to NOT gates (will not be assigned to NOR gates)
@@ -204,6 +205,10 @@ public class Args {
 
             if(args[i].equals("-synthesis")) {
                 _synthesis = args[i+1];
+            }
+
+            if(args[i].equals("-output_or")) {
+                _output_or = args[i+1];
             }
 
             if(args[i].equals("-input_promoters")) {

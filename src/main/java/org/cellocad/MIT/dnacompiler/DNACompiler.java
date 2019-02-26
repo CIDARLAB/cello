@@ -81,8 +81,6 @@ public class DNACompiler {
     public void run(String[] args) {
 
 
-//        "Change with Tim"
-//        Second change
 
         //System.setProperty("logfile.name", "default.log");
         //PropertyConfigurator.configure(_options.get_home() + "/src/main/resources/log4j.properties");
@@ -123,7 +121,7 @@ public class DNACompiler {
 
         logger = Logger.getLogger(threadDependentLoggername);
         logger.addAppender(appender);
-        //logger.addAppender(console);
+        logger.addAppender(console);
 
 
 
@@ -1677,6 +1675,19 @@ public class DNACompiler {
         List<NetSynthSwitch> switches = new ArrayList<>();
         org.json.JSONArray motifLibrary = new org.json.JSONArray();
 
+        if (_options.get_synthesis().equals("abc")) {
+            switches.add(NetSynthSwitch.abc);
+        }
+        if (_options.get_synthesis().equals("espresso")) {
+            switches.add(NetSynthSwitch.espresso);
+        }
+        if (_options.get_synthesis().equals("originalstructural")) {
+            switches.add(NetSynthSwitch.originalstructural);
+        }
+        if (_options.get_output_or().equals("true")) {
+            switches.add(NetSynthSwitch.output_or);
+        }
+
 
         //convert org.simple.json to org.json
         for(int i=0; i<ucf.get_motif_library().size(); ++i) {
@@ -1690,10 +1701,10 @@ public class DNACompiler {
 
         NetSynth netsynth = new NetSynth("netSynth", Utilities.getNetSynthResourcesFilepath() ,_options.get_output_directory());
 
-
         GW = netsynth.runNetSynth(
                 verilog_filepath,
-                new ArrayList<NetSynthSwitch>(),
+                switches,
+//                new ArrayList<NetSynthSwitch>(),
                 motifLibrary
         );
 

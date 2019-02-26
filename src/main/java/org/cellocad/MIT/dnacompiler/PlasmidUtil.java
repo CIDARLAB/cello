@@ -438,7 +438,7 @@ public class PlasmidUtil {
                 }
             }
 
-            else if(g.system.equals("CRISPRi")) {
+            else if(g.system.equals("CRISPRi") || g.getChildren().get(0).system.equals("CRISPRi")) {
 
                 for(String var: g.get_variable_names()) {
 
