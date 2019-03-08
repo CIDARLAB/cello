@@ -420,25 +420,7 @@ public class PlasmidUtil {
 
         for(Gate g: gates) {
 
-            if(!g.system.equals("CRISPRi")) {
-
-                for(String var: g.get_variable_names()) {
-
-                    ArrayList<Part> txn_unit = new ArrayList<>();
-
-                    for(Wire w: g.get_variable_wires().get(var)) {
-                        txn_unit.add(w.to.get_regulable_promoter());
-                    }
-
-                    ArrayList<Part> expression_cassette = g.get_downstream_parts().get(var);
-
-                    txn_unit.addAll(expression_cassette);
-
-                    g.get_txn_units().add(txn_unit);
-                }
-            }
-
-            else if(g.system.equals("CRISPRi") || g.getChildren().get(0).system.equals("CRISPRi")) {
+            if(g.system.equals("CRISPRi") || g.getChildren().get(0).system.equals("CRISPRi")) {
 
                 for(String var: g.get_variable_names()) {
 
@@ -467,6 +449,27 @@ public class PlasmidUtil {
                     g.get_txn_units().add(txn_unit);
                 }*/
             }
+
+
+            else if(!g.system.equals("CRISPRi")) {
+
+                for(String var: g.get_variable_names()) {
+
+                    ArrayList<Part> txn_unit = new ArrayList<>();
+
+                    for(Wire w: g.get_variable_wires().get(var)) {
+                        txn_unit.add(w.to.get_regulable_promoter());
+                    }
+
+                    ArrayList<Part> expression_cassette = g.get_downstream_parts().get(var);
+
+                    txn_unit.addAll(expression_cassette);
+
+                    g.get_txn_units().add(txn_unit);
+                }
+            }
+
+
 
 
             for(int j=0; j<g.get_txn_units().size(); ++j) {
