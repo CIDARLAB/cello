@@ -230,6 +230,18 @@ public class LogicCircuit{
             s += String.format("%-3d", gi.index);
 
             String child_indx = "(";
+
+            int[] porder = gi.get_porder();
+
+            String promoter_names = "P";
+
+            if(porder != null) {
+                for (int k = 0; k< porder.length; k++) {
+                    promoter_names += "-" + gi.getChildren().get(porder[k]).name;
+                }
+            }
+
+
             for(Gate child: gi.getChildren()) {
                 child_indx += child.index +",";
             }
@@ -238,6 +250,8 @@ public class LogicCircuit{
                 child_indx += ")";
 
             s += String.format("%-12s", child_indx);
+
+            s += String.format("%-30s", promoter_names);
 
             if(gi.get_scores().get_score() != -1.0000) {
                 s += String.format("%6.2f", gi.get_scores().get_score()); //onoff_ratio or noise_margin
@@ -378,6 +392,8 @@ public class LogicCircuit{
                     for(Gate child: g.getChildren()) {
                         child_rpu += String.format("%8.3f", child.get_outrpus().get(i));
                     }
+
+                    child_rpu += String.format("%8.3f", g.get_inrpus().get("x").get(i));
                     //child_rpu = String.format("%4.3f", sum_incoming_rpus.get(i));
                 }
 

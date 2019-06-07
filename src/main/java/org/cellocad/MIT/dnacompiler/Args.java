@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Runtime arguments given in the command line
@@ -39,6 +40,7 @@ public class Args {
     // in1, in2 = pTac, pTet
     // in1, in2 = pTet, pTac
     @Getter @Setter private boolean _permute_inputs = false;
+    @Getter @Setter private HashMap<String, Double> _input_values = new HashMap<>();
 
     // not tested
     @Getter @Setter private ArrayList<Integer> _dontcare_rows = new ArrayList<Integer>();  //allows d.c. rows to be ignored when scoring circuits
@@ -59,6 +61,8 @@ public class Args {
     @Getter @Setter private boolean _tandem_promoter = false;
     @Getter @Setter private Double _gate_onoff_threshold = 10.0;
     @Getter @Setter private boolean _snr = false; // generate signal-to-noise ratio plots
+    @Getter @Setter private boolean _tpmodel = false; //use tandem promoter model to calculate promoter strength
+
 
     @Getter @Setter private boolean _histogram = true; // use cytometry data for a distribution-based score
     @Getter @Setter private Double _histogram_threshold = 0.50; // circuits below threshold will not pass
@@ -276,6 +280,10 @@ public class Args {
             if(args[i].equals("-tandem_promoter")) {
                 if(args[i+1].equals("true")) {_tandem_promoter = true;}
                 if(args[i+1].equals("false")){_tandem_promoter = false;}
+            }
+            if(args[i].equals("-tpmodel")) {
+                if(args[i+1].equals("true")) {_tpmodel = true;}
+                if(args[i+1].equals("false")){_tpmodel = false;}
             }
             if(args[i].equals("-permute_inputs")) {
                 if(args[i+1].equals("true")) {_permute_inputs = true;}

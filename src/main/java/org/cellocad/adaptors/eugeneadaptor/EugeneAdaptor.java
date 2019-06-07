@@ -406,19 +406,57 @@ public class EugeneAdaptor {
 
 			eug += "Rule " + regulator + "_rules " + "( ON " + regulator
 					+ "_device" + ":\n";
-			int pcount = 0;
 
-			for (Part p : txn_unit) {
-				if (p.get_type().equals("promoter")) {
-					if (pcount == 0) {
-						eug += "   CONTAINS " + p.get_name();
-						pcount++;
-					} else {
-						eug += " AND \n   CONTAINS " + p.get_name();
-						pcount++;
+			if (options.is_tpmodel()) {
+
+				int pcount = 0;
+
+				for (Part p : txn_unit) {
+					if (p.get_type().equals("promoter")) {
+						if (pcount == 0) {
+							eug += "   CONTAINS " + p.get_name();
+							pcount++;
+						} else {
+							eug += " AND \n   CONTAINS " + p.get_name();
+							pcount++;
+						}
+					}
+				}
+
+				int[] porder = {0};
+				for (Gate g : gates) {
+					if (g.regulator.equals(regulator)) {
+						porder = g.get_porder();
+						String promoter1 = "";
+						String promoter2 = "";
+						if(porder.length >1 && pcount>1) {
+							promoter1 = g.getChildren().get(porder[0]).get_regulable_promoter().get_name();
+							promoter2 = g.getChildren().get(porder[1]).get_regulable_promoter().get_name();
+							eug += " AND\n   " + promoter1 + " BEFORE " + promoter2;
+						}
+					}
+
+				}
+
+			}
+
+			else {
+
+				int pcount = 0;
+
+				for (Part p : txn_unit) {
+					if (p.get_type().equals("promoter")) {
+						if (pcount == 0) {
+							eug += "   CONTAINS " + p.get_name();
+							pcount++;
+						} else {
+							eug += " AND \n   CONTAINS " + p.get_name();
+							pcount++;
+						}
 					}
 				}
 			}
+
 
 			eug += insertRulesFromUCF(names_in_this_device,
 					get_eugene_part_rules());
@@ -477,7 +515,7 @@ public class EugeneAdaptor {
 		eug += insertRulesFromUCF(names_in_circuit_device,
 				get_eugene_gate_rules());
 
-		// eug += " AND \n" + "   ALL_FORWARD";
+		 eug += " AND \n" + "   ALL_FORWARD";
 
 		// include scars in circuit device
 		if (options.is_eugene_scars()) {

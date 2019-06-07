@@ -285,17 +285,290 @@ public class GateUtil {
 //    	
 //    	return tt_rpu_medians;
 //    }
-    
-    
+
+    public static HashMap<String, Double> getInputParams(Gate input, GateLibrary gate_library) {
+        HashMap<String, Double> inputparams = new HashMap<String, Double>();
+
+        inputparams.put("ymin", gate_library.get_INPUTS_OFF().get(input.name));
+        inputparams.put("ymax", gate_library.get_INPUTS_ON().get(input.name));
+        inputparams.put("a", gate_library.get_INPUTS_a().get(input.name));
+        inputparams.put("b", gate_library.get_INPUTS_b().get(input.name));
+
+        return inputparams;
+    }
+
+    //	Get input gate output RPU for model prediction
+    public static Double getInputoutREU(Gate inputgate, int rownumber, HashMap<String, Double> user_input_values) {
+        Double inputvalue = 0.0;
+
+        if (inputgate.get_logics().get(rownumber) == 0) {
+            inputvalue = inputgate.get_outrpus().get(rownumber);
+        } else if (inputgate.get_logics().get(rownumber) == 1) {
+            if (inputgate.name.equals("pTac")) {
+
+                if (!user_input_values.isEmpty()) {
+                    inputvalue = user_input_values.get("pTac");
+                }
+                else {
+                    inputvalue = inputgate.get_outrpus().get(rownumber);
+                }
+            }
+            else if (inputgate.name.equals("pTet")) {
+
+                if (!user_input_values.isEmpty()) {
+                    inputvalue = user_input_values.get("pTet");
+                }
+                else {
+                    inputvalue = inputgate.get_outrpus().get(rownumber);
+                }
+            }
+            else if (inputgate.name.equals("pBAD")) {
+
+                if (!user_input_values.isEmpty()) {
+                    inputvalue = user_input_values.get("pBAD");
+                }
+                else {
+                    inputvalue = inputgate.get_outrpus().get(rownumber);
+                }
+            }
+            else if (inputgate.name.equals("pLuxStar")) {
+
+                if (!user_input_values.isEmpty()) {
+                    inputvalue = user_input_values.get("pLuxStar");
+                }
+                else {
+                    inputvalue = inputgate.get_outrpus().get(rownumber);
+                }
+            }
+            else {
+                inputvalue = inputgate.get_outrpus().get(rownumber);
+            }
+        }
+
+        return inputvalue;
+    }
+
+    public static double getinputreu(
+            HashMap<String, Double> upstream_params,
+            double x1,
+            HashMap<String, Double> downstream_params,
+            double x2,
+            String promoter_type,
+            int logic) {
+
+        double outreu = 0.0;
+
+        double ymax1 = upstream_params.get("ymax");
+        double ymin1 = upstream_params.get("ymin");
+        double K1;
+        double n1;
+
+        double ymax2 = downstream_params.get("ymax");
+        double ymin2 = downstream_params.get("ymin");
+        double K2;
+        double n2;
+
+        double a2 = downstream_params.get("a");
+        double b2 = downstream_params.get("b");
+
+//		double ymin = 0.0;
+        double pdown =0.0;
+        double pup= 0.0;
+        double factor = 0.0;
+
+
+//		Modelup
+
+        if (promoter_type.equals("Repressor_Repressor")) {
+
+            K1 = upstream_params.get("K");
+            n1 = upstream_params.get("n");
+            K2 = downstream_params.get("K");
+            n2 = downstream_params.get("n");
+
+            pdown = ymin2 + ((ymax2-ymin2)*Math.pow(K2, n2))/(Math.pow(K2, n2) + Math.pow(x2, n2));
+            pup = ymin1 + ((ymax1-ymin1)*Math.pow(K1, n1))/(Math.pow(K1, n1) + Math.pow(x1, n1));
+            factor = (1.0 + b2*Math.pow(x2, n2)/Math.pow(K2, n2))*a2*Math.pow(K2, n2)/(Math.pow(K2, n2) + Math.pow(x2, n2));
+
+            outreu = pdown + pup*factor;
+
+        }
+        else if (promoter_type.equals("Input_Repressor")) {
+
+            K2 = downstream_params.get("K");
+            n2 = downstream_params.get("n");
+
+            pdown = ymin2 + ((ymax2-ymin2)*Math.pow(K2, n2))/(Math.pow(K2, n2) + Math.pow(x2, n2));
+            pup = x1;
+            factor = (1.0 + b2*Math.pow(x2, n2)/Math.pow(K2, n2))*a2*Math.pow(K2, n2)/(Math.pow(K2, n2) + Math.pow(x2, n2));
+
+            outreu = pdown + pup*factor;
+        }
+        else if (promoter_type.equals("Repressor_Input")) {
+
+            K1 = upstream_params.get("K");
+            n1 = upstream_params.get("n");
+
+            pdown = x2;
+            pup = ymin1 + ((ymax1-ymin1)*Math.pow(K1, n1))/(Math.pow(K1, n1) + Math.pow(x1, n1));
+
+            if(logic==0) {
+                factor = a2*b2;
+            }
+            else {
+                factor = a2;
+            }
+//			factor = (1.0 + b2*Math.pow(K2, n2)/Math.pow(x2, n2))*a2*Math.pow(x2, n2)/(Math.pow(K2, n2) + Math.pow(x2, n2));
+
+            outreu = pdown + pup*factor;
+
+
+        }
+        else if (promoter_type.equals("Input_Input")) {
+
+            pdown = x2;
+            pup = x1;
+            if(logic==0) {
+                factor = a2*b2;
+            }
+            else {
+                factor = a2;
+            }
+
+//			factor = (1.0 + b2*Math.pow(K2, n2)/Math.pow(x2, n2))*a2*Math.pow(x2, n2)/(Math.pow(K2, n2) + Math.pow(x2, n2));
+
+            outreu = pdown + pup*factor;
+
+        }
+
+        else {
+            outreu = 0.0;
+        }
+
+
+        return outreu;
+
+    }
+
     public static ArrayList<double[]> getSumOfGateInputHistograms(Gate g, GateLibrary gate_library, Args options) {
 
         ArrayList<Double> tt_rpu_medians = new ArrayList<Double>();
+        HashMap<String, Double> user_input_values = options.get_input_values();
 
         // TODO changed
         /**
          * New way, does not assume additivity but does not use distribution medians.
          */
-        if (options.is_tandem_promoter()){
+
+        if (options.is_tpmodel()) {
+
+            HistogramBins hbins = new HistogramBins();
+            hbins.init();
+            int[] porder = g.get_porder();
+            Gate child1 = new Gate();
+            Gate child2 = new Gate();
+            HashMap<String, Double> child1_params = new HashMap<String, Double>();
+            HashMap<String, Double> child2_params = new HashMap<String, Double>();
+            Double child1_in = 0.0;
+            Double child2_in = 0.0;
+
+            String var = "x";
+            if (g.get_variable_names().size() == 1) {
+                var = g.get_variable_names().get(0);
+            }
+
+
+
+            for (int i = 0; i < g.get_logics().size(); ++i) {
+                int row = i;
+                Double inputreu = 0.0;
+
+//				TODO Hard coded
+                if (g.get_variable_wires().get(var).size() == 2) {
+
+
+//
+//					Use model to calculate incoming REU for this gate
+
+                    child1 = g.getChildren().get(0);
+                    child2 = g.getChildren().get(1);
+
+
+                    child1_params = child1.get_params();
+                    child2_params = child2.get_params();
+
+                    String child1_type, child2_type;
+
+                    if (child1.type == Gate.GateType.INPUT) {
+                        child1_type = "Input";
+                        child1_params = getInputParams(child1, gate_library);
+//					TODO for JS test
+//						child1_in = getInputONOFF(child1, row, user_input_values);
+                        child1_in = getInputoutREU(child1, row, user_input_values);
+
+//						if (child1.get_logics().get(row) == 0) {
+//							child1_in = Math.pow(10, hbins.get_LOGMIN());
+//						} else if (child1.get_logics().get(row) == 1) {
+//							child1_in = Math.pow(10, hbins.get_LOGMAX());
+//						}
+                    } else {
+                        child1_type = "Repressor";
+                        child1_in = child1.get_inrpus().get(var).get(row);
+                    }
+
+                    if (child2.type == Gate.GateType.INPUT) {
+                        child2_type = "Input";
+                        child2_params = getInputParams(child2, gate_library);
+//						TODO for JS test
+//						child2_in = getInputONOFF(child2, row, user_input_values);
+                        child2_in = getInputoutREU(child2, row, user_input_values);
+
+
+//						if (child2.get_logics().get(row) == 0) {
+//							child2_in = Math.pow(10, hbins.get_LOGMIN());
+//						} else if (child2.get_logics().get(row) == 1) {
+//							child2_in = Math.pow(10, hbins.get_LOGMAX());
+//						}
+                    } else {
+                        child2_type = "Repressor";
+                        child2_in = child2.get_inrpus().get(var).get(row);
+                    }
+
+
+                    String promoter_type;
+
+                    for (int k=0; k<porder.length; k++) {
+                        if (porder[0] == 0 && porder[1] == 1) {
+                            promoter_type = child1_type + "_" + child2_type;
+                            inputreu = getinputreu(child1_params, child1_in, child2_params, child2_in, promoter_type, child2.get_logics().get(row));
+
+                        }
+                        else{
+                            promoter_type = child2_type + "_" + child1_type;
+                            inputreu = getinputreu(child2_params, child2_in, child1_params, child1_in, promoter_type, child1.get_logics().get(row));
+                        }
+                    }
+
+                }
+
+                else {
+
+//					TODO check output histogram?
+//						If the gate contains only one wire, use this wire to get the input REU
+                    for (Gate child : g.getChildren()) {
+
+                        int bin_median = HistogramUtil.bin_median(child.get_histogram_rpus().get(i));
+                        Double reu_median = Math.pow(10, g.get_histogram_bins().get_LOG_BIN_CENTERS()[bin_median]);
+                        inputreu += reu_median;
+                    }
+                }
+
+                tt_rpu_medians.add(inputreu);
+            }
+
+        }
+
+        else if (options.is_tandem_promoter()){
         	
             HistogramBins hbins = new HistogramBins();
             hbins.init();
@@ -584,6 +857,101 @@ public class GateUtil {
     }
 
 
+
+    public static double gateinputreu(Gate g, int row, String v, Args options, GateLibrary gate_library) {
+
+//		only support one variable: "x"
+
+        HashMap<String, Double> user_input_values = options.get_input_values();
+
+        double inputreu = 0.0;
+
+        String var = v;
+        if (g.get_variable_names().size() == 1) {
+            var = g.get_variable_names().get(0);
+        }
+
+        HistogramBins hbins = new HistogramBins();
+        hbins.init();
+        int[] porder = g.get_porder();
+        Gate child1 = new Gate();
+        Gate child2 = new Gate();
+        HashMap<String, Double> child1_params = new HashMap<String, Double>();
+        HashMap<String, Double> child2_params = new HashMap<String, Double>();
+        Double child1_in = 0.0;
+        Double child2_in = 0.0;
+        String child1_type, child2_type;
+
+        if (g.get_variable_wires().get(var).size() == 2) {
+
+            child1 = g.getChildren().get(0);
+            child2 = g.getChildren().get(1);
+
+            child1_params = child1.get_params();
+            child2_params = child2.get_params();
+
+            if (child1.type == Gate.GateType.INPUT) {
+                child1_type = "Input";
+                child1_params = getInputParams(child1, gate_library);
+//				TODO for JS test
+//					child1_in = getInputONOFF(child1, row, user_input_values);
+                child1_in = getInputoutREU(child1, row, user_input_values);
+
+//				if (child1.get_logics().get(row) == 0) {
+//					child1_in = Math.pow(10, hbins.get_LOGMIN());
+//				} else if (child1.get_logics().get(row) == 1) {
+//					child1_in = Math.pow(10, hbins.get_LOGMAX());
+//				}
+            } else {
+                child1_type = "Repressor";
+                child1_in = child1.get_inrpus().get(var).get(row);
+            }
+
+            if (child2.type == Gate.GateType.INPUT) {
+                child2_type = "Input";
+                child2_params = getInputParams(child2, gate_library);
+//				TODO for JS test
+//					child2_in = getInputONOFF(child2, row, user_input_values);
+                child2_in = getInputoutREU(child2, row, user_input_values);
+
+//				if (child2.get_logics().get(row) == 0) {
+//					child2_in = Math.pow(10, hbins.get_LOGMIN());
+//				} else if (child2.get_logics().get(row) == 1) {
+//					child2_in = Math.pow(10, hbins.get_LOGMAX());
+//				}
+            } else {
+                child2_type = "Repressor";
+                child2_in = child2.get_inrpus().get(var).get(row);
+            }
+
+            String promoter_type;
+
+
+
+            for (int i=0; i<porder.length; i++) {
+                if (porder[0] == 0 && porder[1] == 1) {
+                    promoter_type = child1_type + "_" + child2_type;
+                    inputreu = getinputreu(child1_params, child1_in, child2_params, child2_in, promoter_type, child2.get_logics().get(row));
+
+                }
+                else{
+                    promoter_type = child2_type + "_" + child1_type;
+                    inputreu = getinputreu(child2_params, child2_in, child1_params, child1_in, promoter_type, child1.get_logics().get(row));
+                }
+            }
+
+
+        }
+        else {
+//			If the gate contains only one wire, use this wire to get the input REU
+            for (Wire w : g.get_variable_wires().get(var)) {
+                inputreu += w.to.get_outrpus().get(row);
+            }
+        }
+
+        return inputreu;
+    }
+
     /**
      * Sum RPUs for tandem promoters, map the summed value to the name of the independent variable
      * from the gate's response function.
@@ -598,8 +966,22 @@ public class GateUtil {
 
         HashMap<String, Double> variable_values = new HashMap<>();
 
+        if (options.is_tpmodel()) {
 
-        if(options.is_tandem_promoter()) {
+            for (String v : g.get_variable_wires().keySet()) {
+
+                Double inputreu = 0.0;
+
+                inputreu = gateinputreu(g, row, v, options, gate_library);
+
+                variable_values.put(v, inputreu);
+
+//                System.out.print(inputreu);
+            }
+        }
+
+
+        else if(options.is_tandem_promoter()) {
             //TODO Shuyi's idea is to calculate the grid here, so that we only calculate those we actually need.
             // the trick here is to avoid calculating the grid more than once.
 

@@ -439,7 +439,7 @@ public class DNACompiler {
          *
          * gate_library is passed in because it will be modified with the input/output data that's read in
          */
-        InputOutputGateReader.readInputsFromFile(_options.get_fin_input_promoters(), gate_library);
+        InputOutputGateReader.readInputsFromFile(_options.get_fin_input_promoters(), gate_library, _options.is_tpmodel());
         InputOutputGateReader.readOutputsFromFile(_options.get_fin_output_genes(), gate_library);
 
 

@@ -34,6 +34,18 @@ public class GateLibrary {
     //units of RPU (not logRPU)
     @Getter private final HashMap<String, Double> _INPUTS_OFF   = new HashMap<String, Double>();
 
+    //map the input name to the K value for that input promoter
+    @Getter private final HashMap<String, Double> _INPUTS_K    = new HashMap<String, Double>();
+
+    //map the input name to the n value for that input promoter
+    @Getter private final HashMap<String, Double> _INPUTS_n   = new HashMap<String, Double>();
+
+    //map the input name to the a value for that input promoter
+    @Getter private final HashMap<String, Double> _INPUTS_a    = new HashMap<String, Double>();
+
+    //map the input name to the b value for that input promoter
+    @Getter private final HashMap<String, Double> _INPUTS_b   = new HashMap<String, Double>();
+
     //map the input name to the DNA sequence for that input promoter
     @Getter private final HashMap<String, String> _INPUTS_SEQ = new HashMap<String, String>();
 

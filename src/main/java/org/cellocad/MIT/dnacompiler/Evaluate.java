@@ -712,6 +712,117 @@ public class Evaluate {
             ///////////////////////////////////////////////////////////////////
             //now that the best variable mapping was found, resimulate
             ///////////////////////////////////////////////////////////////////
+
+
+            String var = "x";
+            if (g.get_variable_names().size() == 1) {
+                var = g.get_variable_names().get(0);
+            }
+
+            ArrayList<int[]> order_permute = new ArrayList<int[]>();
+            Double best_score = 0.0;
+            int best_order_index = 0;
+
+            GateUtil.mapWiresToVariables(g, g.get_variable_names());
+
+
+            if (g.get_porder() !=null) {
+                g.set_porder(g.get_porder());
+            }
+
+            else {
+//				TODO Hard coded
+                if (g.get_variable_wires().get(var).size() == 2) {
+
+                    int[] order1 = {0,1};
+                    int[] order2 = {1,0};
+
+                    order_permute.add(order1);
+                    order_permute.add(order2);
+
+                }
+
+                else {
+                    int[] order0 = {0};
+                    order_permute.add(order0);
+                }
+
+                int index = 0;
+//
+//				find the best promoter order based on gate score
+                for (int[] order : order_permute) {
+
+                    g.set_porder(order);
+
+
+                    g.get_outrpus().clear();
+                    g.get_inrpus().clear();
+
+
+                    for (int i = 0; i < g.get_logics().size(); ++i) { // rows in truth
+                        // table
+                        /*
+                         * if (Args.dontcare_rows.contains(i)) {
+                         * g.get_outreus().add(0.0); continue; }
+                         */
+
+                        GateUtil.mapWiresToVariables(g, g.get_variable_names());
+
+                        /**
+                         * For example, String = "x". Double = summed REUs for tandem
+                         * promoters i is the row in the truth table.
+                         */
+                        HashMap<String, Double> variable_values = GateUtil.getVariableValues(g, i, gate_library, options);
+
+                        // v = "x"
+                        for (String v : variable_values.keySet()) {
+
+                            if (!g.get_inrpus().containsKey(v)) {
+                                g.get_inrpus().put(v, new ArrayList<Double>());
+                            }
+                            g.get_inrpus().get(v).add(variable_values.get(v));
+
+                        }
+
+                        double output_reu = ResponseFunction.computeOutput(
+                                // sum contributions of tandem promoters for this row in
+                                // the truth table
+                                // ...unless there is tandem promoter data, then we look
+                                // up the value instead of adding
+                                variable_values, g.get_params(), g.get_equation());
+
+                        g.get_outrpus().add(output_reu);
+                    }
+
+
+                    evaluateGate(g, options);
+
+                    if (g.get_scores().get_score() > best_score) {
+                        best_score = g.get_scores().get_score();
+                        best_order_index = index;
+                    }
+
+//					JH's new selection for tandem promoter
+//					if (g.get_scores().get_highest_off() < best_score) {
+//						best_score = g.get_scores().get_highest_off();
+//						best_order_index = index;
+//					}
+
+                    index++;
+                }
+
+//				TODO set promoter order
+//
+//				if (g.Name.equals("YFP")) {
+//					best_order_index = 0;
+//				}
+
+//				Now the best order is found, re-simulate the gate REU
+                g.set_porder(order_permute.get(best_order_index));
+
+            }
+
+
             g.get_outrpus().clear();
 
             g.get_inrpus().clear();
@@ -752,7 +863,6 @@ public class Evaluate {
 
                 g.get_outrpus().add(output_rpu);
             }
-
 
             //evaluateGate(g);
 

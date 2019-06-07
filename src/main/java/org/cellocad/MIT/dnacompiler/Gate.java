@@ -363,6 +363,10 @@ public class Gate {
     //arraylist represents rows of truth table, Integer is either 0 or 1
     @Getter @Setter private ArrayList<Integer> _logics = new ArrayList<Integer>();
 
+    //gate promoter order
+    @Getter @Setter private int[] _porder;
+    @Getter @Setter private String _promoter;
+
     //arraylist represents rows of truth table, Double is the RPU value.
     //The RPU value should be low if the logic value is 0, the RPU value should be high if the logic value is 1.
     @Getter @Setter private ArrayList<Double> _outrpus = new ArrayList<Double>();
