@@ -29,7 +29,7 @@ public class Args {
 
     //synthesis (NetSynth)
     @Getter @Setter private String _synthesis   = "defaultmode"; // defaultmode uses ABC and Espresso, and chooses the best
-    @Getter @Setter private String _output_or   = "true"; // allow OUTPUT_OR
+    @Getter @Setter private String _output_or   = "false"; // allow OUTPUT_OR
 
     // this option allows NOR gates from the UCF to also be used as NOT gates.
     // if a gate is listed as 'NOT' in the UCF, it will only be assigned to NOT gates (will not be assigned to NOR gates)
@@ -59,6 +59,7 @@ public class Args {
     @Getter @Setter private boolean _noise_margin = true; // assignments must pass threshold analysis
     @Getter @Setter private boolean _check_roadblocking = true; // less-than-or-equal-to 1 roadblocking promoter per txn unit
     @Getter @Setter private boolean _tandem_promoter = false;
+    @Getter @Setter private boolean _tandem_NOR = true; //allow tandem promoter in NOR gate, otherwise use two txns for NOR gate
     @Getter @Setter private Double _gate_onoff_threshold = 10.0;
     @Getter @Setter private boolean _snr = false; // generate signal-to-noise ratio plots
     @Getter @Setter private boolean _tpmodel = false; //use tandem promoter model to calculate promoter strength
@@ -71,7 +72,7 @@ public class Args {
     @Getter @Setter private boolean _pareto_frontier = false; // pareto-optimal circuits trade-off circuit score and growth score
 
     //search
-    @Getter @Setter private int _hill_trajectories = 50; // hill climbing and sim annealing, number of trajectories
+    @Getter @Setter private int _hill_trajectories = 1; // hill climbing and sim annealing, number of trajectories
     @Getter @Setter private int _hill_iterations = 500; // hill climbing and sim annealing, number of iterations per trajectory
     @Getter @Setter private boolean _hill_climb_seed = false; // to use (or not to use) seeding for random number reproducibility
 
@@ -89,6 +90,9 @@ public class Args {
     @Getter @Setter private boolean _eugene_scars = true; // include scars (replicate sequence that results from GoldenGate assembly of gates)
     @Getter @Setter private boolean _eugene_dnaseq = true; // include the DNA sequence of each part/device in Eugene design
     @Getter @Setter private boolean _plasmid = true; // output plasmid DNA sequences for assigned logic circuits
+    @Getter @Setter private boolean _yeast = false; // yeast system for putting DNA sequence to two integration sites
+    @Getter @Setter private boolean _genome = false; // genome system for putting DNA sequence to two integration sites
+
 
     @Getter @Setter private int _nA = 1; // number of assignments to output
     @Getter @Setter private int _nP = 5; // number of plasmids to output
@@ -230,6 +234,16 @@ public class Args {
                 }
             }
 
+            if(args[i].equals("-yeast")) {
+                if(args[i+1].equals("true")) {_yeast = true;}
+                if(args[i+1].equals("false")){_yeast = false;}
+            }
+
+            if(args[i].equals("-genome")) {
+                if(args[i+1].equals("true")) {_genome = true;}
+                if(args[i+1].equals("false")){_genome = false;}
+            }
+
             if(args[i].equals("-eugene")) {
                 if(args[i+1].equals("true")) {_eugene = true;}
                 if(args[i+1].equals("false")){_eugene = false;}
@@ -280,6 +294,10 @@ public class Args {
             if(args[i].equals("-tandem_promoter")) {
                 if(args[i+1].equals("true")) {_tandem_promoter = true;}
                 if(args[i+1].equals("false")){_tandem_promoter = false;}
+            }
+            if(args[i].equals("-tandem_NOR")) {
+                if(args[i+1].equals("true")) {_tandem_NOR = true;}
+                if(args[i+1].equals("false")){_tandem_NOR = false;}
             }
             if(args[i].equals("-tpmodel")) {
                 if(args[i+1].equals("true")) {_tpmodel = true;}

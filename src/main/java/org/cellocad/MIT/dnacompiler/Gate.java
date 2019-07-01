@@ -36,7 +36,8 @@ public class Gate {
         NOR,
         XOR,
         XNOR,
-        NOT;
+        NOT,
+        NORCDS;
     }
 
 
