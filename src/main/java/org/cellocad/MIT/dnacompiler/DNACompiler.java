@@ -1179,7 +1179,7 @@ public class DNACompiler {
             logic_and_output_gates.addAll(lc.get_output_gates());
 
             for(Gate g: logic_and_output_gates) {
-                if(g.system.equals("Ecoligeonme") || g.getChildren().get(0).system.equals("Ecoligeonme")){
+                if(g.system.equals("Ecoligenome") || g.getChildren().get(0).system.equals("Ecoligenome")){
                     _options.set_genome(true);
                 }
                 if(g.system.equals("Yeast") || g.getChildren().get(0).system.equals("Yeast")){

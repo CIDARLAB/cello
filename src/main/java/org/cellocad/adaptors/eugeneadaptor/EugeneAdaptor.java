@@ -1216,9 +1216,9 @@ public class EugeneAdaptor {
 //		part_type_set.add("terminator");
 
 //		Less in first fragment, this is different than yeast
-		int firstfragment = (txn_units.size())/2 + 1;
-		if(!outputOR && (firstfragment > gatesize)) {
-			firstfragment = firstfragment - 1;
+		int firstfragment = gatesize;
+		if(outputOR) {
+			firstfragment = firstfragment + 1 ;
 		}
 
 		int restfragment = txn_units.size() - firstfragment;

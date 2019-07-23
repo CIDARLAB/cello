@@ -517,8 +517,8 @@ public class PlasmidUtil {
             else {
 
                 if(g.system.equals("CRISPRi") || g.getChildren().get(0).system.equals("CRISPRi")
-                    || g.system.equals("Ecoligeonme") || g.getChildren().get(0).system.equals("Ecoligeonme")
-                        || g.system.equals("Yeast") || g.getChildren().get(0).system.equals("Yeast")) {
+                    || g.system.equals("Ecoligenome") || g.getChildren().get(0).system.equals("Ecoligenome") || g.getChildren().get(1).system.equals("Ecoligenome")
+                        || g.system.equals("Yeast") || g.getChildren().get(0).system.equals("Yeast") || g.getChildren().get(1).system.equals("Yeast")) {
 
                     for(String var: g.get_variable_names()) {
 
