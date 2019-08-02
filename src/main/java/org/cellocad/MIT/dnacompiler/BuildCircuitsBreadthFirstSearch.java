@@ -135,11 +135,14 @@ public class BuildCircuitsBreadthFirstSearch extends BuildCircuits {
 
 
 
-                        if(get_options().is_check_roadblocking()) {
+                        if (!get_options().is_tpmodel()) {
 
-                            if (get_roadblock().numberRoadblocking(lc, get_gate_library()) > 0) {
-                                //logger.info("rb");
-                                continue;
+                            if(get_options().is_check_roadblocking()) {
+
+                                if (get_roadblock().numberRoadblocking(lc, get_gate_library()) > 0) {
+                                    //logger.info("rb");
+                                    continue;
+                                }
                             }
                         }
 

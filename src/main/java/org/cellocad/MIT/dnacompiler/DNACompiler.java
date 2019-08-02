@@ -80,6 +80,8 @@ public class DNACompiler {
 
     public void run(String[] args) {
 
+
+
         //System.setProperty("logfile.name", "default.log");
         //PropertyConfigurator.configure(_options.get_home() + "/src/main/resources/log4j.properties");
 
@@ -119,7 +121,7 @@ public class DNACompiler {
 
         logger = Logger.getLogger(threadDependentLoggername);
         logger.addAppender(appender);
-        //logger.addAppender(console);
+        logger.addAppender(console);
 
 
 
@@ -437,7 +439,7 @@ public class DNACompiler {
          *
          * gate_library is passed in because it will be modified with the input/output data that's read in
          */
-        InputOutputGateReader.readInputsFromFile(_options.get_fin_input_promoters(), gate_library);
+        InputOutputGateReader.readInputsFromFile(_options.get_fin_input_promoters(), gate_library, _options.is_tpmodel());
         InputOutputGateReader.readOutputsFromFile(_options.get_fin_output_genes(), gate_library);
 
 
@@ -742,8 +744,8 @@ public class DNACompiler {
                 /**
                  * Breadth-first is memory intensive and is not used in the publicly available tool on cellocad.org.
                  */
-                _result_status = ResultStatus.breadth_first_not_allowed;
-                return;
+//                _result_status = ResultStatus.breadth_first_not_allowed;
+//                return;
             }
             //similar to hill climbing, but explores all options for a single swap and chooses the best swap each time.
             else if (_options.get_assignment_algorithm() == BuildCircuits.AssignmentAlgorithm.steepest_ascent) {
@@ -1131,7 +1133,7 @@ public class DNACompiler {
 
         //Plasmid.setGateParts(lc, gate_library, part_library);
 
-        PlasmidUtil.setTxnUnits(lc, gate_library);
+        PlasmidUtil.setTxnUnits(lc, gate_library, _options);
 
         EugeneAdaptor eugeneAdaptor = new EugeneAdaptor();
         eugeneAdaptor.setThreadDependentLoggername(threadDependentLoggername);
@@ -1176,8 +1178,26 @@ public class DNACompiler {
             logic_and_output_gates.addAll(lc.get_logic_gates());
             logic_and_output_gates.addAll(lc.get_output_gates());
 
+            for(Gate g: logic_and_output_gates) {
+                if(g.system.equals("Ecoligenome") || g.getChildren().get(0).system.equals("Ecoligenome")){
+                    _options.set_genome(true);
+                }
+                if(g.system.equals("Yeast") || g.getChildren().get(0).system.equals("Yeast")){
+                    _options.set_yeast(true);
+                }
+            }
 
-            circuit_eugene_file_string = eugeneAdaptor.generateEugeneFile(logic_and_output_gates, name_Eug_circuit_rules, part_library, _options);
+            if(_options.is_yeast()) {
+                circuit_eugene_file_string = eugeneAdaptor.generateEugeneFile1(logic_and_output_gates, name_Eug_circuit_rules, part_library, _options);
+            }
+
+            else if(_options.is_genome()) {
+                circuit_eugene_file_string = eugeneAdaptor.generateEugeneFile2(logic_and_output_gates, name_Eug_circuit_rules, part_library, _options, lc.get_logic_gates().size());
+            }
+
+            else{
+                circuit_eugene_file_string = eugeneAdaptor.generateEugeneFile(logic_and_output_gates, name_Eug_circuit_rules, part_library, _options);
+            }
 
             logger.info("Eugene: combinatorial design of plasmid layouts...\n");
 
@@ -1274,13 +1294,13 @@ public class DNACompiler {
 
         logger.info("\n=========== Writing plasmid files ============");
         if(lc.get_sensor_plasmid_parts().size() > 0) {
-            all_plasmid_strings.addAll( PlasmidUtil.writePlasmidFiles(lc.get_sensor_plasmid_parts(), lc.get_assignment_name(), "plasmid_sensor", _options.get_output_directory()) );
+            all_plasmid_strings.addAll( PlasmidUtil.writePlasmidFiles1(lc.get_sensor_plasmid_parts(), lc.get_assignment_name(), "plasmid_sensor", _options.get_output_directory(), _options, part_library) );
         }
         if(lc.get_circuit_plasmid_parts().size() > 0) {
-            all_plasmid_strings.addAll( PlasmidUtil.writePlasmidFiles(lc.get_circuit_plasmid_parts(), lc.get_assignment_name(), "plasmid_circuit", _options.get_output_directory()) );
+            all_plasmid_strings.addAll( PlasmidUtil.writePlasmidFiles1(lc.get_circuit_plasmid_parts(), lc.get_assignment_name(), "plasmid_circuit", _options.get_output_directory(), _options, part_library) );
         }
         if(lc.get_output_plasmid_parts().size() > 0) {
-            all_plasmid_strings.addAll( PlasmidUtil.writePlasmidFiles(lc.get_output_plasmid_parts(), lc.get_assignment_name(), "plasmid_output", _options.get_output_directory()) );
+            all_plasmid_strings.addAll( PlasmidUtil.writePlasmidFiles1(lc.get_output_plasmid_parts(), lc.get_assignment_name(), "plasmid_output", _options.get_output_directory(), _options, part_library) );
         }
 
 
@@ -1673,6 +1693,19 @@ public class DNACompiler {
         List<NetSynthSwitch> switches = new ArrayList<>();
         org.json.JSONArray motifLibrary = new org.json.JSONArray();
 
+        if (_options.get_synthesis().equals("abc")) {
+            switches.add(NetSynthSwitch.abc);
+        }
+        if (_options.get_synthesis().equals("espresso")) {
+            switches.add(NetSynthSwitch.espresso);
+        }
+        if (_options.get_synthesis().equals("originalstructural")) {
+            switches.add(NetSynthSwitch.originalstructural);
+        }
+        if (_options.get_output_or().equals("true")) {
+            switches.add(NetSynthSwitch.output_or);
+        }
+
 
         //convert org.simple.json to org.json
         for(int i=0; i<ucf.get_motif_library().size(); ++i) {
@@ -1686,10 +1719,10 @@ public class DNACompiler {
 
         NetSynth netsynth = new NetSynth("netSynth", Utilities.getNetSynthResourcesFilepath() ,_options.get_output_directory());
 
-
         GW = netsynth.runNetSynth(
                 verilog_filepath,
-                new ArrayList<NetSynthSwitch>(),
+                switches,
+//                new ArrayList<NetSynthSwitch>(),
                 motifLibrary
         );
 

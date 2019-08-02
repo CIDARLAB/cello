@@ -304,6 +304,10 @@ public class UCFValidator {
                 if(!p.containsKey("value")) {
                     return false;
                 }
+
+                if(p.containsValue("a")){
+                    options.set_tpmodel(true);
+                }
                 try {
                     Double d = Double.valueOf(p.get("value").toString());
                 }catch (Exception e) {

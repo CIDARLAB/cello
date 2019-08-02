@@ -59,13 +59,18 @@ public class InputOutputGateReader {
      *
      * Sets the _INPUT_NAMES, _INPUTS_OFF, _INPUTS_ON, _INPUTS_SEQ in GateLibrary
      */
-    public static void readInputsFromFile(String fin_inputs, GateLibrary gate_library) {
+    public static void readInputsFromFile(String fin_inputs, GateLibrary gate_library, boolean tp) {
 
         ArrayList<ArrayList<String>> inputs_list = Util.fileTokenizer(fin_inputs);
         ArrayList<String> input_names = new ArrayList<String>();
 
         gate_library.get_INPUTS_ON().clear();
         gate_library.get_INPUTS_OFF().clear();
+
+        if (tp) {
+            gate_library.get_INPUTS_a().clear();
+            gate_library.get_INPUTS_b().clear();
+        }
 
         //for(int i=0; i<inputs_list.size(); ++i) {
         for(int i=inputs_list.size()-1; i>=0; --i) {
@@ -77,10 +82,24 @@ public class InputOutputGateReader {
             String name =         inputs_list.get(i).get(0);
             Double off_rpu =      Double.valueOf(inputs_list.get(i).get(1));
             Double on_rpu =       Double.valueOf(inputs_list.get(i).get(2));
-            String promoter_seq = inputs_list.get(i).get(3);
+            Double a = 0.0;
+            Double b = 0.0;
+            String promoter_seq = "";
+
+
+            if(tp) {
+                a =      Double.valueOf(inputs_list.get(i).get(3));
+                b =      Double.valueOf(inputs_list.get(i).get(4));
+                promoter_seq = inputs_list.get(i).get(5);
+            }
+            else {
+                promoter_seq = inputs_list.get(i).get(3);
+            }
 
             gate_library.get_INPUTS_OFF().put(name, off_rpu);
             gate_library.get_INPUTS_ON().put(name, on_rpu);
+            gate_library.get_INPUTS_a().put(name, a);
+            gate_library.get_INPUTS_b().put(name, b);
             gate_library.get_INPUTS_SEQ().put(name, promoter_seq);
 
             input_names.add(name);

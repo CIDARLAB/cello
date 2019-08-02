@@ -87,6 +87,82 @@ public class PlasmidUtil {
         return plasmid_strings;
     }
 
+    public static ArrayList<String> writePlasmidFiles1(ArrayList<ArrayList<Part>> plasmids, String prefixA, String label, String directory, Args options, PartLibrary part_library) {
+        log.info("\n=========== Writing plasmid files ============");
+
+        ArrayList<String> plasmid_strings = new ArrayList<String>();
+
+        for(int i=0; i<plasmids.size(); ++i) {
+
+            ArrayList<Part> rename_plasmid = new ArrayList<Part>();
+
+            ArrayList<Part> plasmid = plasmids.get(i);
+
+            if (options.is_yeast()||options.is_genome()) {
+
+                ArrayList<String> partnames = new ArrayList<String>();
+
+                for (Part part: plasmid) {
+                    String part_name = part.get_name();
+                    if(partnames.contains(part_name) && !part_name.equals("YFP") && !part_name.equals("backbone")) {
+                        String temp = part_name.replace("_a", "_b");
+                        part_name = temp;
+
+                        part.set_name(part_name);
+                        part.set_seq(part_library.get_ALL_PARTS().get(part_name).get_seq());
+
+                        rename_plasmid.add(part);
+                    }
+
+                    else {
+                        rename_plasmid.add(part);
+                    }
+                    partnames.add(part_name);
+
+                }
+
+                int separate = 0;
+
+                for (int j=0; j< rename_plasmid.size(); j++) {
+                    Part part = rename_plasmid.get(j);
+                    if (part.get_name().equals("Jscar")) {
+                        separate = j;
+                    }
+                }
+
+                ArrayList<Part> plasmid1 = new ArrayList<Part>(rename_plasmid.subList(0, separate));
+                ArrayList<Part> plasmid2 = new ArrayList<Part>(rename_plasmid.subList(separate, rename_plasmid.size()));
+
+                String fout1 = prefixA + "_"+label + "_P" + String.format("%03d", i) + "_1.ape";
+                String fout2 = prefixA + "_"+label + "_P" + String.format("%03d", i) + "_2.ape";
+
+                String plasmid_string1 = getApe(fout1, plasmid1);
+                String plasmid_string2 = getApe(fout2, plasmid2);
+
+                Util.fileWriter(directory + fout1, plasmid_string1, false);
+                Util.fileWriter(directory + fout2, plasmid_string2, false);
+            }
+
+            else {
+                rename_plasmid = plasmid;
+            }
+
+            String fout = prefixA + "_"+label + "_P" + String.format("%03d", i) + ".ape";
+
+            PlasmidUtil.renumberPlasmidBases(rename_plasmid, 0);
+
+
+            String plasmid_string = getApe(fout, rename_plasmid);
+            plasmid_strings.add(plasmid_string);
+
+            Util.fileWriter(directory + fout, plasmid_string, false);
+            log.info("Write file: " + fout);
+
+        }
+
+        return plasmid_strings;
+    }
+
 
     /***********************************************************************
 
@@ -409,7 +485,7 @@ public class PlasmidUtil {
     /**
      * wire the promoters according to circuit.
      */
-    public static void setTxnUnits(LogicCircuit lc, GateLibrary gate_library) {
+    public static void setTxnUnits(LogicCircuit lc, GateLibrary gate_library, Args _options) {
 
         ArrayList<Gate> gates = new ArrayList<Gate>();
 
@@ -420,25 +496,7 @@ public class PlasmidUtil {
 
         for(Gate g: gates) {
 
-            if(!g.system.equals("CRISPRi")) {
-
-                for(String var: g.get_variable_names()) {
-
-                    ArrayList<Part> txn_unit = new ArrayList<>();
-
-                    for(Wire w: g.get_variable_wires().get(var)) {
-                        txn_unit.add(w.to.get_regulable_promoter());
-                    }
-
-                    ArrayList<Part> expression_cassette = g.get_downstream_parts().get(var);
-
-                    txn_unit.addAll(expression_cassette);
-
-                    g.get_txn_units().add(txn_unit);
-                }
-            }
-
-            else if(g.system.equals("CRISPRi")) {
+            if (!_options.is_tandem_NOR()) {
 
                 for(String var: g.get_variable_names()) {
 
@@ -453,8 +511,30 @@ public class PlasmidUtil {
 
                         g.get_txn_units().add(txn_unit);
                     }
-
                 }
+            }
+
+            else {
+
+                if(g.system.equals("CRISPRi") || g.getChildren().get(0).system.equals("CRISPRi")
+                    || g.system.equals("Ecoligenome") || g.getChildren().get(0).system.equals("Ecoligenome") || g.getChildren().get(1).system.equals("Ecoligenome")
+                        || g.system.equals("Yeast") || g.getChildren().get(0).system.equals("Yeast") || g.getChildren().get(1).system.equals("Yeast")) {
+
+                    for(String var: g.get_variable_names()) {
+
+                        for(Wire w: g.get_variable_wires().get(var)) {
+                            ArrayList<Part> txn_unit = new ArrayList<>();
+
+                            txn_unit.add(w.to.get_regulable_promoter());
+
+                            ArrayList<Part> expression_cassette = g.get_downstream_parts().get(var);
+
+                            txn_unit.addAll(expression_cassette);
+
+                            g.get_txn_units().add(txn_unit);
+                        }
+
+                    }
 
                 /*for(Gate child: g.getChildren()) {
 
@@ -466,7 +546,29 @@ public class PlasmidUtil {
 
                     g.get_txn_units().add(txn_unit);
                 }*/
+                }
+
+
+                else if(!g.system.equals("CRISPRi")) {
+
+                    for(String var: g.get_variable_names()) {
+
+                        ArrayList<Part> txn_unit = new ArrayList<>();
+
+                        for(Wire w: g.get_variable_wires().get(var)) {
+                            txn_unit.add(w.to.get_regulable_promoter());
+                        }
+
+                        ArrayList<Part> expression_cassette = g.get_downstream_parts().get(var);
+
+                        txn_unit.addAll(expression_cassette);
+
+                        g.get_txn_units().add(txn_unit);
+                    }
+                }
             }
+
+
 
 
             for(int j=0; j<g.get_txn_units().size(); ++j) {

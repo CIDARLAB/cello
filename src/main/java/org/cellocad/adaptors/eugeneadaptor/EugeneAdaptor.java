@@ -406,19 +406,57 @@ public class EugeneAdaptor {
 
 			eug += "Rule " + regulator + "_rules " + "( ON " + regulator
 					+ "_device" + ":\n";
-			int pcount = 0;
 
-			for (Part p : txn_unit) {
-				if (p.get_type().equals("promoter")) {
-					if (pcount == 0) {
-						eug += "   CONTAINS " + p.get_name();
-						pcount++;
-					} else {
-						eug += " AND \n   CONTAINS " + p.get_name();
-						pcount++;
+			if (options.is_tpmodel()) {
+
+				int pcount = 0;
+
+				for (Part p : txn_unit) {
+					if (p.get_type().equals("promoter")) {
+						if (pcount == 0) {
+							eug += "   CONTAINS " + p.get_name();
+							pcount++;
+						} else {
+							eug += " AND \n   CONTAINS " + p.get_name();
+							pcount++;
+						}
+					}
+				}
+
+				int[] porder = {0};
+				for (Gate g : gates) {
+					if (g.regulator.equals(regulator)) {
+						porder = g.get_porder();
+						String promoter1 = "";
+						String promoter2 = "";
+						if(porder.length >1 && pcount>1) {
+							promoter1 = g.getChildren().get(porder[0]).get_regulable_promoter().get_name();
+							promoter2 = g.getChildren().get(porder[1]).get_regulable_promoter().get_name();
+							eug += " AND\n   " + promoter1 + " BEFORE " + promoter2;
+						}
+					}
+
+				}
+
+			}
+
+			else {
+
+				int pcount = 0;
+
+				for (Part p : txn_unit) {
+					if (p.get_type().equals("promoter")) {
+						if (pcount == 0) {
+							eug += "   CONTAINS " + p.get_name();
+							pcount++;
+						} else {
+							eug += " AND \n   CONTAINS " + p.get_name();
+							pcount++;
+						}
 					}
 				}
 			}
+
 
 			eug += insertRulesFromUCF(names_in_this_device,
 					get_eugene_part_rules());
@@ -477,7 +515,7 @@ public class EugeneAdaptor {
 		eug += insertRulesFromUCF(names_in_circuit_device,
 				get_eugene_gate_rules());
 
-		// eug += " AND \n" + "   ALL_FORWARD";
+		 eug += " AND \n" + "   ALL_FORWARD";
 
 		// include scars in circuit device
 		if (options.is_eugene_scars()) {
@@ -581,6 +619,1000 @@ public class EugeneAdaptor {
 		Util.fileWriter(options.get_output_directory() + filename, eug, false);
 
 		return eug;
+
+	}
+
+	//	TODO test Yeast version
+	public String generateEugeneFile1(ArrayList<Gate> gates, String filename,
+									  PartLibrary part_library, Args options) {
+
+		if(options.is_yeast()) {
+			part_library.yeast_scars();
+			part_library.yeast_terminators();
+		}
+		else {
+			if (options.is_eugene_scars()) {
+				part_library.set_scars();
+			}
+			else {
+				part_library.UCF_scars();
+			}
+		}
+
+
+		// this is the Eugene file String that will be built
+		String eug = "";
+
+		// only define each part type once
+		HashSet<String> part_type_set = new HashSet<String>();
+
+		// only define each part once (multiple instances might exist in the
+		// case of promtoer fan-out)
+		HashSet<String> part_set = new HashSet<String>();
+
+		// map used instead of ArrayList of ArrayLists to save each txn unit
+		HashMap<String, ArrayList<Part>> txn_units = new HashMap<>();
+
+		for (Gate g : gates) {
+			for (int i = 0; i < g.get_txn_units().size(); ++i) {
+
+				if (!txn_units.containsKey(g.regulator)) {
+					txn_units.put(g.regulator, g.get_txn_units().get(i));
+				} else {
+					txn_units.put(g.regulator + "_" + (i + 1), g
+							.get_txn_units().get(i));
+				}
+			}
+		}
+
+		for (ArrayList<Part> txn_unit : txn_units.values()) {
+
+			// set the part types and the parts
+
+			if (options.is_eugene_dnaseq()) {
+				for (Part p : txn_unit) {
+					part_type_set.add(p.get_type());
+					part_set.add(p.get_type() + " " + p.get_name()
+							+ "(.SEQUENCE(\"" + p.get_seq() + "\"));\n");
+				}
+			}
+
+			else {
+				for (Part p : txn_unit) {
+					part_type_set.add(p.get_type());
+					part_set.add(p.get_type() + " " + p.get_name() + ";\n");
+				}
+			}
+		}
+
+		// include scars as parts and a part type
+
+		ArrayList<Part> scars = new ArrayList<Part>();
+		ArrayList<Part> terminators = new ArrayList<Part>();
+//		TODO using only the eugene scars hardcoded
+//		if (options.is_eugene_scars()) {
+//			part_type_set.add("scar");
+//
+//			for (int i = 0; i < txn_units.size(); ++i) {
+//				// scars.add(get_SCARS().get(i));
+//				scars.add(part_library.get_scars().get(i));
+//			}
+//
+//			// module end scar
+//			// scars.add(get_SCARS().get(get_SCARS().size()-1));
+//			scars.add(part_library.get_scars().get(
+//					part_library.get_scars().size() - 1));
+//
+//			for (Part p : scars) {
+//
+//				if (options.is_eugene_dnaseq()) {
+//					part_set.add(p.get_type() + " " + p.get_name()
+//							+ "(.SEQUENCE(\"" + p.get_seq() + "\"));\n");
+//				} else {
+//					part_set.add(p.get_type() + " " + p.get_name() + ";\n");
+//				}
+//			}
+//		}
+
+//		TODO use scars from UCF
+		part_type_set.add("scar");
+		part_type_set.add("terminator");
+
+		int firstfragment = (txn_units.size() +1 )/2;
+		int restfragment = txn_units.size() - firstfragment;
+
+//		add scars
+		for (int i = 0; i < firstfragment ; ++i) {
+			scars.add(part_library.get_scars().get(i));
+		}
+
+		scars.add(part_library.get_scars().get(8));
+
+		for (int i = 0; i < restfragment ; ++i) {
+			scars.add(part_library.get_scars().get(part_library.get_scars().size() - i - 1));
+		}
+
+		scars.add(part_library.get_scars().get(9));
+
+
+//		add terminators
+		for (int i = 0; i < firstfragment; ++i) {
+			terminators.add(part_library.get_terminators().get(i));
+		}
+
+		for (int i = 0; i < restfragment ; ++i) {
+			terminators.add(part_library.get_terminators().get(part_library.get_terminators().size() - i - 1));
+		}
+
+//		terminators.add(part_library.get_terminators().get(9));
+
+		// module end scar
+		// scars.add(get_SCARS().get(get_SCARS().size()-1));
+//		scars.add(part_library.get_scars().get(
+//				part_library.get_scars().size() - 1));
+
+
+		for (Part p : scars) {
+
+			if (options.is_eugene_dnaseq()) {
+				part_set.add(p.get_type() + " " + p.get_name()
+						+ "(.SEQUENCE(\"" + p.get_seq() + "\"));\n");
+			} else {
+				part_set.add(p.get_type() + " " + p.get_name() + ";\n");
+			}
+		}
+
+		for (Part p : terminators) {
+
+			if (options.is_eugene_dnaseq()) {
+				part_set.add(p.get_type() + " " + p.get_name()
+						+ "(.SEQUENCE(\"" + p.get_seq() + "\"));\n");
+			} else {
+				part_set.add(p.get_type() + " " + p.get_name() + ";\n");
+			}
+		}
+
+
+		// add part type definitions to eug String
+
+		for (String part_type : part_type_set) {
+			eug += "PartType " + part_type + ";\n";
+		}
+
+		eug += "\n";
+
+		// add part definitions to eug String (sorted alphabetically)
+
+		ArrayList<String> parts = new ArrayList<String>();
+		for (String p : part_set) {
+			parts.add(p);
+		}
+		Collections.sort(parts);
+		for (String p : parts) {
+			eug += p;
+		}
+
+		eug += "\n";
+
+		// define each gate device
+
+		for (String regulator : txn_units.keySet()) {
+			ArrayList<Part> txn_unit = txn_units.get(regulator);
+
+			eug += "Device " + regulator + "_device" + "(\n";
+			int gi = 0;
+
+			for (Part p : txn_unit) {
+				if (gi != 0) {
+					eug += ",\n";
+				}
+
+				if (p.get_type().equals("promoter")) {
+					eug += "   " + p.get_type();
+				} else {
+					eug += "   " + p.get_name();
+				}
+
+				gi++;
+			}
+
+			eug += "\n);\n";
+		}
+
+		eug += "\n";
+
+		// define rules for each gate device
+
+		for (String regulator : txn_units.keySet()) {
+			ArrayList<Part> txn_unit = txn_units.get(regulator);
+
+			ArrayList<String> names_in_this_device = new ArrayList<String>();
+
+			for (Part p : txn_unit) {
+				names_in_this_device.add(p.get_name());
+			}
+
+			eug += "Rule " + regulator + "_rules " + "( ON " + regulator
+					+ "_device" + ":\n";
+
+			if (options.is_tpmodel()) {
+
+				int pcount = 0;
+
+				for (Part p : txn_unit) {
+					if (p.get_type().equals("promoter")) {
+						if (pcount == 0) {
+							eug += "   CONTAINS " + p.get_name();
+							pcount++;
+						} else {
+							eug += " AND \n   CONTAINS " + p.get_name();
+							pcount++;
+						}
+					}
+				}
+
+				int[] porder = {0};
+				for (Gate g : gates) {
+					if (g.regulator.equals(regulator)) {
+						porder = g.get_porder();
+						String promoter1 = "";
+						String promoter2 = "";
+						if(porder.length >1 && pcount>1) {
+							promoter1 = g.getChildren().get(porder[0]).get_regulable_promoter().get_name();
+							promoter2 = g.getChildren().get(porder[1]).get_regulable_promoter().get_name();
+							eug += " AND\n   " + promoter1 + " BEFORE " + promoter2;
+						}
+					}
+
+				}
+
+			}
+
+			else {
+
+				int pcount = 0;
+
+				for (Part p : txn_unit) {
+					if (p.get_type().equals("promoter")) {
+						if (pcount == 0) {
+							eug += "   CONTAINS " + p.get_name();
+							pcount++;
+						} else {
+							eug += " AND \n   CONTAINS " + p.get_name();
+							pcount++;
+						}
+					}
+				}
+			}
+
+
+			eug += insertRulesFromUCF(names_in_this_device,
+					get_eugene_part_rules());
+
+			eug += " AND\n   ALL_FORWARD\n);\n";
+		}
+
+		eug += "\n\n";
+
+		// design all gate device variants
+
+		for (String regulator : txn_units.keySet()) {
+			eug += String.format("%-15s", regulator + "_devices")
+					+ " = product(" + regulator + "_device" + ");\n";
+		}
+
+		eug += "\n";
+
+		// initialize gate device names that will be included in the circuit
+		// device
+
+		ArrayList<String> names_in_circuit_device = new ArrayList<String>();
+
+		for (String regulator : txn_units.keySet()) {
+
+			eug += "Device " + "gate_" + regulator + "();" + "\n";
+			names_in_circuit_device.add("gate_" + regulator);
+			for (Part scar : scars) {
+				names_in_circuit_device.add(scar.get_name());
+			}
+		}
+
+		eug += "\n";
+
+		// initialize the circuit device
+
+		eug += "Device circuit();\n\n";
+
+		// apply rules on circuit device (before specifying the circuit device)
+
+		eug += "Rule allRules( ON circuit:\n";
+
+		// exactly 1 rule for each gate device
+		int gi = 0;
+		for (String regulator : txn_units.keySet()) {
+
+			if (gi == 0) {
+				eug += "   " + String.format("%-12s", "gate_" + regulator)
+						+ " EXACTLY 1";
+			} else {
+				eug += " AND \n" + "   "
+						+ String.format("%-12s", "gate_" + regulator)
+						+ " EXACTLY 1";
+			}
+
+			gi++;
+		}
+
+
+		// add other rules specified in the UCF, if any
+		eug += insertRulesFromUCF(names_in_circuit_device,
+				get_eugene_gate_rules());
+
+		eug += " AND \n" + "   ALL_FORWARD";
+
+		// include scars in circuit device
+//		use hard coded scars, as in partlibray
+//		if (options.is_eugene_scars()) {
+//			for (Part scar : scars) {
+//				eug += " AND \n" + "   "
+//						+ String.format("%-12s", scar.get_name())
+//						+ " EXACTLY 1";
+//			}
+//			for (Part scar : scars) {
+//				eug += " AND \n" + "   FORWARD " + scar.get_name();
+//			}
+//			for (int i = 0; i < scars.size(); ++i) {
+//				eug += " AND \n" + "   [" + (i * 2) + "] EQUALS "
+//						+ scars.get(i).get_name();
+//			}
+//		}
+
+//		use scars from UCF
+		for (Part scar : scars) {
+			eug += " AND \n" + "   "
+					+ String.format("%-12s", scar.get_name())
+					+ " EXACTLY 1";
+		}
+		for (Part scar : scars) {
+			eug += " AND \n" + "   FORWARD " + scar.get_name();
+		}
+
+//		terminators
+		for (Part terminator : terminators) {
+			eug += " AND \n" + "   "
+					+ String.format("%-12s", terminator.get_name())
+					+ " EXACTLY 1";
+		}
+		for (Part terminator : terminators) {
+			eug += " AND \n" + "   FORWARD " + terminator.get_name();
+		}
+//
+
+//		for (int i = 0; i < scars.size(); ++i) {
+//			eug += " AND \n" + "   [" + (i * 2) + "] EQUALS "
+//					+ scars.get(i).get_name();
+//		}
+
+		for (int i = 0; i < firstfragment + 1; ++i) {
+			eug += " AND \n" + "   [" + (i * 3) + "] EQUALS "
+					+ scars.get(i).get_name();
+		}
+
+		for (int i = 0; i < restfragment + 1; ++i) {
+			eug += " AND \n" + "   [" + ((firstfragment +i) * 3 + 1) + "] EQUALS "
+					+ scars.get(firstfragment + i + 1).get_name();
+		}
+
+//		terminators
+		for (int i = 0; i < firstfragment; ++i) {
+			eug += " AND \n" + "   [" + ((i * 3)+2) + "] EQUALS "
+					+ terminators.get(i).get_name();
+		}
+
+
+		for (int i = 0; i < restfragment; ++i) {
+			eug += " AND \n" + "   [" + ((firstfragment +i +1 ) * 3) + "] EQUALS "
+					+ terminators.get(firstfragment + i).get_name();
+		}
+
+		eug += "\n);";
+
+		eug += "\n\n";
+
+		// initialize master array of all results
+		eug += "Array allResults;\n\n";
+
+		// build nested For-loops of enumerated gate devices
+		// the 'permute' function will be called in the inner-most loop, and
+		// results will be appended to allResults
+		int tu_counter = 0;
+		for (String regulator : txn_units.keySet()) {
+			tu_counter++;
+			String index = "i" + Integer.toString(tu_counter);
+
+			eug += "for(num "
+					+ index
+					+ "=0;  "
+					+ String.format("%-28s", index + "<sizeof(" + regulator
+					+ "_devices);") + index + "=" + index + "+1) {\n";
+		}
+
+		eug += "\n";
+
+		tu_counter = 0;
+		for (String regulator : txn_units.keySet()) {
+			tu_counter++;
+			String index = "i" + Integer.toString(tu_counter);
+
+			// set each gate device from the prior enumeration ('product'
+			// function above)
+			eug += String.format("%-12s", "gate_" + regulator) + " = "
+					+ regulator + "_devices[" + index + "];\n";
+		}
+
+		eug += "\n";
+
+		// define the components of the circuit device... order/orientation will
+		// be permuted.
+		gi = 0;
+		eug += "Device circuit(\n";
+		for (String regulator : txn_units.keySet()) {
+
+			if (gi == 0) {
+				eug += "   " + "gate_" + regulator;
+				gi++;
+			} else {
+				eug += ",\n   " + "gate_" + regulator;
+			}
+		}
+
+//		if (options.is_eugene_scars()) {
+//			for (Part scar : scars) {
+//				eug += ",\n   " + scar.get_name();
+//			}
+//		}
+
+//		use scars from UCF
+		for (Part scar : scars) {
+			eug += ",\n   " + scar.get_name();
+		}
+
+		for (Part terminator : terminators) {
+			eug += ",\n   " + terminator.get_name();
+		}
+
+		eug += "\n);\n";
+
+		eug += "\n";
+
+		// permute order/orientation of gate devices within the circuit device
+		eug += "result = permute(circuit);\n\n";
+
+		/*
+		 * eug += "if(sizeof(result) >500) {\n" +
+		 * "  for(num ir=0; ir<500; ir=ir+1) {\n" +
+		 * "      allResults = allResults + result[ir];\n" + "  }\n" + "}\n" +
+		 * "else {\n" + "      allResults = allResults + result;\n" + "}\n\n";
+		 */
+
+		// append results to allResults
+		eug += "allResults = allResults + result;\n\n";
+
+		for (int i = 0; i < txn_units.size(); ++i) {
+			eug += "}\n";
+		}
+
+		// eug += "\n\nprintln(sizeof(allResults));\n";
+
+//		log.info(eug);
+
+		// write the file to disk
+		Util.fileWriter(options.get_output_directory() + filename, eug, false);
+
+		return eug;
+
+
+	}
+
+	//	TODO Genome version for Yongjin
+	public String generateEugeneFile2(ArrayList<Gate> gates, String filename,
+									  PartLibrary part_library, Args options, int gatesize) {
+
+		if(options.is_genome()) {
+			part_library.genome_scars();
+		}
+		else {
+			if (options.is_eugene_scars()) {
+				part_library.set_scars();
+			}
+			else {
+				part_library.UCF_scars();
+			}
+		}
+
+
+		// this is the Eugene file String that will be built
+		String eug = "";
+
+		// only define each part type once
+		HashSet<String> part_type_set = new HashSet<String>();
+
+		// only define each part once (multiple instances might exist in the
+		// case of promtoer fan-out)
+		HashSet<String> part_set = new HashSet<String>();
+
+		// map used instead of ArrayList of ArrayLists to save each txn unit
+		HashMap<String, ArrayList<Part>> txn_units = new HashMap<>();
+
+		boolean outputOR = false;
+
+		for (Gate g : gates) {
+			for (int i = 0; i < g.get_txn_units().size(); ++i) {
+
+				if (!txn_units.containsKey(g.regulator)) {
+					txn_units.put(g.regulator, g.get_txn_units().get(i));
+				} else {
+					txn_units.put(g.regulator + "_" + (i + 1), g
+							.get_txn_units().get(i));
+				}
+			}
+
+			if (g.type == Gate.GateType.OUTPUT_OR) {
+				outputOR = true;
+			}
+		}
+
+		for (ArrayList<Part> txn_unit : txn_units.values()) {
+
+			// set the part types and the parts
+
+			if (options.is_eugene_dnaseq()) {
+				for (Part p : txn_unit) {
+					part_type_set.add(p.get_type());
+					part_set.add(p.get_type() + " " + p.get_name()
+							+ "(.SEQUENCE(\"" + p.get_seq() + "\"));\n");
+				}
+			}
+
+			else {
+				for (Part p : txn_unit) {
+					part_type_set.add(p.get_type());
+					part_set.add(p.get_type() + " " + p.get_name() + ";\n");
+				}
+			}
+		}
+
+		// include scars as parts and a part type
+
+		ArrayList<Part> scars = new ArrayList<Part>();
+//		ArrayList<Part> terminators = new ArrayList<Part>();
+//		TODO using only the eugene scars hardcoded
+//		if (options.is_eugene_scars()) {
+//			part_type_set.add("scar");
+//
+//			for (int i = 0; i < txn_units.size(); ++i) {
+//				// scars.add(get_SCARS().get(i));
+//				scars.add(part_library.get_scars().get(i));
+//			}
+//
+//			// module end scar
+//			// scars.add(get_SCARS().get(get_SCARS().size()-1));
+//			scars.add(part_library.get_scars().get(
+//					part_library.get_scars().size() - 1));
+//
+//			for (Part p : scars) {
+//
+//				if (options.is_eugene_dnaseq()) {
+//					part_set.add(p.get_type() + " " + p.get_name()
+//							+ "(.SEQUENCE(\"" + p.get_seq() + "\"));\n");
+//				} else {
+//					part_set.add(p.get_type() + " " + p.get_name() + ";\n");
+//				}
+//			}
+//		}
+
+//		TODO use scars from UCF
+		part_type_set.add("scar");
+//		part_type_set.add("terminator");
+
+//		Less in first fragment, this is different than yeast
+		int firstfragment = gatesize;
+		if(outputOR) {
+			firstfragment = firstfragment + 1 ;
+		}
+
+		int restfragment = txn_units.size() - firstfragment;
+
+//		add scars
+		for (int i = 0; i < firstfragment ; ++i) {
+			scars.add(part_library.get_scars().get(i));
+		}
+
+		scars.add(part_library.get_scars().get(8));
+
+		for (int i = 0; i < restfragment ; ++i) {
+			scars.add(part_library.get_scars().get(part_library.get_scars().size() - i - 1));
+		}
+
+		scars.add(part_library.get_scars().get(9));
+
+
+//		add terminators
+//		for (int i = 0; i < firstfragment; ++i) {
+//			terminators.add(part_library.get_terminators().get(i));
+//		}
+//
+//		for (int i = 0; i < restfragment ; ++i) {
+//			terminators.add(part_library.get_terminators().get(part_library.get_terminators().size() - i - 1));
+//		}
+
+//		terminators.add(part_library.get_terminators().get(9));
+
+		// module end scar
+		// scars.add(get_SCARS().get(get_SCARS().size()-1));
+//		scars.add(part_library.get_scars().get(
+//				part_library.get_scars().size() - 1));
+
+
+		for (Part p : scars) {
+
+			if (options.is_eugene_dnaseq()) {
+				part_set.add(p.get_type() + " " + p.get_name()
+						+ "(.SEQUENCE(\"" + p.get_seq() + "\"));\n");
+			} else {
+				part_set.add(p.get_type() + " " + p.get_name() + ";\n");
+			}
+		}
+
+//		for (Part p : terminators) {
+//
+//			if (options.is_eugene_dnaseq()) {
+//				part_set.add(p.get_type() + " " + p.get_name()
+//						+ "(.SEQUENCE(\"" + p.get_seq() + "\"));\n");
+//			} else {
+//				part_set.add(p.get_type() + " " + p.get_name() + ";\n");
+//			}
+//		}
+//
+
+		// add part type definitions to eug String
+
+		for (String part_type : part_type_set) {
+			eug += "PartType " + part_type + ";\n";
+		}
+
+		eug += "\n";
+
+		// add part definitions to eug String (sorted alphabetically)
+
+		ArrayList<String> parts = new ArrayList<String>();
+		for (String p : part_set) {
+			parts.add(p);
+		}
+		Collections.sort(parts);
+		for (String p : parts) {
+			eug += p;
+		}
+
+		eug += "\n";
+
+		// define each gate device
+
+		for (String regulator : txn_units.keySet()) {
+			ArrayList<Part> txn_unit = txn_units.get(regulator);
+
+			eug += "Device " + regulator + "_device" + "(\n";
+			int gi = 0;
+
+			for (Part p : txn_unit) {
+				if (gi != 0) {
+					eug += ",\n";
+				}
+
+				if (p.get_type().equals("promoter")) {
+					eug += "   " + p.get_type();
+				} else {
+					eug += "   " + p.get_name();
+				}
+
+				gi++;
+			}
+
+			eug += "\n);\n";
+		}
+
+		eug += "\n";
+
+		// define rules for each gate device
+
+		for (String regulator : txn_units.keySet()) {
+			ArrayList<Part> txn_unit = txn_units.get(regulator);
+
+			ArrayList<String> names_in_this_device = new ArrayList<String>();
+
+			for (Part p : txn_unit) {
+				names_in_this_device.add(p.get_name());
+			}
+
+			eug += "Rule " + regulator + "_rules " + "( ON " + regulator
+					+ "_device" + ":\n";
+
+			if (options.is_tpmodel()) {
+
+				int pcount = 0;
+
+				for (Part p : txn_unit) {
+					if (p.get_type().equals("promoter")) {
+						if (pcount == 0) {
+							eug += "   CONTAINS " + p.get_name();
+							pcount++;
+						} else {
+							eug += " AND \n   CONTAINS " + p.get_name();
+							pcount++;
+						}
+					}
+				}
+
+				int[] porder = {0};
+				for (Gate g : gates) {
+					if (g.regulator.equals(regulator)) {
+						porder = g.get_porder();
+						String promoter1 = "";
+						String promoter2 = "";
+						if(porder.length >1 && pcount>1) {
+							promoter1 = g.getChildren().get(porder[0]).get_regulable_promoter().get_name();
+							promoter2 = g.getChildren().get(porder[1]).get_regulable_promoter().get_name();
+							eug += " AND\n   " + promoter1 + " BEFORE " + promoter2;
+						}
+					}
+
+				}
+
+			}
+
+			else {
+
+				int pcount = 0;
+
+				for (Part p : txn_unit) {
+					if (p.get_type().equals("promoter")) {
+						if (pcount == 0) {
+							eug += "   CONTAINS " + p.get_name();
+							pcount++;
+						} else {
+							eug += " AND \n   CONTAINS " + p.get_name();
+							pcount++;
+						}
+					}
+				}
+			}
+
+
+			eug += insertRulesFromUCF(names_in_this_device,
+					get_eugene_part_rules());
+
+			eug += " AND\n   ALL_FORWARD\n);\n";
+		}
+
+		eug += "\n\n";
+
+		// design all gate device variants
+
+		for (String regulator : txn_units.keySet()) {
+			eug += String.format("%-15s", regulator + "_devices")
+					+ " = product(" + regulator + "_device" + ");\n";
+		}
+
+		eug += "\n";
+
+		// initialize gate device names that will be included in the circuit
+		// device
+
+		ArrayList<String> names_in_circuit_device = new ArrayList<String>();
+
+		for (String regulator : txn_units.keySet()) {
+
+			eug += "Device " + "gate_" + regulator + "();" + "\n";
+			names_in_circuit_device.add("gate_" + regulator);
+			for (Part scar : scars) {
+				names_in_circuit_device.add(scar.get_name());
+			}
+		}
+
+		eug += "\n";
+
+		// initialize the circuit device
+
+		eug += "Device circuit();\n\n";
+
+		// apply rules on circuit device (before specifying the circuit device)
+
+		eug += "Rule allRules( ON circuit:\n";
+
+		// exactly 1 rule for each gate device
+		int gi = 0;
+		for (String regulator : txn_units.keySet()) {
+
+			if (gi == 0) {
+				eug += "   " + String.format("%-12s", "gate_" + regulator)
+						+ " EXACTLY 1";
+			} else {
+				eug += " AND \n" + "   "
+						+ String.format("%-12s", "gate_" + regulator)
+						+ " EXACTLY 1";
+			}
+
+			gi++;
+		}
+
+
+		// add other rules specified in the UCF, if any
+		eug += insertRulesFromUCF(names_in_circuit_device,
+				get_eugene_gate_rules());
+
+		eug += " AND \n" + "   ALL_FORWARD";
+
+		// include scars in circuit device
+//		use hard coded scars, as in partlibray
+//		if (options.is_eugene_scars()) {
+//			for (Part scar : scars) {
+//				eug += " AND \n" + "   "
+//						+ String.format("%-12s", scar.get_name())
+//						+ " EXACTLY 1";
+//			}
+//			for (Part scar : scars) {
+//				eug += " AND \n" + "   FORWARD " + scar.get_name();
+//			}
+//			for (int i = 0; i < scars.size(); ++i) {
+//				eug += " AND \n" + "   [" + (i * 2) + "] EQUALS "
+//						+ scars.get(i).get_name();
+//			}
+//		}
+
+//		use scars from UCF
+		for (Part scar : scars) {
+			eug += " AND \n" + "   "
+					+ String.format("%-12s", scar.get_name())
+					+ " EXACTLY 1";
+		}
+		for (Part scar : scars) {
+			eug += " AND \n" + "   FORWARD " + scar.get_name();
+		}
+
+//		terminators
+//		for (Part terminator : terminators) {
+//			eug += " AND \n" + "   "
+//					+ String.format("%-12s", terminator.get_name())
+//					+ " EXACTLY 1";
+//		}
+//		for (Part terminator : terminators) {
+//			eug += " AND \n" + "   FORWARD " + terminator.get_name();
+//		}
+//
+
+//		for (int i = 0; i < scars.size(); ++i) {
+//			eug += " AND \n" + "   [" + (i * 2) + "] EQUALS "
+//					+ scars.get(i).get_name();
+//		}
+
+		for (int i = 0; i < firstfragment + 1; ++i) {
+			eug += " AND \n" + "   [" + (i * 2) + "] EQUALS "
+					+ scars.get(i).get_name();
+		}
+
+		for (int i = 0; i < restfragment + 1; ++i) {
+			eug += " AND \n" + "   [" + ((firstfragment +i) * 2 + 1) + "] EQUALS "
+					+ scars.get(firstfragment + i + 1).get_name();
+		}
+
+//		terminators
+//		for (int i = 0; i < firstfragment; ++i) {
+//			eug += " AND \n" + "   [" + ((i * 3)+2) + "] EQUALS "
+//					+ terminators.get(i).get_name();
+//		}
+//
+//
+//		for (int i = 0; i < restfragment; ++i) {
+//			eug += " AND \n" + "   [" + ((firstfragment +i +1 ) * 3) + "] EQUALS "
+//					+ terminators.get(firstfragment + i).get_name();
+//		}
+
+		eug += "\n);";
+
+		eug += "\n\n";
+
+		// initialize master array of all results
+		eug += "Array allResults;\n\n";
+
+		// build nested For-loops of enumerated gate devices
+		// the 'permute' function will be called in the inner-most loop, and
+		// results will be appended to allResults
+		int tu_counter = 0;
+		for (String regulator : txn_units.keySet()) {
+			tu_counter++;
+			String index = "i" + Integer.toString(tu_counter);
+
+			eug += "for(num "
+					+ index
+					+ "=0;  "
+					+ String.format("%-28s", index + "<sizeof(" + regulator
+					+ "_devices);") + index + "=" + index + "+1) {\n";
+		}
+
+		eug += "\n";
+
+		tu_counter = 0;
+		for (String regulator : txn_units.keySet()) {
+			tu_counter++;
+			String index = "i" + Integer.toString(tu_counter);
+
+			// set each gate device from the prior enumeration ('product'
+			// function above)
+			eug += String.format("%-12s", "gate_" + regulator) + " = "
+					+ regulator + "_devices[" + index + "];\n";
+		}
+
+		eug += "\n";
+
+		// define the components of the circuit device... order/orientation will
+		// be permuted.
+		gi = 0;
+		eug += "Device circuit(\n";
+		for (String regulator : txn_units.keySet()) {
+
+			if (gi == 0) {
+				eug += "   " + "gate_" + regulator;
+				gi++;
+			} else {
+				eug += ",\n   " + "gate_" + regulator;
+			}
+		}
+
+//		if (options.is_eugene_scars()) {
+//			for (Part scar : scars) {
+//				eug += ",\n   " + scar.get_name();
+//			}
+//		}
+
+//		use scars from UCF
+		for (Part scar : scars) {
+			eug += ",\n   " + scar.get_name();
+		}
+
+//		for (Part terminator : terminators) {
+//			eug += ",\n   " + terminator.get_name();
+//			}
+
+		eug += "\n);\n";
+
+		eug += "\n";
+
+		// permute order/orientation of gate devices within the circuit device
+		eug += "result = permute(circuit);\n\n";
+
+		/*
+		 * eug += "if(sizeof(result) >500) {\n" +
+		 * "  for(num ir=0; ir<500; ir=ir+1) {\n" +
+		 * "      allResults = allResults + result[ir];\n" + "  }\n" + "}\n" +
+		 * "else {\n" + "      allResults = allResults + result;\n" + "}\n\n";
+		 */
+
+		// append results to allResults
+		eug += "allResults = allResults + result;\n\n";
+
+		for (int i = 0; i < txn_units.size(); ++i) {
+			eug += "}\n";
+		}
+
+		// eug += "\n\nprintln(sizeof(allResults));\n";
+
+//		log.info(eug);
+
+		// write the file to disk
+		Util.fileWriter(options.get_output_directory() + filename, eug, false);
+
+		return eug;
+
 
 	}
 
