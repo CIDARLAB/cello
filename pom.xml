@@ -46,11 +46,11 @@
             </plugin>
         </plugins>
 
-        <resources>
-            <resource>
-                <directory>resources</directory>
-            </resource>
-        </resources>
+        <!-- <resources> -->
+        <!--     <resource> -->
+        <!--         <directory>resources</directory> -->
+        <!--     </resource> -->
+        <!-- </resources> -->
     </build>
 
     <parent>
@@ -238,12 +238,12 @@
             <type>jar</type>
         </dependency>
 
-        <dependency>
-        	<groupId>org.apache.maven.plugins</groupId>
-        	<artifactId>maven-resources-plugin</artifactId>
-        	<version>3.0.2</version>
-        	<type>maven-plugin</type>
-        </dependency>
+        <!-- <dependency> -->
+        <!-- 	<groupId>org.apache.maven.plugins</groupId> -->
+        <!-- 	<artifactId>maven-resources-plugin</artifactId> -->
+        <!-- 	<version>3.0.2</version> -->
+        <!-- 	<type>maven-plugin</type> -->
+        <!-- </dependency> -->
     </dependencies>
 
 
