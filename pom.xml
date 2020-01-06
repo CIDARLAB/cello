@@ -14,11 +14,11 @@
     <packaging>jar</packaging>
 
     <repositories>
-        <repository>
-            <id>central</id>
-            <name>Maven repository</name>
-            <url>http://repo1.maven.org/maven2</url>
-        </repository>
+        <!-- <repository> -->
+        <!--     <id>central</id> -->
+        <!--     <name>Maven repository</name> -->
+        <!--     <url>http://repo1.maven.org/maven2</url> -->
+        <!-- </repository> -->
 
         <repository>
             <id>spring</id>
@@ -32,7 +32,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.7.0</version>
             </plugin>
 
             <plugin>
@@ -300,8 +300,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
 
         <!-- Start application with 'mvn spring-boot:run' -->
         <start-class>org.cellocad.Application</start-class>
