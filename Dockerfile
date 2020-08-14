@@ -5,8 +5,8 @@ EXPOSE 8080:8080
 # Install dependencies
 RUN apt-get update
 RUN apt-get install -y tzdata
-RUN apt-get install -y git gcc-multilib  openjdk-8-jdk openjdk-8-jre-headless maven \
-gnuplot ghostscript graphviz imagemagick python-matplotlib 
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y git gcc-multilib  openjdk-8-jdk openjdk-8-jre-headless maven \
+gnuplot ghostscript graphviz imagemagick python3-matplotlib 
 
 
 # Copy the local (outside Docker) source into the working directory,
