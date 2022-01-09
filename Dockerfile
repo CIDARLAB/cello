@@ -18,6 +18,7 @@ COPY resources ./resources
 COPY src ./src
 COPY tools ./tools
 COPY pom.xml .
+COPY src/main ./main
 
 RUN cd ./resources/library && bash install_local_jars.sh
 
