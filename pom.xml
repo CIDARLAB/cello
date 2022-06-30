@@ -234,7 +234,7 @@
         <dependency>
             <groupId>org.zeroturnaround</groupId>
             <artifactId>zt-zip</artifactId>
-            <version>1.8</version>
+            <version>1.13</version>
             <type>jar</type>
         </dependency>
 
