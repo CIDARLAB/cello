@@ -137,7 +137,10 @@ public class FileController extends BaseController {
         }
         String username = auth.getUsername(basic);
 
-
+        // Prevent path traversal: reject filenames with directory separators or parent references
+        if (filename.contains("..") || filename.contains("/") || filename.contains("\\")) {
+            throw new CelloNotFoundException("invalid filename");
+        }
 
         if(filename.endsWith(".png") || filename.endsWith(".pdf")) {
             String filePath = _resultPath + "/" + username + "/" + jobid + "/" + filename;
